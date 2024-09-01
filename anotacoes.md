@@ -4,6 +4,7 @@
 - Para criar uma novo projeto angular: `ng new <nome_projeto>`
 - Para criar um novo component: `ng g c component <caminho\do_component>`
 - Para criar uma nova classe: `ng g class <nome_classe>`
+- Para criar um novo módulo `ng g m <nome_modulo>`
 
 ### Estrutura de um projeto angular
 - **src**: Pasta principal do projeto, onde estão os arquivos de código fonte.
