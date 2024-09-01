@@ -23,5 +23,5 @@
 - **styles.css**: Arquivo de estilos globais da aplicação.
 - **angular.json**: Arquivo de configuração da Angular CLI, que define como a aplicação é compilada e servida. Inclui configurações de projetos, scripts, estilos e muito mais.
 
-### Anotações
+### Anotações Diversas
 - **Processo de bootstrap**: Um processo de build seria pegar todos os components, todos os código do projeto, e transformar em um código que o navegador consiga ler
