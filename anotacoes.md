@@ -1,5 +1,15 @@
 # Anotações essenciais sobre o repositório
 
+### Diferencial no Sistema - To Do
+
+- [x] Implementação de um API para o CEP
+- [x] Avaliação com estrela 
+- [x] Avaliação com comentários
+- [] Pagamento com Pix - API gerador de QR code
+- [] Pagamento com Boleto 
+- [] Notificação com codigos promocionais
+- [] Notificação de livros adicionados no ecommerce --> Último caso
+
 ### Comandos básicos
 - Para criar uma novo projeto angular: `ng new <nome_projeto>`
 - Para criar um novo component: `ng g c component <caminho\do_component>`
