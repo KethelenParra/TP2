@@ -1,10 +1,7 @@
 <mat-toolbar color="primary" class="toolbar">
     <div class="flex-container">
         <span class="toolbar-title">Cadastro de Genêros</span>
-        
-        <button mat-button [matMenuTriggerFor]="menu" class="menu-button">
-            Cadastrar
-        </button>
+        <button mat-button [matMenuTriggerFor]="menu" class="menu-button">Cadastrar</button>
         <mat-menu #menu="matMenu">
             <button mat-menu-item routerLink="/livros">Livros</button>
             <button mat-menu-item (click)="autores()">Autores</button>
