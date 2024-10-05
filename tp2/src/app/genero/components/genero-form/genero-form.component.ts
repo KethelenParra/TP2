@@ -38,22 +38,22 @@ export class GeneroFormComponent {
                                 Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(20)])],
         descricao: [(genero && genero.descricao) ? genero.descricao : null,
                                 Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(500)])],
-      })
+      });
     }
 
-    salvar() {
-      this.formGroup.markAllAsTouched();
-      if (this.formGroup.valid) {
-        const genero = this.formGroup.value;
-        if (genero.id == null){
-          this.generoService.insert(genero).subscribe({
-          next: (generoCadastrodo) => {
-            this.router.navigate(['/generos']);
-          },
-          error: (errorResponse) => {
-            console.log('Erro ao salvar', + JSON.stringify(errorResponse));
-          } 
-        });
+  salvar() {
+    this.formGroup.markAllAsTouched();
+    if (this.formGroup.valid) {
+      const genero = this.formGroup.value;
+      if (genero.id == null){
+        this.generoService.insert(genero).subscribe({
+        next: (generoCadastrodo) => {
+          this.router.navigate(['/generos']);
+        },
+        error: (errorResponse) => {
+          console.log('Erro ao salvar', + JSON.stringify(errorResponse));
+        } 
+      });
       } else {
         this.generoService.update(genero).subscribe({
           next: (generoAlterando) => {
@@ -122,5 +122,10 @@ export class GeneroFormComponent {
       maxlength: 'A descricao deve ter no maximo 500 caracteres'
     }
   };
+
+  
+  autores(){
+    this.router.navigateByUrl('/autores/new');
+  }
 
 }

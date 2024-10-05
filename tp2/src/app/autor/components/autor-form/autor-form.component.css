@@ -1,0 +1,68 @@
+/* Flex container for organizing elements */
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px 20px;
+}
+
+/* Centralized title */
+.toolbar-title {
+    flex: 1;
+    text-align: center;
+    font-size: 24px;
+    color: #fcfcfc;
+}
+
+/* Style for the add button */
+.mat-fab {
+    color: #fff;
+    width: 35px;
+    height: 35px;
+    font-size: 20px;
+    margin-left: 40px;
+}
+
+/* Style for form fields */
+.full-width-input {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.menu-button {
+    font-size: 15px;
+    background-color: #ff4081;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 8px;
+}
+
+mat-card {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+}
+
+/* Style for buttons at the bottom of the form */
+mat-card-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+button[mat-raised-button] {
+    width: 120px;
+    margin-right: 1rem;
+}
+
+button[mat-raised-button].cancel-button {
+    background-color: #ff4d4d;
+    color: white;
+}
+
+button[mat-raised-button].save-button {
+    background-color: #4d88ff;
+    color: white;
+}

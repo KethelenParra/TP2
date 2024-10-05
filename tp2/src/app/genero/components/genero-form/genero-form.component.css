@@ -17,12 +17,11 @@
 
 /* Estilo do botão do menu */
 .menu-button {
-    font-size: 17px;
+    font-size: 15px;
     background-color: #ff4081;
     color: #fff;
     padding: 8px 16px;
     border-radius: 8px;
-    font-weight: bold;
 }
 
 /* Estilo para o botão de adicionar */
@@ -59,7 +58,6 @@ button[mat-raised-button] {
     margin-right: 1rem;
 }
 
-/* Estilo para cancelar e salvar */
 button[mat-raised-button].cancel-button {
     background-color: #ff4d4d;
     color: white;
@@ -69,3 +67,5 @@ button[mat-raised-button].save-button {
     background-color: #4d88ff;
     color: white;
 }
+
+

@@ -28,7 +28,7 @@ export class GeneroListComponent {
     this.generoService.findAll().subscribe(
       data => { this.generos = data }
     );
-}
+  }
 
   excluir(genero: Genero): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
