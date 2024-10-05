@@ -1,0 +1,55 @@
+.custom-dialog {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.custom-dialog-title {
+    font-size: 20px;
+    font-weight: normal;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.9); /* Preto menos forte */
+    margin-bottom: 20px;
+}
+
+.custom-dialog-content p {
+    text-align: center;
+    color: rgb(255, 0, 0);
+}
+
+.custom-dialog-actions {
+    display: flex;
+    justify-content: center; /* Centraliza os botões */
+    width: 100%;
+
+}
+
+.custom-button {
+    margin: 0 10px; /* Mais espaço entre os botões */
+    padding: 15px 30px; /* Aumenta o tamanho dos botões */
+    font-size: 14px; /* Aumenta o tamanho da fonte */
+    border-radius: 20px;
+    transition: 0.3s;
+    border: none;
+}
+
+.cancel-button {
+    background-color: rgb(233, 87, 87);
+    color: #ffffff;
+}
+
+.confirm-button {
+    background-color: #4792c4;
+    color: #fff;
+}
+
+.custom-button:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+p {
+    color: rgb(255, 0, 0);
+}
