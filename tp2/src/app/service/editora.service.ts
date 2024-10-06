@@ -7,21 +7,21 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class EditoraService {
-  private baseUrl = 'http://localhost:8080/editoraes';
+  private baseUrl = 'http://localhost:8080/editoras';
 
   constructor(private httpClient: HttpClient) {
   }
 
-  findByNome(nome: string): Observable<Editora>{
-    return this.httpClient.get<Editora>(`${this.findByNome}/${nome}`)
+  findById(id: string): Observable<Editora>{
+    return this.httpClient.get<Editora>(`${this.baseUrl}/${id}`);
   }
 
   findAll(): Observable<Editora[]>{
     return this.httpClient.get<Editora[]>(this.baseUrl);
   }
 
-  findById(id: string): Observable<Editora>{
-    return this.httpClient.get<Editora>(`${this.baseUrl}/${id}`);
+  findByNome(nome: string): Observable<Editora>{
+    return this.httpClient.get<Editora>(`${this.findByNome}/${nome}`)
   }
 
   insert(editora: Editora): Observable<Editora> {
@@ -32,7 +32,7 @@ export class EditoraService {
     return this.httpClient.put<Editora>(`${this.baseUrl}/${editora.id}`, editora);
   }
 
-  delete(editora: Editora): Observable<any>{//void, sem retorno
+  delete(editora: Editora): Observable<any>{
     return this.httpClient.delete<any>(`${this.baseUrl}/${editora.id}`);
   }
 }

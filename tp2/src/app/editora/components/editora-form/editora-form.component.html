@@ -35,6 +35,24 @@
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="fill" class="full-width-input">
+                    <mat-label>Cidade</mat-label>
+                    <input matInput type="text" formControlName="cidade">
+                    <mat-error *ngIf="formGroup.get('cidade')
+                                    && formGroup.get('cidade')?.invalid 
+                                    && formGroup.get('cidade')?.touched">
+                            {{ getErrorMessage('cidade', formGroup.get('cidade')?.errors)}}
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="full-width-input">
+                    <mat-label>Estado</mat-label>
+                    <input matInput type="text" formControlName="estado">
+                    <mat-error *ngIf="formGroup.get('estado')
+                                    && formGroup.get('estado')?.invalid 
+                                    && formGroup.get('estado')?.touched">
+                            {{ getErrorMessage('estado', formGroup.get('estado')?.errors)}}
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="full-width-input">
                     <mat-label>Telefone</mat-label>
                     <input matInput type="text" formControlName="telefone">
                     <mat-error *ngIf="formGroup.get('telefone')

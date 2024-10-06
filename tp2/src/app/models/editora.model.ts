@@ -1,10 +1,9 @@
-import { Telefone } from "./telefone.model";
 
 export class Editora {
     id!: number;
     nome!: string;
     email!: string;
-    telefone!: Telefone;
+    telefone!: number;
     estado!: string;
     cidade!: string;
 }

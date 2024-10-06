@@ -26,6 +26,18 @@
         <th mat-header-cell *matHeaderCellDef> Email </th>
         <td mat-cell *matCellDef="let editora"> {{editora.email}} </td>
     </ng-container>
+    
+    <!-- Cidade Column -->
+    <ng-container matColumnDef="cidade">
+        <th mat-header-cell *matHeaderCellDef> Cidade </th>
+        <td mat-cell *matCellDef="let editora"> {{editora.cidade}} </td>
+    </ng-container>
+
+    <!-- Estado Column -->
+    <ng-container matColumnDef="estado">
+        <th mat-header-cell *matHeaderCellDef> Estado </th>
+        <td mat-cell *matCellDef="let editora"> {{editora.estado}} </td>
+    </ng-container>
 
     <!-- Telefone Column -->
     <ng-container matColumnDef="telefone">

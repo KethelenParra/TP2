@@ -18,7 +18,7 @@ import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog
   styleUrl: './editora-list.component.css'
 })
 export class EditoraListComponent {
-  displayedColumns: string[] = ['id', 'nome', 'email', 'telefone' , 'acao'];
+  displayedColumns: string[] = ['id', 'nome', 'telefone', 'email', 'cidade', 'estado', 'acao'];
   editoras: Editora[] = [];
 
   constructor(private editoraService: EditoraService, private dialog: MatDialog){
