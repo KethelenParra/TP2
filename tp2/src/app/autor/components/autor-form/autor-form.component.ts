@@ -39,7 +39,7 @@ export class AutorFormComponent {
       nome: [(autor && autor.nome) ? autor.nome : null,
                       Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(20)])],
       biografia: [(autor && autor.biografia) ? autor.biografia : null,
-                      Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(200)])],
+                      Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(500)])],
     });
   }
   
@@ -120,7 +120,7 @@ export class AutorFormComponent {
     biografia: {
       required: 'A descricao deve ser informada', 
       minlength: 'A descricao deve ter pelo menos 10 caracteres',
-      maxlength: 'A descricao deve ter no maximo 200 caracteres'
+      maxlength: 'A descricao deve ter no maximo 500 caracteres'
     }
   };
 
