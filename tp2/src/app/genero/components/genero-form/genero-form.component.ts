@@ -122,7 +122,6 @@ export class GeneroFormComponent {
       maxlength: 'A descricao deve ter no maximo 500 caracteres'
     }
   };
-
   
   autores(){
     this.router.navigateByUrl('/autores/new');
