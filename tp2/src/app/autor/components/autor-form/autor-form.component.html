@@ -6,11 +6,11 @@
             Cadastrar
         </button>
         <mat-menu #menu="matMenu">
-            <button mat-menu-item routerLink="/livros">Livros</button>
-            <button mat-menu-item (click)="generos()">Gêneros</button>
-            <button mat-menu-item routerLink="/editora">Editora</button>
-            <button mat-menu-item routerLink="/fornecedores">Fornecedores</button>
-            <button mat-menu-item routerLink="/boxes">Box</button>
+            <button mat-menu-item (click)="livro()">Livros</button>
+            <button mat-menu-item (click)="genero()">Gêneros</button>
+            <button mat-menu-item (click)="editora()">Editora</button>
+            <button mat-menu-item (click)="fornecedor()">Fornecedores</button>
+            <button mat-menu-item (click)="box()">Box</button>
         </mat-menu>
      </div>
 </mat-toolbar>

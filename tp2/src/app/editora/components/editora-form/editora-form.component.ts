@@ -125,8 +125,24 @@ export class EditoraFormComponent {
     }
   };
   
-  autores(){
+  autor(){
     this.router.navigateByUrl('/autores/new');
+  }
+
+  fornecedor(){
+    this.router.navigateByUrl('fornecedores/new')
+  }
+
+  box(){
+    this.router.navigateByUrl('/boxes/new');
+  }
+
+  genero(){
+    this.router.navigateByUrl('generos/new')
+  }
+
+  livro(){
+    this.router.navigateByUrl('/livros/new');
   }
 
 }

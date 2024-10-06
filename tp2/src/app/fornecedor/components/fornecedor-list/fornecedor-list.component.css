@@ -1,0 +1,42 @@
+.example-spacer {
+    /* Pegando do componente */
+    flex: 1 1 auto;
+}
+
+.toolbar-title {
+    flex: 1;
+    text-align: center;
+}
+
+.flex-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    /* background-color: rgb(52, 115, 233);
+    color: rgb(209, 241, 241); */
+}
+
+.mat-column-id {
+    width: 5em;
+    border-right: 1px solid currentColor;
+    padding-right: 24px;
+    text-align: center;
+}
+
+.mat-column-name {
+    width: 100%;
+}
+
+.mat-column-sigla {
+    text-align: center;
+    width: 5em;
+}
+
+.mat-column-acao {
+    text-align: center;
+    min-width: 10em;
+}
+
+table {
+    width: 100%;
+}

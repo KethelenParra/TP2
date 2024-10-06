@@ -11,8 +11,14 @@ import { boxResolver } from './box/resolver/box.resolver';
 import { EditoraListComponent } from './editora/components/editora-list/editora-list.component';
 import { EditoraFormComponent } from './editora/components/editora-form/editora-form.component';
 import { editoraResolver } from './editora/resolver/editora.resolver';
+import { FornecedorListComponent } from './fornecedor/components/fornecedor-list/fornecedor-list.component';
+import { FornecedorFormComponent } from './fornecedor/components/fornecedor-form/fornecedor-form.component';
+import { fornecedorResolver } from './fornecedor/resolver/fornecedor.resolver';
 
 export const routes: Routes = [
+    {path: 'fornecedores', component: FornecedorListComponent, title: 'Lista de fornecedores'},
+    {path: 'fornecedores/new', component: FornecedorFormComponent, title: 'Novo fornecedor'},
+    {path: 'fornecedores/edit/:id', component: FornecedorFormComponent, resolve:{fornecedor: fornecedorResolver}},
     {path: 'editoras', component: EditoraListComponent, title: 'Lista de editoras'},
     {path: 'editoras/new', component: EditoraFormComponent, title: 'Nova editora'},
     {path: 'editoras/edit/:id', component: EditoraFormComponent, resolve:{editora: editoraResolver}},

@@ -3,11 +3,11 @@
         <span class="toolbar-title">Cadastro de Genêros</span>
         <button mat-button [matMenuTriggerFor]="menu" class="menu-button">Cadastrar</button>
         <mat-menu #menu="matMenu">
-            <button mat-menu-item routerLink="/livros">Livros</button>
-            <button mat-menu-item (click)="autores()">Autores</button>
-            <button mat-menu-item routerLink="/editoras">Editora</button>
-            <button mat-menu-item routerLink="/fornecedores">Fornecedores</button>
-            <button mat-menu-item routerLink="/boxes">Box</button>
+            <button mat-menu-item (click)="livro()">Livros</button>
+            <button mat-menu-item (click)="autor()">Autores</button>
+            <button mat-menu-item (click)="editora()">Editora</button>
+            <button mat-menu-item (click)="fornecedor()">Fornecedores</button>
+            <button mat-menu-item (click)="box()">Box</button>
         </mat-menu>
      </div>
 </mat-toolbar>

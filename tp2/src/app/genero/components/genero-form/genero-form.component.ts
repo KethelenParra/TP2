@@ -123,8 +123,24 @@ export class GeneroFormComponent {
     }
   };
   
-  autores(){
+  autor(){
     this.router.navigateByUrl('/autores/new');
+  }
+
+  fornecedor(){
+    this.router.navigateByUrl('fornecedores/new')
+  }
+
+  box(){
+    this.router.navigateByUrl('/boxes/new');
+  }
+
+  editora(){
+    this.router.navigateByUrl('/editoras/new');
+  }
+
+  livro(){
+    this.router.navigateByUrl('/livros/new');
   }
 
 }

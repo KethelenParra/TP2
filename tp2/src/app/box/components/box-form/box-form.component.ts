@@ -126,12 +126,24 @@ export class BoxFormComponent {
     }
   };
 
-  autores(){
+  autor(){
     this.router.navigateByUrl('/autores/new');
   }
 
+  fornecedor(){
+    this.router.navigateByUrl('fornecedores/new')
+  }
+
   genero(){
-    this.router.navigateByUrl('/generos/new')
+    this.router.navigateByUrl('/generos/new');
+  }
+
+  editora(){
+    this.router.navigateByUrl('/editoras/new');
+  }
+
+  livro(){
+    this.router.navigateByUrl('/livros/new');
   }
 
 }

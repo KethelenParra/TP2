@@ -5,7 +5,6 @@ export class Box {
     id!: number;
     nome!: string;
     descricaoBox!: string;
-    livros!: Livro[];
     quantidadeEstoque!: number;
     fornecedor!: Fornecedor;
 }
