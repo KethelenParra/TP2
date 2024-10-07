@@ -29,11 +29,37 @@ export class FornecedorService {
   }
 
   insert(fornecedor: Fornecedor): Observable<Fornecedor> {
-    return this.httpClient.post<Fornecedor>(this.baseUrl, fornecedor);
+    const data = {
+      nome: fornecedor.nome,
+      cnpj: fornecedor.cnpj,
+      inscricaoEstadual: fornecedor.inscricaoEstadual,
+      email: fornecedor.email,
+      estado: fornecedor.email,
+      cidade: fornecedor.cidade,
+      telefone: {
+        codigoArea: fornecedor.telefone.codigoArea,
+        numero: fornecedor.telefone.numero,
+      },
+      quantLivrosFornecido: fornecedor.quantLivrosFornecido,
+    };
+    return this.httpClient.post<Fornecedor>(this.baseUrl, data);
   }
 
   update(fornecedor: Fornecedor): Observable<Fornecedor>{
-    return this.httpClient.put<Fornecedor>(`${this.baseUrl}/${fornecedor.id}`, fornecedor);
+    const data = {
+      nome: fornecedor.nome,
+      cnpj: fornecedor.cnpj,
+      inscricaoEstadual: fornecedor.inscricaoEstadual,
+      email: fornecedor.email,
+      estado: fornecedor.email,
+      cidade: fornecedor.cidade,
+      telefone: {
+        codigoArea: fornecedor.telefone.codigoArea,
+        numero: fornecedor.telefone.numero,
+      },
+      quantLivrosFornecido: fornecedor.quantLivrosFornecido,
+    };
+    return this.httpClient.put<Fornecedor>(`${this.baseUrl}/${fornecedor.id}`, data);
   }
 
   delete(fornecedor: Fornecedor): Observable<any>{

@@ -1,3 +1,5 @@
+import { Telefone } from "./telefone.model";
+
 export class Fornecedor {
     id!: number;
     nome!: string;
@@ -5,7 +7,7 @@ export class Fornecedor {
     inscricaoEstadual!: string;
     email!: string;
     quantLivrosFornecido!: number;
-    telefone!: string;
+    telefone!: Telefone;
     estado!: string;
     cidade!: string;
 }

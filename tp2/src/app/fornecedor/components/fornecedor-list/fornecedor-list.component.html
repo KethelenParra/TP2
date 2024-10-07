@@ -30,7 +30,7 @@
     <!-- InscricaoEstadual Column -->
     <ng-container matColumnDef="inscricaoestadual">
         <th mat-header-cell *matHeaderCellDef> Inscricao Estadual </th>
-        <td mat-cell *matCellDef="let fornecedor"> {{fornecedor.inscricaoestadual}} </td>
+        <td mat-cell *matCellDef="let fornecedor"> {{fornecedor.inscricaoEstadual}} </td>
     </ng-container>
 
     <!-- Email Column -->
@@ -41,14 +41,14 @@
 
     <!-- QuantLivrosFornecido Column -->
     <ng-container matColumnDef="quantlivrosfornecido">
-        <th mat-header-cell *matHeaderCellDef> Qnt. livros fornecidos </th>
-        <td mat-cell *matCellDef="let fornecedor"> {{fornecedor.quantlivrosfornecido}} </td>
+        <th mat-header-cell *matHeaderCellDef> Qnt. de livros fornecidos </th>
+        <td mat-cell *matCellDef="let fornecedor"> {{fornecedor.quantLivrosFornecido}} </td>
     </ng-container>
 
     <!-- Telefone Column -->
     <ng-container matColumnDef="telefone">
-        <th mat-header-cell *matHeaderCellDef> telefone </th>
-        <td mat-cell *matCellDef="let fornecedor"> {{fornecedor.telefone}} </td>
+        <th mat-header-cell *matHeaderCellDef> Telefone </th>
+        <td mat-cell *matCellDef="let fornecedor"> {{fornecedor.telefone?.codigoArea}} - {{fornecedor.telefone?.numero}} </td>
     </ng-container>
 
     <!-- Estado Column -->
@@ -67,7 +67,7 @@
     <ng-container matColumnDef="acao">
         <th mat-header-cell *matHeaderCellDef> Ação </th>
         <td mat-cell *matCellDef="let fornecedor"> 
-            <button mat-icon-button color="primary" routerLink="/fornecedors/edit/{{fornecedor.id}}">
+            <button mat-icon-button color="primary" routerLink="/fornecedores/edit/{{fornecedor.id}}">
                 <mat-icon>edit</mat-icon>
             </button>
             <button mat-icon-button color="warn" (click)="excluir(fornecedor)">
