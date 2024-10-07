@@ -136,11 +136,7 @@ export class AutorFormComponent {
     this.router.navigateByUrl('/generos/new');
   }
 
-<<<<<<< HEAD
-  editoras(){
-    this.router.navigateByUrl('/editoras/new');
-  }
-=======
+
   editora(){
     this.router.navigateByUrl('/editoras/new');
   }
@@ -152,6 +148,6 @@ export class AutorFormComponent {
   box(){
     this.router.navigateByUrl('/boxes/new');
   }
->>>>>>> fd4bd641632b54030e78f920328d8396b6c49168
+
   
 }

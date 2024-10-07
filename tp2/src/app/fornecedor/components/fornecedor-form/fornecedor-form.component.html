@@ -1,6 +1,6 @@
 <mat-toolbar color="primary" class="toolbar">
     <div class="flex-container">
-        <span class="toolbar-title">Cadastro de Genêros</span>
+        <span class="toolbar-title">Cadastro de Fornecedores</span>
         <button mat-button [matMenuTriggerFor]="menu" class="menu-button">Cadastrar</button>
         <mat-menu #menu="matMenu">
             <button mat-menu-item (click)="livro()">Livros</button>
@@ -27,11 +27,11 @@
                 </mat-form-field>
                 <mat-form-field appearance="fill" class="full-width-input">
                     <mat-label>CNPJ</mat-label>
-                    <input matInput type="text" formControlName="CNPJ">
-                    <mat-error *ngIf="formGroup.get('CNPJ')
-                                    && formGroup.get('CNPJ')?.invalid 
-                                    && formGroup.get('CNPJ')?.touched">
-                            {{ getErrorMessage('CNPJ', formGroup.get('CNPJ')?.errors)}}
+                    <input matInput type="text" formControlName="cnpj">
+                    <mat-error *ngIf="formGroup.get('cnpj')
+                                    && formGroup.get('cnpj')?.invalid 
+                                    && formGroup.get('cnpj')?.touched">
+                            {{ getErrorMessage('cnpj', formGroup.get('cnpj')?.errors)}}
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="fill" class="full-width-input">
@@ -54,22 +54,36 @@
                 </mat-form-field>
                 <mat-form-field appearance="fill" class="full-width-input">
                     <mat-label>Qnt. Livros Fornecidos</mat-label>
-                    <input matInput type="text" formControlName="quantLivrosFornecido">
+                    <input matInput type="number" formControlName="quantLivrosFornecido">
                     <mat-error *ngIf="formGroup.get('quantLivrosFornecido')
                                     && formGroup.get('quantLivrosFornecido')?.invalid 
                                     && formGroup.get('quantLivrosFornecido')?.touched">
                             {{ getErrorMessage('quantLivrosFornecido', formGroup.get('quantLivrosFornecido')?.errors)}}
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field appearance="fill" class="full-width-input">
-                    <mat-label>Telefone</mat-label>
-                    <input matInput type="text" formControlName="telefone">
-                    <mat-error *ngIf="formGroup.get('telefone')
-                                    && formGroup.get('telefone')?.invalid 
-                                    && formGroup.get('telefone')?.touched">
-                            {{ getErrorMessage('telefone', formGroup.get('telefone')?.errors)}}
-                    </mat-error>
-                </mat-form-field>
+                <div formGroupName="telefone">
+                    <div class="full-width-input phone-fields">
+                        <mat-form-field appearance="fill" class="area-code-input">
+                            <mat-label>Código de Área</mat-label>
+                            <input matInput type="text" formControlName="codigoArea">
+                            <mat-error *ngIf="formGroup.get('telefone')?.get('codigoArea')
+                                                && formGroup.get('telefone')?.get('codigoArea')?.invalid  
+                                                && formGroup.get('telefone')?.get('codigoArea')?.touched">
+                                {{ getErrorMessage('telefone.codigoArea', formGroup.get('telefone')?.get('codigoArea')?.errors) }}
+                            </mat-error>
+                        </mat-form-field>
+                
+                        <mat-form-field appearance="fill" class="phone-number-input">
+                            <mat-label>Número de Telefone</mat-label>
+                            <input matInput type="text" formControlName="numero">
+                            <mat-error *ngIf="formGroup.get('telefone')?.get('numero')?.invalid 
+                                                && formGroup.get('telefone')?.get('numero') 
+                                                && formGroup.get('telefone')?.get('numero')?.touched">
+                                {{ getErrorMessage('telefone.numero', formGroup.get('telefone')?.get('numero')?.errors) }}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
                 <mat-form-field appearance="fill" class="full-width-input">
                     <mat-label>Estado</mat-label>
                     <input matInput type="text" formControlName="estado">
@@ -91,7 +105,7 @@
             </form>
         </mat-card-content>
         <mat-card-actions>
-            <button mat-raised-button class="cancel-button" (click)="cancelar()" routerLink="/generos">Cancelar</button>
+            <button mat-raised-button class="cancel-button" (click)="cancelar()" routerLink="/fornecedores">Cancelar</button>
             <button mat-raised-button *ngIf="formGroup?.get('id')?.value" class="cancel-button" (click)="excluir()">Excluir</button>
             <button mat-raised-button class="save-button" (click)="salvar()">Salvar</button>
         </mat-card-actions>

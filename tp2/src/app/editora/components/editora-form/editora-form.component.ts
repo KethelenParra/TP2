@@ -37,14 +37,14 @@ export class EditoraFormComponent{
         nome: [(editora && editora.nome) ? editora.nome : null,
                                 Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(20)])],
         email: [(editora && editora.email) ? editora.email : null,
-                                Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(30)])],
+                            Validators.compose([Validators.required, Validators.email])],
         cidade: [(editora && editora.cidade) ? editora.cidade : null,
                                 Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(30)])],
         estado: [(editora && editora.estado) ? editora.estado : null,
                                   Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(30)])],
         telefone: this.formBuilder.group({
           codigoArea: [(editora && editora.telefone && editora.telefone.codigoArea) ? editora.telefone.codigoArea : null, Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(3)])],
-          numero: [(editora && editora.telefone && editora.telefone.numero) ? editora.telefone.numero : null, Validators.compose([Validators.required, Validators.minLength(9)])],
+          numero: [(editora && editora.telefone && editora.telefone.numero) ? editora.telefone.numero : null, Validators.compose([Validators.required, Validators.minLength(9), Validators.maxLength(10)])],
         }),                                
       });
     }
@@ -154,10 +154,6 @@ export class EditoraFormComponent{
     this.router.navigateByUrl('/autores/new');
   }
 
-<<<<<<< HEAD
-  generos(){
-    this.router.navigateByUrl('/generos/new');
-=======
   fornecedor(){
     this.router.navigateByUrl('fornecedores/new')
   }
@@ -172,7 +168,6 @@ export class EditoraFormComponent{
 
   livro(){
     this.router.navigateByUrl('/livros/new');
->>>>>>> fd4bd641632b54030e78f920328d8396b6c49168
   }
 
 }

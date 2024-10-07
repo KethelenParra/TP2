@@ -1,21 +1,13 @@
 <mat-toolbar color="primary" class="toolbar">
     <div class="flex-container">
-        <span class="toolbar-title">Cadastro de Editora</span>
+        <span class="toolbar-title">Cadastro de Editoras</span>
         <button mat-button [matMenuTriggerFor]="menu" class="menu-button">Cadastrar</button>
         <mat-menu #menu="matMenu">
-<<<<<<< HEAD
-            <button mat-menu-item routerLink="/livros">Livros</button>
-            <button mat-menu-item (click)="autores()">Autores</button>
-            <button mat-menu-item (click)="generos()">Gênero</button>
-            <button mat-menu-item routerLink="/fornecedores">Fornecedores</button>
-            <button mat-menu-item routerLink="/boxes">Box</button>
-=======
             <button mat-menu-item (click)="livro()">Livros</button>
             <button mat-menu-item (click)="autor()">Autores</button>
             <button mat-menu-item (click)="genero()">Gênero</button>
             <button mat-menu-item (click)="fornecedor()">Fornecedores</button>
             <button mat-menu-item (click)="box()">Box</button>
->>>>>>> fd4bd641632b54030e78f920328d8396b6c49168
         </mat-menu>
      </div>
 </mat-toolbar>
