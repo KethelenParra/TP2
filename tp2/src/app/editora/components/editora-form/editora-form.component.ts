@@ -13,6 +13,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog/confirmation-dialog.component';
+import { NavigationService } from '../../../service/navigation.service';
 
 @Component({
   selector: 'app-editora-form',
@@ -28,7 +29,8 @@ export class EditoraFormComponent{
     private editoraService: EditoraService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private dialog: MatDialog) {
+    private dialog: MatDialog,
+    public navService: NavigationService) {
 
       const editora: Editora = this.activatedRoute.snapshot.data['editora'];
 
@@ -149,30 +151,4 @@ export class EditoraFormComponent{
       minlength: 'O número de telefone deve ter no máximo 9 caracteres'
     }
   };
-  
-  autor(){
-    this.router.navigateByUrl('/autores/new');
-  }
-
-<<<<<<< HEAD
-  generos(){
-    this.router.navigateByUrl('/generos/new');
-=======
-  fornecedor(){
-    this.router.navigateByUrl('fornecedores/new')
-  }
-
-  box(){
-    this.router.navigateByUrl('/boxes/new');
-  }
-
-  genero(){
-    this.router.navigateByUrl('generos/new')
-  }
-
-  livro(){
-    this.router.navigateByUrl('/livros/new');
->>>>>>> fd4bd641632b54030e78f920328d8396b6c49168
-  }
-
 }

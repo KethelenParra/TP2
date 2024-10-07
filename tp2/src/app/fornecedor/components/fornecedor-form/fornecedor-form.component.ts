@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, ValidationErrors, EmailValidator } from '@angular/forms';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { FornecedorService } from '../../../service/fornecedor.service';
@@ -13,23 +13,25 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog/confirmation-dialog.component';
+import { NavigationService } from '../../../service/navigation.service';
 
 @Component({
   selector: 'app-fornecedor-form',
   standalone: true,
   imports: [NgIf, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, MatMenuModule, MatIconModule],
   templateUrl: './fornecedor-form.component.html',
-  styleUrl: './fornecedor-form.component.css'
-})
-export class FornecedorFormComponent {
+  styleUrl: './fornecedor-form.component.css',})
+export class FornecedorFormComponent{
   formGroup: FormGroup;
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(
+    private formBuilder: FormBuilder,
     private fornecedorService: FornecedorService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private dialog: MatDialog) {
-
+    private dialog: MatDialog,
+    public navService: NavigationService
+  ) {
       const fornecedor: Fornecedor = this.activatedRoute.snapshot.data['fornecedor'];
 
       this.formGroup = formBuilder.group({
@@ -157,24 +159,4 @@ export class FornecedorFormComponent {
       minlength: 'A descricao deve ter pelo menos 3 caracteres',
     }
   };
-  
-  autores(){
-    this.router.navigateByUrl('/autores/new');
-  }
-
-  genero(){
-    this.router.navigateByUrl('generos/new');
-  }
-
-  box(){
-    this.router.navigateByUrl('/boxes/new');
-  }
-
-  editora(){
-    this.router.navigateByUrl('/editoras/new');
-  }
-
-  livro(){
-    this.router.navigateByUrl('/livros/new');
-  }
 }

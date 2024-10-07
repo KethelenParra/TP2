@@ -13,8 +13,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog/confirmation-dialog.component';
-
-//Olhar o github do professor na parte de muncípio
+import { NavigationService } from '../../../service/navigation.service';
 
 @Component({
   selector: 'app-box-form',
@@ -30,7 +29,8 @@ export class BoxFormComponent {
     private boxService: BoxService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private dialog: MatDialog) {
+    private dialog: MatDialog,
+    public navService: NavigationService) {
 
       const box: Box = this.activatedRoute.snapshot.data['boxes'];
 
@@ -125,25 +125,4 @@ export class BoxFormComponent {
       maxlength: 'A descricao deve ter no maximo 500 caracteres'
     }
   };
-
-  autor(){
-    this.router.navigateByUrl('/autores/new');
-  }
-
-  fornecedor(){
-    this.router.navigateByUrl('fornecedores/new')
-  }
-
-  genero(){
-    this.router.navigateByUrl('/generos/new');
-  }
-
-  editora(){
-    this.router.navigateByUrl('/editoras/new');
-  }
-
-  livro(){
-    this.router.navigateByUrl('/livros/new');
-  }
-
 }

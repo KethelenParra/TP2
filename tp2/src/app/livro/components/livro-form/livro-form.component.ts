@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NavigationService } from '../../../service/navigation.service';
 
 @Component({
   selector: 'app-livro-form',
@@ -9,4 +10,7 @@ import { Component } from '@angular/core';
 })
 export class LivroFormComponent {
 
+  constructor(
+    public navService: NavigationService
+  ){}
 }

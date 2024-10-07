@@ -13,6 +13,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog/confirmation-dialog.component';
+import { NavigationService } from '../../../service/navigation.service';
 
 @Component({
   selector: 'app-genero-form',
@@ -28,7 +29,8 @@ export class GeneroFormComponent {
     private generoService: GeneroService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private dialog: MatDialog) {
+    private dialog: MatDialog,
+    public navService: NavigationService) {
 
       const genero: Genero = this.activatedRoute.snapshot.data['genero'];
 
@@ -122,25 +124,5 @@ export class GeneroFormComponent {
       maxlength: 'A descricao deve ter no maximo 500 caracteres'
     }
   };
-  
-  autor(){
-    this.router.navigateByUrl('/autores/new');
-  }
-
-  fornecedor(){
-    this.router.navigateByUrl('fornecedores/new')
-  }
-
-  box(){
-    this.router.navigateByUrl('/boxes/new');
-  }
-
-  editora(){
-    this.router.navigateByUrl('/editoras/new');
-  }
-
-  livro(){
-    this.router.navigateByUrl('/livros/new');
-  }
 
 }

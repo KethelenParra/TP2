@@ -68,4 +68,26 @@ button[mat-raised-button].save-button {
     color: white;
 }
 
+/* Estilo para campos de telefone */
+.phone-fields {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px; /* Espaço entre os campos */
+}
+
+.area-code-input {
+    width: 30%; /* Campo de código de área ocupa 30% do espaço */
+}
+
+.phone-number-input {
+    width: 70%; /* Campo de número de telefone ocupa 70% do espaço */
+}
+
+/* Garantir que o layout geral do formulário permaneça inalterado */
+.full-width-input {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+
 

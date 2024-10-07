@@ -13,6 +13,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog/confirmation-dialog.component';
 import { AutorService } from '../../../service/autor.service';
 import { Autor } from '../../../models/autor.model';
+import { NavigationService } from '../../../service/navigation.service';
+
 
 @Component({
   selector: 'app-autor-form',
@@ -29,7 +31,8 @@ export class AutorFormComponent {
     private autorService: AutorService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public navService: NavigationService
   ){
 
     const autor: Autor = this.activatedRoute.snapshot.data['autor'];
@@ -122,36 +125,5 @@ export class AutorFormComponent {
       minlength: 'A descricao deve ter pelo menos 10 caracteres',
       maxlength: 'A descricao deve ter no maximo 500 caracteres'
     }
-  };
-
-  autor(){
-    this.router.navigateByUrl('/autores/new');
-  }
-
-  fornecedor(){
-    this.router.navigateByUrl('fornecedores/new')
-  }
-
-  genero(){
-    this.router.navigateByUrl('/generos/new');
-  }
-
-<<<<<<< HEAD
-  editoras(){
-    this.router.navigateByUrl('/editoras/new');
-  }
-=======
-  editora(){
-    this.router.navigateByUrl('/editoras/new');
-  }
-
-  livro(){
-    this.router.navigateByUrl('/livros/new');
-  }
-
-  box(){
-    this.router.navigateByUrl('/boxes/new');
-  }
->>>>>>> fd4bd641632b54030e78f920328d8396b6c49168
-  
+  };  
 }
