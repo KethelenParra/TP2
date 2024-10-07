@@ -150,12 +150,29 @@ export class EditoraFormComponent{
     }
   };
   
-  autores(){
+  autor(){
     this.router.navigateByUrl('/autores/new');
   }
 
+<<<<<<< HEAD
   generos(){
     this.router.navigateByUrl('/generos/new');
+=======
+  fornecedor(){
+    this.router.navigateByUrl('fornecedores/new')
+  }
+
+  box(){
+    this.router.navigateByUrl('/boxes/new');
+  }
+
+  genero(){
+    this.router.navigateByUrl('generos/new')
+  }
+
+  livro(){
+    this.router.navigateByUrl('/livros/new');
+>>>>>>> fd4bd641632b54030e78f920328d8396b6c49168
   }
 
 }

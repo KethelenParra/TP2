@@ -124,12 +124,34 @@ export class AutorFormComponent {
     }
   };
 
-  generos(){
+  autor(){
+    this.router.navigateByUrl('/autores/new');
+  }
+
+  fornecedor(){
+    this.router.navigateByUrl('fornecedores/new')
+  }
+
+  genero(){
     this.router.navigateByUrl('/generos/new');
   }
 
+<<<<<<< HEAD
   editoras(){
     this.router.navigateByUrl('/editoras/new');
   }
+=======
+  editora(){
+    this.router.navigateByUrl('/editoras/new');
+  }
+
+  livro(){
+    this.router.navigateByUrl('/livros/new');
+  }
+
+  box(){
+    this.router.navigateByUrl('/boxes/new');
+  }
+>>>>>>> fd4bd641632b54030e78f920328d8396b6c49168
   
 }
