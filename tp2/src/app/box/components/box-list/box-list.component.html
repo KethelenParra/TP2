@@ -1,1 +1,63 @@
-<p>box-list works!</p>
+<mat-toolbar color="primary">
+    <div class="flex-container">
+        <span class="toolbar-title">Controle de Boxes</span>
+        <button mat-fab color="accent" routerLink="/boxes/new">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+</mat-toolbar>
+
+<table mat-table [dataSource]="boxes" class="mat-elevation-z8">
+
+    <!-- Id Column -->
+    <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> No. </th>
+        <td mat-cell *matCellDef="let box"> {{box.id}} </td>
+    </ng-container>
+
+    <!-- Nome Column -->
+    <ng-container matColumnDef="nome">
+        <th mat-header-cell *matHeaderCellDef> Nome </th>
+        <td mat-cell *matCellDef="let box"> {{box.nome}} </td>
+    </ng-container>
+
+    <!-- Descricao Column -->
+    <ng-container matColumnDef="descricaoBox">
+        <th mat-header-cell *matHeaderCellDef> Descrição </th>
+        <td mat-cell *matCellDef="let box"> {{box.descricaoBox}} </td>
+    </ng-container>
+
+    <!-- Quantidade Column -->
+     <ng-container matColumnDef="quantidadeEstoque">
+        <th mat-header-cell *matHeaderCellDef> Quantidade </th>
+        <td mat-cell *matCellDef="let box"> {{box.quantidadeEstoque}} </td>
+     </ng-container>
+     
+     <!-- Fornecedor Column -->
+      <ng-container matColumnDef="fornecedor">
+        <th mat-header-cell *matHeaderCellDef> Fornecedor </th>
+        <td mat-cell *matCellDef="let box">{{box.fornecedor}}</td>
+      </ng-container>
+
+     <!-- Livro Column -->
+      <ng-container matColumnDef="livro">
+        <th mat-header-cell *matHeaderCellDef> Livro </th>
+        <td mat-cell *matCellDef="let box">{{box.livro}}</td>
+      </ng-container>
+
+    <!-- ação Column -->
+    <ng-container matColumnDef="acao">
+        <th mat-header-cell *matHeaderCellDef> Ação </th>
+        <td mat-cell *matCellDef="let box"> 
+            <button mat-icon-button color="primary" routerLink="/boxes/edit/{{box.id}}">
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="excluir(box)">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr> <!--Colunas que serao exibidas-->
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

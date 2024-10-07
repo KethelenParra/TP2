@@ -127,5 +127,9 @@ export class AutorFormComponent {
   generos(){
     this.router.navigateByUrl('/generos/new');
   }
+
+  editoras(){
+    this.router.navigateByUrl('/editoras/new');
+  }
   
 }
