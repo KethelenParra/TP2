@@ -1,5 +1,7 @@
+import { Classificacao } from "./classificacao.model";
+import { Editora } from "./editora.model";
 import { Fornecedor } from "./fornecedor.model";
-import { Livro } from "./livro.model";
+import { Genero } from "./genero.model";
 
 export class Box {
     id!: number;
@@ -7,4 +9,8 @@ export class Box {
     descricaoBox!: string;
     quantidadeEstoque!: number;
     fornecedor!: Fornecedor;
+    editora!: Editora;
+    genero!: Genero;
+    preco!: number;
+    classificacao!: Classificacao;
 }
