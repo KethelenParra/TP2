@@ -19,10 +19,10 @@ import { Box } from '../../../models/box.model';
   styleUrl: './box-list.component.css'
 })
 export class BoxListComponent {
+  displayedColumns: string[] = ['id', 'nome', 'descricaoBox', 'quantidadeEstoque', 'fornecedor', 'editora', 'genero', 'autor', 'preco', 'classificacao', 'acao'];
   boxes: Box[] = [];
-  displayedColumns: string[] = ['id', 'nome', 'descricaoBox', 'quantidadeEstoque', 'fornecedor', 'acao'];
-  // livros: Livro[] = [];
-
+  
+  
   constructor(
     private boxService: BoxService, 
     private dialog: MatDialog, 
