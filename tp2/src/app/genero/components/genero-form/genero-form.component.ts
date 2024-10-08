@@ -47,6 +47,7 @@ export class GeneroFormComponent {
     this.formGroup.markAllAsTouched();
     if (this.formGroup.valid) {
       const genero = this.formGroup.value;
+      console.log('Dados enviados:', genero);
       if (genero.id == null){
         this.generoService.insert(genero).subscribe({
         next: (generoCadastrodo) => {

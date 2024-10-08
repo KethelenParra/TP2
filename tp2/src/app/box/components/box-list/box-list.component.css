@@ -40,3 +40,15 @@
 table {
     width: 100%;
 }
+
+#nome{
+    text-align: center;
+}
+
+#desc{
+    text-align: justify;
+}
+
+#forn{
+    text-align: center;
+}
