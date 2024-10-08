@@ -1,0 +1,69 @@
+/* Flex container para organizar elementos */
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px 20px;
+}
+
+/* Título centralizado */
+.toolbar-title {
+    flex: 1;
+    text-align: center;
+    font-size: 24px; /* Aumentando o tamanho da fonte para destacar o título */
+    color: #fcfcfc; /* Cor preta para o texto */
+}
+
+/* Estilo do botão do menu */
+.menu-button {
+    font-size: 15px;
+    background-color: #ff4081;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 8px;
+}
+
+/* Estilo para o botão de adicionar */
+.mat-fab {
+    color: #fff;
+    width: 35px;
+    height: 35px;
+    font-size: 20px;
+    margin-left: 40px; /* Espaçamento entre "Cadastrar" e "Add" */
+}
+
+/* Estilo para o formulário e os inputs */
+.full-width-input {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+mat-card {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background-color: #f9f9f9; /* Fundo claro para o card */
+    border-radius: 12px;
+}
+
+/* Estilo dos botões no final do formulário */
+mat-card-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+button[mat-raised-button] {
+    width: 120px;
+    margin-right: 1rem;
+}
+
+button[mat-raised-button].cancel-button {
+    background-color: #ff4d4d;
+    color: white;
+}
+
+button[mat-raised-button].save-button {
+    background-color: #4d88ff;
+    color: white;
+}

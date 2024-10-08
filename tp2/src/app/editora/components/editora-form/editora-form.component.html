@@ -25,6 +25,7 @@
                             {{ getErrorMessage('nome', formGroup.get('nome')?.errors)}}
                     </mat-error>
                 </mat-form-field>
+
                 <mat-form-field appearance="fill" class="full-width-input">
                     <mat-label>Email</mat-label>
                     <input matInput type="text" formControlName="email">
@@ -34,6 +35,7 @@
                             {{ getErrorMessage('email', formGroup.get('email')?.errors)}}
                     </mat-error>
                 </mat-form-field>
+
                 <mat-form-field appearance="fill" class="full-width-input">
                     <mat-label>Cidade</mat-label>
                     <input matInput type="text" formControlName="cidade">
@@ -43,6 +45,7 @@
                             {{ getErrorMessage('cidade', formGroup.get('cidade')?.errors)}}
                     </mat-error>
                 </mat-form-field>
+
                 <mat-form-field appearance="fill" class="full-width-input">
                     <mat-label>Estado</mat-label>
                     <input matInput type="text" formControlName="estado">
@@ -52,6 +55,7 @@
                             {{ getErrorMessage('estado', formGroup.get('estado')?.errors)}}
                     </mat-error>
                 </mat-form-field>
+                
                 <div formGroupName="telefone">
                     <div class="full-width-input phone-fields">
                         <mat-form-field appearance="fill" class="area-code-input">
