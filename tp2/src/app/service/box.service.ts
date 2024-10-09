@@ -35,7 +35,7 @@ export class BoxService {
       classificacao: box.classificacao,
       generos: box.generos.map(genero => genero.id)
     }
-    return this.httpClient.post<Box>(this.baseUrl, data);
+    return this.httpClient.post<Box>(`${this.baseUrl}`, data);
   }
 
   update(box: Box): Observable<Box>{
