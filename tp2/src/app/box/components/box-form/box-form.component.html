@@ -78,15 +78,13 @@
                 <mat-form-field appearance="fill" class="full-width-input">
                     <mat-label>Fornecedor</mat-label>
                     <mat-select formControlName="fornecedor">
-                        @for (fornecedor of fornecedores; track fornecedor.id) {
-                        <mat-option [value]="fornecedor">
-                            {{fornecedor.nome}}
-                        </mat-option>
+                        @for (fornecedor of fornecedores; track fornecedor.id){
+                            <mat-option [value]="fornecedor">
+                                {{fornecedor.nome}}
+                            </mat-option>
                         }
                     </mat-select>
-                    <mat-error *ngIf="formGroup.get('fornecedor')
-                                    && formGroup.get('fornecedor')?.invalid
-                                    && formGroup.get('fornecedor')?.touched">
+                    <mat-error *ngIf="formGroup.get('fornecedor')?.invalid && formGroup.get('fornecedor')?.touched">
                                     {{getErrorMessage('fornecedor', formGroup.get('fornecedor')?.errors)}}
                     </mat-error>
                 </mat-form-field>

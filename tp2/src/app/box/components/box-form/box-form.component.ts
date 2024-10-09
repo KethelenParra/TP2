@@ -50,19 +50,17 @@ export class BoxFormComponent implements OnInit {
     private dialog: MatDialog,
     public navService: NavigationService) {
 
-      // const box: Box = this.activatedRoute.snapshot.data['boxes'];
-
       this.formGroup = this.formBuilder.group({
-        id: [null],
+        id: [],
         nome: ['', Validators.required],
         descricaoBox:['', Validators.required],
         quantidadeEstoque: ['', Validators.required],
-        fornecedor: [null],
+        fornecedor: [],
         preco: ['', Validators.required],
-        editora: [null],
-        genero: [null],
-        classificacao: [null],
-        autor: [null],
+        editora: [],
+        genero: [],
+        classificacao: [],
+        autor: [],
       });
     }
 
@@ -94,9 +92,9 @@ export class BoxFormComponent implements OnInit {
 
     initializeForm(): void {
       const box: Box = this.activatedRoute.snapshot.data['box'];
-      
-      const fornecedor = this.fornecedores.find(fornecedor => fornecedor.id === (box?.fornecedor?.id || null));
-      const editora = this.editoras.find(editora => editora.id === (box?.editora?.id || null));
+
+      const fornecedorId = box?.fornecedores?.id;
+      const editoraId = box?.editoras?.id;
      
       this.formGroup = this.formBuilder.group({
         id: [(box && box.id) ? box.id : null],
@@ -105,38 +103,39 @@ export class BoxFormComponent implements OnInit {
         descricaoBox: [(box && box.descricaoBox) ? box.descricaoBox : null,
                 Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(500)])],   
         quantidadeEstoque: [(box && box.quantidadeEstoque) ? box.quantidadeEstoque : null,
-          Validators.compose([Validators.required, Validators.minLength(1)])],            
-        fornecedor: [fornecedor],
-        editora: [editora],
-        genero: [(box && box.autores)? box.autores.map((box) => box.id) : null, Validators.required],
-        autor: [(box && box.generos)? box.generos.map((box) => box.id) : null, Validators.required],
-        preco: [(box && box.preco) ? box.preco : null, Validators.required],
+                Validators.compose([Validators.required, Validators.minLength(1)])],            
+        fornecedor: [fornecedorId, Validators.required],
+        editora: [editoraId, Validators.required],
+        genero: [box?.generos?.map(g => g.id) || [], Validators.required],
+        autor: [box?.autores?.map(a => a.id) || [], Validators.required],
+        preco: [box?.preco || 0, Validators.required],
         classificacao: [(box && box.classificacao) ? box.classificacao : null, Validators.required]
       })
     }
 
     salvar() {
-      this.formGroup.markAllAsTouched();
-      if (this.formGroup.valid) {
-        const box = this.formGroup.value;
-        console.log('Dados enviados:', box);
-        if (box.id == null){
+      if(this.formGroup.valid){
+        const box: Box = this.formGroup.value;
+
+        if (box.id == null) {
           this.boxService.insert(box).subscribe({
-          next: (boxCadastrodo) => {
-            this.router.navigateByUrl('/boxes');
-          },
-          error: (errorResponse) => {
-            console.log('Erro ao salvar', + JSON.stringify(errorResponse));
-          } 
-        });
+            next: (response) => {
+              console.log('Box cadastrado com sucesso', response)
+              this.router.navigateByUrl('/boxes')
+            },
+            error: (error) => {
+              console.error('Erro ao cadastrar box', error)
+            }
+          });
         } else {
           this.boxService.update(box).subscribe({
-            next: (boxAlterando) => {
-              this.router.navigateByUrl('/boxes');
+            next: (response) => {
+              console.log('Box atualizado com sucesso', response);
+              this.router.navigateByUrl('/boxes')
             },
-            error: (err) => {
-              console.log('Erro ao salvar', + JSON.stringify(err));
-            } 
+            error: (error) => {
+              console.error('Erro ao atualizar box', error)
+            }
           });
         }
       }

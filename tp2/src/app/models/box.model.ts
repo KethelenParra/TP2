@@ -8,8 +8,8 @@ export class Box {
     nome!: string;
     descricaoBox!: string;
     quantidadeEstoque!: number;
-    fornecedor!: Fornecedor;
-    editora!: Editora;
+    fornecedores!: Fornecedor;
+    editoras!: Editora;
     generos!: Genero[];
     autores!: Autor[];
     preco!: number;
