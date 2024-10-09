@@ -10,8 +10,8 @@ export class Box {
     quantidadeEstoque!: number;
     fornecedor!: Fornecedor;
     editora!: Editora;
-    generos!: Genero[];
-    autores!: Autor[];
     preco!: number;
     classificacao!: string;
+    generos!: Genero[];
+    // autores!: Autor[];
 }
