@@ -33,7 +33,7 @@ export class BoxFormComponent implements OnInit{
   formGroup: FormGroup;
   fornecedores: Fornecedor[] = [];
   editoras: Editora[] = [];
-  generos: Genero[] = [];
+  // generos: Genero[] = [];
   // autores: Autor[] = [];
 
   constructor(
@@ -41,7 +41,7 @@ export class BoxFormComponent implements OnInit{
     private boxService: BoxService,
     private fornecedorService: FornecedorService,
     private editoraService: EditoraService,
-    private generoService: GeneroService,
+    // private generoService: GeneroService,
     // private autorService: AutorService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -61,8 +61,8 @@ export class BoxFormComponent implements OnInit{
         fornecedor: [null, Validators.required],
         editora: [null, Validators.required],
         preco: ['', Validators.required],
-        classificacao: [null, Validators.required],
-        generos: [null, Validators.required]
+        classificacao: [null, Validators.required]
+        //generos: [null, Validators.required]
         // autores: [(box && box.autores)? box.autores.map((box) => box.id) : null, Validators.required],
       });
     }
@@ -78,18 +78,18 @@ export class BoxFormComponent implements OnInit{
         this.initializeForm();
       });
 
-      this.generoService.findAll().subscribe(data=> {
-        this.generos = data;
-        this.initializeForm();
-      });
+      // this.generoService.findAll().subscribe(data=> {
+      //   this.generos = data;
+      //   this.initializeForm();
+      // });
+  
+      //   this.autorService.findAll().subscribe(data => {
+      //     this.autores = data;
+      //     this.initializeForm();
+      //   });
     }
 
 
-
-    //   this.autorService.findAll().subscribe(data => {
-    //     this.autores = data;
-    //     this.initializeForm();
-    //   });
    
 
     initializeForm(): void {
@@ -109,8 +109,8 @@ export class BoxFormComponent implements OnInit{
         fornecedor: [fornecedor, Validators.required],
         editora: [editora, Validators.required],
         preco: [(box && box.preco) ? box.preco : '', Validators.required],
-        classificacao: [(box && box.classificacao) ? box.classificacao : null, Validators.required],
-        generos: [(box && box.generos)? box.generos.map((box) => box.id) : null, Validators.required]
+        classificacao: [(box && box.classificacao) ? box.classificacao : null, Validators.required]
+        //generos: [(box && box.generos)? box.generos.map((box) => box.id) : null, Validators.required]
         // autores: [(box && box.autores)? box.autores.map((box) => box.id) : null, Validators.required],
       })
     }
@@ -119,10 +119,9 @@ export class BoxFormComponent implements OnInit{
       this.formGroup.markAllAsTouched();
       if (this.formGroup.valid) {
         const box = this.formGroup.value;
-        console.log('Dados enviados:', box);
         if (box.id == null){
           this.boxService.insert(box).subscribe({
-          next: (boxCadastrodo) => {
+          next: (boxesCadastrar) => {
             this.router.navigateByUrl('/boxes');
           },
           error: (errorResponse) => {
@@ -131,7 +130,7 @@ export class BoxFormComponent implements OnInit{
         });
         } else {
           this.boxService.update(box).subscribe({
-            next: (boxAlterando) => {
+            next: (boxesAuterado) => {
               this.router.navigateByUrl('/boxes');
             },
             error: (err) => {
@@ -210,9 +209,9 @@ export class BoxFormComponent implements OnInit{
       },
       classificacao: {
           required: 'A classificação deve ser selecionada'
-      },
-      genero: {
-          required: 'O genero deve ser selecionado'
       }
+      // genero: {
+      //     required: 'O genero deve ser selecionado'
+      // }
     };
 }

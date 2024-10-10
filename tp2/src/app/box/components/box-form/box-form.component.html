@@ -22,7 +22,7 @@
                     <mat-error *ngIf="formGroup.get('nome')
                                     && formGroup.get('nome')?.invalid 
                                     && formGroup.get('nome')?.touched">
-                            {{ getErrorMessage('nome', formGroup.get('nome')?.errors)}}
+                            {{ getErrorMessage('nome', formGroup.get('nome')?.errors) }}
                     </mat-error>
                 </mat-form-field>
 
@@ -106,7 +106,7 @@
                 </mat-form-field>
 
                     <!--Genero-->
-                <mat-form-field appearance="fill" class="full-width-input">
+                <!-- <mat-form-field appearance="fill" class="full-width-input">
                     <mat-label>Gênero</mat-label>
                     <mat-select formControlName="generos" name="generos" multiple>
                         <mat-option *ngFor="let genero of generos" [value]="genero.id">
@@ -118,7 +118,7 @@
                                     && formGroup.get('generos')?.touched">
                                     {{getErrorMessage('generos', formGroup.get('generos')?.errors)}}
                     </mat-error>
-                </mat-form-field>
+                </mat-form-field> -->
 
                
                 <!--Autor-->

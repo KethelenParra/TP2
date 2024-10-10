@@ -3,13 +3,13 @@
         <span class="toolbar-title">Cadastro de Livros</span>
         <button mat-button [matMenuTriggerFor]="menu" class="menu-button">Cadastrar</button>
         <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="navService.editora()">Editoras</button>
+            <button mat-menu-item (click)="navService.box()">Box</button>
             <button mat-menu-item (click)="navService.autor()">Autores</button>
             <button mat-menu-item (click)="navService.genero()">Gênero</button>
             <button mat-menu-item (click)="navService.fornecedor()">Fornecedores</button>
-            <button mat-menu-item (click)="navService.box()">Box</button>
+            <button mat-menu-item (click)="navService.editora()">Editoras</button>
         </mat-menu>
-     </div>
+    </div>
 </mat-toolbar>
 
 <div>
@@ -38,7 +38,7 @@
 
                 <mat-form-field appearance="fill" class="full-width-input">
                     <mat-label>Preço</mat-label>
-                    <input matInput type="number" formControlName="preco">
+                    <input matInput type="number" formControlName="preco" #inputPreco>
                     <mat-error *ngIf="formGroup.get('preco')
                                     && formGroup.get('preco')?.invalid 
                                     && formGroup.get('preco')?.touched">
@@ -57,7 +57,7 @@
                 </mat-form-field>
 
                 <mat-form-field appearance="fill" class="full-width-input">
-                    <mat-label>Quantidade em Estoque</mat-label>
+                    <mat-label>Qtd. em Estoque</mat-label>
                     <input matInput type="number" formControlName="quantidadeEstoque">
                     <mat-error *ngIf="formGroup.get('quantidadeEstoque')
                                     && formGroup.get('quantidadeEstoque')?.invalid 
@@ -66,7 +66,7 @@
                     </mat-error>
                 </mat-form-field>
 
-                <mat-form-field appearance="fill" class="full-width-input">
+                <!-- <mat-form-field appearance="fill" class="full-width-input">
                     <mat-label>Data de Lançamento</mat-label>
                     <input matInput [matDatepicker]="picker" formControlName="dataLancamento">
                     <mat-hint>DD/MM/YYYY</mat-hint>
@@ -77,40 +77,30 @@
                                     && formGroup.get('dataLancamento')?.touched">
                         {{ getErrorMessage('dataLancamento', formGroup.get('dataLancamento')?.errors) }}
                     </mat-error>
-                </mat-form-field>
+                </mat-form-field> -->
 
+                <!--Classificacao-->
                 <mat-form-field appearance="fill" class="full-width-input">
                     <mat-label> Classificação </mat-label>
                         <mat-select formControlName="classificacao" name="classificacao">
-                        <mat-option value="LIVRE">Livre</mat-option>
-                        <mat-option value="DEZANOS">10 Anos</mat-option>
-                        <mat-option value="DOZEANOS">12 Anos</mat-option>
-                        <mat-option value="QUATORZEANOS">14 Anos</mat-option>
-                        <mat-option value="DEZESSEISANOS">16 Anos</mat-option>
-                        <mat-option value="DEZOITOANOS">18 Anos</mat-option>
+                        <mat-option value="1">Livre</mat-option>
+                        <mat-option value="2">10 Anos</mat-option>
+                        <mat-option value="3">12 Anos</mat-option>
+                        <mat-option value="4">14 Anos</mat-option>
+                        <mat-option value="5">16 Anos</mat-option>
+                        <mat-option value="6">18 Anos</mat-option>
                     </mat-select>
                 </mat-form-field>
 
-                <mat-form-field appearance="fill" class="full-width-input">
-                    <mat-label>Fornecedor</mat-label>
-                    <mat-select formControlName="fornecedor">
-                        <mat-option *ngFor="let fornecedor of fornecedores" [value]="fornecedor.id">
-                            {{ fornecedor.nome }}
-                        </mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="formGroup.get('fornecedor')
-                                    && formGroup.get('fornecedor')?.invalid 
-                                    && formGroup.get('fornecedor')?.touched">
-                        {{ getErrorMessage('fornecedor', formGroup.get('fornecedor')?.errors) }}
-                    </mat-error>
-                </mat-form-field>
-
-                <mat-form-field appearance="fill" class="full-width-input">
+                  <!--editora-->
+                  <mat-form-field appearance="fill" class="full-width-input">
                     <mat-label>Editora</mat-label>
-                    <mat-select formControlName="editora">
-                        <mat-option *ngFor="let editora of editoras" [value]="editora.id">
-                            {{ editora.nome }}
-                        </mat-option>
+                    <mat-select formControlName="editora" id="editora_id">
+                        @for (editora of editoras; track editora) {
+                            <mat-option [value]="editora">
+                                {{editora.nome}}
+                            </mat-option>
+                        }
                     </mat-select>
                     <mat-error *ngIf="formGroup.get('editora')
                                     && formGroup.get('editora')?.invalid 
@@ -119,7 +109,26 @@
                     </mat-error>
                 </mat-form-field>
 
+                <!--fornecedor-->
                 <mat-form-field appearance="fill" class="full-width-input">
+                    <mat-label>Fornecedor</mat-label>
+                    <mat-select formControlName="fornecedor" id="fornecedor_id">
+                        @for (fornecedor of fornecedores; track fornecedor) {
+                            <mat-option [value]="fornecedor">
+                                {{fornecedor.nome}}
+                            </mat-option>
+                        }
+                    </mat-select>
+                    <mat-error *ngIf="formGroup.get('fornecedor')
+                                    && formGroup.get('fornecedor')?.invalid 
+                                    && formGroup.get('fornecedor')?.touched">
+                        {{ getErrorMessage('fornecedor', formGroup.get('fornecedor')?.errors) }}
+                    </mat-error>
+                </mat-form-field>
+
+              
+
+                <!-- <mat-form-field appearance="fill" class="full-width-input">
                     <mat-label>Autor</mat-label>
                     <mat-select formControlName="autor">
                         <mat-option *ngFor="let autor of autores" [value]="autor.id">
@@ -131,9 +140,9 @@
                                     && formGroup.get('autor')?.touched">
                         {{ getErrorMessage('autor', formGroup.get('autor')?.errors) }}
                     </mat-error>
-                </mat-form-field>
+                </mat-form-field> -->
 
-                <mat-form-field appearance="fill" class="full-width-input">
+                <!-- <mat-form-field appearance="fill" class="full-width-input">
                     <mat-label>Gênero</mat-label>
                     <mat-select formControlName="genero">
                         <mat-option *ngFor="let genero of generos" [value]="genero.id">
@@ -145,7 +154,7 @@
                                     && formGroup.get('genero')?.touched">
                         {{ getErrorMessage('genero', formGroup.get('genero')?.errors) }}
                     </mat-error>
-                </mat-form-field>
+                </mat-form-field> -->
             </form>
         </mat-card-content>
         <mat-card-actions>
