@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgFor } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -18,15 +18,14 @@ import { Box } from '../../../models/box.model';
   templateUrl: './box-list.component.html',
   styleUrl: './box-list.component.css'
 })
-export class BoxListComponent {
-  displayedColumns: string[] = ['id', 'nome', 'descricaoBox', 'quantidadeEstoque', 'fornecedor', 'editora', 'genero', 'autor', 'preco', 'classificacao', 'acao'];
+export class BoxListComponent implements OnInit{
+  displayedColumns: string[] = ['id', 'nome', 'descricaoBox', 'quantidadeEstoque', 'fornecedor', 'editora', 'preco', 'classificacao', 'genero', 'acao'];
   boxes: Box[] = [];
   
   
   constructor(
     private boxService: BoxService, 
     private dialog: MatDialog, 
-    // private livroService: LivroService
   ){}
 
   ngOnInit(): void {
@@ -35,15 +34,11 @@ export class BoxListComponent {
     );
   }
 
-  // getLivros(): void{
-  //   this.livroService
-  // }
-
   excluir(box: Box): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '250px',
       data: {
-        message: 'Deseja realmente excluir este Genero?'
+        message: 'Deseja realmente excluir este Box?'
       }
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -53,7 +48,7 @@ export class BoxListComponent {
             this.boxes = this.boxes.filter(e => e.id !== box.id);
           },
           error: (err) => {
-            console.error('Erro ao tentar excluir o genero', err);
+            console.error('Erro ao tentar excluir o Box', err);
           }
         });
       }

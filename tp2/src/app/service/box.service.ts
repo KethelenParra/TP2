@@ -25,14 +25,34 @@ export class BoxService {
   }
 
   insert(box: Box): Observable<Box> {
-    return this.httpClient.post<Box>(this.baseUrl, box);
+    const data = {
+      nome: box.nome,
+      descricaoBox: box.descricaoBox,
+      quantidadeEstoque: box.quantidadeEstoque,
+      fornecedor: box.fornecedor.id,
+      editora: box.editora.id,
+      preco: box.preco,
+      classificacao: box.classificacao,
+      generos: box.generos.map(genero => genero.id)
+    }
+    return this.httpClient.post<Box>(`${this.baseUrl}`, data);
   }
 
   update(box: Box): Observable<Box>{
-    return this.httpClient.put<Box>(`${this.baseUrl}/${box.id}`, box);
+    const data = {
+      nome: box.nome,
+      descricaoBox: box.descricaoBox,
+      quantidadeEstoque: box.quantidadeEstoque,
+      fornecedor: box.fornecedor.id,
+      editora: box.editora.id,
+      preco: box.preco,
+      classificacao: box.classificacao,
+      generos: box.generos.map(genero => genero.id)
+    }
+    return this.httpClient.put<Box>(`${this.baseUrl}/${box.id}`, data);
   }
 
-  delete(box: Box): Observable<any>{//void, sem retorno
+  delete(box: Box): Observable<any>{
     return this.httpClient.delete<any>(`${this.baseUrl}/${box.id}`);
   }
 }
