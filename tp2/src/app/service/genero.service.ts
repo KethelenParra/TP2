@@ -21,6 +21,7 @@ export class GeneroService {
   }
 
   insert(genero: Genero): Observable<Genero> {
+    console.log(JSON.stringify(genero));
     return this.httpClient.post<Genero>(this.baseUrl, genero);
   }
 

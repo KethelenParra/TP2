@@ -22,6 +22,7 @@ export class AutorService {
   }
 
   insert(autor: Autor): Observable<Autor> {
+    console.log(JSON.stringify(autor));
     return this.httpClient.post<Autor>(this.baseUrl, autor);
   }
 

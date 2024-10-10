@@ -106,10 +106,10 @@
                 </mat-form-field>
 
                     <!--Genero-->
-                <!-- <mat-form-field appearance="fill" class="full-width-input">
+                <mat-form-field appearance="fill" class="full-width-input">
                     <mat-label>Gênero</mat-label>
                     <mat-select formControlName="generos" name="generos" multiple>
-                        <mat-option *ngFor="let genero of generos" [value]="genero.id">
+                        <mat-option *ngFor="let genero of generos" [value]="genero">
                             {{genero.nome}}
                         </mat-option>
                     </mat-select>
@@ -118,25 +118,22 @@
                                     && formGroup.get('generos')?.touched">
                                     {{getErrorMessage('generos', formGroup.get('generos')?.errors)}}
                     </mat-error>
-                </mat-form-field> -->
+                </mat-form-field>
 
-               
                 <!--Autor-->
-                <!-- <mat-form-field appearance="fill" class="full-width-input">
+                <mat-form-field appearance="fill" class="full-width-input">
                     <mat-label>Autor</mat-label>
-                    <mat-select formControlName="autor">
-                        @for (autor of autores; track autor.id) {
-                        <mat-option [value]="autor">
+                    <mat-select formControlName="autores" name="autores" multiple>
+                        <mat-option *ngFor="let autor of autores" [value]="autor">
                             {{autor.nome}}
                         </mat-option>
-                        }
                     </mat-select>
-                    <mat-error *ngIf="formGroup.get('autor')
-                                    && formGroup.get('autor')?.invalid
-                                    && formGroup.get('autor')?.touched">
-                                    {{getErrorMessage('autor', formGroup.get('autor')?.errors)}}
+                    <mat-error *ngIf="formGroup.get('autores')
+                                    && formGroup.get('autores')?.invalid
+                                    && formGroup.get('autores')?.touched">
+                                    {{getErrorMessage('autores', formGroup.get('autores')?.errors)}}
                     </mat-error>
-                </mat-form-field> -->
+                </mat-form-field>
 
             </form>
         </mat-card-content>

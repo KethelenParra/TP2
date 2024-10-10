@@ -32,10 +32,12 @@ export class BoxService {
       fornecedor: box.fornecedor.id,
       editora: box.editora.id,
       preco: box.preco,
-      classificacao: box.classificacao
-      //generos: box.generos.map(genero => genero.id)
+      classificacao: box.classificacao,
+      generos: box.generos.filter(genero => genero?.id).map(genero => genero.id),
+      autores: box.autores.filter(autor => autor?.id).map(autor => autor.id)
     }
-    return this.httpClient.post<Box>(`${this.baseUrl}`, data);
+    console.log(JSON.stringify(data));
+    return this.httpClient.post<Box>(this.baseUrl, data);
   }
 
   update(box: Box): Observable<Box>{
@@ -46,8 +48,9 @@ export class BoxService {
       fornecedor: box.fornecedor.id,
       editora: box.editora.id,
       preco: box.preco,
-      classificacao: box.classificacao
-      //generos: box.generos.map(genero => genero.id)
+      classificacao: box.classificacao,
+      generos: box.generos.filter(genero => genero?.id).map(genero => genero.id),
+      autores: box.autores.filter(autor => autor?.id).map(autor => autor.id)
     }
     return this.httpClient.put<Box>(`${this.baseUrl}/${box.id}`, data);
   }

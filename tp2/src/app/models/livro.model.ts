@@ -10,10 +10,10 @@ export class Livro {
     preco!: number;
     isbn!: string;
     descricao!: string;
+    datalancamento!: Date;
     classificacao!: string;
     editora!: Editora;
     fornecedor!: Fornecedor;
-    // datalancamento!: Date;
-    // autores!: Autor[];
-    // generos!: Genero[];
+    autores!: Autor[];
+    generos!: Genero[];
 }

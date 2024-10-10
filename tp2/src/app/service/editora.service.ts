@@ -35,6 +35,7 @@ export class EditoraService {
         numero: editora.telefone.numero,
       },
     };
+    console.log(JSON.stringify(data));
     return this.httpClient.post<Editora>(this.baseUrl, data);
   }
 
