@@ -20,20 +20,16 @@ import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog
 })
 export class LivroListComponent implements OnInit {
   
-  // Adicionado todos os campos necessários no displayedColumns
   displayedColumns: string[] = [
     'id', 
     'titulo', 
-    'preco', 
     'quantidadeEstoque', 
+    'preco', 
     'isbn', 
-    'datalancamento', 
     'descricao', 
     'classificacao', 
-    'fornecedor', 
     'editora', 
-    'autor', 
-    'genero', 
+    'fornecedor', 
     'acao'
   ];
   livros: Livro[] = [];
@@ -41,16 +37,14 @@ export class LivroListComponent implements OnInit {
   constructor(private livroService: LivroService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    // Carregar a lista de livros
     this.livroService.findAll().subscribe(
-      data => { this.livros = data; },
-      error => { console.error('Erro ao carregar os livros', error); }
+      data => { this.livros = data }
     );
   }
 
   excluir(livro: Livro): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      width: '250px',
+      width: '350px',
       data: {
         message: 'Deseja realmente excluir este Livro?'
       }
@@ -59,7 +53,6 @@ export class LivroListComponent implements OnInit {
       if (result === true) {
         this.livroService.delete(livro).subscribe({
           next: () => {
-            // Atualizar a lista de livros removendo o livro excluído
             this.livros = this.livros.filter(l => l.id !== livro.id);
           },
           error: (err) => {

@@ -37,16 +37,16 @@ export class LivroFormComponent implements OnInit {
   formGroup: FormGroup;
   fornecedores: Fornecedor[] = [];
   editoras: Editora[] = [];
-  autores: Autor[] = [];
-  generos: Genero[] = [];
+  // autores: Autor[] = [];
+  // generos: Genero[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
     private livroService: LivroService,
     private fornecedorService: FornecedorService,
     private editoraService: EditoraService,
-    private autorService: AutorService,
-    private generoService: GeneroService,
+    // private autorService: AutorService,
+    // private generoService: GeneroService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog,
@@ -56,16 +56,16 @@ export class LivroFormComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       id: [null],
       titulo: ['', Validators.required],
-      descricao: ['', Validators.required],
-      preco: ['', Validators.required],
-      isbn: ['', Validators.required],
       quantidadeEstoque: ['', Validators.required],
-      datalancamento: ['', Validators.required],
+      preco: [null, Validators.required],
+      isbn: ['', Validators.required],
+      descricao: ['', Validators.required],
       classificacao: [null],
-      fornecedor: [null],
       editora: [null],
-      autor: [null],
-      genero: [null]
+      fornecedor: [null]
+      // datalancamento: ['', Validators.required],
+      // autor: [null],
+      // genero: [null]
 
     });
   }
@@ -81,15 +81,15 @@ export class LivroFormComponent implements OnInit {
       this.initializeForm();
     });
 
-    this.autorService.findAll().subscribe(data => {
-      this.autores = data;
-      this.initializeForm();
-    });
+    // this.autorService.findAll().subscribe(data => {
+    //   this.autores = data;
+    //   this.initializeForm();
+    // });
 
-    this.generoService.findAll().subscribe(data => {
-      this.generos = data;
-      this.initializeForm();
-    });
+    // this.generoService.findAll().subscribe(data => {
+    //   this.generos = data;
+    //   this.initializeForm();
+    // });
 
   }
 
@@ -102,22 +102,22 @@ export class LivroFormComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       id: [(livro && livro.id) ? livro.id : null],
       titulo: [(livro && livro.titulo) ? livro.titulo : null,
-            Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(60)])],
+            Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(60)])],
+      quantidadeEstoque: [(livro && livro.quantidadeEstoque) ? livro.quantidadeEstoque : null,
+                Validators.compose([Validators.required, Validators.minLength(1)])],
+      preco: [(livro && livro.preco) ? livro.preco : null,
+              Validators.compose([Validators.required])],
       descricao: [(livro && livro.descricao) ? livro.descricao : null,
             Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(20000)])],
-      preco: [(livro && livro.preco) ? livro.preco : null,
-            Validators.compose([Validators.required])],
-      quantidadeEstoque: [(livro && livro.quantidadeEstoque) ? livro.quantidadeEstoque : null,
-            Validators.compose([Validators.required, Validators.minLength(1)])],
       isbn: [(livro && livro.isbn) ? livro.isbn : null,
             Validators.compose([Validators.required, Validators.minLength(13), Validators.maxLength(13)])],
-      datalancamento: [(livro && livro.datalancamento) ? livro.datalancamento : null,
-            Validators.compose([Validators.required])],
+      // datalancamento: [(livro && livro.datalancamento) ? livro.datalancamento : null,
+      //       Validators.compose([Validators.required])],
       classificacao: [(livro && livro.classificacao)? livro.classificacao : null, Validators.required],
-      fornecedor: [fornecedor],
       editora: [editora],
-      autores: [(livro && livro.autores)? livro.autores.map((autor) => autor.id) : null, Validators.required],
-      generos: [(livro && livro.generos)? livro.generos.map((genero) => genero.id) : null, Validators.required],
+      fornecedor: [fornecedor]
+      // autores: [(livro && livro.autores)? livro.autores.map((autor) => autor.id) : null, Validators.required],
+      // generos: [(livro && livro.generos)? livro.generos.map((genero) => genero.id) : null, Validators.required],
     });
   }
 
@@ -153,18 +153,18 @@ export class LivroFormComponent implements OnInit {
       if (livro.id != null) {
         const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
           data: {
-            message: 'Deseja realmente excluir este Livro?'
+            message: 'Deseja realmente excluir este livro?'
           }
         });
-  
-        dialogRef.afterClosed().subscribe(result => {
+
+        dialogRef.afterClosed().subscribe( result => {
           if (result) {
             this.livroService.delete(livro).subscribe({
               next: () => {
                 this.router.navigateByUrl('/livros');
               },
               error: (err) => {
-                console.log('Erro ao excluir', + JSON.stringify(err));
+                console.log('Erro ao Excluir' + JSON.stringify(err));
               }
             });
           }
@@ -173,7 +173,6 @@ export class LivroFormComponent implements OnInit {
     }
   }
   
-
   cancelar(){
     this.router.navigateByUrl('/livros');
   }
@@ -182,15 +181,13 @@ export class LivroFormComponent implements OnInit {
     if (!errors) {
       return '';
     }
-    
-    // Retorna a mensagem do erro específica
+ 
     for (const errorName in errors) {
       if (errors.hasOwnProperty(errorName) && this.errorMessage[controlName] && this.errorMessage[controlName][errorName]) {
         return this.errorMessage[controlName][errorName];
       }
     }
     
-    // Caso não encontre erro
     return 'Campo inválido';
   }
   
@@ -200,10 +197,9 @@ export class LivroFormComponent implements OnInit {
       minlength: 'O título deve ter pelo menos 2 caracteres',
       maxlength: 'O título deve ter no máximo 60 caracteres'
     },
-    descricao: {
-      required: 'A descrição deve ser informada',
-      minlength: 'A descrição deve ter pelo menos 10 caracteres',
-      maxlength: 'A descrição deve ter no máximo 20000 caracteres'
+    quantidadeEstoque: {
+      required: 'A quantidade em estoque deve ser informada',
+      minlength: 'A quantidade em estoque deve ser um valor válido'
     },
     preco: {
       required: 'O preço deve ser informado'
@@ -213,13 +209,14 @@ export class LivroFormComponent implements OnInit {
       minlength: 'O ISBN deve conter 13 caracteres',
       maxlength: 'O ISBN deve conter 13 caracteres'
     },
-    quantidadeEstoque: {
-      required: 'A quantidade em estoque deve ser informada',
-      minlength: 'A quantidade em estoque deve ser um valor válido'
+    descricao: {
+      required: 'A descrição deve ser informada',
+      minlength: 'A descrição deve ter pelo menos 10 caracteres',
+      maxlength: 'A descrição deve ter no máximo 20000 caracteres'
     },
-    datalancamento: {
-      required: 'A data de lançamento deve ser informada'
-    },
+    // datalancamento: {
+    //   required: 'A data de lançamento deve ser informada'
+    // },
     classificacao: {
       required: 'A classificação deve ser selecionada'
     },
@@ -228,12 +225,12 @@ export class LivroFormComponent implements OnInit {
     },
     editora: {
       required: 'A editora deve ser selecionada'
-    },
-    autor: {
-      required: 'O autor deve ser selecionado'
-    },
-    genero: {
-      required: 'O gênero deve ser selecionado'
     }
+    // autor: {
+    //   required: 'O autor deve ser selecionado'
+    // },
+    // genero: {
+    //   required: 'O gênero deve ser selecionado'
+    // }
   };
 }
