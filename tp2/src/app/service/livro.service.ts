@@ -26,25 +26,32 @@ export class LivroService {
       preco: livro.preco,
       isbn: livro.isbn,
       descricao: livro.descricao,
+      datalancamento: livro.datalancamento,
       classificacao: livro.classificacao,
       editora: livro.editora.id,
-      fornecedor: livro.fornecedor.id
+      fornecedor: livro.fornecedor.id,
+      generos: livro.generos.filter(genero => genero?.id).map(genero => genero.id),
+      autores: livro.autores.filter(autor => autor?.id).map(autor => autor.id)
     }
-    return this.httpClient.post<Livro>(`${this.baseUrl}`, data);
+    console.log(JSON.stringify(data));
+    return this.httpClient.post<Livro>(this.baseUrl, data);
   }
 
-  // Método para atualizar um livro existente
   update(livro: Livro): Observable<Livro> {
     const data = {
       titulo : livro.titulo,
       quantidadeEstoque: livro.quantidadeEstoque,
       preco: livro.preco,
-      inbn: livro.isbn,
+      isbn: livro.isbn,
       descricao: livro.descricao,
+      datalancamento: livro.datalancamento,
       classificacao: livro.classificacao,
       editora: livro.editora.id,
-      fornecedor: livro.fornecedor.id
+      fornecedor: livro.fornecedor.id,
+      generos: livro.generos.filter(genero => genero?.id).map(genero => genero.id),
+      autores: livro.autores.filter(autor => autor?.id).map(autor => autor.id)
     }
+    console.log(JSON.stringify(data));
     return this.httpClient.put<Livro>(`${this.baseUrl}/${livro.id}`, data);
   }
 

@@ -21,6 +21,8 @@ import { Editora } from '../../../models/editora.model';
 import { EditoraService } from '../../../service/editora.service';
 import { Genero } from '../../../models/genero.model';
 import { GeneroService } from '../../../service/genero.service';
+import { Autor } from '../../../models/autor.model';
+import { AutorService } from '../../../service/autor.service';
 
 @Component({
   selector: 'app-box-form',
@@ -33,14 +35,16 @@ export class BoxFormComponent implements OnInit{
   formGroup: FormGroup;
   fornecedores: Fornecedor[] = [];
   editoras: Editora[] = [];
-  // generos: Genero[] = [];
-  // autores: Autor[] = [];
+  generos: Genero[] = [];
+  autores: Autor[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
     private boxService: BoxService,
     private fornecedorService: FornecedorService,
     private editoraService: EditoraService,
+    private generoService: GeneroService,
+    private autorService: AutorService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog,
@@ -48,10 +52,6 @@ export class BoxFormComponent implements OnInit{
     // private autorService: AutorService,
     public navService: NavigationService) {
 
-      // const box: Box = this.activatedRoute.snapshot.data['box'];
-
-      // const fornecedor = this.fornecedores.find(fornecedor => fornecedor.id === (box?.fornecedor?.id || null));
-      // const editora = this.editoras.find(editora => editora.id === (box?.editora?.id || null));
       this.formGroup = this.formBuilder.group({
         id: [],
         nome: ['', Validators.required],
@@ -60,9 +60,9 @@ export class BoxFormComponent implements OnInit{
         fornecedor: [null, Validators.required],
         editora: [null, Validators.required],
         preco: ['', Validators.required],
-        classificacao: [null, Validators.required]
-        //generos: [null, Validators.required]
-        // autores: [(box && box.autores)? box.autores.map((box) => box.id) : null, Validators.required],
+        classificacao: [null, Validators.required],
+        generos: [[], Validators.required],
+        autores: [[], Validators.required]
       });
     }
 
@@ -77,19 +77,17 @@ export class BoxFormComponent implements OnInit{
         this.initializeForm();
       });
 
-      // this.generoService.findAll().subscribe(data=> {
-      //   this.generos = data;
-      //   this.initializeForm();
-      // });
+      this.generoService.findAll().subscribe(data=> {
+        this.generos = data;
+        this.initializeForm();
+      });
   
-      //   this.autorService.findAll().subscribe(data => {
-      //     this.autores = data;
-      //     this.initializeForm();
-      //   });
+      this.autorService.findAll().subscribe(data => {
+        this.autores = data;
+        this.initializeForm();
+      });
     }
 
-
-   
 
     initializeForm(): void {
       const box: Box = this.activatedRoute.snapshot.data['box'];
@@ -108,9 +106,9 @@ export class BoxFormComponent implements OnInit{
         // fornecedor: [fornecedor, Validators.required],
         // editora: [editora, Validators.required],
         preco: [(box && box.preco) ? box.preco : '', Validators.required],
-        classificacao: [(box && box.classificacao) ? box.classificacao : null, Validators.required]
-        //generos: [(box && box.generos)? box.generos.map((box) => box.id) : null, Validators.required]
-        // autores: [(box && box.autores)? box.autores.map((box) => box.id) : null, Validators.required],
+        classificacao: [(box && box.classificacao) ? box.classificacao : null, Validators.required],
+        generos: [(box && box.generos) ? box.generos.map((genero) => genero.id) : [], Validators.required],
+        autores: [(box && box.autores)? box.autores.map((autor) => autor.id) : [], Validators.required]
       })
     }
 
@@ -208,9 +206,12 @@ export class BoxFormComponent implements OnInit{
       },
       classificacao: {
           required: 'A classificação deve ser selecionada'
+      },
+      genero: {
+          required: 'O genero deve ser selecionado'
+      },
+      autor: {
+          required: 'O autor deve ser selecionado'
       }
-      // genero: {
-      //     required: 'O genero deve ser selecionado'
-      // }
     };
 }

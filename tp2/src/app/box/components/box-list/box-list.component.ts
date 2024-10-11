@@ -19,7 +19,7 @@ import { Box } from '../../../models/box.model';
   styleUrl: './box-list.component.css'
 })
 export class BoxListComponent implements OnInit{
-  displayedColumns: string[] = ['id', 'nome', 'descricaoBox', 'quantidadeEstoque', 'fornecedor', 'editora', 'preco', 'classificacao', 'acao'];
+  displayedColumns: string[] = ['id', 'nome', 'descricaoBox', 'quantidadeEstoque', 'fornecedor', 'editora', 'preco', 'classificacao', 'genero', 'autor','acao'];
   boxes: Box[] = [];
   
   

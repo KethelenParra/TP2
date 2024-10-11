@@ -66,23 +66,23 @@
                     </mat-error>
                 </mat-form-field>
 
-                <!-- <mat-form-field appearance="fill" class="full-width-input">
+                <mat-form-field appearance="fill" class="full-width-input">
                     <mat-label>Data de Lançamento</mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="dataLancamento">
+                    <input matInput [matDatepicker]="picker" formControlName="datalancamento">
                     <mat-hint>DD/MM/YYYY</mat-hint>
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
-                    <mat-error *ngIf="formGroup.get('dataLancamento')
-                                    && formGroup.get('dataLancamento')?.invalid 
-                                    && formGroup.get('dataLancamento')?.touched">
-                        {{ getErrorMessage('dataLancamento', formGroup.get('dataLancamento')?.errors) }}
+                    <mat-error *ngIf="formGroup.get('datalancamento')
+                                    && formGroup.get('datalancamento')?.invalid 
+                                    && formGroup.get('datalancamento')?.touched">
+                        {{ getErrorMessage('datalancamento', formGroup.get('datalancamento')?.errors) }}
                     </mat-error>
-                </mat-form-field> -->
+                </mat-form-field>
 
                 <!--Classificacao-->
                 <mat-form-field appearance="fill" class="full-width-input">
                     <mat-label> Classificação </mat-label>
-                        <mat-select formControlName="classificacao" name="classificacao">
+                    <mat-select formControlName="classificacao" name="classificacao">
                         <mat-option value="1">Livre</mat-option>
                         <mat-option value="2">10 Anos</mat-option>
                         <mat-option value="3">12 Anos</mat-option>
@@ -92,14 +92,14 @@
                     </mat-select>
                 </mat-form-field>
 
-                  <!--editora-->
-                  <mat-form-field appearance="fill" class="full-width-input">
+                <!--editora-->
+                <mat-form-field appearance="fill" class="full-width-input">
                     <mat-label>Editora</mat-label>
                     <mat-select formControlName="editora" id="editora_id">
                         @for (editora of editoras; track editora) {
-                            <mat-option [value]="editora">
-                                {{editora.nome}}
-                            </mat-option>
+                        <mat-option [value]="editora">
+                            {{editora.nome}}
+                        </mat-option>
                         }
                     </mat-select>
                     <mat-error *ngIf="formGroup.get('editora')
@@ -114,9 +114,9 @@
                     <mat-label>Fornecedor</mat-label>
                     <mat-select formControlName="fornecedor" id="fornecedor_id">
                         @for (fornecedor of fornecedores; track fornecedor) {
-                            <mat-option [value]="fornecedor">
-                                {{fornecedor.nome}}
-                            </mat-option>
+                        <mat-option [value]="fornecedor">
+                            {{fornecedor.nome}}
+                        </mat-option>
                         }
                     </mat-select>
                     <mat-error *ngIf="formGroup.get('fornecedor')
@@ -126,40 +126,42 @@
                     </mat-error>
                 </mat-form-field>
 
-              
-
-                <!-- <mat-form-field appearance="fill" class="full-width-input">
-                    <mat-label>Autor</mat-label>
-                    <mat-select formControlName="autor">
-                        <mat-option *ngFor="let autor of autores" [value]="autor.id">
-                            {{ autor.nome }}
-                        </mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="formGroup.get('autor')
-                                    && formGroup.get('autor')?.invalid 
-                                    && formGroup.get('autor')?.touched">
-                        {{ getErrorMessage('autor', formGroup.get('autor')?.errors) }}
-                    </mat-error>
-                </mat-form-field> -->
-
-                <!-- <mat-form-field appearance="fill" class="full-width-input">
+                <!--Genero-->
+                <mat-form-field appearance="fill" class="full-width-input">
                     <mat-label>Gênero</mat-label>
-                    <mat-select formControlName="genero">
-                        <mat-option *ngFor="let genero of generos" [value]="genero.id">
-                            {{ genero.descricao }}
+                    <mat-select formControlName="generos" name="generos" multiple>
+                        <mat-option *ngFor="let genero of generos" [value]="genero">
+                            {{genero.nome}}
                         </mat-option>
                     </mat-select>
-                    <mat-error *ngIf="formGroup.get('genero')
-                                    && formGroup.get('genero')?.invalid 
-                                    && formGroup.get('genero')?.touched">
-                        {{ getErrorMessage('genero', formGroup.get('genero')?.errors) }}
+                    <mat-error *ngIf="formGroup.get('generos')
+                                    && formGroup.get('generos')?.invalid
+                                    && formGroup.get('generos')?.touched">
+                        {{getErrorMessage('generos', formGroup.get('generos')?.errors)}}
                     </mat-error>
-                </mat-form-field> -->
+                </mat-form-field>
+
+                <!--Autor-->
+                <mat-form-field appearance="fill" class="full-width-input">
+                    <mat-label>Autor</mat-label>
+                    <mat-select formControlName="autores" name="autores" multiple>
+                        <mat-option *ngFor="let autor of autores" [value]="autor">
+                            {{autor.nome}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="formGroup.get('autores')
+                                    && formGroup.get('autores')?.invalid
+                                    && formGroup.get('autores')?.touched">
+                        {{getErrorMessage('autores', formGroup.get('autores')?.errors)}}
+                    </mat-error>
+                </mat-form-field>
             </form>
+
         </mat-card-content>
         <mat-card-actions>
             <button mat-raised-button class="cancel-button" (click)="cancelar()" routerLink="/livros">Cancelar</button>
-            <button mat-raised-button *ngIf="formGroup?.get('id')?.value" class="cancel-button" (click)="excluir()">Excluir</button>
+            <button mat-raised-button *ngIf="formGroup?.get('id')?.value" class="cancel-button"
+                (click)="excluir()">Excluir</button>
             <button mat-raised-button class="save-button" (click)="salvar()">Salvar</button>
         </mat-card-actions>
     </mat-card>

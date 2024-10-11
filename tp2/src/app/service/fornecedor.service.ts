@@ -42,6 +42,7 @@ export class FornecedorService {
       },
       quantLivrosFornecido: fornecedor.quantLivrosFornecido,
     };
+    console.log(JSON.stringify(data));
     return this.httpClient.post<Fornecedor>(this.baseUrl, data);
   }
 

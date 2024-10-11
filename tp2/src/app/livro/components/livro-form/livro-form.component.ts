@@ -1,52 +1,55 @@
+import { NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { NavigationService } from '../../../service/navigation.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
-import { Fornecedor } from '../../../models/fornecedor.model';
-import { Editora } from '../../../models/editora.model';
-import { Autor } from '../../../models/autor.model';
-import { Genero } from '../../../models/genero.model';
-import { FornecedorService } from '../../../service/fornecedor.service';
-import { EditoraService } from '../../../service/editora.service';
-import { AutorService } from '../../../service/autor.service';
-import { GeneroService } from '../../../service/genero.service';
-import { Livro } from '../../../models/livro.model';
-import { ActivatedRoute, Router } from '@angular/router';
-import { LivroService } from '../../../service/livro.service';
-import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog/confirmation-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSelectModule } from '@angular/material/select';
-import { MatOptionModule } from '@angular/material/core';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
+import { MatNativeDateModule } from '@angular/material/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { Fornecedor } from '../../../models/fornecedor.model';
+import { Editora } from '../../../models/editora.model';
+import { Livro } from '../../../models/livro.model';
+import { LivroService } from '../../../service/livro.service';
+import { FornecedorService } from '../../../service/fornecedor.service';
+import { EditoraService } from '../../../service/editora.service';
+import { MatDialog } from '@angular/material/dialog';
+import { NavigationService } from '../../../service/navigation.service';
+import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog/confirmation-dialog.component';
+import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatIconModule } from '@angular/material/icon';
-import { NgIf } from '@angular/common';
+import { Autor } from '../../../models/autor.model';
+import { Genero } from '../../../models/genero.model';
+import { AutorService } from '../../../service/autor.service';
+import { GeneroService } from '../../../service/genero.service';
 
 @Component({
   selector: 'app-livro-form',
   standalone: true,
-  imports: [NgIf, ReactiveFormsModule, MatDatepickerModule, MatOptionModule,  MatSelectModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, MatMenuModule, MatIconModule],
+  imports: [NgIf, NgFor, ReactiveFormsModule, MatTableModule, MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, MatMenuModule, MatIconModule, MatSelectModule, RouterModule],
   templateUrl: './livro-form.component.html',
-  styleUrl: './livro-form.component.css'
+  styleUrls: ['./livro-form.component.css']
 })
+
+
 export class LivroFormComponent implements OnInit {
   formGroup: FormGroup;
   fornecedores: Fornecedor[] = [];
   editoras: Editora[] = [];
-  // autores: Autor[] = [];
-  // generos: Genero[] = [];
+  autores: Autor[] = [];
+  generos: Genero[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
     private livroService: LivroService,
     private fornecedorService: FornecedorService,
     private editoraService: EditoraService,
-    // private autorService: AutorService,
-    // private generoService: GeneroService,
+    private autorService: AutorService,
+    private generoService: GeneroService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog,
@@ -56,16 +59,16 @@ export class LivroFormComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       id: [null],
       titulo: ['', Validators.required],
-      quantidadeEstoque: ['', Validators.required],
+      quantidadeEstoque: [null, Validators.required],
       preco: [null, Validators.required],
       isbn: ['', Validators.required],
       descricao: ['', Validators.required],
-      classificacao: [null],
-      editora: [null],
-      fornecedor: [null]
-      // datalancamento: ['', Validators.required],
-      // autor: [null],
-      // genero: [null]
+      datalancamento: ['', Validators.required],
+      classificacao: ['', Validators.required],
+      fornecedor: [null, Validators.required],
+      editora: [null, Validators.required],
+      generos: [[], Validators.required],
+      autores: [[], Validators.required]
 
     });
   }
@@ -81,16 +84,15 @@ export class LivroFormComponent implements OnInit {
       this.initializeForm();
     });
 
-    // this.autorService.findAll().subscribe(data => {
-    //   this.autores = data;
-    //   this.initializeForm();
-    // });
+    this.autorService.findAll().subscribe(data => {
+      this.autores = data;
+      this.initializeForm();
+    });
 
-    // this.generoService.findAll().subscribe(data => {
-    //   this.generos = data;
-    //   this.initializeForm();
-    // });
-
+    this.generoService.findAll().subscribe(data => {
+      this.generos = data;
+      this.initializeForm();
+    });
   }
 
   initializeForm(): void {
@@ -111,13 +113,13 @@ export class LivroFormComponent implements OnInit {
             Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(20000)])],
       isbn: [(livro && livro.isbn) ? livro.isbn : null,
             Validators.compose([Validators.required, Validators.minLength(13), Validators.maxLength(13)])],
-      // datalancamento: [(livro && livro.datalancamento) ? livro.datalancamento : null,
-      //       Validators.compose([Validators.required])],
+      datalancamento: [(livro && livro.datalancamento) ? livro.datalancamento : null,
+            Validators.compose([Validators.required])],
       classificacao: [(livro && livro.classificacao)? livro.classificacao : null, Validators.required],
-      editora: [editora],
-      fornecedor: [fornecedor]
-      // autores: [(livro && livro.autores)? livro.autores.map((autor) => autor.id) : null, Validators.required],
-      // generos: [(livro && livro.generos)? livro.generos.map((genero) => genero.id) : null, Validators.required],
+      editora: [editora, Validators.required],
+      fornecedor: [fornecedor, Validators.required],
+      generos: [(livro && livro.generos) ? livro.generos.map((genero) => genero.id) : [], Validators.required],
+      autores: [(livro && livro.autores)? livro.autores.map((autor) => autor.id) : [], Validators.required]
     });
   }
 
@@ -130,8 +132,8 @@ export class LivroFormComponent implements OnInit {
           next: (livroCadastrado) => {
             this.router.navigateByUrl('/livros');
           },
-          error: (errorResponse) => {
-            console.log('Erro ao salvar', + JSON.stringify(errorResponse));
+          error: (err) => {
+            console.log('Erro ao salvar', + JSON.stringify(err));
           }
         });
       } else {
@@ -140,10 +142,12 @@ export class LivroFormComponent implements OnInit {
             this.router.navigateByUrl('/livros');
           },
           error: (err) => {
-            console.log('Erro ao salvar', + JSON.stringify(err));
+            console.log('Erro ao alterar', + JSON.stringify(err));
           }
         });
-      }
+      } 
+    } else {
+      console.log('Formulário inválido');
     }
   }
   
@@ -214,9 +218,9 @@ export class LivroFormComponent implements OnInit {
       minlength: 'A descrição deve ter pelo menos 10 caracteres',
       maxlength: 'A descrição deve ter no máximo 20000 caracteres'
     },
-    // datalancamento: {
-    //   required: 'A data de lançamento deve ser informada'
-    // },
+    datalancamento: {
+      required: 'A data de lançamento deve ser informada'
+    },
     classificacao: {
       required: 'A classificação deve ser selecionada'
     },
@@ -225,12 +229,12 @@ export class LivroFormComponent implements OnInit {
     },
     editora: {
       required: 'A editora deve ser selecionada'
+    },
+    autor: {
+      required: 'O autor deve ser selecionado'
+    },
+    genero: {
+      required: 'O gênero deve ser selecionado'
     }
-    // autor: {
-    //   required: 'O autor deve ser selecionado'
-    // },
-    // genero: {
-    //   required: 'O gênero deve ser selecionado'
-    // }
   };
 }

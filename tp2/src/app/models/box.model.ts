@@ -13,5 +13,5 @@ export class Box {
     preco!: number;
     classificacao!: string;
     generos!: Genero[];
-    // autores!: Autor[];
+    autores!: Autor[];
 }

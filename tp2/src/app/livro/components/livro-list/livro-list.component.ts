@@ -27,9 +27,12 @@ export class LivroListComponent implements OnInit {
     'preco', 
     'isbn', 
     'descricao', 
+    'datalancamento',
     'classificacao', 
     'editora', 
-    'fornecedor', 
+    'fornecedor',
+    'genero',
+    'autor', 
     'acao'
   ];
   livros: Livro[] = [];
