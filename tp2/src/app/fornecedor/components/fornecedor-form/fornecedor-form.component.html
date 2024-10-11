@@ -91,7 +91,7 @@
                             </mat-form-field>
                         </div>
                     </div>
-                    <mat-form-field appearance="outline" class="full-width-input">
+                    <mat-form-field appearance="fill" class="full-width-input">
                         <mat-label>Estado</mat-label>
                         <input matInput type="text" formControlName="estado">
                         <mat-error *ngIf="formGroup.get('estado')
@@ -100,7 +100,7 @@
                                 {{ getErrorMessage('estado', formGroup.get('estado')?.errors)}}
                         </mat-error>
                     </mat-form-field>
-                    <mat-form-field appearance="outline" class="full-width-input">
+                    <mat-form-field appearance="fill" class="full-width-input">
                         <mat-label>Cidade</mat-label>
                         <input matInput type="text" formControlName="cidade">
                         <mat-error *ngIf="formGroup.get('cidade')
@@ -112,11 +112,9 @@
                 </form>
             </mat-card-content>
             <mat-card-actions>
-                <button mat-raised-button class="cancel-button" (click)="cancelar()" routerLink="/fornecedores">Cancelar</button>
+                <button mat-raised-button class="cancel-button" (click)="cancelar()">Cancelar</button>
                 <button mat-raised-button *ngIf="formGroup?.get('id')?.value" class="cancel-button" (click)="excluir()">Excluir</button>
                 <button mat-raised-button class="save-button" (click)="salvar()">Salvar</button>
             </mat-card-actions>
         </mat-card>
     </div>
-</div>
-

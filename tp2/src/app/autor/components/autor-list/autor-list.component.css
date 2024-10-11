@@ -40,3 +40,15 @@
 table {
     width: 100%;
 }
+
+.sub-menu {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px; 
+    gap: 30px;  
+}
+
+.sub-menu button {
+    margin-right: 100px;
+}

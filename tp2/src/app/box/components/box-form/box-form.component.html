@@ -52,9 +52,15 @@
                     <mat-label>Fornecedor</mat-label>
                     <mat-select formControlName="fornecedor">
                         @for (fornecedor of fornecedores; track fornecedor.id) {
+<<<<<<< HEAD
                         <mat-option [value]="fornecedor">
                             {{fornecedor.nome}}
                         </mat-option>
+=======
+                            <mat-option [value]="fornecedor">
+                                {{fornecedor.nome}}
+                            </mat-option>
+>>>>>>> 79b5e9906f245bb87ce8f1c2d70eab6974978da5
                         }
                     </mat-select>
                     <mat-error *ngIf="formGroup.get('fornecedor')
@@ -69,9 +75,9 @@
                     <mat-label>Editora</mat-label>
                     <mat-select formControlName="editora" id="editora_id">
                         @for (editora of editoras; track editora) {
-                        <mat-option [value]="editora">
-                            {{editora.nome}}
-                        </mat-option>
+                            <mat-option [value]="editora">
+                                {{editora.nome}}
+                            </mat-option>
                         }
                     </mat-select>
                     <mat-error *ngIf="formGroup.get('editora')
@@ -103,15 +109,25 @@
                         <mat-option value="5">16 Anos</mat-option>
                         <mat-option value="6">18 Anos</mat-option>
                     </mat-select>
+                    <mat-error *ngIf="formGroup.get('classificacao')
+                                    && formGroup.get('classificacao')?.invalid 
+                                    && formGroup.get('classificacao')?.touched">
+                        {{ getErrorMessage('classificacao', formGroup.get('classificacao')?.errors) }}
+                    </mat-error>
                 </mat-form-field>
 
                     <!--Genero-->
                 <mat-form-field appearance="fill" class="full-width-input">
                     <mat-label>Gênero</mat-label>
                     <mat-select formControlName="generos" name="generos" multiple>
-                        <mat-option *ngFor="let genero of generos" [value]="genero">
+                        @for (genero of generos; track genero.id) {
+                            <mat-option [value]="genero">
+                                {{genero.nome}}
+                            </mat-option>
+                        }
+                        <!-- <mat-option *ngFor="let genero of generos" [value]="genero">
                             {{genero.nome}}
-                        </mat-option>
+                        </mat-option> -->
                     </mat-select>
                     <mat-error *ngIf="formGroup.get('generos')
                                     && formGroup.get('generos')?.invalid
@@ -124,9 +140,11 @@
                 <mat-form-field appearance="fill" class="full-width-input">
                     <mat-label>Autor</mat-label>
                     <mat-select formControlName="autores" name="autores" multiple>
-                        <mat-option *ngFor="let autor of autores" [value]="autor">
-                            {{autor.nome}}
-                        </mat-option>
+                        @for (autor of autores; track autor.id) {
+                            <mat-option [value]="autor">
+                                {{autor.nome}}
+                            </mat-option>
+                        }
                     </mat-select>
                     <mat-error *ngIf="formGroup.get('autores')
                                     && formGroup.get('autores')?.invalid
@@ -138,7 +156,7 @@
             </form>
         </mat-card-content>
         <mat-card-actions>
-            <button mat-raised-button class="cancel-button" (click)="cancelar()" routerLink="/boxes">Cancelar</button>
+            <button mat-raised-button class="cancel-button" (click)="cancelar()">Cancelar</button>
             <button mat-raised-button *ngIf="formGroup?.get('id')?.value" class="cancel-button" (click)="excluir()">Excluir</button>
             <button mat-raised-button class="save-button" (click)="salvar()">Salvar</button>
         </mat-card-actions>
