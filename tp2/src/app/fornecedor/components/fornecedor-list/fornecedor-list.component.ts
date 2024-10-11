@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, input, OnInit } from '@angular/core';
 import { NgFor } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -9,11 +9,12 @@ import { Fornecedor } from '../../../models/fornecedor.model';
 import { FornecedorService } from '../../../service/fornecedor.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog/confirmation-dialog.component';
+import { SearchComponent } from '../../../search/search.component';
 
 @Component({
   selector: 'app-fornecedor-list',
   standalone: true,
-  imports: [MatToolbarModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule],
+  imports: [MatToolbarModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, SearchComponent],
   templateUrl: './fornecedor-list.component.html',
   styleUrl: './fornecedor-list.component.css'
 })

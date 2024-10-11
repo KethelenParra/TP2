@@ -1,7 +1,13 @@
-<body>
-    <mat-toolbar color="warn" class="toolbar">
+<div id="corpo">
+    <mat-toolbar color="primary" class="toolbar">
         <div class="flex-container">
-            <span class="toolbar-title">Cadastro de Fornecedores</span>
+            <!-- <img src="src/assets/logo1.png" alt="logo-ecommerce" class="logo-ecommerce"> -->
+            <div>
+                <span class="material-symbols-outlined">
+                    <a href="/fornecedores"><i class="material-icons"> arrow_back </i></a>
+                 </span>
+            </div>
+            <span class="cadastrar">Cadastro de fornecedores</span>
             <button mat-button [matMenuTriggerFor]="menu" class="menu-button">Cadastrar</button>
             <mat-menu #menu="matMenu">
                 <button mat-menu-item (click)="navService.livro()">Livros</button>
@@ -112,5 +118,5 @@
             </mat-card-actions>
         </mat-card>
     </div>
-</body>
+</div>
 

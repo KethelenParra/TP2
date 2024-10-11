@@ -5,15 +5,15 @@
 
 .toolbar-title {
     flex: 1;
-    text-align: center;
+    margin-left: 28%;
+    font-size: 24px;
+    color: #fcfcfc
 }
 
 .flex-container {
     display: flex;
     align-items: center;
     width: 100%;
-    /* background-color: rgb(52, 115, 233);
-    color: rgb(209, 241, 241); */
 }
 
 .mat-column-id {
@@ -21,6 +21,10 @@
     border-right: 1px solid currentColor;
     padding-right: 24px;
     text-align: center;
+}
+
+.material-icons{
+
 }
 
 .mat-column-name {
@@ -41,11 +45,21 @@ table {
     width: 100%;
 }
 
+.search-component{
+    display: flex;
+    margin-top: 20px;
+    margin-left: 3%;
+}
+
 .column{
     text-align: center;
     font-size: 16px;
     font-family: sans-serif;
     font-weight: bold;
+}
+
+.toolbar{
+    background-color: #6B5852;
 }
 
 .data{

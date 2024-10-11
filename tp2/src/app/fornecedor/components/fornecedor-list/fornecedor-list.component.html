@@ -1,9 +1,10 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" class="toolbar">
     <div class="flex-container">
+        <app-search class="search-component"></app-search>
         <span class="toolbar-title">Controle de Fornecedores</span>
-        <button mat-fab color="accent" routerLink="/fornecedores/new">
-            <mat-icon>add</mat-icon>
-        </button>
+        <span class="material-symbols-outlined">
+            <a href="/fornecedores/new"><i class="material-icons"> add_circle </i></a>
+        </span>
     </div>
 </mat-toolbar>
 
