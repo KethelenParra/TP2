@@ -41,11 +41,11 @@ export class BoxFormComponent implements OnInit{
     private boxService: BoxService,
     private fornecedorService: FornecedorService,
     private editoraService: EditoraService,
-    // private generoService: GeneroService,
-    // private autorService: AutorService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog,
+    // private generoService: GeneroService,
+    // private autorService: AutorService,
     public navService: NavigationService) {
 
       // const box: Box = this.activatedRoute.snapshot.data['box'];

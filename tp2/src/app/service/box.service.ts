@@ -32,8 +32,8 @@ export class BoxService {
       fornecedor: box.fornecedor.id,
       editora: box.editora.id,
       preco: box.preco,
-      classificacao: box.classificacao
-      //generos: box.generos.map(genero => genero.id)
+      classificacao: box.classificacao,
+      generos: box.generos.map(genero => genero.id)
     }
     return this.httpClient.post<Box>(`${this.baseUrl}`, data);
   }
@@ -46,8 +46,8 @@ export class BoxService {
       fornecedor: box.fornecedor.id,
       editora: box.editora.id,
       preco: box.preco,
-      classificacao: box.classificacao
-      //generos: box.generos.map(genero => genero.id)
+      classificacao: box.classificacao,
+      // generos: box.generos.map(genero => genero.id)
     }
     return this.httpClient.put<Box>(`${this.baseUrl}/${box.id}`, data);
   }

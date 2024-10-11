@@ -1,3 +1,17 @@
+/* body{
+    background-image: url(TP2/imagesimagem_2024-10-10_175542303-removebg-preview.png);
+} */
+
+.formulario{
+    padding: 20px;
+    box-shadow: 4px 4px 7px gray;
+}
+
+.container{
+    display: flex;
+    background-color: #ededed;
+}
+
 /* Flex container para organizar elementos */
 .flex-container {
     display: flex;
@@ -18,10 +32,16 @@
 /* Estilo do botão do menu */
 .menu-button {
     font-size: 15px;
-    background-color: #ff4081;
+    background-color: rgb(161, 95, 95);
     color: #fff;
     padding: 8px 16px;
     border-radius: 8px;
+    display: flex;
+    justify-content: center;
+}
+
+.form_interno{
+    margin-bottom: 8px;
 }
 
 /* Estilo para o botão de adicionar */
@@ -36,7 +56,12 @@
 /* Estilo para o formulário e os inputs */
 .full-width-input {
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 8px;
+    padding-bottom: 0 auto;
+}
+
+.a{
+    background-color: #ff4d4d;
 }
 
 mat-card {
