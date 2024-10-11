@@ -54,11 +54,11 @@ export class BoxFormComponent implements OnInit{
         id: [null],
         nome: ['', Validators.required],
         descricaoBox: ['', Validators.required],  
-        quantidadeEstoque: [null, Validators.required],       
+        quantidadeEstoque: [null, Validators.required],      
         fornecedor: [null, Validators.required],
         editora: [null, Validators.required],
         preco: ['', Validators.required],
-        classificacao: [null, Validators.required],
+        classificacao: ['', Validators.required],
         generos: [[], Validators.required],
         autores: [[], Validators.required]
       });
@@ -75,7 +75,7 @@ export class BoxFormComponent implements OnInit{
         this.initializeForm();
       });
 
-      this.generoService.findAll().subscribe(data=> {
+      this.generoService.findAll().subscribe(data=> { 
         this.generos = data;
         this.initializeForm();
       });
@@ -85,7 +85,6 @@ export class BoxFormComponent implements OnInit{
         this.initializeForm();
       });
     }
-
 
     initializeForm(): void {
       const box: Box = this.activatedRoute.snapshot.data['box'];
@@ -203,13 +202,13 @@ export class BoxFormComponent implements OnInit{
         required: 'O preco deve ser informado'
       },
       classificacao: {
-          required: 'A classificação deve ser selecionada'
+        required: 'A classificação deve ser selecionada'
       },
       genero: {
-          required: 'O genero deve ser selecionado'
+        required: 'O genero deve ser selecionado'
       },
-      autor: {
-          required: 'O autor deve ser selecionado'
+      autore: {
+        required: 'O autor deve ser selecionado'
       }
     };
 }

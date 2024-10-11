@@ -159,7 +159,7 @@
 
         </mat-card-content>
         <mat-card-actions>
-            <button mat-raised-button class="cancel-button" (click)="cancelar()" routerLink="/livros">Cancelar</button>
+            <button mat-raised-button class="cancel-button" (click)="cancelar()">Cancelar</button>
             <button mat-raised-button *ngIf="formGroup?.get('id')?.value" class="cancel-button"
                 (click)="excluir()">Excluir</button>
             <button mat-raised-button class="save-button" (click)="salvar()">Salvar</button>
