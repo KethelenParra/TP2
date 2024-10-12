@@ -32,7 +32,7 @@ export class GeneroListComponent {
 
   excluir(genero: Genero): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      width: '250px',
+      width: '300px',
       data: {
         message: 'Deseja realmente excluir este Genero?'
       }

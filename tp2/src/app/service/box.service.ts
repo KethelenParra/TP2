@@ -52,6 +52,7 @@ export class BoxService {
       generos: box.generos.filter(genero => genero?.id).map(genero => genero.id),
       autores: box.autores.filter(autor => autor?.id).map(autor => autor.id)
     }
+    console.log(JSON.stringify(data));
     return this.httpClient.put<Box>(`${this.baseUrl}/${box.id}`, data);
   }
 

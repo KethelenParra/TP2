@@ -47,7 +47,7 @@ export class LivroListComponent implements OnInit {
 
   excluir(livro: Livro): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      width: '350px',
+      width: '300px',
       data: {
         message: 'Deseja realmente excluir este Livro?'
       }

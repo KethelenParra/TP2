@@ -35,7 +35,7 @@ export class AutorListComponent {
 
   excluir(autor: Autor): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      width: '250px',
+      width: '300px',
       data: {
         message: 'Deseja realmente excluir este Autor?'
       }

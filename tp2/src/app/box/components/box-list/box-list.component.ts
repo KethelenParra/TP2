@@ -19,9 +19,8 @@ import { Box } from '../../../models/box.model';
   styleUrl: './box-list.component.css'
 })
 export class BoxListComponent implements OnInit{
-  displayedColumns: string[] = ['id', 'nome', 'descricaoBox', 'quantidadeEstoque', 'fornecedor', 'editora', 'preco', 'classificacao', 'genero', 'autor','acao'];
+  displayedColumns: string[] = ['id', 'nome', 'descricaoBox', 'quantidadeEstoque', 'preco', 'classificacao', 'fornecedor', 'editora', 'genero', 'autor', 'acao'];
   boxes: Box[] = [];
-  
   
   constructor(
     private boxService: BoxService, 
@@ -36,7 +35,7 @@ export class BoxListComponent implements OnInit{
 
   excluir(box: Box): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      width: '350px',
+      width: '300px',
       data: {
         message: 'Deseja realmente excluir este Box?'
       }

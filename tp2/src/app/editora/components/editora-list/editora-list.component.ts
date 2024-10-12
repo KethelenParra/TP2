@@ -32,7 +32,7 @@ export class EditoraListComponent implements OnInit {
 
   excluir(editora: Editora): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      width: '250px',
+      width: '300px',
       data: {
         message: 'Deseja realmente excluir este Editora?'
       }

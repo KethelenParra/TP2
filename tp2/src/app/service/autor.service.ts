@@ -27,6 +27,7 @@ export class AutorService {
   }
 
   update(autor: Autor): Observable<Autor>{
+    console.log(JSON.stringify(autor));
     return this.httpClient.put<Autor>(`${this.baseUrl}/${autor.id}`, autor);
   }
 

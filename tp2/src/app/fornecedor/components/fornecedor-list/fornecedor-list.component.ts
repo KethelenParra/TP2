@@ -32,7 +32,7 @@ export class FornecedorListComponent implements OnInit {
 
   excluir(fornecedor: Fornecedor): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      width: '250px',
+      width: '300px',
       data: {
         message: 'Deseja realmente excluir este Fornecedor?'
       }
