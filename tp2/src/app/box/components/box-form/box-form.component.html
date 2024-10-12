@@ -1,6 +1,11 @@
 <mat-toolbar color="primary" class="toolbar">
     <div class="flex-container">
-        <span class="toolbar-title">Cadastro de boxes</span>
+        <div>
+            <span class="material-symbols-outlined">
+                <a href="/boxes"><i class="material-icons"> arrow_back </i></a>
+            </span>
+        </div>
+        <span class="cadastrar">Cadastro de boxes</span>
         <button mat-button [matMenuTriggerFor]="menu" class="menu-button">Cadastrar</button>
         <mat-menu #menu="matMenu">
             <button mat-menu-item (click)="navService.livro()">Livros</button>
@@ -12,11 +17,11 @@
     </div>
 </mat-toolbar>
 
-<div>
-    <mat-card>
+<div class="container">
+    <mat-card class="formulario">
         <mat-card-content>
             <form [formGroup]="formGroup">
-                <mat-form-field appearance="fill" class="full-width-input">
+                <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label> Nome </mat-label>
                     <input matInput type="text" formControlName="nome">
                     <mat-error *ngIf="formGroup.get('nome')
@@ -26,9 +31,9 @@
                     </mat-error>
                 </mat-form-field>
 
-                <mat-form-field appearance="fill" class="full-width-input">
+                <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label>Descrição</mat-label>
-                    <input matInput type="text" formControlName="descricaoBox">
+                    <textarea matInput formControlName="descricaoBox"></textarea>
                     <mat-error *ngIf="formGroup.get('descricaoBox')
                                     && formGroup.get('descricaoBox')?.invalid 
                                     && formGroup.get('descricaoBox')?.touched">
@@ -36,7 +41,7 @@
                     </mat-error>
                 </mat-form-field>
 
-                <mat-form-field appearance="fill" class="full-width-input">
+                <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label>Qdt. em Estoque</mat-label>
                     <input matInput type="number" formControlName="quantidadeEstoque">
                     <mat-error *ngIf="formGroup.get('quantidadeEstoque')
@@ -48,19 +53,13 @@
 
                 
                 <!--Fornecedor-->
-                <mat-form-field appearance="fill" class="full-width-input">
+                <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label>Fornecedor</mat-label>
                     <mat-select formControlName="fornecedor">
                         @for (fornecedor of fornecedores; track fornecedor.id) {
-<<<<<<< HEAD
                         <mat-option [value]="fornecedor">
                             {{fornecedor.nome}}
                         </mat-option>
-=======
-                            <mat-option [value]="fornecedor">
-                                {{fornecedor.nome}}
-                            </mat-option>
->>>>>>> 79b5e9906f245bb87ce8f1c2d70eab6974978da5
                         }
                     </mat-select>
                     <mat-error *ngIf="formGroup.get('fornecedor')
@@ -71,7 +70,7 @@
                 </mat-form-field>
 
                     <!--Editora-->
-                <mat-form-field appearance="fill" class="full-width-input">
+                <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label>Editora</mat-label>
                     <mat-select formControlName="editora" id="editora_id">
                         @for (editora of editoras; track editora) {
@@ -88,7 +87,7 @@
                 </mat-form-field>
 
                 <!--Preco-->
-                <mat-form-field appearance="fill" class="full-width-input">
+                <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label>Preço</mat-label>
                     <input matInput type="number" formControlName="preco" #inputPreco>
                     <mat-error *ngIf="formGroup.get('preco')
@@ -99,7 +98,7 @@
                 </mat-form-field>
 
                  <!--Classificacao-->
-                <mat-form-field appearance="fill" class="full-width-input">
+                <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label> Classificação </mat-label>
                         <mat-select formControlName="classificacao" name="classificacao">
                         <mat-option value="1">Livre</mat-option>
@@ -117,7 +116,7 @@
                 </mat-form-field>
 
                     <!--Genero-->
-                <mat-form-field appearance="fill" class="full-width-input">
+                <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label>Gênero</mat-label>
                     <mat-select formControlName="generos" name="generos" multiple>
                         @for (genero of generos; track genero.id) {
@@ -137,7 +136,7 @@
                 </mat-form-field>
 
                 <!--Autor-->
-                <mat-form-field appearance="fill" class="full-width-input">
+                <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label>Autor</mat-label>
                     <mat-select formControlName="autores" name="autores" multiple>
                         @for (autor of autores; track autor.id) {
@@ -157,8 +156,8 @@
         </mat-card-content>
         <mat-card-actions>
             <button mat-raised-button class="cancel-button" (click)="cancelar()">Cancelar</button>
-            <button mat-raised-button *ngIf="formGroup?.get('id')?.value" class="cancel-button" (click)="excluir()">Excluir</button>
-            <button mat-raised-button class="save-button" (click)="salvar()">Salvar</button>
+            <button mat-raised-button *ngIf="formGroup?.get('id')?.value" class="excluir-button" (click)="excluir()" [disabled]="formGroup.invalid">Excluir</button>
+            <button mat-raised-button class="save-button" (click)="salvar()" [disabled]="formGroup.invalid">Salvar</button>
         </mat-card-actions>
     </mat-card>
 </div>

@@ -157,7 +157,7 @@ export class LivroFormComponent implements OnInit {
       if (livro.id != null) {
         const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
           data: {
-            message: 'Deseja realmente excluir este livro?'
+            message: 'Deseja realmente excluir este Livro?'
           }
         });
 

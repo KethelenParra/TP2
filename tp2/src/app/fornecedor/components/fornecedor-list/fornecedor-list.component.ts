@@ -9,12 +9,12 @@ import { Fornecedor } from '../../../models/fornecedor.model';
 import { FornecedorService } from '../../../service/fornecedor.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog/confirmation-dialog.component';
-import { SearchComponent } from '../../../search/search.component';
+import { MatFormField } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-fornecedor-list',
   standalone: true,
-  imports: [MatToolbarModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, SearchComponent],
+  imports: [MatToolbarModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatFormField],
   templateUrl: './fornecedor-list.component.html',
   styleUrl: './fornecedor-list.component.css'
 })

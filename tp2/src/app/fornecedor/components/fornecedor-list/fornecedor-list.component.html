@@ -1,82 +1,116 @@
 <mat-toolbar color="primary" class="toolbar">
     <div class="flex-container">
-        <app-search class="search-component"></app-search>
-        <span class="toolbar-title">Controle de Fornecedores</span>
-        <span class="material-symbols-outlined">
-            <a href="/fornecedores/new"><i class="material-icons"> add_circle </i></a>
-        </span>
+        <div class="container-title">
+            <span class="toolbar-title">Controle de Fornecedores</span>
+        </div>
+        <div class="container-button">
+            <span class="material-symbols-outlined">
+                <a href="/fornecedores/new"><mat-icon class="add-circle"> add_circle </mat-icon></a>
+            </span>
+        </div>
     </div>
 </mat-toolbar>
 
-<table mat-table [dataSource]="fornecedores" class="mat-elevation-z8">
+<mat-toolbar class="icons-container">
+    <div>
+      <button mat-button routerLink="/livros" class="botao">
+        <mat-icon>menu_book</mat-icon> <!-- Ícone de livros -->
+        Livros
+      </button>
+      <button mat-button routerLink="/editoras" class="botao">
+        <mat-icon>business</mat-icon> <!-- Ícone de editoras -->
+        Editoras
+      </button>
+      <button mat-button routerLink="/boxes" class="botao">
+        <mat-icon>archive</mat-icon> <!-- Ícone de boxes -->
+        Boxes
+      </button>
+      <button mat-button routerLink="/generos" class="botao">
+        <mat-icon>category</mat-icon> <!-- Ícone de gêneros -->
+        Gêneros
+      </button>
+      <button mat-button routerLink="/autores" class="botao">
+        <mat-icon>person</mat-icon> <!-- Ícone de autores -->
+        Autores
+      </button>
+      <button mat-button routerLink="/fornecedores" class="botao">
+        <mat-icon>local_shipping</mat-icon> <!-- Ícone de fornecedores -->
+        Fornecedores
+      </button>
+    </div>
+</mat-toolbar>
+
+<div class="container">
+    <table mat-table [dataSource]="fornecedores" class="mat-elevation-z8">
     
-    <!-- Id Column -->
-    <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef class="column"> No. </th>
-        <td mat-cell *matCellDef="let fornecedor" class="data"> {{fornecedor.id}} </td>
-    </ng-container>
-
-    <!-- Nome Column -->
-    <ng-container matColumnDef="nome">
-        <th mat-header-cell *matHeaderCellDef class="column"> Nome </th>
-        <td mat-cell *matCellDef="let fornecedor" class="data"> {{fornecedor.nome}} </td>
-    </ng-container>
-
-    <!-- Cnpj Column -->
-    <ng-container matColumnDef="cnpj">
-        <th mat-header-cell *matHeaderCellDef class="column"> Cnpj </th>
-        <td mat-cell *matCellDef="let fornecedor" class="data"> {{fornecedor.cnpj}} </td>
-    </ng-container>
-
-    <!-- InscricaoEstadual Column -->
-    <ng-container matColumnDef="inscricaoestadual">
-        <th mat-header-cell *matHeaderCellDef class="column"> Inscricao Estadual </th>
-        <td mat-cell *matCellDef="let fornecedor" class="data"> {{fornecedor.inscricaoEstadual}} </td>
-    </ng-container>
-
-    <!-- Email Column -->
-    <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef class="column"> Email </th>
-        <td mat-cell *matCellDef="let fornecedor" class="data"> {{fornecedor.email}} </td>
-    </ng-container>
-
-    <!-- QuantLivrosFornecido Column -->
-    <ng-container matColumnDef="quantlivrosfornecido">
-        <th mat-header-cell *matHeaderCellDef class="column"> Qnt. de livros fornecidos </th>
-        <td mat-cell *matCellDef="let fornecedor" class="data"> {{fornecedor.quantLivrosFornecido}} </td>
-    </ng-container>
-
-    <!-- Telefone Column -->
-    <ng-container matColumnDef="telefone">
-        <th mat-header-cell *matHeaderCellDef class="column"> Telefone </th>
-        <td mat-cell *matCellDef="let fornecedor" class="data"> {{fornecedor.telefone?.codigoArea}} - {{fornecedor.telefone?.numero}} </td>
-    </ng-container>
-
-    <!-- Estado Column -->
-    <ng-container matColumnDef="estado">
-        <th mat-header-cell *matHeaderCellDef class="column"> estado </th>
-        <td mat-cell *matCellDef="let fornecedor" class="data"> {{fornecedor.estado}} </td>
-    </ng-container>
-
-    <!-- Cidade Column -->
-    <ng-container matColumnDef="cidade">
-        <th mat-header-cell *matHeaderCellDef class="column"> cidade </th>
-        <td mat-cell *matCellDef="let fornecedor" class="data"> {{fornecedor.cidade}} </td>
-    </ng-container>
-
-    <!-- ação Column -->
-    <ng-container matColumnDef="acao">
-        <th mat-header-cell *matHeaderCellDef class="column"> Ação </th>
-        <td mat-cell *matCellDef="let fornecedor" class="data"> 
-            <button mat-icon-button color="primary" routerLink="/fornecedores/edit/{{fornecedor.id}}">
-                <mat-icon>edit</mat-icon>
-            </button>
-            <button mat-icon-button color="warn" (click)="excluir(fornecedor)">
-                <mat-icon>delete</mat-icon>
-            </button>
-        </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr> <!--Colunas que serao exibidas-->
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+        <!-- Id Column -->
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef class="column"> No. </th>
+            <td mat-cell *matCellDef="let fornecedor" class="data"> {{fornecedor.id}} </td>
+        </ng-container>
+    
+        <!-- Nome Column -->
+        <ng-container matColumnDef="nome">
+            <th mat-header-cell *matHeaderCellDef class="column"> Nome </th>
+            <td mat-cell *matCellDef="let fornecedor" class="data"> {{fornecedor.nome}} </td>
+        </ng-container>
+    
+        <!-- Cnpj Column -->
+        <ng-container matColumnDef="cnpj">
+            <th mat-header-cell *matHeaderCellDef class="column"> Cnpj </th>
+            <td mat-cell *matCellDef="let fornecedor" class="data"> {{fornecedor.cnpj}} </td>
+        </ng-container>
+    
+        <!-- InscricaoEstadual Column -->
+        <ng-container matColumnDef="inscricaoestadual">
+            <th mat-header-cell *matHeaderCellDef class="column"> Inscricao Estadual </th>
+            <td mat-cell *matCellDef="let fornecedor" class="data"> {{fornecedor.inscricaoEstadual}} </td>
+        </ng-container>
+    
+        <!-- Email Column -->
+        <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef class="column"> Email </th>
+            <td mat-cell *matCellDef="let fornecedor" class="data"> {{fornecedor.email}} </td>
+        </ng-container>
+    
+        <!-- QuantLivrosFornecido Column -->
+        <ng-container matColumnDef="quantlivrosfornecido">
+            <th mat-header-cell *matHeaderCellDef class="column"> Qnt. de livros fornecidos </th>
+            <td mat-cell *matCellDef="let fornecedor" class="data"> {{fornecedor.quantLivrosFornecido}} </td>
+        </ng-container>
+    
+        <!-- Telefone Column -->
+        <ng-container matColumnDef="telefone">
+            <th mat-header-cell *matHeaderCellDef class="column"> Telefone </th>
+            <td mat-cell *matCellDef="let fornecedor" class="data"> {{fornecedor.telefone?.codigoArea}} - {{fornecedor.telefone?.numero}} </td>
+        </ng-container>
+    
+        <!-- Estado Column -->
+        <ng-container matColumnDef="estado">
+            <th mat-header-cell *matHeaderCellDef class="column"> estado </th>
+            <td mat-cell *matCellDef="let fornecedor" class="data"> {{fornecedor.estado}} </td>
+        </ng-container>
+    
+        <!-- Cidade Column -->
+        <ng-container matColumnDef="cidade">
+            <th mat-header-cell *matHeaderCellDef class="column"> cidade </th>
+            <td mat-cell *matCellDef="let fornecedor" class="data"> {{fornecedor.cidade}} </td>
+        </ng-container>
+    
+        <!-- ação Column -->
+        <ng-container matColumnDef="acao">
+            <th mat-header-cell *matHeaderCellDef class="column"> Ação </th>
+            <td mat-cell *matCellDef="let fornecedor" class="data"> 
+                <button mat-icon-button color="primary" routerLink="/fornecedores/edit/{{fornecedor.id}}">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="excluir(fornecedor)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr> <!--Colunas que serao exibidas-->
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>    

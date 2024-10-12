@@ -34,7 +34,7 @@ export class FornecedorService {
       cnpj: fornecedor.cnpj,
       inscricaoEstadual: fornecedor.inscricaoEstadual,
       email: fornecedor.email,
-      estado: fornecedor.email,
+      estado: fornecedor.estado,
       cidade: fornecedor.cidade,
       telefone: {
         codigoArea: fornecedor.telefone.codigoArea,
@@ -52,7 +52,7 @@ export class FornecedorService {
       cnpj: fornecedor.cnpj,
       inscricaoEstadual: fornecedor.inscricaoEstadual,
       email: fornecedor.email,
-      estado: fornecedor.email,
+      estado: fornecedor.estado,
       cidade: fornecedor.cidade,
       telefone: {
         codigoArea: fornecedor.telefone.codigoArea,

@@ -1,22 +1,27 @@
-<mat-toolbar color="primary" class="toolbar">
-    <div class="flex-container">
-        <span class="toolbar-title">Cadastro de Editoras</span>
-        <button mat-button [matMenuTriggerFor]="menu" class="menu-button">Cadastrar</button>
-        <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="navService.livro()">Livros</button>
-            <button mat-menu-item (click)="navService.autor()">Autores</button>
-            <button mat-menu-item (click)="navService.genero()">Gênero</button>
-            <button mat-menu-item (click)="navService.fornecedor()">Fornecedores</button>
-            <button mat-menu-item (click)="navService.box()">Box</button>
-        </mat-menu>
-     </div>
-</mat-toolbar>
+<div class="container">
+    <mat-toolbar color="primary" class="toolbar">
+        <div class="flex-container">
+            <div>
+                <span class="material-symbols-outlined">
+                    <a href="/fornecedores"><mat-icon class="material-icons"> arrow_back </mat-icon></a>
+                </span>
+            </div>
+            <span class="cadastrar">Cadastro de Editoras</span>
+            <button mat-button [matMenuTriggerFor]="menu" class="menu-button">Cadastrar</button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="navService.livro()">Livros</button>
+                <button mat-menu-item (click)="navService.autor()">Autores</button>
+                <button mat-menu-item (click)="navService.genero()">Gênero</button>
+                <button mat-menu-item (click)="navService.fornecedor()">Fornecedores</button>
+                <button mat-menu-item (click)="navService.box()">Box</button>
+            </mat-menu>
+        </div>
+    </mat-toolbar>
 
-<div>
-    <mat-card>
+    <mat-card class="formulario">
         <mat-card-content>
             <form [formGroup]="formGroup">
-                <mat-form-field appearance="fill" class="full-width-input">
+                <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label>Nome Editora</mat-label>
                     <input matInput type="text" formControlName="nome">
                     <mat-error *ngIf="formGroup.get('nome')
@@ -26,7 +31,7 @@
                     </mat-error>
                 </mat-form-field>
 
-                <mat-form-field appearance="fill" class="full-width-input">
+                <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label>Email</mat-label>
                     <input matInput type="text" formControlName="email">
                     <mat-error *ngIf="formGroup.get('email')
@@ -36,7 +41,7 @@
                     </mat-error>
                 </mat-form-field>
 
-                <mat-form-field appearance="fill" class="full-width-input">
+                <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label>Cidade</mat-label>
                     <input matInput type="text" formControlName="cidade">
                     <mat-error *ngIf="formGroup.get('cidade')
@@ -46,7 +51,7 @@
                     </mat-error>
                 </mat-form-field>
 
-                <mat-form-field appearance="fill" class="full-width-input">
+                <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label>Estado</mat-label>
                     <input matInput type="text" formControlName="estado">
                     <mat-error *ngIf="formGroup.get('estado')
@@ -58,7 +63,7 @@
                 
                 <div formGroupName="telefone">
                     <div class="full-width-input phone-fields">
-                        <mat-form-field appearance="fill" class="area-code-input">
+                        <mat-form-field appearance="outline" class="area-code-input">
                             <mat-label>Código de Área</mat-label>
                             <input matInput type="text" formControlName="codigoArea">
                             <mat-error *ngIf="formGroup.get('telefone')?.get('codigoArea')
@@ -68,7 +73,7 @@
                             </mat-error>
                         </mat-form-field>
                 
-                        <mat-form-field appearance="fill" class="phone-number-input">
+                        <mat-form-field appearance="outline" class="phone-number-input">
                             <mat-label>Número de Telefone</mat-label>
                             <input matInput type="text" formControlName="numero">
                             <mat-error *ngIf="formGroup.get('telefone')?.get('numero')?.invalid 
@@ -83,8 +88,8 @@
         </mat-card-content>
         <mat-card-actions>
             <button mat-raised-button class="cancel-button" (click)="cancelar()">Cancelar</button>
-            <button mat-raised-button *ngIf="formGroup?.get('id')?.value" class="cancel-button" (click)="excluir()">Excluir</button>
-            <button mat-raised-button class="save-button" (click)="salvar()">Salvar</button>
+            <button mat-raised-button *ngIf="formGroup?.get('id')?.value" class="excluir-button" (click)="excluir()" [disabled]="formGroup.invalid">Excluir</button>
+            <button mat-raised-button class="save-button" (click)="salvar()" [disabled]="formGroup.invalid">Salvar</button>
         </mat-card-actions>
     </mat-card>
 </div>

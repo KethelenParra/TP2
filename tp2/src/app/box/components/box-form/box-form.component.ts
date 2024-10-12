@@ -48,8 +48,6 @@ export class BoxFormComponent implements OnInit{
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog,
-    // private generoService: GeneroService,
-    // private autorService: AutorService,
     public navService: NavigationService) {
 
       this.formGroup = this.formBuilder.group({
@@ -91,8 +89,8 @@ export class BoxFormComponent implements OnInit{
     initializeForm(): void {
       const box: Box = this.activatedRoute.snapshot.data['box'];
 
-      // const fornecedorId = box?.fornecedores?.id;
-      // const editoraId = box?.editoras?.id;
+      const fornecedor = this.fornecedores.find(fornecedor => fornecedor.id === (box?.fornecedor?.id || null));
+      const editora = this.editoras.find(editora => editora.id === (box?.editora?.id || null));
      
       this.formGroup = this.formBuilder.group({
         id: [(box && box.id) ? box.id : null],
@@ -102,8 +100,8 @@ export class BoxFormComponent implements OnInit{
                 Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(20000)])],   
         quantidadeEstoque: [(box && box.quantidadeEstoque) ? box.quantidadeEstoque : null,
           Validators.compose([Validators.required, Validators.minLength(1)])],            
-        // fornecedor: [fornecedor, Validators.required],
-        // editora: [editora, Validators.required],
+        fornecedor: [fornecedor, Validators.required],
+        editora: [editora, Validators.required],
         preco: [(box && box.preco) ? box.preco : '', Validators.required],
         classificacao: [(box && box.classificacao) ? box.classificacao : null, Validators.required],
         generos: [(box && box.generos) ? box.generos.map((genero) => genero.id) : [], Validators.required],
