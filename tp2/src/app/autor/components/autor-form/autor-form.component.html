@@ -1,26 +1,29 @@
-<mat-toolbar color="primary" class="toolbar">
-    <div class="flex-container">
-        <span class="toolbar-title">Cadastro de Autores</span>
-        
-        <button mat-button [matMenuTriggerFor]="menu" class="menu-button">
-            Cadastrar
-        </button>
-        <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="navService.livro()">Livros</button>
-            <button mat-menu-item (click)="navService.box()">Box</button>
-            <button mat-menu-item (click)="navService.autor()">Autores</button>
-            <button mat-menu-item (click)="navService.genero()">Gênero</button>
-            <button mat-menu-item (click)="navService.fornecedor()">Fornecedores</button>
-            <button mat-menu-item (click)="navService.editora()">Editoras</button>
-        </mat-menu>
-     </div>
-</mat-toolbar>
+<div class="container">
+    <mat-toolbar color="primary" class="toolbar">
+        <div class="flex-container">
+            <div>
+                <span class="material-symbols-outlined">
+                    <a href="/autores"><mat-icon class="material-icons"> arrow_back </mat-icon></a>
+                </span>
+            </div>
+            <span class="cadastrar">Cadastro de Autores</span>
+            <button mat-button [matMenuTriggerFor]="menu" class="menu-button">
+                Cadastrar
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="navService.livro()">Livros</button>
+                <button mat-menu-item (click)="navService.genero()">Gêneros</button>
+                <button mat-menu-item (click)="navService.editora()">Editora</button>
+                <button mat-menu-item (click)="navService.fornecedor()">Fornecedores</button>
+                <button mat-menu-item (click)="navService.box()">Box</button>
+            </mat-menu>
+        </div>
+    </mat-toolbar>
+    <mat-card class="formulario">
 
-<div>
-    <mat-card>
         <mat-card-content>
             <form [formGroup]="formGroup">
-                <mat-form-field appearance="fill" class="full-width-input">
+                <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label>Nome</mat-label>
                     <input matInput type="text" formControlName="nome">
                     <mat-error *ngIf="formGroup.get('nome')?.invalid && formGroup.get('nome')?.touched">
@@ -29,9 +32,9 @@
                 </mat-form-field>
 
                 <!-- Biografia field directly under Nome -->
-                <mat-form-field appearance="fill" class="full-width-input">
+                <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label>Biografia</mat-label>
-                    <input matInput type="text" formControlName="biografia">
+                    <textarea matInput type="text" formControlName="biografia"></textarea>
                     <mat-error *ngIf="formGroup.get('biografia')?.invalid && formGroup.get('biografia')?.touched">
                         {{ getErrorMessage('biografia', formGroup.get('biografia')?.errors) }}
                     </mat-error>
@@ -41,8 +44,8 @@
 
         <mat-card-actions>
             <button mat-raised-button class="cancel-button" (click)="cancelar()">Cancelar</button>
-            <button mat-raised-button *ngIf="formGroup?.get('id')?.value" class="cancel-button" (click)="excluir()">Excluir</button>
-            <button mat-raised-button class="save-button" (click)="salvar()">Salvar</button>
+            <button mat-raised-button *ngIf="formGroup?.get('id')?.value" class="excluir-button" (click)="excluir()" [disabled]="formGroup.invalid">Excluir</button>
+            <button mat-raised-button class="save-button" (click)="salvar()" [disabled]="formGroup.invalid">Salvar</button>
         </mat-card-actions>
     </mat-card>
 </div>

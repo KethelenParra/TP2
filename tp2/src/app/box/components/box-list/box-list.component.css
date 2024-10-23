@@ -41,14 +41,54 @@ table {
     width: 100%;
 }
 
-#nome{
-    text-align: center;
-}
-
-#desc{
+.desc{
     text-align: justify;
 }
 
-#forn{
+.text-column{
     text-align: center;
+}
+
+.column{
+    text-align: center;
+    font-size: 16px;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+.add-circle{
+    font-size: 35px;
+    padding: 15px;
+    color: white;
+}
+
+.toolbar{
+    background-color: #6B5852;
+}
+
+.toolbar-title {
+    font-size: 30px;
+    letter-spacing: 5px;
+    font-weight: 500;
+}
+
+.botao{
+    margin-left: 30px;
+}
+
+.icons-container{
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+.icons-container button{
+    padding: 10px 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button-container button:hover {
+    background-color: #e0e0e0; /* Cor ao passar o mouse */
 }

@@ -29,7 +29,7 @@ export class EditoraService {
       nome: editora.nome,
       email: editora.email,
       cidade: editora.cidade,
-      estado: editora.email,
+      estado: editora.estado,
       telefone: {
         codigoArea: editora.telefone.codigoArea,
         numero: editora.telefone.numero,
@@ -44,7 +44,7 @@ export class EditoraService {
       nome: editora.nome,
       email: editora.email,
       cidade: editora.cidade,
-      estado: editora.email,
+      estado: editora.estado,
       telefone: {
         codigoArea: editora.telefone.codigoArea,
         numero: editora.telefone.numero,

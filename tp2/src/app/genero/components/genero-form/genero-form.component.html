@@ -1,23 +1,28 @@
-<mat-toolbar color="primary" class="toolbar">
-    <div class="flex-container">
-        <span class="toolbar-title">Cadastro de Genêros</span>
-        <button mat-button [matMenuTriggerFor]="menu" class="menu-button">Cadastrar</button>
-        <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="navService.livro()">Livros</button>
-            <button mat-menu-item (click)="navService.box()">Box</button>
-            <button mat-menu-item (click)="navService.autor()">Autores</button>
-            <button mat-menu-item (click)="navService.genero()">Gênero</button>
-            <button mat-menu-item (click)="navService.fornecedor()">Fornecedores</button>
-            <button mat-menu-item (click)="navService.editora()">Editoras</button>
-        </mat-menu>
-     </div>
-</mat-toolbar>
 
-<div>
-    <mat-card>
+<div class="container">
+    <mat-toolbar color="primary" class="toolbar">
+        <div class="flex-container">
+            <div>
+                <span class="material-symbols-outlined">
+                    <a href="/generos"><i class="material-icons"> arrow_back </i></a>
+                </span>
+            </div>
+            <span class="cadastrar">Cadastro de Genêros</span>
+            <button mat-button [matMenuTriggerFor]="menu" class="menu-button">Cadastrar</button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="navService.livro()">Livros</button>
+                <button mat-menu-item (click)="navService.autor()">Autores</button>
+                <button mat-menu-item (click)="navService.editora()">Editora</button>
+                <button mat-menu-item (click)="navService.fornecedor()">Fornecedores</button>
+                <button mat-menu-item (click)="navService.box()">Box</button>
+            </mat-menu>
+        </div>
+    </mat-toolbar>
+
+    <mat-card class="formulario">
         <mat-card-content>
             <form [formGroup]="formGroup">
-                <mat-form-field appearance="fill" class="full-width-input">
+                <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label>Nome</mat-label>
                     <input matInput type="text" formControlName="nome">
                     <mat-error *ngIf="formGroup.get('nome')
@@ -26,9 +31,9 @@
                             {{ getErrorMessage('nome', formGroup.get('nome')?.errors)}}
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field appearance="fill" class="full-width-input">
+                <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label>Descrição</mat-label>
-                    <input matInput type="text" formControlName="descricao">
+                    <textarea matInput type="text" formControlName="descricao"></textarea>
                     <mat-error *ngIf="formGroup.get('descricao')
                                     && formGroup.get('descricao')?.invalid 
                                     && formGroup.get('descricao')?.touched">
@@ -39,8 +44,8 @@
         </mat-card-content>
         <mat-card-actions>
             <button mat-raised-button class="cancel-button" (click)="cancelar()">Cancelar</button>
-            <button mat-raised-button *ngIf="formGroup?.get('id')?.value" class="cancel-button" (click)="excluir()">Excluir</button>
-            <button mat-raised-button class="save-button" (click)="salvar()">Salvar</button>
+            <button mat-raised-button *ngIf="formGroup?.get('id')?.value" class="excluir-button" (click)="excluir()" [disabled]="formGroup.invalid">Excluir</button>
+            <button mat-raised-button class="save-button" (click)="salvar()" [disabled]="formGroup.invalid">Salvar</button>
         </mat-card-actions>
     </mat-card>
 </div>

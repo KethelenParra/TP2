@@ -1,9 +1,42 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" class="toolbar">
     <div class="flex-container">
-        <span class="toolbar-title">Controle de Editoras</span>
-        <button mat-fab color="accent" routerLink="/editoras/new">
-            <mat-icon>add</mat-icon>
-        </button>
+        <div class="container-title">
+            <span class="toolbar-title">Controle de Editoras</span>
+        </div>
+        <div class="container-button">
+            <span class="material-symbols-outlined">
+                <a href="/editoras/new"><mat-icon class="add-circle"> add_circle </mat-icon></a>
+            </span>
+        </div>
+    </div>
+</mat-toolbar>
+
+<mat-toolbar class="icons-container">
+    <div>
+      <button mat-button routerLink="/livros" class="botao">
+        <mat-icon>menu_book</mat-icon> <!-- Ícone de livros -->
+        Livros
+      </button>
+      <button mat-button routerLink="/editoras" class="botao">
+        <mat-icon>business</mat-icon> <!-- Ícone de editoras -->
+        Editoras
+      </button>
+      <button mat-button routerLink="/boxes" class="botao">
+        <mat-icon>archive</mat-icon> <!-- Ícone de boxes -->
+        Boxes
+      </button>
+      <button mat-button routerLink="/generos" class="botao">
+        <mat-icon>category</mat-icon> <!-- Ícone de gêneros -->
+        Gêneros
+      </button>
+      <button mat-button routerLink="/autores" class="botao">
+        <mat-icon>person</mat-icon> <!-- Ícone de autores -->
+        Autores
+      </button>
+      <button mat-button routerLink="/fornecedores" class="botao">
+        <mat-icon>local_shipping</mat-icon> <!-- Ícone de fornecedores -->
+        Fornecedores
+      </button>
     </div>
 </mat-toolbar>
 
@@ -11,44 +44,44 @@
     
     <!-- Id Column -->
     <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef> No. </th>
-        <td mat-cell *matCellDef="let editora"> {{editora.id}} </td>
+        <th mat-header-cell *matHeaderCellDef class="column"> No. </th>
+        <td mat-cell *matCellDef="let editora" class="data"> {{editora.id}} </td>
     </ng-container>
 
     <!-- Nome Column -->
     <ng-container matColumnDef="nome">
-        <th mat-header-cell *matHeaderCellDef> Nome </th>
-        <td mat-cell *matCellDef="let editora"> {{editora.nome}} </td>
+        <th mat-header-cell *matHeaderCellDef class="column"> Nome </th>
+        <td mat-cell *matCellDef="let editora" class="data"> {{editora.nome}} </td>
     </ng-container>
 
     <!-- Email Column -->
     <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef> Email </th>
-        <td mat-cell *matCellDef="let editora"> {{editora.email}} </td>
+        <th mat-header-cell *matHeaderCellDef class="column"> Email </th>
+        <td mat-cell *matCellDef="let editora" class="data"> {{editora.email}} </td>
     </ng-container>
     
     <!-- Cidade Column -->
     <ng-container matColumnDef="cidade">
-        <th mat-header-cell *matHeaderCellDef> Cidade </th>
-        <td mat-cell *matCellDef="let editora"> {{editora.cidade}} </td>
+        <th mat-header-cell *matHeaderCellDef class="column"> Cidade </th>
+        <td mat-cell *matCellDef="let editora" class="data"> {{editora.cidade}} </td>
     </ng-container>
 
     <!-- Estado Column -->
     <ng-container matColumnDef="estado">
-        <th mat-header-cell *matHeaderCellDef> Estado </th>
-        <td mat-cell *matCellDef="let editora"> {{editora.estado}} </td>
+        <th mat-header-cell *matHeaderCellDef class="column"> Estado </th>
+        <td mat-cell *matCellDef="let editora" class="data"> {{editora.estado}} </td>
     </ng-container>
 
     <!-- Telefone Column -->
     <ng-container matColumnDef="telefone">
-        <th mat-header-cell *matHeaderCellDef> Telefone </th>
-        <td mat-cell *matCellDef="let editora"> {{editora.telefone?.codigoArea}} - {{editora.telefone?.numero}} </td>
+        <th mat-header-cell *matHeaderCellDef class="column"> Telefone </th>
+        <td mat-cell *matCellDef="let editora" class="data"> {{editora.telefone?.codigoArea}} - {{editora.telefone?.numero}} </td>
     </ng-container>
 
     <!-- ação Column -->
     <ng-container matColumnDef="acao">
-        <th mat-header-cell *matHeaderCellDef> Ação </th>
-        <td mat-cell *matCellDef="let editora"> 
+        <th mat-header-cell *matHeaderCellDef class="column"> Ação </th>
+        <td mat-cell *matCellDef="let editora" class="data"> 
             <button mat-icon-button color="primary" routerLink="/editoras/edit/{{editora.id}}">
                 <mat-icon>edit</mat-icon>
             </button>

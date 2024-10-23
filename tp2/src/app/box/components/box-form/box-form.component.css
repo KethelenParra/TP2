@@ -8,17 +8,19 @@
 }
 
 /* Título centralizado */
-.toolbar-title {
-    flex: 1;
-    text-align: center;
-    font-size: 24px; /* Aumentando o tamanho da fonte para destacar o título */
-    color: #fcfcfc; /* Cor preta para o texto */
+.cadastrar {
+    display: flex;
+    font-size: 30px;
+    justify-content: center;
+    letter-spacing: 5px;
+    font-weight: 500;
+    margin-left: 2.9%;
 }
 
 /* Estilo do botão do menu */
 .menu-button {
     font-size: 15px;
-    background-color: #ff4081;
+    background-color: #898E88;
     color: #fff;
     padding: 8px 16px;
     border-radius: 8px;
@@ -53,19 +55,40 @@ mat-card-actions {
     justify-content: flex-end;
 }
 
+.material-icons{
+    margin-top: 10px;
+    margin-left: 20px;
+    color: #ffffff;
+}
+
+.toolbar{
+    background-color: #6B5852;
+}
+
+.container{
+    display: flex;
+    background-color: #f7f6e3;
+}
+
+.formulario{
+    padding: 20px;
+    box-shadow: 4px 4px 7px gray;
+    border: 3px solid black;
+}
+
+button[mat-raised-button].cancel-button {
+    background-color: #eaede6;
+}
+
+button[mat-raised-button].save-button {
+    background-color: #eaede6;
+}
+
+button[mat-raised-button].excluir-button {
+    background-color: #eaede6;
+}
+
 button[mat-raised-button] {
     width: 120px;
     margin-right: 1rem;
 }
-
-button[mat-raised-button].cancel-button {
-    background-color: #ff4d4d;
-    color: white;
-}
-
-button[mat-raised-button].save-button {
-    background-color: #4d88ff;
-    color: white;
-}
-
-

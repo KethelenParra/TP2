@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, ValidationErrors, EmailValidator } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, ValidationErrors, EmailValidator, FormControl } from '@angular/forms';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { FornecedorService } from '../../../service/fornecedor.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -23,6 +23,7 @@ import { NavigationService } from '../../../service/navigation.service';
   styleUrl: './fornecedor-form.component.css',})
 export class FornecedorFormComponent{
   formGroup: FormGroup;
+  searchTerm: string = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -56,6 +57,11 @@ export class FornecedorFormComponent{
                                 Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(30)])],
       });
     }
+
+  onSearch() {
+    // Aqui você pode implementar a lógica de pesquisa, por exemplo:
+    console.log('Pesquisando por:', this.searchTerm);
+  }
 
   salvar() {
     this.formGroup.markAllAsTouched();

@@ -51,7 +51,7 @@ export class BoxFormComponent implements OnInit{
     public navService: NavigationService) {
 
       this.formGroup = this.formBuilder.group({
-        id: [null],
+        id: [],
         nome: ['', Validators.required],
         descricaoBox: ['', Validators.required],  
         quantidadeEstoque: [null, Validators.required],      
@@ -88,7 +88,7 @@ export class BoxFormComponent implements OnInit{
 
     initializeForm(): void {
       const box: Box = this.activatedRoute.snapshot.data['box'];
-      
+
       const fornecedor = this.fornecedores.find(fornecedor => fornecedor.id === (box?.fornecedor?.id || null));
       const editora = this.editoras.find(editora => editora.id === (box?.editora?.id || null));
      
@@ -127,9 +127,9 @@ export class BoxFormComponent implements OnInit{
             next: (boxesAlterado) => {
               this.router.navigateByUrl('/boxes');
             },
-            error: (err) => {
-              console.log('Erro ao salvar', + JSON.stringify(err));
-            } 
+            error: (error) => {
+              console.error('Erro ao atualizar box', error)
+            }
           });
         }
       }

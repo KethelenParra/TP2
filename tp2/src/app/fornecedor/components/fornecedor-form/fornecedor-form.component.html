@@ -1,6 +1,12 @@
+
 <mat-toolbar color="primary" class="toolbar">
     <div class="flex-container">
-        <span class="toolbar-title">Cadastro de Fornecedores</span>
+        <div>
+            <span class="material-symbols-outlined">
+                <a href="/fornecedores"><mat-icon class="material-icons"> arrow_back </mat-icon></a>
+            </span>
+        </div>
+        <span class="cadastrar">Cadastro de Fornecedores</span>
         <button mat-button [matMenuTriggerFor]="menu" class="menu-button">Cadastrar</button>
         <mat-menu #menu="matMenu">
             <button mat-menu-item (click)="navService.livro()">Livros</button>
@@ -10,23 +16,22 @@
             <button mat-menu-item (click)="navService.fornecedor()">Fornecedores</button>
             <button mat-menu-item (click)="navService.editora()">Editoras</button>
         </mat-menu>
-     </div>
+        </div>
 </mat-toolbar>
-
-<div>
-    <mat-card>
+<div class="container">
+    <mat-card class="formulario">
         <mat-card-content>
             <form [formGroup]="formGroup">
-                <mat-form-field appearance="fill" class="full-width-input">
+                <mat-form-field appearance="outline" class="full-width-input" >
                     <mat-label>Nome</mat-label>
-                    <input matInput type="text" formControlName="nome">
+                    <input matInput type="text" formControlName="nome" class="nome">
                     <mat-error *ngIf="formGroup.get('nome')
                                     && formGroup.get('nome')?.invalid 
                                     && formGroup.get('nome')?.touched">
                             {{ getErrorMessage('nome', formGroup.get('nome')?.errors) }}
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field appearance="fill" class="full-width-input">
+                <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label>CNPJ</mat-label>
                     <input matInput type="text" formControlName="cnpj">
                     <mat-error *ngIf="formGroup.get('cnpj')
@@ -35,7 +40,7 @@
                             {{ getErrorMessage('cnpj', formGroup.get('cnpj')?.errors)}}
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field appearance="fill" class="full-width-input">
+                <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label>Inscricao Estadual</mat-label>
                     <input matInput type="text" formControlName="inscricaoEstadual">
                     <mat-error *ngIf="formGroup.get('inscricaoEstadual')
@@ -44,7 +49,7 @@
                             {{ getErrorMessage('inscricaoEstadual', formGroup.get('inscricaoEstadual')?.errors)}}
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field appearance="fill" class="full-width-input">
+                <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label>Email</mat-label>
                     <input matInput type="text" formControlName="email">
                     <mat-error *ngIf="formGroup.get('email')
@@ -53,7 +58,7 @@
                             {{ getErrorMessage('email', formGroup.get('email')?.errors)}}
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field appearance="fill" class="full-width-input">
+                <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label>Qnt. Livros Fornecidos</mat-label>
                     <input matInput type="number" formControlName="quantLivrosFornecido">
                     <mat-error *ngIf="formGroup.get('quantLivrosFornecido')
@@ -64,7 +69,7 @@
                 </mat-form-field>
                 <div formGroupName="telefone">
                     <div class="full-width-input phone-fields">
-                        <mat-form-field appearance="fill" class="area-code-input">
+                        <mat-form-field appearance="outline" class="area-code-input">
                             <mat-label>Código de Área</mat-label>
                             <input matInput type="text" formControlName="codigoArea">
                             <mat-error *ngIf="formGroup.get('telefone')?.get('codigoArea')
@@ -74,7 +79,7 @@
                             </mat-error>
                         </mat-form-field>
                 
-                        <mat-form-field appearance="fill" class="phone-number-input">
+                        <mat-form-field appearance="outline" class="phone-number-input">
                             <mat-label>Número de Telefone</mat-label>
                             <input matInput type="text" formControlName="numero">
                             <mat-error *ngIf="formGroup.get('telefone')?.get('numero')?.invalid 
@@ -85,7 +90,7 @@
                         </mat-form-field>
                     </div>
                 </div>
-                <mat-form-field appearance="fill" class="full-width-input">
+                <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label>Estado</mat-label>
                     <input matInput type="text" formControlName="estado">
                     <mat-error *ngIf="formGroup.get('estado')
@@ -94,7 +99,7 @@
                             {{ getErrorMessage('estado', formGroup.get('estado')?.errors)}}
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field appearance="fill" class="full-width-input">
+                <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label>Cidade</mat-label>
                     <input matInput type="text" formControlName="cidade">
                     <mat-error *ngIf="formGroup.get('cidade')
@@ -107,8 +112,8 @@
         </mat-card-content>
         <mat-card-actions>
             <button mat-raised-button class="cancel-button" (click)="cancelar()">Cancelar</button>
-            <button mat-raised-button *ngIf="formGroup?.get('id')?.value" class="cancel-button" (click)="excluir()">Excluir</button>
-            <button mat-raised-button class="save-button" (click)="salvar()">Salvar</button>
+            <button mat-raised-button *ngIf="formGroup?.get('id')?.value" class="excluir-button" (click)="excluir()" [disabled]="formGroup.invalid">Excluir</button>
+            <button mat-raised-button class="save-button" (click)="salvar()" [disabled]="formGroup.invalid">Salvar</button>
         </mat-card-actions>
     </mat-card>
 </div>

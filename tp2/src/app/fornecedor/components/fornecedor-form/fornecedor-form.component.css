@@ -1,3 +1,45 @@
+.cadastrar{
+    display: flex;
+    font-size: 30px;
+    justify-content: center;
+    letter-spacing: 5px;
+    font-weight: 500;
+    margin-left: 2.9%;
+}
+
+.flex-container .search-container {
+    background-color: #e8e1cc; /* Cor de fundo similar à mostrada */
+    padding: 10px;
+    border-radius: 25px; /* Arredonda as bordas da caixa */
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.flex-container .search-input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 18px;
+    letter-spacing: 2px;
+    color: #333;
+    padding: 5px;
+}
+
+
+.formulario{
+    padding: 20px;
+    box-shadow: 4px 4px 7px gray;
+    border: 3px solid black;
+}
+
+.container{
+    display: flex;
+    background-color: #f7f6e3;
+}
+
 /* Flex container para organizar elementos */
 .flex-container {
     display: flex;
@@ -7,21 +49,25 @@
     padding: 10px 20px;
 }
 
-/* Título centralizado */
-.toolbar-title {
-    flex: 1;
-    text-align: center;
-    font-size: 24px; /* Aumentando o tamanho da fonte para destacar o título */
-    color: #fcfcfc; /* Cor preta para o texto */
+.toolbar{
+    background-color: #6B5852;
 }
 
 /* Estilo do botão do menu */
 .menu-button {
     font-size: 15px;
-    background-color: #ff4081;
-    color: #fff;
+    background-color: #898E88;
     padding: 8px 16px;
     border-radius: 8px;
+    display: flex;
+    margin: 0;
+    box-sizing: border-box;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.form_interno{
+    margin-bottom: 8px;
 }
 
 /* Estilo para o botão de adicionar */
@@ -36,7 +82,8 @@
 /* Estilo para o formulário e os inputs */
 .full-width-input {
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 8px;
+    padding-bottom: 0 auto;
 }
 
 mat-card {
@@ -53,19 +100,27 @@ mat-card-actions {
     justify-content: flex-end;
 }
 
+.material-icons{
+    margin-top: 10px;
+    margin-left: 20px;
+    color: #ffffff;
+}
+
 button[mat-raised-button] {
     width: 120px;
     margin-right: 1rem;
 }
 
 button[mat-raised-button].cancel-button {
-    background-color: #ff4d4d;
-    color: white;
+    background-color: #eaede6;
 }
 
 button[mat-raised-button].save-button {
-    background-color: #4d88ff;
-    color: white;
+    background-color: #eaede6;
+}
+
+button[mat-raised-button].excluir-button {
+    background-color: #eaede6;
 }
 
 /* Estilo para campos de telefone */

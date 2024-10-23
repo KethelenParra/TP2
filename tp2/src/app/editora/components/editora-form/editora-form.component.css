@@ -7,6 +7,38 @@
     padding: 10px 20px;
 }
 
+.formulario{
+    padding: 20px;
+    box-shadow: 4px 4px 7px gray;
+    border: 3px solid black;
+}
+
+.container{
+    height: 100%; 
+    background-color: #f7f6e3;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px 20px;
+}
+
+.toolbar{
+    background-color: #6B5852;
+}
+
+.cadastrar{
+    display: flex;
+    font-size: 30px;
+    justify-content: center;
+    letter-spacing: 5px;
+    font-weight: 500;
+    margin-left: 2.9%;
+}
+
 /* Título centralizado */
 .toolbar-title {
     flex: 1;
@@ -15,13 +47,16 @@
     color: #fcfcfc; /* Cor preta para o texto */
 }
 
-/* Estilo do botão do menu */
 .menu-button {
     font-size: 15px;
-    background-color: #ff4081;
-    color: #fff;
+    background-color: #898E88;
     padding: 8px 16px;
     border-radius: 8px;
+    display: flex;
+    margin: 0;
+    box-sizing: border-box;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 /* Estilo para o botão de adicionar */
@@ -32,11 +67,11 @@
     font-size: 20px;
     margin-left: 40px; /* Espaçamento entre "Cadastrar" e "Add" */
 }
-
 /* Estilo para o formulário e os inputs */
 .full-width-input {
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 8px;
+    padding-bottom: 0 auto;
 }
 
 mat-card {
@@ -53,19 +88,27 @@ mat-card-actions {
     justify-content: flex-end;
 }
 
+.material-icons{
+    margin-top: 10px;
+    margin-left: 20px;
+    color: #ffffff;
+}
+
 button[mat-raised-button] {
     width: 120px;
     margin-right: 1rem;
 }
 
 button[mat-raised-button].cancel-button {
-    background-color: #ff4d4d;
-    color: white;
+    background-color: #eaede6;
 }
 
 button[mat-raised-button].save-button {
-    background-color: #4d88ff;
-    color: white;
+    background-color: #eaede6;
+}
+
+button[mat-raised-button].excluir-button {
+    background-color: #eaede6;
 }
 
 /* Estilo para campos de telefone */
