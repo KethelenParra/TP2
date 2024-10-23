@@ -4,9 +4,12 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { MatPaginatorIntlPtBr } from './service/paginator-ptbr-i8n';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    {provide: MatPaginatorIntl, useClass: MatPaginatorIntlPtBr},
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes), 
     provideHttpClient(), provideAnimationsAsync(), provideAnimationsAsync()

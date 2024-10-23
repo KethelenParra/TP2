@@ -16,8 +16,23 @@ export class FornecedorService {
     return this.httpClient.get<Fornecedor>(`${this.baseUrl}/${id}`);
   }
 
-  findAll(): Observable<Fornecedor[]>{
-    return this.httpClient.get<Fornecedor[]>(this.baseUrl);
+  findAll(page?: number, pageSize?: number): Observable<Fornecedor[]> {
+    let params = {};
+
+    if(page !== undefined && pageSize !== undefined){
+      params = {
+        page: page.toString(),
+        pageSize: pageSize.toString()
+      }
+    }
+
+    console.log(params);
+
+    return this.httpClient.get<Fornecedor[]>(`${this.baseUrl}`, {params}); 
+  }
+
+  count(): Observable<number>{
+    return this.httpClient.get<number>(`${this.baseUrl}/count`);
   }
 
   findByNome(nome: string): Observable<Fornecedor>{

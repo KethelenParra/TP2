@@ -9,25 +9,39 @@ import { Editora } from '../../../models/editora.model';
 import { EditoraService } from '../../../service/editora.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog/confirmation-dialog.component';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-editora-list',
   standalone: true,
-  imports: [MatToolbarModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule],
+  imports: [MatToolbarModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator],
   templateUrl: './editora-list.component.html',
   styleUrl: './editora-list.component.css'
 })
 export class EditoraListComponent implements OnInit {
   editoras: Editora[] = [];
   displayedColumns: string[] = ['id', 'nome', 'email','telefone', 'cidade', 'estado', 'acao'];
+  //Variaveis de controle para a paginação
+  totalRecords = 0;
+  pageSize = 4;
+  page = 0;
 
   constructor(private editoraService: EditoraService, private dialog: MatDialog){
   }
 
   ngOnInit(): void {
-    this.editoraService.findAll().subscribe(
+    this.editoraService.findAll(this.page, this.pageSize).subscribe(
       data => { this.editoras = data }
     );
+    this.editoraService.count().subscribe(
+      data => { this.totalRecords = data }
+    );
+  }
+
+  paginar(event: PageEvent): void{
+    this.page = event.pageIndex;  
+    this.pageSize = event.pageSize;
+    this.ngOnInit();
   }
 
   excluir(editora: Editora): void {

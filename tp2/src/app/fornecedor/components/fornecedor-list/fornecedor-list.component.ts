@@ -10,25 +10,39 @@ import { FornecedorService } from '../../../service/fornecedor.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog/confirmation-dialog.component';
 import { MatFormField } from '@angular/material/form-field';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-fornecedor-list',
   standalone: true,
-  imports: [MatToolbarModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatFormField],
+  imports: [MatToolbarModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatFormField, MatPaginator],
   templateUrl: './fornecedor-list.component.html',
   styleUrl: './fornecedor-list.component.css'
 })
 export class FornecedorListComponent implements OnInit {
   fornecedores: Fornecedor[] = [];
   displayedColumns: string[] = ['id', 'nome', 'cnpj', 'inscricaoestadual', 'email', 'quantlivrosfornecido', 'telefone', 'estado', 'cidade', 'acao'];
+  //Variaveis de controle para a paginação
+  totalRecords = 0;
+  pageSize = 4;
+  page = 0;
 
   constructor(private fornecedorService: FornecedorService, private dialog: MatDialog){
   }
 
   ngOnInit(): void {
-    this.fornecedorService.findAll().subscribe(
+    this.fornecedorService.findAll(this.page, this.pageSize).subscribe(
       data => { this.fornecedores = data }
     );
+    this.fornecedorService.count().subscribe(
+      data => { this.totalRecords = data }
+    );
+  }
+
+  paginar(event: PageEvent): void{
+    this.page = event.pageIndex;  
+    this.pageSize = event.pageSize;
+    this.ngOnInit();
   }
 
   excluir(fornecedor: Fornecedor): void {

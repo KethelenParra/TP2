@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { Autor } from '../models/autor.model';
+import { Livro } from '../models/livro.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,23 @@ export class AutorService {
   constructor(private httpClient: HttpClient) {
   }
 
-  findAll(): Observable<Autor[]>{
-    return this.httpClient.get<Autor[]>(this.baseUrl);
+  findAll(page?: number, pageSize?: number): Observable<Autor[]> {
+    let params = {};
+
+    if(page !== undefined && pageSize !== undefined){
+      params = {
+        page: page.toString(),
+        pageSize: pageSize.toString()
+      }
+    }
+
+    console.log(params);
+
+    return this.httpClient.get<Autor[]>(`${this.baseUrl}`, {params}); 
+  }
+
+  count(): Observable<number>{
+    return this.httpClient.get<number>(`${this.baseUrl}/count`);
   }
 
   findById(id: string): Observable<Autor>{

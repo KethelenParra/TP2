@@ -119,9 +119,17 @@
                 <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label>Gênero</mat-label>
                     <mat-select formControlName="generos" name="generos" multiple>
+<<<<<<< HEAD
                         <mat-option *ngFor="let genero of generos" [value]="genero">
                             {{genero.nome}}
                         </mat-option>
+=======
+                        @for (genero of generos; track genero.id) {
+                            <mat-option [value]="genero">
+                                {{genero.nome}}
+                            </mat-option>
+                        }
+>>>>>>> 706b638b2cf55025a02bf5feb601821c9c813855
                     </mat-select>
                     <mat-error *ngIf="formGroup.get('generos')
                                     && formGroup.get('generos')?.invalid

@@ -16,12 +16,27 @@ export class BoxService {
     return this.httpClient.get<Box>(`${this.findByNome}/${nome}`)
   }
 
-  findAll(): Observable<Box[]>{
-    return this.httpClient.get<Box[]>(this.baseUrl);
-  }
-
   findById(id: string): Observable<Box>{
     return this.httpClient.get<Box>(`${this.baseUrl}/${id}`);
+  }
+
+  findAll(page?: number, pageSize?: number): Observable<Box[]> {
+    let params = {};
+
+    if(page !== undefined && pageSize !== undefined){
+      params = {
+        page: page.toString(),
+        pageSize: pageSize.toString()
+      }
+    }
+
+    console.log(params);
+
+    return this.httpClient.get<Box[]>(`${this.baseUrl}`, {params}); 
+  }
+
+  count(): Observable<number>{
+    return this.httpClient.get<number>(`${this.baseUrl}/count`);
   }
 
   insert(box: Box): Observable<Box> {
@@ -49,7 +64,7 @@ export class BoxService {
       editora: box.editora.id,
       preco: box.preco,
       classificacao: box.classificacao,
-      generos: box.generos.filter(genero => genero?.id).map(genero => genero.id),
+      generos: box.generos.map(genero => genero?.id),
       autores: box.autores.filter(autor => autor?.id).map(autor => autor.id)
     }
     console.log(JSON.stringify(data));

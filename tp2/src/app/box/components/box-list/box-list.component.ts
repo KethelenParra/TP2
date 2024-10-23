@@ -9,18 +9,23 @@ import { BoxService } from '../../../service/box.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog/confirmation-dialog.component';
 import { Box } from '../../../models/box.model';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 // import { LivroService } from '../../../service/livro.service';
 
 @Component({
   selector: 'app-box-list',
   standalone: true,
-  imports: [MatToolbarModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule],
+  imports: [MatToolbarModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator],
   templateUrl: './box-list.component.html',
   styleUrl: './box-list.component.css'
 })
 export class BoxListComponent implements OnInit{
   displayedColumns: string[] = ['id', 'nome', 'descricaoBox', 'quantidadeEstoque', 'preco', 'classificacao', 'fornecedor', 'editora', 'genero', 'autor', 'acao'];
   boxes: Box[] = [];
+  //Variaveis de controle para a paginação
+  totalRecords = 0;
+  pageSize = 2;
+  page = 0;
   
   constructor(
     private boxService: BoxService, 
@@ -28,9 +33,19 @@ export class BoxListComponent implements OnInit{
   ){}
 
   ngOnInit(): void {
-    this.boxService.findAll().subscribe( data => 
+    this.boxService.findAll(this.page, this.pageSize).subscribe( data => 
       { this.boxes = data }
     );
+
+    this.boxService.count().subscribe(
+      data => { this.totalRecords = data }
+    );
+  }
+
+  paginar(event: PageEvent): void{
+    this.page = event.pageIndex;  
+    this.pageSize = event.pageSize;
+    this.ngOnInit();
   }
 
   excluir(box: Box): void {

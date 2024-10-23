@@ -135,3 +135,9 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
   
+<mat-paginator
+    (page)="paginar($event)"
+    [length]="totalRecords"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[2, 4, 6, 8]">
+</mat-paginator>
