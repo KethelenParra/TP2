@@ -9,18 +9,22 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog/confirmation-dialog.component';
 import { Autor } from '../../../models/autor.model';
 import { AutorService } from '../../../service/autor.service';
-
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-autor-list',
   standalone: true,
-  imports:[MatToolbarModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule],
+  imports:[MatToolbarModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator],
   templateUrl: './autor-list.component.html',
   styleUrl: './autor-list.component.css'
 })
 export class AutorListComponent {
   displayedColumns: string[] = ['id', 'nome', 'biografia', 'acao'];
   autores: Autor[] = [];
+   //Variaveis de controle para a paginação
+   totalRecords = 0;
+   pageSize = 4;
+   page = 0;
 
   constructor (
     private autorService: AutorService,
@@ -28,9 +32,19 @@ export class AutorListComponent {
   ){}
 
   ngOnInit(): void {
-    this.autorService.findAll().subscribe(
+    this.autorService.findAll(this.page, this.pageSize).subscribe(
       data => { this.autores = data}
     );
+
+    this.autorService.count().subscribe(
+      data => { this.totalRecords = data }
+    );
+  }
+
+  paginar(event: PageEvent): void{
+    this.page = event.pageIndex;  
+    this.pageSize = event.pageSize;
+    this.ngOnInit();
   }
 
   excluir(autor: Autor): void {

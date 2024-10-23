@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { Livro } from '../models/livro.model';
 
 @Injectable({
@@ -11,8 +11,23 @@ export class LivroService {
 
   constructor(private httpClient: HttpClient) { }
 
-  findAll(): Observable<Livro[]>{
-    return this.httpClient.get<Livro[]>(this.baseUrl);
+  findAll(page?: number, pageSize?: number): Observable<Livro[]> {
+    let params = {};
+
+    if(page !== undefined && pageSize !== undefined){
+      params = {
+        page: page.toString(),
+        pageSize: pageSize.toString()
+      }
+    }
+
+    console.log(params);
+
+    return this.httpClient.get<Livro[]>(`${this.baseUrl}`, {params}); 
+  }
+
+  count(): Observable<number>{
+    return this.httpClient.get<number>(`${this.baseUrl}/count`);
   }
 
   findById(id: string): Observable<Livro>{

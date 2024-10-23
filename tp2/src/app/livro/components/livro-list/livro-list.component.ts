@@ -10,11 +10,12 @@ import { CommonModule } from '@angular/common';
 import { Livro } from '../../../models/livro.model';
 import { LivroService } from '../../../service/livro.service';
 import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog/confirmation-dialog.component';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-livro-list',
   standalone: true,
-  imports: [MatToolbarModule, NgFor, MatIconModule,  CommonModule, MatButtonModule, MatTableModule, RouterModule],
+  imports: [MatToolbarModule, NgFor, MatIconModule,  CommonModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator],
   templateUrl: './livro-list.component.html',
   styleUrls: ['./livro-list.component.css'] // Corrigido para "styleUrls"
 })
@@ -36,13 +37,26 @@ export class LivroListComponent implements OnInit {
     'acao'
   ];
   livros: Livro[] = [];
+  //Variaveis de controle para a paginação
+  totalRecords = 0;
+  pageSize = 2;
+  page = 0;
 
   constructor(private livroService: LivroService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.livroService.findAll().subscribe(
+    this.livroService.findAll(this.page, this.pageSize).subscribe(
       data => { this.livros = data }
     );
+    this.livroService.count().subscribe(
+      data => { this.totalRecords = data }
+    );
+  }
+
+  paginar(event: PageEvent): void{
+    this.page = event.pageIndex;  
+    this.pageSize = event.pageSize;
+    this.ngOnInit();
   }
 
   excluir(livro: Livro): void {

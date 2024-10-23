@@ -6,7 +6,7 @@
     </div>
     <div class="container-button">
         <span class="material-symbols-outlined">
-            <a href="/fornecedores/new"><mat-icon class="add-circle"> add_circle </mat-icon></a>
+            <a href="/autores/new"><mat-icon class="add-circle"> add_circle </mat-icon></a>
         </span>
     </div>
 </div>
@@ -78,3 +78,10 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 </div>
+
+<mat-paginator
+    (page)="paginar($event)"
+    [length]="totalRecords"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[2, 4, 6, 8]">
+</mat-paginator>

@@ -16,12 +16,27 @@ export class EditoraService {
     return this.httpClient.get<Editora>(`${this.baseUrl}/${id}`);
   }
 
-  findAll(): Observable<Editora[]>{
-    return this.httpClient.get<Editora[]>(this.baseUrl);
+  findAll(page?: number, pageSize?: number): Observable<Editora[]> {
+    let params = {};
+
+    if(page !== undefined && pageSize !== undefined){
+      params = {
+        page: page.toString(),
+        pageSize: pageSize.toString()
+      }
+    }
+
+    console.log(params);
+
+    return this.httpClient.get<Editora[]>(`${this.baseUrl}`, {params}); 
   }
 
   findByNome(nome: string): Observable<Editora>{
     return this.httpClient.get<Editora>(`${this.findByNome}/${nome}`)
+  }
+
+  count(): Observable<number>{
+    return this.httpClient.get<number>(`${this.baseUrl}/count`);
   }
 
   insert(editora: Editora): Observable<Editora> {
