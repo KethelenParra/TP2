@@ -10,12 +10,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog/confirmation-dialog.component';
 import { Box } from '../../../models/box.model';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { NavigationComponent } from '../../../navigation/navigation.component';
 // import { LivroService } from '../../../service/livro.service';
 
 @Component({
   selector: 'app-box-list',
   standalone: true,
-  imports: [MatToolbarModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator],
+  imports: [MatToolbarModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent],
   templateUrl: './box-list.component.html',
   styleUrl: './box-list.component.css'
 })

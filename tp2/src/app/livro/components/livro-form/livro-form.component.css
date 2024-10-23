@@ -36,7 +36,7 @@
 }
 
 .toolbar{
-    background-color: #6B5852;
+    background-color: var(--color-toolbar);
 }
 
 .menu-button {

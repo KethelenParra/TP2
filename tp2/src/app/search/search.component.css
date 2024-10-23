@@ -1,0 +1,31 @@
+.button {
+    padding: 10px 25px;
+    border: 2px solid #2c2c2c;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-radius: 30px;
+    position: relative;
+    overflow: hidden;
+    font-weight: bold;
+    margin-left: 10px;
+}
+  
+.button:hover {
+    border-color: #666666;
+    background: #292929;
+}
+
+.input{
+    width: 50em;
+    height: 40px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+}
+
+.pesquisa-container{
+    display: flex;
+    align-items: center;
+}

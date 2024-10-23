@@ -17,8 +17,11 @@ import { fornecedorResolver } from './fornecedor/resolver/fornecedor.resolver';
 import { livroResolver } from './livro/resolver/livro.resolver';
 import { LivroFormComponent } from './livro/components/livro-form/livro-form.component';
 import { LivroListComponent } from './livro/components/livro-list/livro-list.component';
+import { HomeComponent } from './home/home.component';
 
 export const routes: Routes = [
+    {path: 'home', component: HomeComponent, title: 'Home page'},
+
     {path: 'fornecedores', component: FornecedorListComponent, title: 'Lista de fornecedores'},
     {path: 'fornecedores/new', component: FornecedorFormComponent, title: 'Novo fornecedor'},
     {path: 'fornecedores/edit/:id', component: FornecedorFormComponent, resolve:{fornecedor: fornecedorResolver}},
