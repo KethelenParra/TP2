@@ -30,47 +30,45 @@ export class AutorFormComponent {
     private formBuilder: FormBuilder,
     private autorService: AutorService,
     private router: Router,
+    public navService: NavigationService,
     private activatedRoute: ActivatedRoute,
-    private dialog: MatDialog,
-    public navService: NavigationService
-  ){
-
+    private dialog: MatDialog
+  ) {
     const autor: Autor = this.activatedRoute.snapshot.data['autor'];
+    console.log(autor);
     
-    this.formGroup = this.formBuilder.group({
+    this.formGroup = formBuilder.group({
       id: [(autor && autor.id) ? autor.id : null],
-      nome: [(autor && autor.nome) ? autor.nome : null,
-                      Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(20)])],
-      biografia: [(autor && autor.biografia) ? autor.biografia : null,
-                      Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(500)])],
+      nome: [(autor && autor.nome) ? autor.nome : '', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(60)])],
+      biografia: [(autor && autor.biografia) ? autor.biografia : '', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(10000)])]
     });
   }
-  
+
   salvar() {
-    this.formGroup.markAllAsTouched();
     if (this.formGroup.valid) {
       const autor = this.formGroup.value;
-      if (autor.id == null){
+      if (autor.id == null) {
         this.autorService.insert(autor).subscribe({
-        next: (autorCadastrar) => {
-          this.router.navigate(['/autores']);
-        },
-        error: (errorResponse) => {
-          console.log('Erro ao salvar', + JSON.stringify(errorResponse));
-        } 
-      });
+          next: (autorCadastrado) => {
+            this.router.navigateByUrl('/autores');
+          },
+          error: (errorResponse) => {
+            console.log('Erro ao salvar', + JSON.stringify(errorResponse));
+          }
+        });
       } else {
         this.autorService.update(autor).subscribe({
-          next: (autorAuterado) => {
-            this.router.navigate(['/autores']);
+          next: (autorAlterado) => {
+            this.router.navigateByUrl('/autores');
           },
           error: (err) => {
             console.log('Erro ao salvar', + JSON.stringify(err));
-          } 
+          }
         });
       }
     }
   }
+
 
   excluir() {
     if (this.formGroup.valid) {
@@ -123,7 +121,7 @@ export class AutorFormComponent {
     biografia: {
       required: 'A descricao deve ser informada', 
       minlength: 'A descricao deve ter pelo menos 10 caracteres',
-      maxlength: 'A descricao deve ter no maximo 500 caracteres'
+      maxlength: 'A descricao deve ter no maximo 10000 caracteres'
     }
   };  
 }

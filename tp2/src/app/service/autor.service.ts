@@ -34,6 +34,7 @@ export class AutorService {
   }
 
   findById(id: string): Observable<Autor>{
+    console.log(`Buscando autor com ID: ${id}`);
     return this.httpClient.get<Autor>(`${this.baseUrl}/${id}`);
   }
 

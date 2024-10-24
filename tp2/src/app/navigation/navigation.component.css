@@ -1,0 +1,16 @@
+.botao{
+    margin-left: 30px;
+}
+
+.icons-container button{
+    padding: 10px 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.icons-container{
+    justify-content: space-around;
+    flex-direction: column;
+}

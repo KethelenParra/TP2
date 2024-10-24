@@ -11,11 +11,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog/confirmation-dialog.component';
 import { MatFormField } from '@angular/material/form-field';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { NavigationComponent } from '../../../navigation/navigation.component';
 
 @Component({
   selector: 'app-fornecedor-list',
   standalone: true,
-  imports: [MatToolbarModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatFormField, MatPaginator],
+  imports: [MatToolbarModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatFormField, MatPaginator, NavigationComponent],
   templateUrl: './fornecedor-list.component.html',
   styleUrl: './fornecedor-list.component.css'
 })

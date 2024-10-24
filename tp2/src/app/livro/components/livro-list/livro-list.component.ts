@@ -11,11 +11,12 @@ import { Livro } from '../../../models/livro.model';
 import { LivroService } from '../../../service/livro.service';
 import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog/confirmation-dialog.component';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { NavigationComponent } from '../../../navigation/navigation.component';
 
 @Component({
   selector: 'app-livro-list',
   standalone: true,
-  imports: [MatToolbarModule, NgFor, MatIconModule,  CommonModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator],
+  imports: [MatToolbarModule, NgFor, MatIconModule,  CommonModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent],
   templateUrl: './livro-list.component.html',
   styleUrls: ['./livro-list.component.css'] // Corrigido para "styleUrls"
 })

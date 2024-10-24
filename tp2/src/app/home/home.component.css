@@ -1,0 +1,53 @@
+:host .titulo-pag {
+    font-size: 24px;
+    letter-spacing: 2px;
+}
+
+.toolbar{
+    background-color: var(--color-toolbar);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+}
+
+.pesquisa-container{
+    display: flex;
+    align-items: center;
+}
+
+#perfil{
+    margin-right: 2%;
+    font-size: 35px;
+    padding: 10px 12px;  
+    align-items: center;
+    text-align: center;
+    margin-bottom: 0.5%;
+}
+
+.input{
+  width: 50em;
+  height: 40px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+}
+
+.button {
+    padding: 10px 25px;
+    border: 2px solid #2c2c2c;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-radius: 30px;
+    position: relative;
+    overflow: hidden;
+    font-weight: bold;
+    margin-left: 10px;
+}
+  
+.button:hover {
+    border-color: #666666;
+    background: #292929;
+}

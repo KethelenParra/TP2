@@ -10,11 +10,12 @@ import { GeneroService } from '../../../service/genero.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog/confirmation-dialog.component';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { NavigationComponent } from '../../../navigation/navigation.component';
 
 @Component({
   selector: 'app-genero-list',
   standalone: true,
-  imports: [MatToolbarModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator],
+  imports: [MatToolbarModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent],
   templateUrl: './genero-list.component.html',
   styleUrl: './genero-list.component.css'
 })

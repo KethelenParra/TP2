@@ -14,7 +14,7 @@ export class AppComponent {
   title = 'tp2';
 
   constructor(
-    private router: Router
+    private router: Router,
   ){}
 
 }

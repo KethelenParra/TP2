@@ -39,7 +39,7 @@ export class GeneroFormComponent {
         nome: [(genero && genero.nome) ? genero.nome : null,
                                 Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(20)])],
         descricao: [(genero && genero.descricao) ? genero.descricao : null,
-                                Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(500)])],
+                                Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(10000)])],
       });
     }
 
@@ -96,7 +96,6 @@ export class GeneroFormComponent {
     }
   }
   
-
   cancelar(){
     this.router.navigateByUrl('/generos');
   }
@@ -122,7 +121,7 @@ export class GeneroFormComponent {
     descricao: {
       required: 'A descricao deve ser informada', 
       minlength: 'A descricao deve ter pelo menos 10 caracteres',
-      maxlength: 'A descricao deve ter no maximo 500 caracteres'
+      maxlength: 'A descricao deve ter no maximo 10000 caracteres'
     }
   };
 

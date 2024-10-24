@@ -10,11 +10,12 @@ import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog
 import { Autor } from '../../../models/autor.model';
 import { AutorService } from '../../../service/autor.service';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { NavigationComponent } from '../../../navigation/navigation.component';
 
 @Component({
   selector: 'app-autor-list',
   standalone: true,
-  imports:[MatToolbarModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator],
+  imports:[MatToolbarModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent],
   templateUrl: './autor-list.component.html',
   styleUrl: './autor-list.component.css'
 })

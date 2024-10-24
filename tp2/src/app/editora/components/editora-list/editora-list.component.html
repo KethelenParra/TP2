@@ -11,34 +11,7 @@
     </div>
 </mat-toolbar>
 
-<mat-toolbar class="icons-container">
-    <div>
-      <button mat-button routerLink="/livros" class="botao">
-        <mat-icon>menu_book</mat-icon> <!-- Ícone de livros -->
-        Livros
-      </button>
-      <button mat-button routerLink="/editoras" class="botao">
-        <mat-icon>business</mat-icon> <!-- Ícone de editoras -->
-        Editoras
-      </button>
-      <button mat-button routerLink="/boxes" class="botao">
-        <mat-icon>archive</mat-icon> <!-- Ícone de boxes -->
-        Boxes
-      </button>
-      <button mat-button routerLink="/generos" class="botao">
-        <mat-icon>category</mat-icon> <!-- Ícone de gêneros -->
-        Gêneros
-      </button>
-      <button mat-button routerLink="/autores" class="botao">
-        <mat-icon>person</mat-icon> <!-- Ícone de autores -->
-        Autores
-      </button>
-      <button mat-button routerLink="/fornecedores" class="botao">
-        <mat-icon>local_shipping</mat-icon> <!-- Ícone de fornecedores -->
-        Fornecedores
-      </button>
-    </div>
-</mat-toolbar>
+<app-navigation></app-navigation>
 
 <table mat-table [dataSource]="editoras" class="mat-elevation-z8">
     
