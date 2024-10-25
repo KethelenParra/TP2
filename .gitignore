@@ -7,7 +7,7 @@
 /bazel-out
 
 # Node
-/node_modules
+tp2/node_modules
 npm-debug.log
 yarn-error.log
 
@@ -29,8 +29,8 @@ yarn-error.log
 .history/*
 
 # Miscellaneous]
-/.angular
-/.angular/cache
+tp2/.angular
+tp2/.angular/cache
 .sass-cache/
 /connect.lock
 /coverage

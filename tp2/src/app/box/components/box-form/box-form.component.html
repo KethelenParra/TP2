@@ -9,6 +9,7 @@
         <button mat-button [matMenuTriggerFor]="menu" class="menu-button">Cadastrar</button>
         <mat-menu #menu="matMenu">
             <button mat-menu-item (click)="navService.livro()">Livros</button>
+            <button mat-menu-item (click)="navService.box()">Box</button>
             <button mat-menu-item (click)="navService.autor()">Autores</button>
             <button mat-menu-item (click)="navService.genero()">Gênero</button>
             <button mat-menu-item (click)="navService.fornecedor()">Fornecedores</button>
@@ -50,7 +51,6 @@
                             {{ getErrorMessage('quantidadeEstoque', formGroup.get('quantidadeEstoque')?.errors)}}
                     </mat-error>
                 </mat-form-field>
-
                 
                 <!--Fornecedor-->
                 <mat-form-field appearance="outline" class="full-width-input">

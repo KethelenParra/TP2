@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { NgFor } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -11,11 +12,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog/confirmation-dialog.component';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { NavigationComponent } from '../../../navigation/navigation.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-editora-list',
   standalone: true,
-  imports: [MatToolbarModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent],
+  imports: [MatToolbarModule, FormsModule, MatInputModule, MatFormFieldModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent],
   templateUrl: './editora-list.component.html',
   styleUrl: './editora-list.component.css'
 })
@@ -26,6 +29,7 @@ export class EditoraListComponent implements OnInit {
   totalRecords = 0;
   pageSize = 4;
   page = 0;
+  filtro: string = "";
 
   constructor(private editoraService: EditoraService, private dialog: MatDialog){
   }
@@ -39,15 +43,49 @@ export class EditoraListComponent implements OnInit {
     );
   }
 
+  carregarEditoras(){
+    if(this.filtro){
+      this.editoraService.findByNome(this.filtro, this.page, this.pageSize).subscribe(data => {
+        this.editoras = data;
+        console.log(JSON.stringify(data));
+      })
+    } else {
+      this.editoraService.findAll(this.page, this.pageSize).subscribe(data => {
+        this.editoras = data;
+        console.log(JSON.stringify(data));
+      })
+    };
+  }
+
+  carregarTodosRegistros() {
+    if(this.filtro){
+      this.editoraService.countByNome(this.filtro).subscribe(data => {
+        this.totalRecords = data;
+        console.log(JSON.stringify(data));
+      })
+    } else {
+      this.editoraService.count().subscribe(data => {
+        this.totalRecords = data;
+        console.log(JSON.stringify(data));
+      });
+    }
+  }
+
   paginar(event: PageEvent): void{
     this.page = event.pageIndex;  
     this.pageSize = event.pageSize;
     this.ngOnInit();
   }
+  
+  aplicarFiltro(){
+    this.carregarEditoras();
+    this.carregarTodosRegistros();
+  }
+
 
   excluir(editora: Editora): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      width: '250px',
+      width: '300px',
       data: {
         message: 'Deseja realmente excluir este Editora?'
       }

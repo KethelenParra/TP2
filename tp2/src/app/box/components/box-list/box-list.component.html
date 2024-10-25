@@ -1,10 +1,25 @@
 <mat-toolbar color="primary" class="toolbar">
-    <div class="flex-container">
-        <span class="toolbar-title">Controle de Boxes</span>
-        <span class="material-symbols-outlined">
-          <a href="/boxes/new"><mat-icon class="add-circle"> add_circle </mat-icon></a>
-      </span>
-    </div>
+  <div class="flex-container">
+      <div class="container-title">
+          <span class="toolbar-title">Controle de Boxes</span>
+      </div>
+      <mat-form-field appearance="outline" class="input-field">
+        <input [(ngModel)]="filtro" 
+        matInput type="search" 
+        placeholder="Ex. Romance" 
+        #input (keyup.enter)="aplicarFiltro()"
+        style="appearance: none;"
+        class="search">
+        <button mat-icon-button matSuffix color="primary" (click)="aplicarFiltro()">
+            <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
+      <div class="container-button">
+          <span class="material-symbols-outlined">
+              <a href="/boxes/new"><mat-icon class="add-circle"> add_circle </mat-icon></a>
+          </span>
+      </div>
+  </div>
 </mat-toolbar>
 
 <app-navigation></app-navigation>
@@ -92,7 +107,7 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 
-<mat-paginator
+<mat-paginator class="paginator"
     (page)="paginar($event)"
     [length]="totalRecords"
     [pageSize]="pageSize"

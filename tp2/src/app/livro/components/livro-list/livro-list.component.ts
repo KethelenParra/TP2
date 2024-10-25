@@ -12,11 +12,14 @@ import { LivroService } from '../../../service/livro.service';
 import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog/confirmation-dialog.component';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { NavigationComponent } from '../../../navigation/navigation.component';
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-livro-list',
   standalone: true,
-  imports: [MatToolbarModule, NgFor, MatIconModule,  CommonModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent],
+  imports: [MatToolbarModule, NgFor, MatIconModule, FormsModule, MatFormFieldModule, MatInputModule, CommonModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent],
   templateUrl: './livro-list.component.html',
   styleUrls: ['./livro-list.component.css'] // Corrigido para "styleUrls"
 })
@@ -42,6 +45,7 @@ export class LivroListComponent implements OnInit {
   totalRecords = 0;
   pageSize = 2;
   page = 0;
+  filtro: string = "";
 
   constructor(private livroService: LivroService, private dialog: MatDialog) {}
 
@@ -53,16 +57,49 @@ export class LivroListComponent implements OnInit {
       data => { this.totalRecords = data }
     );
   }
-  
+
+  carregarLivros(){
+    if(this.filtro){
+      this.livroService.findByTitulo(this.filtro, this.page, this.pageSize).subscribe(data => {
+        this.livros = data;
+        console.log(JSON.stringify(data));
+      })
+    } else {
+      this.livroService.findAll(this.page, this.pageSize).subscribe(data => {
+        this.livros = data;
+        console.log(JSON.stringify(data));
+      })
+    };
+  }
+
+  carregarTodosRegistros() {
+    if(this.filtro){
+      this.livroService.countByNome(this.filtro).subscribe(data => {
+        this.totalRecords = data;
+        console.log(JSON.stringify(data));
+      })
+    } else {
+      this.livroService.count().subscribe(data => {
+        this.totalRecords = data;
+        console.log(JSON.stringify(data));
+      });
+    }
+  }
+
   paginar(event: PageEvent): void{
     this.page = event.pageIndex;  
     this.pageSize = event.pageSize;
     this.ngOnInit();
   }
 
+  aplicarFiltro(){
+    this.carregarLivros();
+    this.carregarTodosRegistros();
+  }
+
   excluir(livro: Livro): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      width: '350px',
+      width: '300px',
       data: {
         message: 'Deseja realmente excluir este Livro?'
       }

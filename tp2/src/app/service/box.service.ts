@@ -6,15 +6,25 @@ import { Box } from '../models/box.model';
 @Injectable({
   providedIn: 'root'
 })
-export class BoxService {
+export class BoxService{
   private baseUrl = 'http://localhost:8080/boxes';
 
   constructor(private httpClient: HttpClient) {
   }
 
-  findByNome(nome: string): Observable<Box>{
-    return this.httpClient.get<Box>(`${this.findByNome}/${nome}`)
-  }
+  findByNome(nome: string, page?: number, pageSize?: number): Observable<Box[]> {
+    let params = {};
+  
+    if (page !== undefined && pageSize !== undefined) {
+      params = {
+        page: page.toString(),
+        pageSize: pageSize.toString()
+      };
+    }
+  
+    console.log(params);
+    return this.httpClient.get<Box[]>(`${this.baseUrl}/search/nome/${nome}`, { params });
+}
 
   findById(id: string): Observable<Box>{
     return this.httpClient.get<Box>(`${this.baseUrl}/${id}`);
@@ -37,6 +47,10 @@ export class BoxService {
 
   count(): Observable<number>{
     return this.httpClient.get<number>(`${this.baseUrl}/count`);
+  }
+
+  countByNome(nome: string): Observable<number> {
+    return this.httpClient.get<number>(`${this.baseUrl}/count/search/${nome}`);
   }
 
   insert(box: Box): Observable<Box> {
@@ -67,6 +81,7 @@ export class BoxService {
       generos: box.generos.filter(genero => genero?.id).map(genero => genero.id),
       autores: box.autores.filter(autor => autor?.id).map(autor => autor.id)
     }
+    console.log(JSON.stringify(data));
     return this.httpClient.put<Box>(`${this.baseUrl}/${box.id}`, data);
   }
 

@@ -3,13 +3,24 @@
         <div class="container-title">
             <span class="toolbar-title">Controle de Gêneros</span>
         </div>
+        <mat-form-field appearance="outline" class="input-field">
+            <input [(ngModel)]="filtro" 
+            matInput type="search" 
+            placeholder="Ex. Romance" 
+            #input (keyup.enter)="aplicarFiltro()"
+            style="appearance: none;"
+            class="search">
+            <button mat-icon-button matSuffix color="primary" (click)="aplicarFiltro()">
+                <mat-icon>search</mat-icon>
+            </button>
+        </mat-form-field>
         <div class="container-button">
             <span class="material-symbols-outlined">
                 <a href="/generos/new"><mat-icon class="add-circle"> add_circle </mat-icon></a>
             </span>
         </div>
     </div>
-</mat-toolbar>
+</mat-toolbar>  
 
 <app-navigation></app-navigation>
 

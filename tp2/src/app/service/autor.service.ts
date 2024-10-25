@@ -33,17 +33,37 @@ export class AutorService {
     return this.httpClient.get<number>(`${this.baseUrl}/count`);
   }
 
+  countByNome(nome: string): Observable<number> {
+    return this.httpClient.get<number>(`${this.baseUrl}/count/search/${nome}`);
+  }
+
   findById(id: string): Observable<Autor>{
+    console.log(`Buscando autor com ID: ${id}`);
     return this.httpClient.get<Autor>(`${this.baseUrl}/${id}`);
   }
 
+  findByNome(nome: string, page?: number, pageSize?: number): Observable<Autor[]> {
+    let params = {};
+  
+    if (page !== undefined && pageSize !== undefined) {
+      params = {
+        page: page.toString(),
+        pageSize: pageSize.toString()
+      };
+    }
+  
+    console.log(params);
+    return this.httpClient.get<Autor[]>(`${this.baseUrl}/search/nome/${nome}`, { params });
+}
+  
   insert(autor: Autor): Observable<Autor> {
     console.log(JSON.stringify(autor));
     return this.httpClient.post<Autor>(this.baseUrl, autor);
   }
 
   update(autor: Autor): Observable<Autor>{
-    return this.httpClient.put<Autor>(`${this.baseUrl}/${autor?.id}`, autor);
+    console.log(JSON.stringify(autor));
+    return this.httpClient.put<Autor>(`${this.baseUrl}/${autor.id}`, autor);
   }
 
   delete(autor: Autor): Observable<any>{//void, sem retorno

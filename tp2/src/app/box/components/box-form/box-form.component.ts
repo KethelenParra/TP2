@@ -115,7 +115,7 @@ export class BoxFormComponent implements OnInit{
         const box = this.formGroup.value;
         if (box.id == null){
           this.boxService.insert(box).subscribe({
-          next: (boxesCadastrar) => {
+          next: (boxesCadastrado) => {
             this.router.navigateByUrl('/boxes');
           },
           error: (errorResponse) => {
@@ -124,7 +124,7 @@ export class BoxFormComponent implements OnInit{
         });
         } else {
           this.boxService.update(box).subscribe({
-            next: (boxesAuterado) => {
+            next: (boxesAlterado) => {
               this.router.navigateByUrl('/boxes');
             },
             error: (error) => {

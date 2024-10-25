@@ -1,21 +1,24 @@
-import { Component } from '@angular/core';
 import { NgFor } from '@angular/common';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatTableModule } from '@angular/material/table';
-import { RouterModule } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { RouterModule } from '@angular/router';
 import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog/confirmation-dialog.component';
 import { Autor } from '../../../models/autor.model';
-import { AutorService } from '../../../service/autor.service';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { NavigationComponent } from '../../../navigation/navigation.component';
+import { AutorService } from '../../../service/autor.service';
 
 @Component({
   selector: 'app-autor-list',
   standalone: true,
-  imports:[MatToolbarModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent],
+  imports:[MatToolbarModule, FormsModule, MatFormFieldModule, MatInputModule ,NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent],
   templateUrl: './autor-list.component.html',
   styleUrl: './autor-list.component.css'
 })
@@ -26,6 +29,7 @@ export class AutorListComponent {
    totalRecords = 0;
    pageSize = 4;
    page = 0;
+   filtro: string = "";
 
   constructor (
     private autorService: AutorService,
@@ -42,15 +46,48 @@ export class AutorListComponent {
     );
   }
 
+  carregarAutores(){
+    if(this.filtro){
+      this.autorService.findByNome(this.filtro, this.page, this.pageSize).subscribe(data => {
+        this.autores = data;
+        console.log(JSON.stringify(data));
+      })
+    } else {
+      this.autorService.findAll(this.page, this.pageSize).subscribe(data => {
+        this.autores = data;
+        console.log(JSON.stringify(data));
+      })
+    };
+  }
+
+  carregarTodosRegistros() {
+    if(this.filtro){
+      this.autorService.countByNome(this.filtro).subscribe(data => {
+        this.totalRecords = data;
+        console.log(JSON.stringify(data));
+      })
+    } else {
+      this.autorService.count().subscribe(data => {
+        this.totalRecords = data;
+        console.log(JSON.stringify(data));
+      });
+    }
+  }
+
   paginar(event: PageEvent): void{
     this.page = event.pageIndex;  
     this.pageSize = event.pageSize;
     this.ngOnInit();
   }
 
+  aplicarFiltro(){
+    this.carregarAutores();
+    this.carregarTodosRegistros();
+  }
+
   excluir(autor: Autor): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      width: '250px',
+      width: '300px',
       data: {
         message: 'Deseja realmente excluir este Autor?'
       }

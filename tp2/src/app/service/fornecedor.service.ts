@@ -35,9 +35,23 @@ export class FornecedorService {
     return this.httpClient.get<number>(`${this.baseUrl}/count`);
   }
 
-  findByNome(nome: string): Observable<Fornecedor>{
-    return this.httpClient.get<Fornecedor>(`${this.findByNome}/${nome}`)
-  } 
+  countByNome(nome: string): Observable<number> {
+    return this.httpClient.get<number>(`${this.baseUrl}/count/search/${nome}`);
+  }
+
+  findByNome(nome: string, page?: number, pageSize?: number): Observable<Fornecedor[]> {
+    let params = {};
+  
+    if (page !== undefined && pageSize !== undefined) {
+      params = {
+        page: page.toString(),
+        pageSize: pageSize.toString()
+      };
+    }
+  
+    console.log(params);
+    return this.httpClient.get<Fornecedor[]>(`${this.baseUrl}/search/nome/${nome}`, { params });
+}
 
   findByCnpj(cnpj: string): Observable<Fornecedor>{
     return this.httpClient.get<Fornecedor>(`${this.findByCnpj}/${cnpj}`)

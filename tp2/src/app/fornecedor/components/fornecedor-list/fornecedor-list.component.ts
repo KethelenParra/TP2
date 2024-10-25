@@ -12,11 +12,14 @@ import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog
 import { MatFormField } from '@angular/material/form-field';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { NavigationComponent } from '../../../navigation/navigation.component';
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-fornecedor-list',
   standalone: true,
-  imports: [MatToolbarModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatFormField, MatPaginator, NavigationComponent],
+  imports: [MatToolbarModule, FormsModule, MatFormFieldModule, MatInputModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatFormField, MatPaginator, NavigationComponent],
   templateUrl: './fornecedor-list.component.html',
   styleUrl: './fornecedor-list.component.css'
 })
@@ -27,6 +30,7 @@ export class FornecedorListComponent implements OnInit {
   totalRecords = 0;
   pageSize = 4;
   page = 0;
+  filtro: string = "";
 
   constructor(private fornecedorService: FornecedorService, private dialog: MatDialog){
   }
@@ -40,15 +44,48 @@ export class FornecedorListComponent implements OnInit {
     );
   }
 
+  carregarfornecedores(){
+    if(this.filtro){
+      this.fornecedorService.findByNome(this.filtro, this.page, this.pageSize).subscribe(data => {
+        this.fornecedores = data;
+        console.log(JSON.stringify(data));
+      })
+    } else {
+      this.fornecedorService.findAll(this.page, this.pageSize).subscribe(data => {
+        this.fornecedores = data;
+        console.log(JSON.stringify(data));
+      })
+    };
+  }
+
+  carregarTodosRegistros() {
+    if(this.filtro){
+      this.fornecedorService.countByNome(this.filtro).subscribe(data => {
+        this.totalRecords = data;
+        console.log(JSON.stringify(data));
+      })
+    } else {
+      this.fornecedorService.count().subscribe(data => {
+        this.totalRecords = data;
+        console.log(JSON.stringify(data));
+      });
+    }
+  }
+
   paginar(event: PageEvent): void{
     this.page = event.pageIndex;  
     this.pageSize = event.pageSize;
     this.ngOnInit();
   }
 
+  aplicarFiltro(){
+    this.carregarfornecedores();
+    this.carregarTodosRegistros();
+  }
+
   excluir(fornecedor: Fornecedor): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      width: '250px',
+      width: '300px',
       data: {
         message: 'Deseja realmente excluir este Fornecedor?'
       }

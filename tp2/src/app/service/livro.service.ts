@@ -32,16 +32,30 @@ export class LivroService {
     return this.httpClient.get<Livro[]>(`${this.baseUrl}`, {params}); 
   }
 
+  findByTitulo(nome: string, page?: number, pageSize?: number): Observable<Livro[]> {
+    let params = {};
+  
+    if (page !== undefined && pageSize !== undefined) {
+      params = {
+        page: page.toString(),
+        pageSize: pageSize.toString()
+      };
+    }
+  
+    console.log(params);
+    return this.httpClient.get<Livro[]>(`${this.baseUrl}/search/titulo/${nome}`, { params });
+  }
+
   count(): Observable<number>{
     return this.httpClient.get<number>(`${this.baseUrl}/count`);
   }
 
-  findById(id: string): Observable<Livro>{
-    return this.httpClient.get<Livro>(`${this.baseUrl}/${id}`);
+  countByNome(nome: string): Observable<number> {
+    return this.httpClient.get<number>(`${this.baseUrl}/count/search/${nome}`);
   }
 
-  findByTitulo(query: string): Observable<any>{
-    return this.httpClient.get(`${this.baseUrl}/search/titulo/${query}`);
+  findById(id: string): Observable<Livro>{
+    return this.httpClient.get<Livro>(`${this.baseUrl}/${id}`);
   }
 
   insert(livro: Livro): Observable<Livro> {

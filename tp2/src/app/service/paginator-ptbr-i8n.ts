@@ -13,6 +13,7 @@ export class MatPaginatorIntlPtBr extends MatPaginatorIntl {
     /** A label for the button that decrements the current page. */
     override previousPageLabel: string = 'Página anterior';
 
+
     /** A label for the range of items within the current page and the length of the whole list. */
     override getRangeLabel: (page: number, pageSize: number, length: number) => string = (
       page: number,

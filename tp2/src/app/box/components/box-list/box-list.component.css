@@ -3,17 +3,20 @@
     flex: 1 1 auto;
 }
 
+.container-title{
+    position: relative;
+}
+
 .toolbar-title {
-    flex: 1;
-    text-align: center;
+    font-size: 30px;
+    letter-spacing: 5px;
+    font-weight: 500;
 }
 
 .flex-container {
     display: flex;
     align-items: center;
     width: 100%;
-    /* background-color: rgb(52, 115, 233);
-    color: rgb(209, 241, 241); */
 }
 
 .mat-column-id {
@@ -66,12 +69,6 @@ table {
     background-color: #6B5852;
 }
 
-.toolbar-title {
-    font-size: 30px;
-    letter-spacing: 5px;
-    font-weight: 500;
-}
-
 .botao{
     margin-left: 30px;
 }
@@ -91,4 +88,47 @@ table {
 
 .button-container button:hover {
     background-color: #e0e0e0; /* Cor ao passar o mouse */
+}
+
+.mat-mdc-paginator{
+    display: flex;
+    justify-content: center;
+}
+
+.container-button{
+position: absolute;
+right: 0;
+margin-right: 25px;
+}
+
+mat-form-field {
+    display: flex;
+    align-items: center;
+    border-radius: 4px; /* Alinha com as bordas do input */
+    width: 100vh;
+    margin-left: 2%;
+    background-color: #fff;
+    height: 55px;
+}
+
+.search {
+    width: 50vh;
+}
+
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.mat-form-field-wrapper {
+    padding-right: 0; /* Remove o padding extra no lado direito */
+}
+
+input[type="text"]::-ms-clear {
+    display: none;
+}
+
+input[type="text"]::-webkit-search-cancel-button {
+    display: none;
 }
