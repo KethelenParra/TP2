@@ -1,16 +1,27 @@
 
 <mat-toolbar color="primary" class="toolbar">
-  <div class="flex-container">
-    <div class="container-title">
-        <span class="toolbar-title">Controle de Autores</span>
+    <div class="flex-container">
+        <div class="container-title">
+            <span class="toolbar-title">Controle de Autores</span>
+        </div>
+        <div class="container-button">
+            <span class="material-symbols-outlined">
+                <a href="/autores/new"><mat-icon class="add-circle"> add_circle </mat-icon></a>
+            </span>
+        </div>
     </div>
-    <div class="container-button">
-        <span class="material-symbols-outlined">
-            <a href="/autores/new"><mat-icon class="add-circle"> add_circle </mat-icon></a>
-        </span>
-    </div>
-</div>
+    
 </mat-toolbar>
+
+<mat-form-field appearance="outline" class="input-field">
+  <mat-label>Pesquisar</mat-label>
+  <input [(ngModel)]="filtro" matInput placeholder="Ex. Colleen Hoover" #input (keyup.enter) ="aplicarFiltro()">
+</mat-form-field>
+<button mat-icon-button color="primary" 
+        class="search-button"
+        (click)="aplicarFiltro()">
+  <mat-icon>search</mat-icon>
+</button>
 
 <app-navigation></app-navigation>
 

@@ -12,9 +12,19 @@ export class BoxService {
   constructor(private httpClient: HttpClient) {
   }
 
-  findByNome(nome: string): Observable<Box>{
-    return this.httpClient.get<Box>(`${this.findByNome}/${nome}`)
-  }
+  findByNome(nome: string, page?: number, pageSize?: number): Observable<Box[]> {
+    let params = {};
+  
+    if (page !== undefined && pageSize !== undefined) {
+      params = {
+        page: page.toString(),
+        pageSize: pageSize.toString()
+      };
+    }
+  
+    console.log(params);
+    return this.httpClient.get<Box[]>(`${this.baseUrl}/search/nome/${nome}`, { params });
+}
 
   findById(id: string): Observable<Box>{
     return this.httpClient.get<Box>(`${this.baseUrl}/${id}`);
@@ -37,6 +47,10 @@ export class BoxService {
 
   count(): Observable<number>{
     return this.httpClient.get<number>(`${this.baseUrl}/count`);
+  }
+
+  countByNome(nome: string): Observable<number> {
+    return this.httpClient.get<number>(`${this.baseUrl}/count/search/${nome}`);
   }
 
   insert(box: Box): Observable<Box> {
