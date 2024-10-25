@@ -16,12 +16,14 @@
     align-items: center;
 }
 
-#perfil{
-    margin-right: 2%;
+.icons-toolbar{
+    display: flex;
+    justify-content: space-between;
+}
+
+#icones{
     font-size: 35px;
     padding: 10px 12px;  
-    align-items: center;
-    text-align: center;
     margin-bottom: 0.5%;
 }
 
@@ -50,4 +52,8 @@
 .button:hover {
     border-color: #666666;
     background: #292929;
+}
+
+table {
+    width: 100%;
 }

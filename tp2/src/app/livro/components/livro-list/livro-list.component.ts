@@ -53,7 +53,7 @@ export class LivroListComponent implements OnInit {
       data => { this.totalRecords = data }
     );
   }
-
+  
   paginar(event: PageEvent): void{
     this.page = event.pageIndex;  
     this.pageSize = event.pageSize;

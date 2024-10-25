@@ -1,5 +1,7 @@
+import { Injectable } from "@angular/core";
 import { MatPaginatorIntl } from "@angular/material/paginator";
 
+@Injectable()
 export class MatPaginatorIntlPtBr extends MatPaginatorIntl {
   
     /** A label for the page size selector. */

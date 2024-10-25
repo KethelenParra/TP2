@@ -28,7 +28,6 @@ export class BoxListComponent implements OnInit{
   pageSize = 2;
   page = 0;
   
-  
   constructor(
     private boxService: BoxService, 
     private dialog: MatDialog, 

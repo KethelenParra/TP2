@@ -25,6 +25,7 @@ import { NavigationService } from '../../../service/navigation.service';
 })
 export class AutorFormComponent {
   formGroup: FormGroup;
+  searchTerm: string = '';
 
   constructor(
     private formBuilder: FormBuilder,

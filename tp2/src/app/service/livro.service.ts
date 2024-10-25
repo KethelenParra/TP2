@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { catchError, Observable, throwError } from 'rxjs';
+import { Injectable, Input } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Livro } from '../models/livro.model';
 
 @Injectable({
@@ -9,7 +9,13 @@ import { Livro } from '../models/livro.model';
 export class LivroService {
   private baseUrl = 'http://localhost:8080/livros';
 
+  @Input() titulo: string = '';
+
   constructor(private httpClient: HttpClient) { }
+
+  getLivros(): Observable<Livro[]> {
+    return this.httpClient.get<Livro[]>(`${this.baseUrl}/livros`);
+  }
 
   findAll(page?: number, pageSize?: number): Observable<Livro[]> {
     let params = {};
@@ -32,6 +38,10 @@ export class LivroService {
 
   findById(id: string): Observable<Livro>{
     return this.httpClient.get<Livro>(`${this.baseUrl}/${id}`);
+  }
+
+  findByTitulo(query: string): Observable<any>{
+    return this.httpClient.get(`${this.baseUrl}/search/titulo/${query}`);
   }
 
   insert(livro: Livro): Observable<Livro> {
