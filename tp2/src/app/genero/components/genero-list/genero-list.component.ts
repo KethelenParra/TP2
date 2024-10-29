@@ -19,7 +19,7 @@ import { SidebarComponent } from '../../../sidebar/sidebar.component';
 @Component({
   selector: 'app-genero-list',
   standalone: true,
-  imports: [MatToolbarModule, FormsModule, MatFormFieldModule, MatInputModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent, SidebarComponent],
+  imports: [NgFor, MatToolbarModule, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent, FormsModule, MatFormFieldModule, MatInputModule, SidebarComponent],
   templateUrl: './genero-list.component.html',
   styleUrl: './genero-list.component.css'
 })

@@ -18,14 +18,8 @@ import { livroResolver } from './livro/resolver/livro.resolver';
 import { LivroFormComponent } from './livro/components/livro-form/livro-form.component';
 import { LivroListComponent } from './livro/components/livro-list/livro-list.component';
 import { HomeComponent } from './home/home.component';
-import { ClienteViewComponent } from './cliente/cliente-view/cliente-view.component';
-import { ClienteFormComponent } from './cliente/cliente-form/cliente-form.component';
-import { clienteResolver } from './cliente/resolver/cliente.resolver';
 
 export const routes: Routes = [
-    {path: 'clientes', component: ClienteViewComponent, title: 'Clientes'},
-    {path: 'clientes/form', component: ClienteFormComponent, title: 'Formulário de Cliente'},
-    {path: 'clientes/edit/:id', component: ClienteFormComponent, resolve: {cliente: clienteResolver}},
 
     {path: 'home', component: HomeComponent, title: 'Home page'},
 
