@@ -14,11 +14,12 @@ import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog
 import { Autor } from '../../../models/autor.model';
 import { NavigationComponent } from '../../../navigation/navigation.component';
 import { AutorService } from '../../../service/autor.service';
+import { SidebarComponent } from '../../../sidebar/sidebar.component';
 
 @Component({
   selector: 'app-autor-list',
   standalone: true,
-  imports:[MatToolbarModule, FormsModule, MatFormFieldModule, MatInputModule ,NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent],
+  imports:[MatToolbarModule, FormsModule, MatFormFieldModule, MatInputModule ,NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent, SidebarComponent],
   templateUrl: './autor-list.component.html',
   styleUrl: './autor-list.component.css'
 })

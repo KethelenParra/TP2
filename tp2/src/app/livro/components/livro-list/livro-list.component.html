@@ -24,104 +24,108 @@
 
 <app-navigation></app-navigation>
 
-<table mat-table [dataSource]="livros" class="mat-elevation-z8">
+<div class="container-content">
+  <app-sidebar></app-sidebar>
+  <div class="container">
+    <table mat-table [dataSource]="livros" class="mat-elevation-z8">
   
-  <!-- Id Column -->
-  <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef class="column"> No. </th>
-    <td mat-cell *matCellDef="let livro" class="data"> {{livro.id}} </td>
-  </ng-container>
-
-  <!-- Título Column -->
-  <ng-container matColumnDef="titulo">
-    <th mat-header-cell *matHeaderCellDef class="column"> Título </th>
-    <td mat-cell *matCellDef="let livro" class="data"> {{livro.titulo}} </td>
-  </ng-container>
-
-  <!-- Quantidade Estoque Column -->
-  <ng-container matColumnDef="quantidadeEstoque">
-    <th mat-header-cell *matHeaderCellDef class="column"> Qtd. Estoque </th>
-    <td mat-cell *matCellDef="let livro" class="data"> {{livro.quantidadeEstoque}} </td>
-  </ng-container>
-  
-  <!-- Preço Column -->
-  <ng-container matColumnDef="preco">
-    <th mat-header-cell *matHeaderCellDef class="column"> Preço </th>
-    <td mat-cell *matCellDef="let livro" class="data"> R${{livro.preco}} </td>
-  </ng-container>
-
-  <!-- ISBN Column -->
-  <ng-container matColumnDef="isbn">
-    <th mat-header-cell *matHeaderCellDef class="column"> ISBN </th>
-    <td mat-cell *matCellDef="let livro" class="data"> {{livro.isbn}} </td>
-  </ng-container>
-
-  <!-- Data de Lançamento Column -->
-  <ng-container matColumnDef="datalancamento">
-    <th mat-header-cell *matHeaderCellDef class="column"> Data de Lançamento </th>
-    <td mat-cell *matCellDef="let livro" class="data"> {{livro.datalancamento}} </td>
-  </ng-container>
-
-  <!-- Descrição Column -->
-  <ng-container matColumnDef="descricao">
-    <th mat-header-cell *matHeaderCellDef class="column"> Descrição </th>
-    <td mat-cell *matCellDef="let livro" class="desc"> {{livro.descricao}} </td>
-  </ng-container>
-
-  <!-- Classificação Column -->
-  <ng-container matColumnDef="classificacao">
-    <th mat-header-cell *matHeaderCellDef class="column"> Classificação </th>
-    <td mat-cell *matCellDef="let livro" class="data"> {{livro.classificacao.descricao}} </td>
-  </ng-container>
-
-  <!-- Editora Column -->
-  <ng-container matColumnDef="editora">
-    <th mat-header-cell *matHeaderCellDef class="column"> Editora </th>
-    <td mat-cell *matCellDef="let livro" class="data"> {{livro.editora.nome}} </td>
-  </ng-container>
-
-  <!-- Fornecedor Column -->
-  <ng-container matColumnDef="fornecedor">
-    <th mat-header-cell *matHeaderCellDef class="column"> Fornecedor </th>
-    <td mat-cell *matCellDef="let livro" class="data"> {{livro.fornecedor.nome}} </td>
-  </ng-container>
-
-  <!-- Genero Column -->
-  <ng-container matColumnDef="genero">
-    <th mat-header-cell *matHeaderCellDef class="column"> Gênero </th>
-    <td mat-cell *matCellDef="let box"> 
-      <span *ngFor="let genero of box.generos" class="data">{{genero.nome}} </span>
-    </td>
-  </ng-container>
-
-  <!-- Autor Column -->
-  <ng-container matColumnDef="autor">
-    <th mat-header-cell *matHeaderCellDef class="column"> Autor </th>
-    <td mat-cell *matCellDef="let box"> 
-      <span *ngFor="let box of box.autores" class="data">{{box.nome}} </span>
-    </td>
-  </ng-container>
-
-  <!-- Ação Column -->
-  <ng-container matColumnDef="acao">
-    <th mat-header-cell *matHeaderCellDef class="column"> Ação </th>
-    <td mat-cell *matCellDef="let livro" class="data"> 
-        <button mat-icon-button color="primary" routerLink="/livros/edit/{{livro.id}}">
-            <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-icon-button color="warn" (click)="excluir(livro)">
-            <mat-icon>delete</mat-icon>
-        </button>
-    </td>
-  </ng-container>
-
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
-  
-<mat-paginator
-    (page)="paginar($event)"
-    [length]="totalRecords"
-    [pageSize]="pageSize"
-    [pageSizeOptions]="[2, 4, 6, 8]">
-</mat-paginator>
+      <!-- Id Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef class="column"> No. </th>
+        <td mat-cell *matCellDef="let livro" class="data"> {{livro.id}} </td>
+      </ng-container>
+    
+      <!-- Título Column -->
+      <ng-container matColumnDef="titulo">
+        <th mat-header-cell *matHeaderCellDef class="column"> Título </th>
+        <td mat-cell *matCellDef="let livro" class="data"> {{livro.titulo}} </td>
+      </ng-container>
+    
+      <!-- Quantidade Estoque Column -->
+      <ng-container matColumnDef="quantidadeEstoque">
+        <th mat-header-cell *matHeaderCellDef class="column"> Qtd. Estoque </th>
+        <td mat-cell *matCellDef="let livro" class="data"> {{livro.quantidadeEstoque}} </td>
+      </ng-container>
+      
+      <!-- Preço Column -->
+      <ng-container matColumnDef="preco">
+        <th mat-header-cell *matHeaderCellDef class="column"> Preço </th>
+        <td mat-cell *matCellDef="let livro" class="data"> R${{livro.preco}} </td>
+      </ng-container>
+    
+      <!-- ISBN Column -->
+      <ng-container matColumnDef="isbn">
+        <th mat-header-cell *matHeaderCellDef class="column"> ISBN </th>
+        <td mat-cell *matCellDef="let livro" class="data"> {{livro.isbn}} </td>
+      </ng-container>
+    
+      <!-- Data de Lançamento Column -->
+      <ng-container matColumnDef="datalancamento">
+        <th mat-header-cell *matHeaderCellDef class="column"> Data de Lançamento </th>
+        <td mat-cell *matCellDef="let livro" class="data"> {{livro.datalancamento}} </td>
+      </ng-container>
+    
+      <!-- Descrição Column -->
+      <ng-container matColumnDef="descricao">
+        <th mat-header-cell *matHeaderCellDef class="column"> Descrição </th>
+        <td mat-cell *matCellDef="let livro" class="desc"> {{livro.descricao}} </td>
+      </ng-container>
+    
+      <!-- Classificação Column -->
+      <ng-container matColumnDef="classificacao">
+        <th mat-header-cell *matHeaderCellDef class="column"> Classificação </th>
+        <td mat-cell *matCellDef="let livro" class="data"> {{livro.classificacao.descricao}} </td>
+      </ng-container>
+    
+      <!-- Editora Column -->
+      <ng-container matColumnDef="editora">
+        <th mat-header-cell *matHeaderCellDef class="column"> Editora </th>
+        <td mat-cell *matCellDef="let livro" class="data"> {{livro.editora.nome}} </td>
+      </ng-container>
+    
+      <!-- Fornecedor Column -->
+      <ng-container matColumnDef="fornecedor">
+        <th mat-header-cell *matHeaderCellDef class="column"> Fornecedor </th>
+        <td mat-cell *matCellDef="let livro" class="data"> {{livro.fornecedor.nome}} </td>
+      </ng-container>
+    
+      <!-- Genero Column -->
+      <ng-container matColumnDef="genero">
+        <th mat-header-cell *matHeaderCellDef class="column"> Gênero </th>
+        <td mat-cell *matCellDef="let box"> 
+          <span *ngFor="let genero of box.generos" class="data">{{genero.nome}} </span>
+        </td>
+      </ng-container>
+    
+      <!-- Autor Column -->
+      <ng-container matColumnDef="autor">
+        <th mat-header-cell *matHeaderCellDef class="column"> Autor </th>
+        <td mat-cell *matCellDef="let box"> 
+          <span *ngFor="let box of box.autores" class="data">{{box.nome}} </span>
+        </td>
+      </ng-container>
+    
+      <!-- Ação Column -->
+      <ng-container matColumnDef="acao">
+        <th mat-header-cell *matHeaderCellDef class="column"> Ação </th>
+        <td mat-cell *matCellDef="let livro" class="data"> 
+            <button mat-icon-button color="primary" routerLink="/livros/edit/{{livro.id}}">
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="excluir(livro)">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </td>
+      </ng-container>
+    
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator
+      (page)="paginar($event)"
+      [length]="totalRecords"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="[2, 4, 6, 8]">
+    </mat-paginator>
+  </div>  
+</div>

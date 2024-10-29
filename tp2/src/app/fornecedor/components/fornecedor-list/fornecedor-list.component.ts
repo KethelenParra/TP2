@@ -15,11 +15,12 @@ import { NavigationComponent } from '../../../navigation/navigation.component';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { SidebarComponent } from '../../../sidebar/sidebar.component';
 
 @Component({
   selector: 'app-fornecedor-list',
   standalone: true,
-  imports: [MatToolbarModule, FormsModule, MatFormFieldModule, MatInputModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatFormField, MatPaginator, NavigationComponent],
+  imports: [MatToolbarModule, FormsModule, MatFormFieldModule, MatInputModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatFormField, MatPaginator, NavigationComponent, SidebarComponent],
   templateUrl: './fornecedor-list.component.html',
   styleUrl: './fornecedor-list.component.css'
 })

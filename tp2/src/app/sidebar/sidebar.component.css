@@ -1,0 +1,27 @@
+mat-drawer-container{
+    height: 100vh;
+    background-color: transparent;
+}
+
+button{
+    cursor: pointer;
+    color: blue;
+}
+
+.menu-button{
+    background: none;
+    box-shadow: none;
+    outline: none;
+}
+
+mat-drawer{
+    height: 100%;
+    overflow-y: auto;
+}
+
+.opcao{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 20px;
+}

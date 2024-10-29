@@ -15,11 +15,12 @@ import { NavigationComponent } from '../../../navigation/navigation.component';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { SidebarComponent } from '../../../sidebar/sidebar.component';
 
 @Component({
   selector: 'app-livro-list',
   standalone: true,
-  imports: [MatToolbarModule, NgFor, MatIconModule, FormsModule, MatFormFieldModule, MatInputModule, CommonModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent],
+  imports: [MatToolbarModule, NgFor, MatIconModule, FormsModule, MatFormFieldModule, MatInputModule, CommonModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent, SidebarComponent],
   templateUrl: './livro-list.component.html',
   styleUrls: ['./livro-list.component.css'] // Corrigido para "styleUrls"
 })

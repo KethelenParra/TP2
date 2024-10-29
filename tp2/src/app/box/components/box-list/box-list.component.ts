@@ -15,13 +15,14 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { SearchComponent } from '../../../search/search.component';
+import { SidebarComponent } from '../../../sidebar/sidebar.component';
 
 // import { LivroService } from '../../../service/livro.service';
 
 @Component({
   selector: 'app-box-list',
   standalone: true,
-  imports: [MatToolbarModule, FormsModule, MatFormFieldModule, MatInputModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent, SearchComponent],
+  imports: [MatToolbarModule, FormsModule, MatFormFieldModule, MatInputModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent, SearchComponent, SidebarComponent],
   templateUrl: './box-list.component.html',
   styleUrl: './box-list.component.css'
 })

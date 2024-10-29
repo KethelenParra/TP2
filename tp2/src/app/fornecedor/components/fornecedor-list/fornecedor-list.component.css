@@ -1,6 +1,13 @@
-.example-spacer {
-    /* Pegando do componente */
-    flex: 1 1 auto;
+.container-content{
+    display: flex;
+    height: 100vh;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 50%;
 }
 
 .container-title{
@@ -92,6 +99,7 @@ table {
 
 .toolbar{
     background-color: #6B5852;
+    width: 100%;
 }
 
 .data{

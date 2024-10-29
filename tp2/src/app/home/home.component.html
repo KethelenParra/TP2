@@ -1,94 +1,23 @@
-<mat-toolbar color="primary" class="toolbar">
-    <h1 class="titulo-pag">Cantinho dos livros</h1>
-    <app-search></app-search>
-    <div class="icons-toolbar">
-        <mat-icon class="cart" id="icones">shopping_cart</mat-icon>
-        <mat-icon class="account-circle" id="icones"> account_circle </mat-icon>    
+  <div class="container">
+    <div class="header-container">
+      <mat-toolbar color="primary" class="toolbar mat-elevation-z3">
+        <h1 class="titulo-pag">Cantinho dos livros</h1>
+        <app-search></app-search>
+        <div class="icons-toolbar">
+            <mat-icon class="cart" id="icones">shopping_cart</mat-icon>
+            <a href="/clientes"><mat-icon class="account-circle" id="icones"> account_circle </mat-icon></a>
+        </div>
+      </mat-toolbar>
+      <app-sidebar></app-sidebar>
     </div>
-</mat-toolbar>
+    <div class="sidebar-container">
+      
+    </div>
+    <div class="content-container">
+    </div>
+  
+    <div class="footer-container">
+  
+    </div>
+  </div>
 
-<table>
-    
-</table>
-
-<table mat-table [dataSource]="livros" class="mat-elevation-z8">
-  
-    <!-- Id Column -->
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef class="column"> No. </th>
-      <td mat-cell *matCellDef="let livro" class="data"> {{livro.id}} </td>
-    </ng-container>
-  
-    <!-- Título Column -->
-    <ng-container matColumnDef="titulo">
-      <th mat-header-cell *matHeaderCellDef class="column"> Título </th>
-      <td mat-cell *matCellDef="let livro" class="data"> {{livro.titulo}} </td>
-    </ng-container>
-  
-    <!-- Quantidade Estoque Column -->
-    <ng-container matColumnDef="quantidadeEstoque">
-      <th mat-header-cell *matHeaderCellDef class="column"> Qtd. Estoque </th>
-      <td mat-cell *matCellDef="let livro" class="data"> {{livro.quantidadeEstoque}} </td>
-    </ng-container>
-    
-    <!-- Preço Column -->
-    <ng-container matColumnDef="preco">
-      <th mat-header-cell *matHeaderCellDef class="column"> Preço </th>
-      <td mat-cell *matCellDef="let livro" class="data"> R${{livro.preco}} </td>
-    </ng-container>
-  
-    <!-- ISBN Column -->
-    <ng-container matColumnDef="isbn">
-      <th mat-header-cell *matHeaderCellDef class="column"> ISBN </th>
-      <td mat-cell *matCellDef="let livro" class="data"> {{livro.isbn}} </td>
-    </ng-container>
-  
-    <!-- Data de Lançamento Column -->
-    <ng-container matColumnDef="datalancamento">
-      <th mat-header-cell *matHeaderCellDef class="column"> Data de Lançamento </th>
-      <td mat-cell *matCellDef="let livro" class="data"> {{livro.datalancamento}} </td>
-    </ng-container>
-  
-    <!-- Descrição Column -->
-    <ng-container matColumnDef="descricao">
-      <th mat-header-cell *matHeaderCellDef class="column"> Descrição </th>
-      <td mat-cell *matCellDef="let livro" class="desc"> {{livro.descricao}} </td>
-    </ng-container>
-  
-    <!-- Classificação Column -->
-    <ng-container matColumnDef="classificacao">
-      <th mat-header-cell *matHeaderCellDef class="column"> Classificação </th>
-      <td mat-cell *matCellDef="let livro" class="data"> {{livro.classificacao.descricao}} </td>
-    </ng-container>
-  
-    <!-- Editora Column -->
-    <ng-container matColumnDef="editora">
-      <th mat-header-cell *matHeaderCellDef class="column"> Editora </th>
-      <td mat-cell *matCellDef="let livro" class="data"> {{livro.editora.nome}} </td>
-    </ng-container>
-  
-    <!-- Fornecedor Column -->
-    <ng-container matColumnDef="fornecedor">
-      <th mat-header-cell *matHeaderCellDef class="column"> Fornecedor </th>
-      <td mat-cell *matCellDef="let livro" class="data"> {{livro.fornecedor.nome}} </td>
-    </ng-container>
-  
-    <!-- Genero Column -->
-    <ng-container matColumnDef="genero">
-      <th mat-header-cell *matHeaderCellDef class="column"> Gênero </th>
-      <td mat-cell *matCellDef="let box"> 
-        <span *ngFor="let genero of box.generos" class="data">{{genero.nome}} </span>
-      </td>
-    </ng-container>
-  
-    <!-- Autor Column -->
-    <ng-container matColumnDef="autor">
-      <th mat-header-cell *matHeaderCellDef class="column"> Autor </th>
-      <td mat-cell *matCellDef="let box"> 
-        <span *ngFor="let box of box.autores" class="data">{{box.nome}} </span>
-      </td>
-    </ng-container>
-  
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>

@@ -57,3 +57,35 @@
 table {
     width: 100%;
 }
+
+.account-circle{
+    color: white;
+}
+
+.content-container{
+    width: 80%;
+    background-color: #382fdf;
+}
+
+mat-drawer-container{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 20vh;
+    background-color: transparent;
+}
+
+mat-drawer{
+    width: 100vh;
+    background-color: #ffffff;
+}
+
+mat-icon{
+    cursor: pointer;
+}
+
+.menu-button{
+    background: none;
+    box-shadow: none;
+    outline: none;
+}
