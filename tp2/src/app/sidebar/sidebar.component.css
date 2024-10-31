@@ -15,8 +15,8 @@ button{
 }
 
 mat-drawer{
-    height: 100%;
-    overflow-y: auto;
+    height: 100%;  
+    overflow-x: hidden;
 }
 
 .opcao{

@@ -14,12 +14,13 @@ import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog
 import { AutorService } from '../../../service/autor.service';
 import { Autor } from '../../../models/autor.model';
 import { NavigationService } from '../../../service/navigation.service';
+import { FooterComponent } from '../../../footer/footer.component';
 
 
 @Component({
   selector: 'app-autor-form',
   standalone: true,
-  imports: [NgIf, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, MatMenuModule, MatIconModule],
+  imports: [NgIf, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, MatMenuModule, MatIconModule, FooterComponent],
   templateUrl: './autor-form.component.html',
   styleUrl: './autor-form.component.css'
 })

@@ -1,9 +1,9 @@
-.container-content{
+.container{
     display: flex;
     height: 100vh;
 }
 
-.container{
+.container-content{
     display: flex;
     flex-direction: column;
     width: 100%;

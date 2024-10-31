@@ -16,6 +16,6 @@ export class SidebarComponent {
 
   collapsed = signal(false);
 
-  sideNavWidth = computed(() => this.collapsed() ? '8vh' : '19vh');
+  sideNavWidth = computed(() => this.collapsed() ? '8vh' : '21vh');
   
 }

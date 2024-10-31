@@ -21,7 +21,7 @@ import { HomeComponent } from './home/home.component';
 
 export const routes: Routes = [
 
-    {path: 'home', component: HomeComponent, title: 'Home page'},
+    {path: '', component: HomeComponent, title: 'Home page'},
 
     {path: 'fornecedores', component: FornecedorListComponent, title: 'Lista de fornecedores'},
     {path: 'fornecedores/new', component: FornecedorFormComponent, title: 'Novo fornecedor'},

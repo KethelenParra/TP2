@@ -15,11 +15,12 @@ import { Autor } from '../../../models/autor.model';
 import { NavigationComponent } from '../../../navigation/navigation.component';
 import { AutorService } from '../../../service/autor.service';
 import { SidebarComponent } from '../../../sidebar/sidebar.component';
+import { FooterComponent } from '../../../footer/footer.component';
 
 @Component({
   selector: 'app-autor-list',
   standalone: true,
-  imports:[MatToolbarModule, FormsModule, MatFormFieldModule, MatInputModule ,NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent, SidebarComponent],
+  imports:[MatToolbarModule, FormsModule, MatFormFieldModule, MatInputModule ,NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent, SidebarComponent, FooterComponent],
   templateUrl: './autor-list.component.html',
   styleUrl: './autor-list.component.css'
 })
