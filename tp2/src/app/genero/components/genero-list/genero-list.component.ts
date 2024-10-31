@@ -15,11 +15,12 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { SidebarComponent } from '../../../sidebar/sidebar.component';
+import { FooterComponent } from '../../../footer/footer.component';
 
 @Component({
   selector: 'app-genero-list',
   standalone: true,
-  imports: [NgFor, MatToolbarModule, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent, FormsModule, MatFormFieldModule, MatInputModule, SidebarComponent],
+  imports: [NgFor, MatToolbarModule, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent, FormsModule, MatFormFieldModule, MatInputModule, SidebarComponent, FooterComponent],
   templateUrl: './genero-list.component.html',
   styleUrl: './genero-list.component.css'
 })

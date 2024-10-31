@@ -23,11 +23,12 @@ import { Genero } from '../../../models/genero.model';
 import { GeneroService } from '../../../service/genero.service';
 import { Autor } from '../../../models/autor.model';
 import { AutorService } from '../../../service/autor.service';
+import { FooterComponent } from '../../../footer/footer.component';
 
 @Component({
   selector: 'app-box-form',
   standalone: true,
-  imports: [NgIf, NgFor, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, MatMenuModule, MatIconModule, MatSelectModule, RouterModule],
+  imports: [NgIf, NgFor, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, MatMenuModule, MatIconModule, MatSelectModule, RouterModule, FooterComponent],
   templateUrl: './box-form.component.html',
   styleUrls: ['./box-form.component.css']
 })

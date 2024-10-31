@@ -26,11 +26,12 @@ import { Autor } from '../../../models/autor.model';
 import { Genero } from '../../../models/genero.model';
 import { AutorService } from '../../../service/autor.service';
 import { GeneroService } from '../../../service/genero.service';
+import { FooterComponent } from '../../../footer/footer.component';
 
 @Component({
   selector: 'app-livro-form',
   standalone: true,
-  imports: [NgIf, NgFor, ReactiveFormsModule, MatTableModule, MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, MatMenuModule, MatIconModule, MatSelectModule, RouterModule],
+  imports: [NgIf, NgFor, ReactiveFormsModule, MatTableModule, MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, MatMenuModule, MatIconModule, MatSelectModule, RouterModule, FooterComponent],
   templateUrl: './livro-form.component.html',
   styleUrls: ['./livro-form.component.css']
 })

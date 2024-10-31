@@ -14,11 +14,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog/confirmation-dialog.component';
 import { NavigationService } from '../../../service/navigation.service';
+import { FooterComponent } from '../../../footer/footer.component';
 
 @Component({
   selector: 'app-editora-form',
   standalone: true,
-  imports: [NgIf, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, MatMenuModule, MatIconModule],
+  imports: [NgIf, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, MatMenuModule, MatIconModule, FooterComponent],
   templateUrl: './editora-form.component.html',
   styleUrl: './editora-form.component.css'
 })

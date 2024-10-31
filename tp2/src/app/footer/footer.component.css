@@ -1,0 +1,148 @@
+.footer-container{
+    background-color: var(--color-footer);
+    height: 10%;
+    width: 100%;
+    padding-bottom: 5px;
+    padding-top: 6px;
+}
+
+p{
+    display: flex;
+    justify-content: center;
+}
+
+.contatos-icons{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    margin-bottom: 30px;
+    gap: 20px;
+}
+
+.nome{
+  text-align: justify;
+}
+
+.container{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    justify-content: center;
+    margin-bottom: 10Jpx;
+    gap: 20px;
+}
+
+.contatos{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-github {
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;    
+    justify-content: center;
+    transition-duration: .4s;
+    cursor: pointer;
+    background-color: rgb(31, 31, 31);
+    overflow: hidden;
+}
+
+.btn-linkedin-hugo {
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;    
+  justify-content: center;
+  transition-duration: .4s;
+  cursor: pointer;
+  background-color: rgb(31, 31, 31);
+  overflow: hidden;
+}
+
+.btn-linkedin-kethelen   {
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;    
+  justify-content: center;
+  transition-duration: .4s;
+  cursor: pointer;
+  background-color: rgb(31, 31, 31);
+  overflow: hidden;
+}
+  
+  .svgIcon {
+    transition-duration: .3s;
+  }
+  
+  .svgIcon path {
+    fill: white;
+  }
+  
+  .text {
+    position: absolute;
+    color: rgb(255, 255, 255);
+    width: 120px;
+    font-weight: 600;
+    opacity: 0;
+    transition-duration: .4s;
+  }
+  
+  .btn-github:hover {
+    width: 120px;
+    transition-duration: .4s;
+    border-radius: 30px;
+  }
+  
+  .btn-github:hover .text {
+    opacity: 1;
+    transition-duration: .4s;
+  }
+  
+  .btn-github:hover .svgIcon {
+    opacity: 0;
+    transition-duration: .3s;
+  }
+
+  .btn-linkedin-hugo:hover {
+    width: 120px;
+    transition-duration: .4s;
+    border-radius: 30px;
+  }
+  
+  .btn-linkedin-hugo:hover .text {
+    opacity: 1;
+    transition-duration: .4s;
+  }
+  
+  .btn-linkedin-hugo:hover .svgIcon {
+    opacity: 0;
+    transition-duration: .3s;
+  }
+
+  .btn-linkedin-kethelen:hover {
+    width: 140px;
+    transition-duration: .4s;
+    border-radius: 30px;
+  }
+  
+  .btn-linkedin-kethelen:hover .text {
+    opacity: 1;
+    transition-duration: .4s;
+  }
+  
+  .btn-linkedin-kethelen:hover .svgIcon {
+    opacity: 0;
+    transition-duration: .3s;
+  }
