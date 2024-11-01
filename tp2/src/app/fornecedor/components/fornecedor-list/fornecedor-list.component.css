@@ -1,13 +1,13 @@
-.container{
-    display: flex;
-    height: 100vh;
-}
-
 .container-content{
     display: flex;
     flex-direction: column;
     width: 100%;
     height: 50%;
+}
+
+.container{
+    display: flex;
+    height: 100vh;
 }
 
 .container-title{
