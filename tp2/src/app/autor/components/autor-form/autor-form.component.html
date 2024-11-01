@@ -28,6 +28,11 @@
                     <input matInput type="text" formControlName="nome">
                     <mat-error *ngIf="formGroup.get('nome')?.invalid && formGroup.get('nome')?.touched">
                         {{ getErrorMessage('nome', formGroup.get('nome')?.errors) }}
+
+                        <!-- Error Back-->
+                        @if(formGroup.get('nome')?.hasError('apiError')) {
+                            <span>{{formGroup.get('nome')?.getError('apiError')}}</span> 
+                         }
                     </mat-error>
                 </mat-form-field>
 
@@ -37,6 +42,11 @@
                     <textarea matInput type="text" formControlName="biografia"></textarea>
                     <mat-error *ngIf="formGroup.get('biografia')?.invalid && formGroup.get('biografia')?.touched">
                         {{ getErrorMessage('biografia', formGroup.get('biografia')?.errors) }}
+
+                        <!-- Error Back-->
+                        @if(formGroup.get('biografia')?.hasError('apiError')) {
+                            <span>{{formGroup.get('biografia')?.getError('apiError')}}</span> 
+                         }
                     </mat-error>
                 </mat-form-field>
             </form>
@@ -45,7 +55,7 @@
         <mat-card-actions>
             <button mat-raised-button class="cancel-button" (click)="cancelar()">Cancelar</button>
             <button mat-raised-button *ngIf="formGroup?.get('id')?.value" class="excluir-button" (click)="excluir()" [disabled]="formGroup.invalid">Excluir</button>
-            <button mat-raised-button class="save-button" (click)="salvar()" [disabled]="formGroup.invalid">Salvar</button>
+            <button mat-raised-button class="save-button" (click)="salvar()">Salvar</button>
         </mat-card-actions>
     </mat-card>
 </div>

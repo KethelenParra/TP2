@@ -16,11 +16,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { SidebarComponent } from '../../../sidebar/sidebar.component';
 import { FooterComponent } from '../../../footer/footer.component';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-genero-list',
   standalone: true,
-  imports: [NgFor, MatToolbarModule, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent, FormsModule, MatFormFieldModule, MatInputModule, SidebarComponent, FooterComponent],
+  imports: [NgFor, MatToolbarModule, MatIconModule, MatSnackBarModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent, FormsModule, MatFormFieldModule, MatInputModule, SidebarComponent, FooterComponent],
   templateUrl: './genero-list.component.html',
   styleUrl: './genero-list.component.css'
 })
@@ -33,7 +34,7 @@ export class GeneroListComponent {
    page = 0;
    filtro: string = "";
 
-  constructor(private generoService: GeneroService, private dialog: MatDialog){
+  constructor(private generoService: GeneroService, private dialog: MatDialog, private snackBar: MatSnackBar){
   }
 
   ngOnInit(): void {
@@ -45,7 +46,6 @@ export class GeneroListComponent {
     );
   }
 
-  
   carregarGeneros(){
     if(this.filtro){
       this.generoService.findByNome(this.filtro, this.page, this.pageSize).subscribe(data => {
@@ -83,26 +83,29 @@ export class GeneroListComponent {
   aplicarFiltro(){
     this.carregarGeneros();
     this.carregarTodosRegistros();
+    this.snackBar.open('Filtro aplicado com sucesso!', 'Fechar', { duration: 3000 });
   }
 
   excluir(genero: Genero): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '300px',
-      data: {
-        message: 'Deseja realmente excluir este Genero?'
-      }
+      data: { message: 'Deseja realmente excluir este Genero?' }
     });
+    
     dialogRef.afterClosed().subscribe(result => {
-      if( result === true ){
+      if (result === true) {
         this.generoService.delete(genero).subscribe({
           next: () => {
             this.generos = this.generos.filter(e => e.id !== genero.id);
+            this.snackBar.open('Genero excluído com sucesso!', 'Fechar', { duration: 3000 });
           },
           error: (err) => {
             console.error('Erro ao tentar excluir o genero', err);
+            this.snackBar.open('Erro ao excluir genero.', 'Fechar', { duration: 3000 });
           }
         });
       }
     });
   }
+   
 }

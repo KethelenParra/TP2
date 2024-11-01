@@ -29,6 +29,11 @@
                                     && formGroup.get('nome')?.invalid 
                                     && formGroup.get('nome')?.touched">
                             {{ getErrorMessage('nome', formGroup.get('nome')?.errors) }}
+
+                             <!-- Error Back-->
+                        @if(formGroup.get('nome')?.hasError('apiError')) {
+                            <span>{{formGroup.get('nome')?.getError('apiError')}}</span> 
+                         }
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="full-width-input">
@@ -38,6 +43,11 @@
                                     && formGroup.get('cnpj')?.invalid 
                                     && formGroup.get('cnpj')?.touched">
                             {{ getErrorMessage('cnpj', formGroup.get('cnpj')?.errors)}}
+
+                             <!-- Error Back-->
+                        @if(formGroup.get('cnpj')?.hasError('apiError')) {
+                            <span>{{formGroup.get('cnpj')?.getError('apiError')}}</span> 
+                         }
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="full-width-input">
@@ -47,6 +57,11 @@
                                     && formGroup.get('inscricaoEstadual')?.invalid 
                                     && formGroup.get('inscricaoEstadual')?.touched">
                             {{ getErrorMessage('inscricaoEstadual', formGroup.get('inscricaoEstadual')?.errors)}}
+                    
+                             <!-- Error Back-->
+                        @if(formGroup.get('inscricaoEstadual')?.hasError('apiError')) {
+                            <span>{{formGroup.get('inscricaoEstadual')?.getError('apiError')}}</span> 
+                         }
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="full-width-input">
@@ -56,6 +71,11 @@
                                     && formGroup.get('email')?.invalid 
                                     && formGroup.get('email')?.touched">
                             {{ getErrorMessage('email', formGroup.get('email')?.errors)}}
+
+                             <!-- Error Back-->
+                        @if(formGroup.get('email')?.hasError('apiError')) {
+                            <span>{{formGroup.get('email')?.getError('apiError')}}</span> 
+                         }
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="full-width-input">
@@ -65,6 +85,11 @@
                                     && formGroup.get('quantLivrosFornecido')?.invalid 
                                     && formGroup.get('quantLivrosFornecido')?.touched">
                             {{ getErrorMessage('quantLivrosFornecido', formGroup.get('quantLivrosFornecido')?.errors)}}
+                    
+                     <!-- Error Back-->
+                     @if(formGroup.get('quantLivrosFornecido')?.hasError('apiError')) {
+                        <span>{{formGroup.get('quantLivrosFornecido')?.getError('apiError')}}</span> 
+                     }
                     </mat-error>
                 </mat-form-field>
                 <div formGroupName="telefone">
@@ -76,6 +101,11 @@
                                                 && formGroup.get('telefone')?.get('codigoArea')?.invalid  
                                                 && formGroup.get('telefone')?.get('codigoArea')?.touched">
                                 {{ getErrorMessage('telefone.codigoArea', formGroup.get('telefone')?.get('codigoArea')?.errors) }}
+                            
+                                 <!-- Error Back-->
+                                @if(formGroup.get('telefone.codigoArea')?.hasError('apiError')) {
+                                    <span>{{formGroup.get('telefone.codigoArea')?.getError('apiError')}}</span> 
+                                }
                             </mat-error>
                         </mat-form-field>
                 
@@ -86,6 +116,11 @@
                                                 && formGroup.get('telefone')?.get('numero') 
                                                 && formGroup.get('telefone')?.get('numero')?.touched">
                                 {{ getErrorMessage('telefone.numero', formGroup.get('telefone')?.get('numero')?.errors) }}
+                            
+                                 <!-- Error Back-->
+                                @if(formGroup.get('telefone.numero')?.hasError('apiError')) {
+                                    <span>{{formGroup.get('telefone.numero')?.getError('apiError')}}</span> 
+                                }
                             </mat-error>
                         </mat-form-field>
                     </div>
@@ -97,6 +132,11 @@
                                     && formGroup.get('estado')?.invalid 
                                     && formGroup.get('estado')?.touched">
                             {{ getErrorMessage('estado', formGroup.get('estado')?.errors)}}
+
+                             <!-- Error Back-->
+                        @if(formGroup.get('estado')?.hasError('apiError')) {
+                            <span>{{formGroup.get('estado')?.getError('apiError')}}</span> 
+                         }
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="full-width-input">
@@ -106,6 +146,11 @@
                                     && formGroup.get('cidade')?.invalid 
                                     && formGroup.get('cidade')?.touched">
                             {{ getErrorMessage('cidade', formGroup.get('cidade')?.errors)}}
+
+                             <!-- Error Back-->
+                        @if(formGroup.get('cidade')?.hasError('apiError')) {
+                            <span>{{formGroup.get('cidade')?.getError('apiError')}}</span> 
+                         }
                     </mat-error>
                 </mat-form-field>
             </form>

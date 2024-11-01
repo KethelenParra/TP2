@@ -16,11 +16,12 @@ import { NavigationComponent } from '../../../navigation/navigation.component';
 import { AutorService } from '../../../service/autor.service';
 import { SidebarComponent } from '../../../sidebar/sidebar.component';
 import { FooterComponent } from '../../../footer/footer.component';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-autor-list',
   standalone: true,
-  imports:[MatToolbarModule, FormsModule, MatFormFieldModule, MatInputModule ,NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent, SidebarComponent, FooterComponent],
+  imports:[MatToolbarModule, FormsModule, MatSnackBarModule, MatFormFieldModule, MatInputModule ,NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent, SidebarComponent, FooterComponent],
   templateUrl: './autor-list.component.html',
   styleUrl: './autor-list.component.css'
 })
@@ -35,7 +36,8 @@ export class AutorListComponent {
 
   constructor (
     private autorService: AutorService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar
   ){}
 
   ngOnInit(): void {
@@ -82,29 +84,32 @@ export class AutorListComponent {
     this.ngOnInit();
   }
 
-  aplicarFiltro(){
+  aplicarFiltro() {
     this.carregarAutores();
     this.carregarTodosRegistros();
+    this.snackBar.open('Filtro aplicado com sucesso!', 'Fechar', { duration: 3000 });
   }
 
   excluir(autor: Autor): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '300px',
-      data: {
-        message: 'Deseja realmente excluir este Autor?'
-      }
+      data: { message: 'Deseja realmente excluir este Autor?' }
     });
+    
     dialogRef.afterClosed().subscribe(result => {
-      if( result === true ){
+      if (result === true) {
         this.autorService.delete(autor).subscribe({
           next: () => {
             this.autores = this.autores.filter(e => e.id !== autor.id);
+            this.snackBar.open('Autor excluído com sucesso!', 'Fechar', { duration: 3000 });
           },
           error: (err) => {
             console.error('Erro ao tentar excluir o autor', err);
+            this.snackBar.open('Erro ao excluir autor.', 'Fechar', { duration: 3000 });
           }
         });
       }
     });
   }
+   
 }

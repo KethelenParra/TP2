@@ -28,6 +28,11 @@
                                     && formGroup.get('nome')?.invalid 
                                     && formGroup.get('nome')?.touched">
                             {{ getErrorMessage('nome', formGroup.get('nome')?.errors)}}
+
+                            <!-- Error Back-->
+                            @if(formGroup.get('nome')?.hasError('apiError')) {
+                                <span>{{formGroup.get('nome')?.getError('apiError')}}</span> 
+                             }
                     </mat-error>
                 </mat-form-field>
 
@@ -38,6 +43,11 @@
                                     && formGroup.get('email')?.invalid 
                                     && formGroup.get('email')?.touched">
                             {{ getErrorMessage('email', formGroup.get('email')?.errors)}}
+
+                            <!-- Error Back-->
+                            @if(formGroup.get('email')?.hasError('apiError')) {
+                                <span>{{formGroup.get('email')?.getError('apiError')}}</span> 
+                             }
                     </mat-error>
                 </mat-form-field>
 
@@ -48,6 +58,11 @@
                                     && formGroup.get('cidade')?.invalid 
                                     && formGroup.get('cidade')?.touched">
                             {{ getErrorMessage('cidade', formGroup.get('cidade')?.errors)}}
+
+                            <!-- Error Back-->
+                            @if(formGroup.get('cidade')?.hasError('apiError')) {
+                                <span>{{formGroup.get('cidade')?.getError('apiError')}}</span> 
+                             }
                     </mat-error>
                 </mat-form-field>
 
@@ -58,6 +73,11 @@
                                     && formGroup.get('estado')?.invalid 
                                     && formGroup.get('estado')?.touched">
                             {{ getErrorMessage('estado', formGroup.get('estado')?.errors)}}
+
+                            <!-- Error Back-->
+                            @if(formGroup.get('estado')?.hasError('apiError')) {
+                                <span>{{formGroup.get('estado')?.getError('apiError')}}</span> 
+                             }
                     </mat-error>
                 </mat-form-field>
                 
@@ -70,6 +90,11 @@
                                                 && formGroup.get('telefone')?.get('codigoArea')?.invalid  
                                                 && formGroup.get('telefone')?.get('codigoArea')?.touched">
                                 {{ getErrorMessage('telefone.codigoArea', formGroup.get('telefone')?.get('codigoArea')?.errors) }}
+                            
+                                <!-- Error Back-->
+                            @if(formGroup.get('telefone.codigoArea')?.hasError('apiError')) {
+                                <span>{{formGroup.get('telefone.codigoArea')?.getError('apiError')}}</span> 
+                             }
                             </mat-error>
                         </mat-form-field>
                 
@@ -80,6 +105,11 @@
                                                 && formGroup.get('telefone')?.get('numero') 
                                                 && formGroup.get('telefone')?.get('numero')?.touched">
                                 {{ getErrorMessage('telefone.numero', formGroup.get('telefone')?.get('numero')?.errors) }}
+                            
+                                <!-- Error Back-->
+                            @if(formGroup.get('telefone.numero')?.hasError('apiError')) {
+                                <span>{{formGroup.get('telefone.numero')?.getError('apiError')}}</span> 
+                             }
                             </mat-error>
                         </mat-form-field>
                     </div>
@@ -89,7 +119,7 @@
         <mat-card-actions>
             <button mat-raised-button class="cancel-button" (click)="cancelar()">Cancelar</button>
             <button mat-raised-button *ngIf="formGroup?.get('id')?.value" class="excluir-button" (click)="excluir()" [disabled]="formGroup.invalid">Excluir</button>
-            <button mat-raised-button class="save-button" (click)="salvar()" [disabled]="formGroup.invalid">Salvar</button>
+            <button mat-raised-button class="save-button" (click)="salvar()" >Salvar</button>
         </mat-card-actions>
     </mat-card>
 </div>

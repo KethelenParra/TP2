@@ -17,11 +17,12 @@ import { MatInputModule } from '@angular/material/input';
 import { SearchComponent } from '../../../search/search.component';
 import { SidebarComponent } from '../../../sidebar/sidebar.component';
 import { FooterComponent } from '../../../footer/footer.component';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-box-list',
   standalone: true,
-  imports: [MatToolbarModule, FormsModule, MatFormFieldModule, MatInputModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent, SearchComponent, SidebarComponent, FooterComponent],
+  imports: [MatToolbarModule, MatSnackBarModule, FormsModule, MatFormFieldModule, MatInputModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent, SearchComponent, SidebarComponent, FooterComponent],
   templateUrl: './box-list.component.html',
   styleUrl: './box-list.component.css'
 })
@@ -36,6 +37,7 @@ export class BoxListComponent implements OnInit{
   constructor(
     private boxService: BoxService, 
     private dialog: MatDialog, 
+    private snackBar: MatSnackBar
   ){}
 
   ngOnInit(): void {
@@ -85,23 +87,25 @@ export class BoxListComponent implements OnInit{
   aplicarFiltro(){
     this.carregarBoxes();
     this.carregarTodosRegistros();
+    this.snackBar.open('Filtro aplicado com sucesso!', 'Fechar', { duration: 3000 });
   }
 
   excluir(box: Box): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '300px',
-      data: {
-        message: 'Deseja realmente excluir este Box?'
-      }
+      data: { message: 'Deseja realmente excluir este Box?' }
     });
+    
     dialogRef.afterClosed().subscribe(result => {
-      if( result === true ){
+      if (result === true) {
         this.boxService.delete(box).subscribe({
           next: () => {
             this.boxes = this.boxes.filter(e => e.id !== box.id);
+            this.snackBar.open('Box excluído com sucesso!', 'Fechar', { duration: 3000 });
           },
           error: (err) => {
-            console.error('Erro ao tentar excluir o Box', err);
+            console.error('Erro ao tentar excluir o box', err);
+            this.snackBar.open('Erro ao excluir box.', 'Fechar', { duration: 3000 });
           }
         });
       }

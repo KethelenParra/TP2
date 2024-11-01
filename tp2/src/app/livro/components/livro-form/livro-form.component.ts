@@ -27,11 +27,13 @@ import { Genero } from '../../../models/genero.model';
 import { AutorService } from '../../../service/autor.service';
 import { GeneroService } from '../../../service/genero.service';
 import { FooterComponent } from '../../../footer/footer.component';
+import { HttpErrorResponse } from '@angular/common/http';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-livro-form',
   standalone: true,
-  imports: [NgIf, NgFor, ReactiveFormsModule, MatTableModule, MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, MatMenuModule, MatIconModule, MatSelectModule, RouterModule, FooterComponent],
+  imports: [NgIf, NgFor, ReactiveFormsModule, MatSnackBarModule, MatTableModule, MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, MatMenuModule, MatIconModule, MatSelectModule, RouterModule, FooterComponent],
   templateUrl: './livro-form.component.html',
   styleUrls: ['./livro-form.component.css']
 })
@@ -54,7 +56,8 @@ export class LivroFormComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog,
-    public navService: NavigationService
+    public navService: NavigationService,
+    private snackBar: MatSnackBar
   ){
 
     this.formGroup = this.formBuilder.group({
@@ -124,31 +127,53 @@ export class LivroFormComponent implements OnInit {
     });
   }
 
+  tratarErros(errorResponse: HttpErrorResponse) {
+
+    if (errorResponse.status === 400) {
+      if (errorResponse.error?.errors) {
+        errorResponse.error.errors.forEach((validationError: any) => {
+          const formControl = this.formGroup.get(validationError.fieldName);
+
+          if (formControl) {
+            formControl.setErrors({apiError: validationError.message})
+          }
+
+        });
+      }
+    } else if (errorResponse.status < 400){
+      alert(errorResponse.error?.message || 'Erro genérico do envio do formulário.');
+    } else if (errorResponse.status >= 500) {
+      alert('Erro interno do servidor.');
+    }
+
+  }
+
   salvar() {
     this.formGroup.markAllAsTouched();
     if (this.formGroup.valid) {
       const livro = this.formGroup.value;
-      if (livro.id == null) {
-        this.livroService.insert(livro).subscribe({
-          next: (livroCadastrado) => {
-            this.router.navigateByUrl('/livros');
-          },
-          error: (err) => {
-            console.log('Erro ao salvar', + JSON.stringify(err));
-          }
-        });
-      } else {
-        this.livroService.update(livro).subscribe({
-          next: (livroAlterado) => {
-            this.router.navigateByUrl('/livros');
-          },
-          error: (err) => {
-            console.log('Erro ao alterar', + JSON.stringify(err));
-          }
-        });
-      } 
-    } else {
-      console.log('Formulário inválido');
+  
+      // selecionando a operacao (insert ou update)
+      const operacao = livro.id == null
+        ? this.livroService.insert(livro)
+        : this.livroService.update(livro);
+  
+      // executando a operacao
+      operacao.subscribe({
+        next: () => {
+          this.snackBar.open('Livro salvo com sucesso!', 'Fechar', {
+            duration: 3000
+          });
+          this.router.navigateByUrl('/livros');
+        },
+        error: (error) => {
+          console.log('Erro ao Salvar' + JSON.stringify(error));
+          this.tratarErros(error);
+          this.snackBar.open('Erro ao salvar livro.', 'Fechar', {
+            duration: 3000
+          });
+        }
+      });
     }
   }
   
@@ -161,15 +186,21 @@ export class LivroFormComponent implements OnInit {
             message: 'Deseja realmente excluir este Livro?'
           }
         });
-
-        dialogRef.afterClosed().subscribe( result => {
+  
+        dialogRef.afterClosed().subscribe(result => {
           if (result) {
             this.livroService.delete(livro).subscribe({
               next: () => {
+                this.snackBar.open('Livro excluído com sucesso!', 'Fechar', {
+                  duration: 3000
+                });
                 this.router.navigateByUrl('/livros');
               },
               error: (err) => {
                 console.log('Erro ao Excluir' + JSON.stringify(err));
+                this.snackBar.open('Erro ao excluir livro.', 'Fechar', {
+                  duration: 3000
+                });
               }
             });
           }
@@ -200,42 +231,53 @@ export class LivroFormComponent implements OnInit {
     titulo: {
       required: 'O título deve ser informado',
       minlength: 'O título deve ter pelo menos 2 caracteres',
-      maxlength: 'O título deve ter no máximo 60 caracteres'
+      maxlength: 'O título deve ter no máximo 60 caracteres',
+      apiError: ' '
     },
     quantidadeEstoque: {
       required: 'A quantidade em estoque deve ser informada',
-      minlength: 'A quantidade em estoque deve ser um valor válido'
+      minlength: 'A quantidade em estoque deve ser um valor válido',
+      apiError: ' '
     },
     preco: {
-      required: 'O preço deve ser informado'
+      required: 'O preço deve ser informado',
+      apiError: ' '
     },
     isbn: {
       required: 'O ISBN deve ser informado',
       minlength: 'O ISBN deve conter 13 caracteres',
-      maxlength: 'O ISBN deve conter 13 caracteres'
+      maxlength: 'O ISBN deve conter 13 caracteres',
+      apiError: ' '
     },
     descricao: {
       required: 'A descrição deve ser informada',
       minlength: 'A descrição deve ter pelo menos 10 caracteres',
-      maxlength: 'A descrição deve ter no máximo 20000 caracteres'
+      maxlength: 'A descrição deve ter no máximo 20000 caracteres',
+      apiError: ' '
     },
     datalancamento: {
-      required: 'A data de lançamento deve ser informada'
+      required: 'A data de lançamento deve ser informada',
+      apiError: ' '
     },
     classificacao: {
-      required: 'A classificação deve ser selecionada'
+      required: 'A classificação deve ser selecionada',
+      apiError: ' '
     },
     fornecedor: {
-      required: 'O fornecedor deve ser selecionado'
+      required: 'O fornecedor deve ser selecionado',
+      apiError: ' '
     },
     editora: {
-      required: 'A editora deve ser selecionada'
+      required: 'A editora deve ser selecionada',
+      apiError: ' '
     },
-    autor: {
-      required: 'O autor deve ser selecionado'
+    autores: {
+      required: 'O autor deve ser selecionado',
+      apiError: ' '
     },
-    genero: {
-      required: 'O gênero deve ser selecionado'
+    generos: {
+      required: 'O gênero deve ser selecionado',
+      apiError: ' '
     }
   };
 }

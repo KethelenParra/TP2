@@ -17,6 +17,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { SidebarComponent } from '../../../sidebar/sidebar.component';
 import { FooterComponent } from '../../../footer/footer.component';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-fornecedor-list',
@@ -34,7 +35,7 @@ export class FornecedorListComponent implements OnInit {
   page = 0;
   filtro: string = "";
 
-  constructor(private fornecedorService: FornecedorService, private dialog: MatDialog){
+  constructor(private fornecedorService: FornecedorService, private dialog: MatDialog, private snackBar: MatSnackBar ){
   }
 
   ngOnInit(): void {
@@ -83,26 +84,29 @@ export class FornecedorListComponent implements OnInit {
   aplicarFiltro(){
     this.carregarfornecedores();
     this.carregarTodosRegistros();
+    this.snackBar.open('Filtro aplicado com sucesso!', 'Fechar', { duration: 3000 });
   }
 
   excluir(fornecedor: Fornecedor): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '300px',
-      data: {
-        message: 'Deseja realmente excluir este Fornecedor?'
-      }
+      data: { message: 'Deseja realmente excluir este Fornecedor?' }
     });
+    
     dialogRef.afterClosed().subscribe(result => {
-      if( result === true ){
+      if (result === true) {
         this.fornecedorService.delete(fornecedor).subscribe({
           next: () => {
             this.fornecedores = this.fornecedores.filter(e => e.id !== fornecedor.id);
+            this.snackBar.open('Fornecedor excluído com sucesso!', 'Fechar', { duration: 3000 });
           },
           error: (err) => {
             console.error('Erro ao tentar excluir o fornecedor', err);
+            this.snackBar.open('Erro ao excluir fornecedor.', 'Fechar', { duration: 3000 });
           }
         });
       }
     });
   }
+   
 }

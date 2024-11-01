@@ -16,11 +16,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { SidebarComponent } from '../../../sidebar/sidebar.component';
 import { FooterComponent } from '../../../footer/footer.component';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-editora-list',
   standalone: true,
-  imports: [MatToolbarModule, FormsModule, MatInputModule, MatFormFieldModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent, SidebarComponent, FooterComponent],
+  imports: [MatToolbarModule, FormsModule, MatSnackBarModule, MatInputModule, MatFormFieldModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent, SidebarComponent, FooterComponent],
   templateUrl: './editora-list.component.html',
   styleUrl: './editora-list.component.css'
 })
@@ -33,7 +34,7 @@ export class EditoraListComponent implements OnInit {
   page = 0;
   filtro: string = "";
 
-  constructor(private editoraService: EditoraService, private dialog: MatDialog){
+  constructor(private editoraService: EditoraService, private dialog: MatDialog, private snackBar: MatSnackBar){
   }
 
   ngOnInit(): void {
@@ -82,24 +83,25 @@ export class EditoraListComponent implements OnInit {
   aplicarFiltro(){
     this.carregarEditoras();
     this.carregarTodosRegistros();
+    this.snackBar.open('Filtro aplicado com sucesso!', 'Fechar', { duration: 3000 });
   }
-
 
   excluir(editora: Editora): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '300px',
-      data: {
-        message: 'Deseja realmente excluir este Editora?'
-      }
+      data: { message: 'Deseja realmente excluir este Autor?' }
     });
+    
     dialogRef.afterClosed().subscribe(result => {
-      if( result === true ){
+      if (result === true) {
         this.editoraService.delete(editora).subscribe({
           next: () => {
             this.editoras = this.editoras.filter(e => e.id !== editora.id);
+            this.snackBar.open('Editora excluído com sucesso!', 'Fechar', { duration: 3000 });
           },
           error: (err) => {
             console.error('Erro ao tentar excluir o editora', err);
+            this.snackBar.open('Erro ao excluir editora.', 'Fechar', { duration: 3000 });
           }
         });
       }

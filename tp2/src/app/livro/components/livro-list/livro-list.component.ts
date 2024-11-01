@@ -17,11 +17,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { SidebarComponent } from '../../../sidebar/sidebar.component';
 import { FooterComponent } from '../../../footer/footer.component';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-livro-list',
   standalone: true,
-  imports: [MatToolbarModule, NgFor, MatIconModule, FormsModule, MatFormFieldModule, MatInputModule, CommonModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent, SidebarComponent, FooterComponent],
+  imports: [MatToolbarModule, NgFor, MatSnackBarModule, MatIconModule, FormsModule, MatFormFieldModule, MatInputModule, CommonModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent, SidebarComponent, FooterComponent],
   templateUrl: './livro-list.component.html',
   styleUrls: ['./livro-list.component.css'] // Corrigido para "styleUrls"
 })
@@ -49,7 +50,7 @@ export class LivroListComponent implements OnInit {
   page = 0;
   filtro: string = "";
 
-  constructor(private livroService: LivroService, private dialog: MatDialog) {}
+  constructor(private livroService: LivroService, private dialog: MatDialog, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.livroService.findAll(this.page, this.pageSize).subscribe(
@@ -97,23 +98,25 @@ export class LivroListComponent implements OnInit {
   aplicarFiltro(){
     this.carregarLivros();
     this.carregarTodosRegistros();
+    this.snackBar.open('Filtro aplicado com sucesso!', 'Fechar', { duration: 3000 });
   }
 
   excluir(livro: Livro): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '300px',
-      data: {
-        message: 'Deseja realmente excluir este Livro?'
-      }
+      data: { message: 'Deseja realmente excluir este Livro?' }
     });
+    
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
         this.livroService.delete(livro).subscribe({
           next: () => {
-            this.livros = this.livros.filter(l => l.id !== livro.id);
+            this.livros = this.livros.filter(e => e.id !== livro.id);
+            this.snackBar.open('Livro excluído com sucesso!', 'Fechar', { duration: 3000 });
           },
           error: (err) => {
             console.error('Erro ao tentar excluir o livro', err);
+            this.snackBar.open('Erro ao excluir livro.', 'Fechar', { duration: 3000 });
           }
         });
       }

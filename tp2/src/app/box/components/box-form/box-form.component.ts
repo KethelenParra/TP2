@@ -24,11 +24,13 @@ import { GeneroService } from '../../../service/genero.service';
 import { Autor } from '../../../models/autor.model';
 import { AutorService } from '../../../service/autor.service';
 import { FooterComponent } from '../../../footer/footer.component';
+import { HttpErrorResponse } from '@angular/common/http';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-box-form',
   standalone: true,
-  imports: [NgIf, NgFor, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, MatMenuModule, MatIconModule, MatSelectModule, RouterModule, FooterComponent],
+  imports: [NgIf, NgFor, MatSnackBarModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, MatMenuModule, MatIconModule, MatSelectModule, RouterModule, FooterComponent],
   templateUrl: './box-form.component.html',
   styleUrls: ['./box-form.component.css']
 })
@@ -49,7 +51,8 @@ export class BoxFormComponent implements OnInit{
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog,
-    public navService: NavigationService) {
+    public navService: NavigationService,
+    private snackBar: MatSnackBar ) {
 
       this.formGroup = this.formBuilder.group({
         id: [],
@@ -110,50 +113,79 @@ export class BoxFormComponent implements OnInit{
       })
     }
 
+    tratarErros(errorResponse: HttpErrorResponse) {
+
+      if (errorResponse.status === 400) {
+        if (errorResponse.error?.errors) {
+          errorResponse.error.errors.forEach((validationError: any) => {
+            const formControl = this.formGroup.get(validationError.fieldName);
+  
+            if (formControl) {
+              formControl.setErrors({apiError: validationError.message})
+            }
+  
+          });
+        }
+      } else if (errorResponse.status < 400){
+        alert(errorResponse.error?.message || 'Erro genérico do envio do formulário.');
+      } else if (errorResponse.status >= 500) {
+        alert('Erro interno do servidor.');
+      }
+  
+    }
+  
     salvar() {
       this.formGroup.markAllAsTouched();
       if (this.formGroup.valid) {
         const box = this.formGroup.value;
-        if (box.id == null){
-          this.boxService.insert(box).subscribe({
-          next: (boxesCadastrado) => {
+    
+        // selecionando a operacao (insert ou update)
+        const operacao = box.id == null
+          ? this.boxService.insert(box)
+          : this.boxService.update(box);
+    
+        // executando a operacao
+        operacao.subscribe({
+          next: () => {
+            this.snackBar.open('Box salvo com sucesso!', 'Fechar', {
+              duration: 3000
+            });
             this.router.navigateByUrl('/boxes');
           },
-          error: (errorResponse) => {
-            console.log('Erro ao salvar', + JSON.stringify(errorResponse));
-          } 
+          error: (error) => {
+            console.log('Erro ao Salvar' + JSON.stringify(error));
+            this.tratarErros(error);
+            this.snackBar.open('Erro ao salvar box.', 'Fechar', {
+              duration: 3000
+            });
+          }
         });
-        } else {
-          this.boxService.update(box).subscribe({
-            next: (boxesAlterado) => {
-              this.router.navigateByUrl('/boxes');
-            },
-            error: (error) => {
-              console.error('Erro ao atualizar box', error)
-            }
-          });
-        }
       }
     }
-
     excluir() {
       if (this.formGroup.valid) {
         const box = this.formGroup.value;
         if (box.id != null) {
           const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
             data: {
-              message: 'Deseja realmente excluir este Box?'
+              message: 'Deseja realmente excluir este box?'
             }
           });
-
-          dialogRef.afterClosed().subscribe( result => {
+    
+          dialogRef.afterClosed().subscribe(result => {
             if (result) {
-              this.boxService.delete(box).subscribe({
+              this.autorService.delete(box).subscribe({
                 next: () => {
+                  this.snackBar.open('Box excluído com sucesso!', 'Fechar', {
+                    duration: 3000
+                  });
                   this.router.navigateByUrl('/boxes');
                 },
                 error: (err) => {
                   console.log('Erro ao Excluir' + JSON.stringify(err));
+                  this.snackBar.open('Erro ao excluir box.', 'Fechar', {
+                    duration: 3000
+                  });
                 }
               });
             }
@@ -182,34 +214,43 @@ export class BoxFormComponent implements OnInit{
       nome: {
         required: 'O box deve ser informado',
         minlength: 'O box deve ter pelo menos 2 caracteres',
-        maxLength: 'O box deve ter no maximo 40 caracteres'
+        maxLength: 'O box deve ter no maximo 40 caracteres',
+        apiError: ' '
       },
       descricaoBox: {
         required: 'A descricao deve ser informada', 
         minlength: 'A descricao deve ter pelo menos 10 caracteres',
-        maxlength: 'A descricao deve ter no maximo 20000 caracteres'
+        maxlength: 'A descricao deve ter no maximo 20000 caracteres',
+        apiError: ' '
       },
       quantidadeEstoque: {
         required: 'A quantidade deve ser informada',
-        minLength: 'O estoque deve ter pelo menos 1 box'
+        minLength: 'O estoque deve ter pelo menos 1 box',
+        apiError: ' '
       },
       fornecedor: {
-        required: 'O fornecedor deve ser informada'
+        required: 'O fornecedor deve ser informada',
+        apiError: ' '
       },
       editora: {
-        required: 'A editora deve ser informada'
+        required: 'A editora deve ser informada',
+        apiError: ' '
       },
       preco: {
-        required: 'O preco deve ser informado'
+        required: 'O preco deve ser informado',
+        apiError: ' '
       },
       classificacao: {
-        required: 'A classificação deve ser selecionada'
+        required: 'A classificação deve ser selecionada',
+        apiError: ' '
       },
-      genero: {
-        required: 'O genero deve ser selecionado'
+      generos: {
+        required: 'O genero deve ser selecionado',
+        apiError: ' '
       },
-      autore: {
-        required: 'O autor deve ser selecionado'
+      autores: {
+        required: 'O autor deve ser selecionado',
+        apiError: ' '
       }
     };
 }

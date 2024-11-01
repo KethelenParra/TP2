@@ -29,6 +29,11 @@
                                     && formGroup.get('nome')?.invalid 
                                     && formGroup.get('nome')?.touched">
                             {{ getErrorMessage('nome', formGroup.get('nome')?.errors) }}
+
+                             <!-- Error Back-->
+                        @if(formGroup.get('nome')?.hasError('apiError')) {
+                            <span>{{formGroup.get('nome')?.getError('apiError')}}</span> 
+                         }
                     </mat-error>
                 </mat-form-field>
 
@@ -39,6 +44,11 @@
                                     && formGroup.get('descricaoBox')?.invalid 
                                     && formGroup.get('descricaoBox')?.touched">
                             {{ getErrorMessage('descricaoBox', formGroup.get('descricaoBox')?.errors)}}
+
+                             <!-- Error Back-->
+                        @if(formGroup.get('descricaoBox')?.hasError('apiError')) {
+                            <span>{{formGroup.get('descricaoBox')?.getError('apiError')}}</span> 
+                         }
                     </mat-error>
                 </mat-form-field>
 
@@ -49,6 +59,12 @@
                                     && formGroup.get('quantidadeEstoque')?.invalid 
                                     && formGroup.get('quantidadeEstoque')?.touched">
                             {{ getErrorMessage('quantidadeEstoque', formGroup.get('quantidadeEstoque')?.errors)}}
+                    
+                         <!-- Error Back-->
+                         @if(formGroup.get('quantidadeEstoque')?.hasError('apiError')) {
+                            <span>{{formGroup.get('quantidadeEstoque')?.getError('apiError')}}</span> 
+                         }
+
                     </mat-error>
                 </mat-form-field>
                 
@@ -66,6 +82,12 @@
                                     && formGroup.get('fornecedor')?.invalid
                                     && formGroup.get('fornecedor')?.touched">
                                     {{getErrorMessage('fornecedor', formGroup.get('fornecedor')?.errors)}}
+                   
+                   
+                                     <!-- Error Back-->
+                        @if(formGroup.get('fornecedor')?.hasError('apiError')) {
+                            <span>{{formGroup.get('fornecedor')?.getError('apiError')}}</span> 
+                         }
                     </mat-error>
                 </mat-form-field>
 
@@ -83,6 +105,11 @@
                                     && formGroup.get('editora')?.invalid
                                     && formGroup.get('editora')?.touched">
                                     {{getErrorMessage('editora', formGroup.get('editora')?.errors)}}
+
+                                     <!-- Error Back-->
+                        @if(formGroup.get('editora')?.hasError('apiError')) {
+                            <span>{{formGroup.get('editora')?.getError('apiError')}}</span> 
+                         }
                     </mat-error>
                 </mat-form-field>
 
@@ -94,6 +121,11 @@
                                     && formGroup.get('preco')?.invalid 
                                     && formGroup.get('preco')?.touched">
                         {{ getErrorMessage('preco', formGroup.get('preco')?.errors) }}
+
+                         <!-- Error Back-->
+                         @if(formGroup.get('preco')?.hasError('apiError')) {
+                            <span>{{formGroup.get('preco')?.getError('apiError')}}</span> 
+                         }
                     </mat-error>
                 </mat-form-field>
 
@@ -112,6 +144,11 @@
                                     && formGroup.get('classificacao')?.invalid 
                                     && formGroup.get('classificacao')?.touched">
                         {{ getErrorMessage('classificacao', formGroup.get('classificacao')?.errors) }}
+
+                         <!-- Error Back-->
+                         @if(formGroup.get('classificacao')?.hasError('apiError')) {
+                            <span>{{formGroup.get('classificacao')?.getError('apiError')}}</span> 
+                         }
                     </mat-error>
                 </mat-form-field>
 
@@ -129,6 +166,11 @@
                                     && formGroup.get('generos')?.invalid
                                     && formGroup.get('generos')?.touched">
                                     {{getErrorMessage('generos', formGroup.get('generos')?.errors)}}
+
+                                     <!-- Error Back-->
+                        @if(formGroup.get('generos')?.hasError('apiError')) {
+                            <span>{{formGroup.get('generos')?.getError('apiError')}}</span> 
+                         }
                     </mat-error>
                 </mat-form-field>
 
@@ -146,6 +188,11 @@
                                     && formGroup.get('autores')?.invalid
                                     && formGroup.get('autores')?.touched">
                                     {{getErrorMessage('autores', formGroup.get('autores')?.errors)}}
+
+                                     <!-- Error Back-->
+                        @if(formGroup.get('autores')?.hasError('apiError')) {
+                            <span>{{formGroup.get('autores')?.getError('apiError')}}</span> 
+                         }
                     </mat-error>
                 </mat-form-field>
 
@@ -154,7 +201,7 @@
         <mat-card-actions>
             <button mat-raised-button class="cancel-button" (click)="cancelar()">Cancelar</button>
             <button mat-raised-button *ngIf="formGroup?.get('id')?.value" class="excluir-button" (click)="excluir()" [disabled]="formGroup.invalid">Excluir</button>
-            <button mat-raised-button class="save-button" (click)="salvar()" [disabled]="formGroup.invalid">Salvar</button>
+            <button mat-raised-button class="save-button" (click)="salvar()" >Salvar</button>
         </mat-card-actions>
     </mat-card>
 </div>

@@ -15,11 +15,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog/confirmation-dialog.component';
 import { NavigationService } from '../../../service/navigation.service';
 import { FooterComponent } from '../../../footer/footer.component';
+import { HttpErrorResponse } from '@angular/common/http';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-genero-form',
   standalone: true,
-  imports: [NgIf, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, MatMenuModule, MatIconModule, FooterComponent],
+  imports: [NgIf, ReactiveFormsModule, MatSnackBarModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, MatMenuModule, MatIconModule, FooterComponent],
   templateUrl: './genero-form.component.html',
   styleUrl: './genero-form.component.css'
 })
@@ -31,46 +33,85 @@ export class GeneroFormComponent {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog,
-    public navService: NavigationService) {
+    public navService: NavigationService,
+    private snackBar: MatSnackBar) {
 
       const genero: Genero = this.activatedRoute.snapshot.data['genero'];
 
       this.formGroup = formBuilder.group({
+        id: [null],
+        nome: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(20)])],
+        descricao: ['', Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(10000)])],
+      });
+    }
+
+    
+  ngOnInit(): void {
+    this.initializeForm();
+  }
+
+  initializeForm(): void {
+    const genero: Genero = this.activatedRoute.snapshot.data['genero'];
+
+      this.formGroup = this.formBuilder.group({
         id: [(genero && genero.id) ? genero.id : null],
         nome: [(genero && genero.nome) ? genero.nome : null,
                                 Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(20)])],
         descricao: [(genero && genero.descricao) ? genero.descricao : null,
                                 Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(10000)])],
       });
+  }
+
+  tratarErros(errorResponse: HttpErrorResponse) {
+
+    if (errorResponse.status === 400) {
+      if (errorResponse.error?.errors) {
+        errorResponse.error.errors.forEach((validationError: any) => {
+          const formControl = this.formGroup.get(validationError.fieldName);
+
+          if (formControl) {
+            formControl.setErrors({apiError: validationError.message})
+          }
+
+        });
+      }
+    } else if (errorResponse.status < 400){
+      alert(errorResponse.error?.message || 'Erro genérico do envio do formulário.');
+    } else if (errorResponse.status >= 500) {
+      alert('Erro interno do servidor.');
     }
+
+  }
 
   salvar() {
     this.formGroup.markAllAsTouched();
     if (this.formGroup.valid) {
       const genero = this.formGroup.value;
-      console.log('Dados enviados:', genero);
-      if (genero.id == null){
-        this.generoService.insert(genero).subscribe({
-        next: (generoCadastrodo) => {
-          this.router.navigate(['/generos']);
+  
+      // selecionando a operacao (insert ou update)
+      const operacao = genero.id == null
+        ? this.generoService.insert(genero)
+        : this.generoService.update(genero);
+  
+      // executando a operacao
+      operacao.subscribe({
+        next: () => {
+          this.snackBar.open('Genero salvo com sucesso!', 'Fechar', {
+            duration: 3000
+          });
+          this.router.navigateByUrl('/generos');
         },
-        error: (errorResponse) => {
-          console.log('Erro ao salvar', + JSON.stringify(errorResponse));
-        } 
+        error: (error) => {
+          console.log('Erro ao Salvar' + JSON.stringify(error));
+          this.tratarErros(error);
+          this.snackBar.open('Erro ao salvar genero.', 'Fechar', {
+            duration: 3000
+          });
+        }
       });
-      } else {
-        this.generoService.update(genero).subscribe({
-          next: (generoAlterando) => {
-            this.router.navigate(['/generos']);
-          },
-          error: (err) => {
-            console.log('Erro ao salvar', + JSON.stringify(err));
-          } 
-        });
-      }
     }
   }
-
+  
   excluir() {
     if (this.formGroup.valid) {
       const genero = this.formGroup.value;
@@ -80,15 +121,21 @@ export class GeneroFormComponent {
             message: 'Deseja realmente excluir este Genero?'
           }
         });
-
-        dialogRef.afterClosed().subscribe( result => {
+  
+        dialogRef.afterClosed().subscribe(result => {
           if (result) {
             this.generoService.delete(genero).subscribe({
               next: () => {
+                this.snackBar.open('Genero excluído com sucesso!', 'Fechar', {
+                  duration: 3000
+                });
                 this.router.navigateByUrl('/generos');
               },
               error: (err) => {
                 console.log('Erro ao Excluir' + JSON.stringify(err));
+                this.snackBar.open('Erro ao excluir genero.', 'Fechar', {
+                  duration: 3000
+                });
               }
             });
           }
@@ -117,12 +164,14 @@ export class GeneroFormComponent {
     nome: {
       required: 'O genero deve ser informado',
       minlength: 'O genero deve ter pelo menos 2 caracteres',
-      maxlength: 'O genero deve ter no maximo 20 caracteres'
+      maxlength: 'O genero deve ter no maximo 20 caracteres',
+      apiError: ' '
     },
     descricao: {
       required: 'A descricao deve ser informada', 
       minlength: 'A descricao deve ter pelo menos 10 caracteres',
-      maxlength: 'A descricao deve ter no maximo 10000 caracteres'
+      maxlength: 'A descricao deve ter no maximo 10000 caracteres',
+      apiError: ' '
     }
   };
 
