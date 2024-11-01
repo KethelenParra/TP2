@@ -1,120 +1,120 @@
-<div class="container">
-    <mat-toolbar color="primary" class="toolbar">
-        <div class="flex-container">
-            <div>
-                <span class="material-symbols-outlined">
-                    <a href="/editoras"><mat-icon class="material-icons"> arrow_back </mat-icon></a>
-                </span>
-            </div>
-            <span class="cadastrar">Cadastro de Editoras</span>
-            <button mat-button [matMenuTriggerFor]="menu" class="menu-button">Cadastrar</button>
-            <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="navService.livro()">Livros</button>
-                <button mat-menu-item (click)="navService.autor()">Autores</button>
-                <button mat-menu-item (click)="navService.genero()">Gênero</button>
-                <button mat-menu-item (click)="navService.fornecedor()">Fornecedores</button>
-                <button mat-menu-item (click)="navService.box()">Box</button>
-            </mat-menu>
+<mat-toolbar color="primary" class="toolbar">
+    <div class="flex-container">
+        <div>
+            <span class="material-symbols-outlined">
+                <a href="/editoras"><mat-icon class="material-icons"> arrow_back </mat-icon></a>
+            </span>
         </div>
-    </mat-toolbar>
+        <span class="cadastrar">Cadastro de Editoras</span>
+        <button mat-button [matMenuTriggerFor]="menu" class="menu-button">Cadastrar</button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="navService.livro()">Livros</button>
+            <button mat-menu-item (click)="navService.autor()">Autores</button>
+            <button mat-menu-item (click)="navService.genero()">Gênero</button>
+            <button mat-menu-item (click)="navService.fornecedor()">Fornecedores</button>
+            <button mat-menu-item (click)="navService.box()">Box</button>
+        </mat-menu>
+    </div>
+</mat-toolbar>
 
+<div class="container">
     <mat-card class="formulario">
         <mat-card-content>
             <form [formGroup]="formGroup">
-                <mat-form-field appearance="outline" class="full-width-input">
-                    <mat-label>Nome Editora</mat-label>
-                    <input matInput type="text" formControlName="nome">
-                    <mat-error *ngIf="formGroup.get('nome')
-                                    && formGroup.get('nome')?.invalid 
-                                    && formGroup.get('nome')?.touched">
-                            {{ getErrorMessage('nome', formGroup.get('nome')?.errors)}}
+                    <mat-form-field appearance="outline" class="full-width-input">
+                        <mat-label>Nome Editora</mat-label>
+                        <input matInput type="text" formControlName="nome">
+                        <mat-error *ngIf="formGroup.get('nome')
+                                        && formGroup.get('nome')?.invalid 
+                                        && formGroup.get('nome')?.touched">
+                                {{ getErrorMessage('nome', formGroup.get('nome')?.errors)}}
 
-                            <!-- Error Back-->
-                            @if(formGroup.get('nome')?.hasError('apiError')) {
-                                <span>{{formGroup.get('nome')?.getError('apiError')}}</span> 
-                             }
-                    </mat-error>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" class="full-width-input">
-                    <mat-label>Email</mat-label>
-                    <input matInput type="text" formControlName="email">
-                    <mat-error *ngIf="formGroup.get('email')
-                                    && formGroup.get('email')?.invalid 
-                                    && formGroup.get('email')?.touched">
-                            {{ getErrorMessage('email', formGroup.get('email')?.errors)}}
-
-                            <!-- Error Back-->
-                            @if(formGroup.get('email')?.hasError('apiError')) {
-                                <span>{{formGroup.get('email')?.getError('apiError')}}</span> 
-                             }
-                    </mat-error>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" class="full-width-input">
-                    <mat-label>Cidade</mat-label>
-                    <input matInput type="text" formControlName="cidade">
-                    <mat-error *ngIf="formGroup.get('cidade')
-                                    && formGroup.get('cidade')?.invalid 
-                                    && formGroup.get('cidade')?.touched">
-                            {{ getErrorMessage('cidade', formGroup.get('cidade')?.errors)}}
-
-                            <!-- Error Back-->
-                            @if(formGroup.get('cidade')?.hasError('apiError')) {
-                                <span>{{formGroup.get('cidade')?.getError('apiError')}}</span> 
-                             }
-                    </mat-error>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" class="full-width-input">
-                    <mat-label>Estado</mat-label>
-                    <input matInput type="text" formControlName="estado">
-                    <mat-error *ngIf="formGroup.get('estado')
-                                    && formGroup.get('estado')?.invalid 
-                                    && formGroup.get('estado')?.touched">
-                            {{ getErrorMessage('estado', formGroup.get('estado')?.errors)}}
-
-                            <!-- Error Back-->
-                            @if(formGroup.get('estado')?.hasError('apiError')) {
-                                <span>{{formGroup.get('estado')?.getError('apiError')}}</span> 
-                             }
-                    </mat-error>
-                </mat-form-field>
-                
-                <div formGroupName="telefone">
-                    <div class="full-width-input phone-fields">
-                        <mat-form-field appearance="outline" class="area-code-input">
-                            <mat-label>Código de Área</mat-label>
-                            <input matInput type="text" formControlName="codigoArea">
-                            <mat-error *ngIf="formGroup.get('telefone')?.get('codigoArea')
-                                                && formGroup.get('telefone')?.get('codigoArea')?.invalid  
-                                                && formGroup.get('telefone')?.get('codigoArea')?.touched">
-                                {{ getErrorMessage('telefone.codigoArea', formGroup.get('telefone')?.get('codigoArea')?.errors) }}
-                            
                                 <!-- Error Back-->
-                            @if(formGroup.get('telefone.codigoArea')?.hasError('apiError')) {
-                                <span>{{formGroup.get('telefone.codigoArea')?.getError('apiError')}}</span> 
-                             }
-                            </mat-error>
-                        </mat-form-field>
-                
-                        <mat-form-field appearance="outline" class="phone-number-input">
-                            <mat-label>Número de Telefone</mat-label>
-                            <input matInput type="text" formControlName="numero">
-                            <mat-error *ngIf="formGroup.get('telefone')?.get('numero')?.invalid 
-                                                && formGroup.get('telefone')?.get('numero') 
-                                                && formGroup.get('telefone')?.get('numero')?.touched">
-                                {{ getErrorMessage('telefone.numero', formGroup.get('telefone')?.get('numero')?.errors) }}
-                            
+                                @if(formGroup.get('nome')?.hasError('apiError')) {
+                                    <span>{{formGroup.get('nome')?.getError('apiError')}}</span> 
+                                }
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="full-width-input">
+                        <mat-label>Email</mat-label>
+                        <input matInput type="text" formControlName="email">
+                        <mat-error *ngIf="formGroup.get('email')
+                                        && formGroup.get('email')?.invalid 
+                                        && formGroup.get('email')?.touched">
+                                {{ getErrorMessage('email', formGroup.get('email')?.errors)}}
+
                                 <!-- Error Back-->
-                            @if(formGroup.get('telefone.numero')?.hasError('apiError')) {
-                                <span>{{formGroup.get('telefone.numero')?.getError('apiError')}}</span> 
-                             }
-                            </mat-error>
-                        </mat-form-field>
+                                @if(formGroup.get('email')?.hasError('apiError')) {
+                                    <span>{{formGroup.get('email')?.getError('apiError')}}</span> 
+                                }
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="full-width-input">
+                        <mat-label>Cidade</mat-label>
+                        <input matInput type="text" formControlName="cidade">
+                        <mat-error *ngIf="formGroup.get('cidade')
+                                        && formGroup.get('cidade')?.invalid 
+                                        && formGroup.get('cidade')?.touched">
+                                {{ getErrorMessage('cidade', formGroup.get('cidade')?.errors)}}
+
+                                <!-- Error Back-->
+                                @if(formGroup.get('cidade')?.hasError('apiError')) {
+                                    <span>{{formGroup.get('cidade')?.getError('apiError')}}</span> 
+                                }
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="full-width-input">
+                        <mat-label>Estado</mat-label>
+                        <input matInput type="text" formControlName="estado">
+                        <mat-error *ngIf="formGroup.get('estado')
+                                        && formGroup.get('estado')?.invalid 
+                                        && formGroup.get('estado')?.touched">
+                                {{ getErrorMessage('estado', formGroup.get('estado')?.errors)}}
+
+                                <!-- Error Back-->
+                                @if(formGroup.get('estado')?.hasError('apiError')) {
+                                    <span>{{formGroup.get('estado')?.getError('apiError')}}</span> 
+                                }
+                        </mat-error>
+                    </mat-form-field>
+                    
+                    <div formGroupName="telefone">
+                        <div class="full-width-input phone-fields">
+                            <mat-form-field appearance="outline" class="area-code-input">
+                                <mat-label>Código de Área</mat-label>
+                                <input matInput type="text" formControlName="codigoArea">
+                                <mat-error *ngIf="formGroup.get('telefone')?.get('codigoArea')
+                                                    && formGroup.get('telefone')?.get('codigoArea')?.invalid  
+                                                    && formGroup.get('telefone')?.get('codigoArea')?.touched">
+                                    {{ getErrorMessage('telefone.codigoArea', formGroup.get('telefone')?.get('codigoArea')?.errors) }}
+                                
+                                    <!-- Error Back-->
+                                @if(formGroup.get('telefone.codigoArea')?.hasError('apiError')) {
+                                    <span>{{formGroup.get('telefone.codigoArea')?.getError('apiError')}}</span> 
+                                }
+                                </mat-error>
+                            </mat-form-field>
+                    
+                            <mat-form-field appearance="outline" class="phone-number-input">
+                                <mat-label>Número de Telefone</mat-label>
+                                <input matInput type="text" formControlName="numero">
+                                <mat-error *ngIf="formGroup.get('telefone')?.get('numero')?.invalid 
+                                                    && formGroup.get('telefone')?.get('numero') 
+                                                    && formGroup.get('telefone')?.get('numero')?.touched">
+                                    {{ getErrorMessage('telefone.numero', formGroup.get('telefone')?.get('numero')?.errors) }}
+                                
+                                    <!-- Error Back-->
+                                @if(formGroup.get('telefone.numero')?.hasError('apiError')) {
+                                    <span>{{formGroup.get('telefone.numero')?.getError('apiError')}}</span> 
+                                }
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
         </mat-card-content>
         <mat-card-actions>
             <button mat-raised-button class="cancel-button" (click)="cancelar()">Cancelar</button>
@@ -123,6 +123,6 @@
         </mat-card-actions>
     </mat-card>
 </div>
-<div class="footer">
+<footer class="footer">
     <app-footer></app-footer>
-</div>
+</footer>

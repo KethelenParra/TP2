@@ -21,12 +21,14 @@
         </div>
     </div>
 </mat-toolbar>  
-
-<app-navigation></app-navigation>
-
-<div class="container-content">
-    <app-sidebar></app-sidebar>
-    <div class="container">
+<div class="navigation-container">
+    <app-navigation></app-navigation>
+  </div>
+  <div class="container">
+    <div class="sidebar-container">
+      <app-sidebar></app-sidebar>
+    </div>
+    <div class="container-content">
         <table mat-table [dataSource]="generos" class="mat-elevation-z8">
     
             <!-- Id Column -->
@@ -71,7 +73,7 @@
         </mat-paginator>
     </div>
 </div>
-<div class="footer">
+<footer class="footer">
     <app-footer></app-footer>
-</div>
+</footer>
 
