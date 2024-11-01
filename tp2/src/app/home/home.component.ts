@@ -1,7 +1,6 @@
 import { Component, OnInit, signal } from '@angular/core';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
-import { SearchComponent } from '../search/search.component';
 import { NgIf, NgFor } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Livro } from '../models/livro.model';
@@ -14,11 +13,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { FooterComponent } from '../footer/footer.component';
+import {MatCardModule} from '@angular/material/card';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MatToolbarModule, MatIconModule, SearchComponent, NgIf, NgFor,RouterModule, MatTableModule, SidebarComponent, MatButtonModule, MatSelectModule, MatSidenavModule, MatListModule, FooterComponent],
+  imports: [MatToolbarModule, MatIconModule, NgIf, NgFor,RouterModule, MatTableModule, SidebarComponent, MatButtonModule, MatSelectModule, MatSidenavModule, MatListModule, FooterComponent, MatCardModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

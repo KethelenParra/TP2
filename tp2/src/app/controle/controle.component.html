@@ -1,0 +1,89 @@
+<mat-toolbar color="primary" class="toolbar mat-elevation-z3">
+    <h1 class="titulo-pag">Controle</h1>
+    <div class="icons-toolbar">
+        <mat-icon class="cart" id="icones">shopping_cart</mat-icon>
+        <a href="/clientes"><mat-icon class="account-circle" id="icones"> account_circle </mat-icon></a>
+    </div>
+</mat-toolbar> 
+<body>
+    <div class="container">
+        <div class="sidebar-container">
+          <app-sidebar></app-sidebar>
+        </div>
+        <div class="content-container">
+            <div class="first-line">
+                <mat-card>
+                    <mat-card-title>
+                      <span>Livros</span>
+                    </mat-card-title>
+                    <mat-card-content>
+                      <span>Gerencie e visualize todos os livros cadastrados em uma tabela organizada.</span>
+                    </mat-card-content>
+                    <mat-card-actions>
+                      <a mat-stroked-button href="../livros">Abrir</a>
+                    </mat-card-actions>
+                </mat-card>
+                <mat-card>
+                    <mat-card-title>
+                      <span>Editoras</span>
+                    </mat-card-title>
+                    <mat-card-content>
+                      <span>Acesse e administre todas as editoras disponíveis em uma tabela estruturada.</span>
+                    </mat-card-content>
+                    <mat-card-actions>
+                      <a mat-stroked-button href="../editoras">Abrir</a>
+                    </mat-card-actions>
+                </mat-card>
+                <mat-card>
+                    <mat-card-title>
+                      <span>Boxes</span>
+                    </mat-card-title>
+                    <mat-card-content>
+                      <span>Visualize e organize todas as boxes listadas em uma tabela completa.</span>
+                    </mat-card-content>
+                    <mat-card-actions>
+                      <a mat-stroked-button href="../boxes">Abrir</a>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+            <div class="second-line">
+                <mat-card>
+                    <mat-card-title>
+                      <span>Gêneros</span>
+                    </mat-card-title>
+                    <mat-card-content>
+                      <span>Explore e gerencie os gêneros registrados em uma tabela detalhada.</span>
+                    </mat-card-content>
+                    <mat-card-actions>
+                      <a mat-stroked-button href="../generos">Abrir</a>
+                    </mat-card-actions>
+                </mat-card>
+                <mat-card>
+                    <mat-card-title>
+                      <span>Autores</span>
+                    </mat-card-title>
+                    <mat-card-content>
+                      <span>Consulte e edite todos os autores cadastrados em uma tabela organizada.</span>
+                    </mat-card-content>
+                    <mat-card-actions>
+                      <a mat-stroked-button href="../autores">Abrir</a>
+                    </mat-card-actions>
+                </mat-card>
+                <mat-card>
+                    <mat-card-title>
+                      <span>Fornecedores</span>
+                    </mat-card-title>
+                    <mat-card-content>
+                      <span>Controle e veja os dados de todos os fornecedores em uma tabela prática.</span>
+                    </mat-card-content>
+                    <mat-card-actions>
+                      <a mat-stroked-button href="../fornecedores">Abrir</a>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+        </div>
+      </div>
+      <footer class="footer-container">
+        <app-footer></app-footer>
+      </footer>
+</body>

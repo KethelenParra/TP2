@@ -18,10 +18,12 @@ import { livroResolver } from './livro/resolver/livro.resolver';
 import { LivroFormComponent } from './livro/components/livro-form/livro-form.component';
 import { LivroListComponent } from './livro/components/livro-list/livro-list.component';
 import { HomeComponent } from './home/home.component';
+import { ControleComponent } from './controle/controle.component';
 
 export const routes: Routes = [
-
     {path: '', component: HomeComponent, title: 'Home page'},
+
+    {path: 'controle', component: ControleComponent, title: 'Controle'},
 
     {path: 'fornecedores', component: FornecedorListComponent, title: 'Lista de fornecedores'},
     {path: 'fornecedores/new', component: FornecedorFormComponent, title: 'Novo fornecedor'},

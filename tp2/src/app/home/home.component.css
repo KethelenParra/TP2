@@ -16,6 +16,21 @@
     align-items: center;
 }
 
+.content-container{
+    width: 100%;
+    padding: 60px;
+}
+
+mat-card{
+    width: 15%;
+    height: 20%;
+}
+
+mat-card-title{
+    display: flex;
+    justify-content: center;
+}
+
 .icons-toolbar{
     display: flex;
     justify-content: space-between;
@@ -62,9 +77,8 @@ table {
     color: white;
 }
 
-.content-container{
-    width: 80%;
-    background-color: #382fdf;
+.container{
+    display: flex;
 }
 
 mat-icon{
