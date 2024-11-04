@@ -11,11 +11,11 @@ import { EditoraService } from '../../../service/editora.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog/confirmation-dialog.component';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { NavigationComponent } from '../../../navigation/navigation.component';
+import { NavigationComponent } from '../../../components/navigation/navigation.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { SidebarComponent } from '../../../sidebar/sidebar.component';
-import { FooterComponent } from '../../../footer/footer.component';
+import { SidebarComponent } from '../../../components/sidebar/sidebar.component';
+import { FooterComponent } from '../../../components/footer/footer.component';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({

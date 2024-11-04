@@ -12,10 +12,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog/confirmation-dialog.component';
 import { Autor } from '../../../models/autor.model';
-import { NavigationComponent } from '../../../navigation/navigation.component';
+import { NavigationComponent } from '../../../components/navigation/navigation.component';
 import { AutorService } from '../../../service/autor.service';
-import { SidebarComponent } from '../../../sidebar/sidebar.component';
-import { FooterComponent } from '../../../footer/footer.component';
+import { SidebarComponent } from '../../../components/sidebar/sidebar.component';
+import { FooterComponent } from '../../../components/footer/footer.component';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({

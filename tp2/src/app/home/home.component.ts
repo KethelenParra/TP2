@@ -7,12 +7,12 @@ import { Livro } from '../models/livro.model';
 import { LivroService } from '../service/livro.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
-import { SidebarComponent } from '../sidebar/sidebar.component';
+import { SidebarComponent } from '../components/sidebar/sidebar.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-import { FooterComponent } from '../footer/footer.component';
+import { FooterComponent } from '../components/footer/footer.component';
 import {MatCardModule} from '@angular/material/card';
 
 @Component({
