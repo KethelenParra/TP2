@@ -19,11 +19,14 @@ import { LivroFormComponent } from './livro/components/livro-form/livro-form.com
 import { LivroListComponent } from './livro/components/livro-list/livro-list.component';
 import { HomeComponent } from './home/home.component';
 import { ControleComponent } from './controle/controle.component';
+import { UserViewComponent } from './user/user-view/user-view.component';
 
 export const routes: Routes = [
-    {path: '', component: HomeComponent, title: 'Home page'},
+    {path: '', component: HomeComponent, title: 'home adm'},
 
     {path: 'controle', component: ControleComponent, title: 'Controle'},
+
+    {path: 'home', component: UserViewComponent, title: 'home'},
 
     {path: 'fornecedores', component: FornecedorListComponent, title: 'Lista de fornecedores'},
     {path: 'fornecedores/new', component: FornecedorFormComponent, title: 'Novo fornecedor'},
