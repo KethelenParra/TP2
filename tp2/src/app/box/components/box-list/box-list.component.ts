@@ -14,9 +14,10 @@ import { NavigationComponent } from '../../../components/navigation/navigation.c
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { SidebarComponent } from '../../../components/sidebar/sidebar.component';
-import { FooterComponent } from '../../../components/footer/footer.component';
+import { SidebarComponent } from '../../../template/sidebar/sidebar.component';
+import { FooterComponent } from '../../../template/footer/footer.component';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-box-list',
@@ -28,25 +29,42 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 export class BoxListComponent implements OnInit{
   displayedColumns: string[] = ['id', 'nome', 'descricaoBox', 'quantidadeEstoque', 'preco', 'classificacao', 'fornecedor', 'editora', 'genero', 'autor', 'acao'];
   boxes: Box[] = [];
-    totalRecords = 0;
+  totalRecords = 0;
   pageSize = 2;
   page = 0;
   filtro: string = "";
+  isExpanded = true;
+  textoTotal: string = '';
+  textoReduzido: string = '';
   
   constructor(
     private boxService: BoxService, 
     private dialog: MatDialog, 
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private http: HttpClient
   ){}
 
   ngOnInit(): void {
-    this.boxService.findAll(this.page, this.pageSize).subscribe( data => 
-      { this.boxes = data }
+    this.boxService.findAll(this.page, this.pageSize).subscribe( data => { 
+      this.boxes = data.map(box => ({ ...box, isExpanded: false })); }
     );
 
     this.boxService.count().subscribe(
       data => { this.totalRecords = data }
     );
+
+    this.http.get<string>('localhost:8080/boxes').subscribe((data: string) => {
+      this.textoTotal = data;
+      this.textoReduzido = data.length > 100 ? data.substring(0, 100) + '...' : data;
+    });
+  }
+
+  toggleExpand(box: any){
+    box.isExpanded = !box.isExpanded;
+  }
+
+  getTruncatedText(text: string, length: number): string {
+    return text.length > length ? text.substring(0, length) + '...' : text;
   }
 
   carregarBoxes(){

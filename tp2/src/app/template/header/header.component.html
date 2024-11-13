@@ -1,0 +1,15 @@
+<mat-toolbar color="primary" class="toolbar mat-elevation-z3">
+    <button (click)="clickMenu()" mat-icon-button>
+        <mat-icon>menu</mat-icon>
+    </button>
+    <h1 class="titulo-pag">{{headerText}}</h1>
+    <div class="icons-toolbar">
+        <input type="text" placeholder="Pesquisar..." class="search-bar">
+        <button class="search-button">
+          <mat-icon>search</mat-icon>
+        </button>
+        <mat-icon class="cart" id="icones">shopping_cart</mat-icon>
+        <a href="/clientes"><mat-icon class="account-circle" id="icones">account_circle</mat-icon>
+        </a>
+    </div>
+</mat-toolbar>

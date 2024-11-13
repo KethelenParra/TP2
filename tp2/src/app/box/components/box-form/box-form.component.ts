@@ -23,7 +23,7 @@ import { Genero } from '../../../models/genero.model';
 import { GeneroService } from '../../../service/genero.service';
 import { Autor } from '../../../models/autor.model';
 import { AutorService } from '../../../service/autor.service';
-import { FooterComponent } from '../../../components/footer/footer.component';
+import { FooterComponent } from '../../../template/footer/footer.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 

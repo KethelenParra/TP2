@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { NgFor } from '@angular/common';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
@@ -11,17 +9,15 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog/confirmation-dialog.component';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { NavigationComponent } from '../../../components/navigation/navigation.component';
-import { FormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { SidebarComponent } from '../../../components/sidebar/sidebar.component';
-import { FooterComponent } from '../../../components/footer/footer.component';
+import { SidebarComponent } from '../../../template/sidebar/sidebar.component';
+import { FooterComponent } from '../../../template/footer/footer.component';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { HeaderComponent } from '../../../template/header/header.component';
 
 @Component({
   selector: 'app-genero-list',
   standalone: true,
-  imports: [NgFor, MatToolbarModule, MatIconModule, MatSnackBarModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent, FormsModule, MatFormFieldModule, MatInputModule, SidebarComponent, FooterComponent],
+  imports: [MatIconModule, MatSnackBarModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent, SidebarComponent, FooterComponent, HeaderComponent],
   templateUrl: './genero-list.component.html',
   styleUrl: './genero-list.component.css'
 })
@@ -74,16 +70,16 @@ export class GeneroListComponent {
     }
   }
 
-  paginar(event: PageEvent): void{
-    this.page = event.pageIndex;  
-    this.pageSize = event.pageSize;
-    this.ngOnInit();
-  }
-
   aplicarFiltro(){
     this.carregarGeneros();
     this.carregarTodosRegistros();
     this.snackBar.open('Filtro aplicado com sucesso!', 'Fechar', { duration: 3000 });
+  }
+  
+  paginar(event: PageEvent): void{
+    this.page = event.pageIndex;  
+    this.pageSize = event.pageSize;
+    this.ngOnInit();
   }
 
   excluir(genero: Genero): void {

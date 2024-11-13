@@ -1,0 +1,35 @@
+mat-drawer-container {
+  height: 100vh;
+  background-color: transparent;
+}
+
+button {
+  cursor: pointer;
+}
+
+.menu-button {
+  background: none;
+  box-shadow: none;
+  outline: none;
+  margin-bottom: 20px;
+}
+
+mat-drawer {
+  width: 250px;
+  transition: width 0.3s;
+}
+
+.custom-list-item {
+  display: flex;
+  align-items: center;
+}
+
+.custom-list-item mat-icon {
+  font-size: 24px;
+  margin-right: 8px;
+}
+
+.custom-list-item span {
+  display: flex;
+  align-items: center;
+}

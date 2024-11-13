@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatToolbar } from '@angular/material/toolbar';
-import { SidebarComponent } from '../components/sidebar/sidebar.component';
-import { FooterComponent } from '../components/footer/footer.component';
+import { SidebarComponent } from '../template/sidebar/sidebar.component';
+import { FooterComponent } from '../template/footer/footer.component';
 import { MatCardModule } from '@angular/material/card';
 
 

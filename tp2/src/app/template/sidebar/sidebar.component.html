@@ -1,0 +1,30 @@
+<mat-drawer-container hasBackdrop="false" [style.flex]="1">
+  <mat-drawer class="sidebar" #drawer mode="side" hasB opened>
+    <mat-toolbar>
+      <span>Menu</span>
+    </mat-toolbar>
+    <mat-nav-list>
+      <div class="opcao">
+        <mat-list-item class="custom-list-item" routerLink="../home">
+          <mat-icon matListItemIcon>home</mat-icon>
+          <span matListItemTitle>Home</span>
+        </mat-list-item>
+      </div>
+      <div class="opcao">
+        <mat-list-item class="custom-list-item" routerLink="../admin/clientes">
+          <mat-icon matListItemIcon>people</mat-icon>
+          <span matListItemTitle>Usuários</span>
+        </mat-list-item>
+      </div>
+      <div class="opcao">
+        <mat-list-item class="custom-list-item" routerLink="../admin/controle">
+          <mat-icon matListItemIcon>sports_esports</mat-icon>
+          <span matListItemTitle>Controle</span>
+        </mat-list-item>
+      </div>
+    </mat-nav-list>
+  </mat-drawer>
+  <mat-drawer-content>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>

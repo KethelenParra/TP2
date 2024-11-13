@@ -13,51 +13,13 @@
     text-align: center;
 }
 
-.container-title{
-    position: relative;
-}
-
-.toolbar-title {
-    font-size: 25px;
-    letter-spacing: 3px;
-    font-weight: 500;
-}
-
 .icons-container{
     justify-content: space-around;
     flex-direction: column;
 }
 
-.icons-container button{
-    padding: 10px 20px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.button-container button:hover {
-    background-color: #e0e0e0; /* Cor ao passar o mouse */
-}
-
 .botao{
     margin-left: 30px;
-}
-
-.container-button{
-    position: absolute;
-    right: 0;
-    margin-right: 25px;
-}
-
-.toolbar{
-    background-color: #6B5852;
-}
-
-.add-circle{
-    font-size: 35px;
-    padding: 15px;
-    color: white;
 }
 
 .column{
@@ -74,14 +36,6 @@
 
 .desc{
     text-align: justify;
-}
-
-.flex-container {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    /* background-color: rgb(52, 115, 233);
-    color: rgb(209, 241, 241); */
 }
 
 .mat-column-id {

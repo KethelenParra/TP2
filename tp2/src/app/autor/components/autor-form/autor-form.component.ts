@@ -14,7 +14,7 @@ import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog
 import { AutorService } from '../../../service/autor.service';
 import { Autor } from '../../../models/autor.model';
 import { NavigationService } from '../../../service/navigation.service';
-import { FooterComponent } from '../../../components/footer/footer.component';
+import { FooterComponent } from '../../../template/footer/footer.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
