@@ -13,6 +13,9 @@ export class LivroService {
 
   constructor(private httpClient: HttpClient) { }
 
+  getUrlImage(nomeImagem: string): string {
+    return `${this.baseUrl}/image/download/${nomeImagem}`;
+  }
   getLivros(): Observable<Livro[]> {
     return this.httpClient.get<Livro[]>(`${this.baseUrl}/livros`);
   }
@@ -20,7 +23,7 @@ export class LivroService {
   findAll(page?: number, pageSize?: number): Observable<Livro[]> {
     let params = {};
 
-    if(page !== undefined && pageSize !== undefined){
+    if (page !== undefined && pageSize !== undefined) {
       params = {
         page: page.toString(),
         pageSize: pageSize.toString()
@@ -29,24 +32,24 @@ export class LivroService {
 
     console.log(params);
 
-    return this.httpClient.get<Livro[]>(`${this.baseUrl}`, {params}); 
+    return this.httpClient.get<Livro[]>(`${this.baseUrl}`, { params });
   }
 
   findByTitulo(nome: string, page?: number, pageSize?: number): Observable<Livro[]> {
     let params = {};
-  
+
     if (page !== undefined && pageSize !== undefined) {
       params = {
         page: page.toString(),
         pageSize: pageSize.toString()
       };
     }
-  
+
     console.log(params);
     return this.httpClient.get<Livro[]>(`${this.baseUrl}/search/titulo/${nome}`, { params });
   }
 
-  count(): Observable<number>{
+  count(): Observable<number> {
     return this.httpClient.get<number>(`${this.baseUrl}/count`);
   }
 
@@ -54,13 +57,13 @@ export class LivroService {
     return this.httpClient.get<number>(`${this.baseUrl}/count/search/${nome}`);
   }
 
-  findById(id: string): Observable<Livro>{
+  findById(id: string): Observable<Livro> {
     return this.httpClient.get<Livro>(`${this.baseUrl}/${id}`);
   }
 
   insert(livro: Livro): Observable<Livro> {
     const data = {
-      titulo : livro.titulo,
+      titulo: livro.titulo,
       quantidadeEstoque: livro.quantidadeEstoque,
       preco: livro.preco,
       isbn: livro.isbn,
@@ -78,7 +81,7 @@ export class LivroService {
 
   update(livro: Livro): Observable<Livro> {
     const data = {
-      titulo : livro.titulo,
+      titulo: livro.titulo,
       quantidadeEstoque: livro.quantidadeEstoque,
       preco: livro.preco,
       isbn: livro.isbn,

@@ -1,0 +1,33 @@
+<div class="container responsive-grid">
+    <mat-card *ngFor="let card of cards()">
+        <img mat-card-image [src]="card.imageUrl">
+
+        <div class="card-content">
+            <mat-card-title class="centered-text">{{ card.titulo }}</mat-card-title>
+
+        <mat-card-content class="centered-text">
+            <strong>Autores:</strong> {{ card.autores }}
+        </mat-card-content>
+        
+        <mat-card-content class="centered-text">
+            {{ card.descricao }}
+        </mat-card-content>
+        
+        <mat-card-content class="centered-text">
+            <strong>Preço:</strong> {{ card.preco | currency: 'BRL' }}
+        </mat-card-content>
+
+        <mat-card-actions class="centered-text">
+            <button mat-button color="primary" style="width: 100%; padding: 16px; text-align: center;">
+                Ver Mais ...
+            </button>
+        </mat-card-actions>
+
+        </div>
+        <mat-card-footer>
+            <button mat-button color="accent" style="width: 100%; padding: 16px; text-align: center;">
+                Adicionar ao Carrinho
+            </button>
+        </mat-card-footer>
+    </mat-card>
+</div>

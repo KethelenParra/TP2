@@ -164,7 +164,7 @@ export class LivroFormComponent implements OnInit {
           this.snackBar.open('Livro salvo com sucesso!', 'Fechar', {
             duration: 3000
           });
-          this.router.navigateByUrl('/livros');
+          this.router.navigateByUrl('/admin/livros');
         },
         error: (error) => {
           console.log('Erro ao Salvar' + JSON.stringify(error));
@@ -210,7 +210,7 @@ export class LivroFormComponent implements OnInit {
   }
   
   cancelar(){
-    this.router.navigateByUrl('/livros');
+    this.router.navigateByUrl('/admin/livros');
   }
 
   getErrorMessage(controlName: string, errors: ValidationErrors | null | undefined): string {

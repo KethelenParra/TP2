@@ -1,26 +1,26 @@
-mat-drawer-container{
-    height: 100vh;
-    background-color: transparent;
+mat-drawer-container {
+  height: 100vh;
+  background-color: transparent;
 }
 
-button{
-    cursor: pointer;
+button {
+  cursor: pointer;
 }
 
-.menu-button{
-    background: none;
-    box-shadow: none;
-    outline: none;
+.menu-button {
+  background: none;
+  box-shadow: none;
+  outline: none;
 }
 
-mat-drawer{
-    height: 100%;  
-    overflow-x: hidden;
+mat-drawer {
+  height: 100%;
+  overflow-x: hidden;
 }
 
-.opcao{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin-top: 20px;
+.opcao {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 20px;
 }

@@ -8,26 +8,26 @@ export class NavigationService {
   constructor(private router: Router) {}
 
   autor() {
-    this.router.navigateByUrl('/autores/new');
+    this.router.navigateByUrl('/admin/autores/new');
   }
 
   fornecedor() {
-    this.router.navigateByUrl('fornecedores/new');
+    this.router.navigateByUrl('/admin/fornecedores/new');
   }
 
   box() {
-    this.router.navigateByUrl('/boxes/new');
+    this.router.navigateByUrl('/admin/boxes/new');
   }
 
   editora() {
-    this.router.navigateByUrl('/editoras/new');
+    this.router.navigateByUrl('/admin/editoras/new');
   }
 
   livro() {
-    this.router.navigateByUrl('/livros/new');
+    this.router.navigateByUrl('/admin/livros/new');
   }
 
   genero(){
-    this.router.navigateByUrl('/generos/new')
+    this.router.navigateByUrl('/admin/generos/new')
   }
 }

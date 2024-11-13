@@ -5,7 +5,7 @@ import { Genero } from "./genero.model";
 
 export class Livro {
     id!: number;
-    titulo!: string; 
+    titulo!: string;
     quantidadeEstoque!: number;
     preco!: number;
     isbn!: string;
@@ -16,4 +16,5 @@ export class Livro {
     fornecedor!: Fornecedor;
     autores!: Autor[];
     generos!: Genero[];
+    nomeImagem!: string;
 }

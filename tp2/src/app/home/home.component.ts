@@ -14,11 +14,12 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { FooterComponent } from '../components/footer/footer.component';
 import {MatCardModule} from '@angular/material/card';
+import { LivroCardListComponent } from '../list/livro-card-list/livro-card-list.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MatToolbarModule, MatIconModule, NgIf, NgFor,RouterModule, MatTableModule, SidebarComponent, MatButtonModule, MatSelectModule, MatSidenavModule, MatListModule, FooterComponent, MatCardModule],
+  imports: [MatToolbarModule, LivroCardListComponent,MatIconModule, NgIf, NgFor,RouterModule, MatTableModule, SidebarComponent, MatButtonModule, MatSelectModule, MatSidenavModule, MatListModule, FooterComponent, MatCardModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

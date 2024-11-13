@@ -17,38 +17,54 @@ import { fornecedorResolver } from './fornecedor/resolver/fornecedor.resolver';
 import { livroResolver } from './livro/resolver/livro.resolver';
 import { LivroFormComponent } from './livro/components/livro-form/livro-form.component';
 import { LivroListComponent } from './livro/components/livro-list/livro-list.component';
-import { HomeComponent } from './home/home.component';
+import { UserTemplateComponent } from './template/user-template/user-template.component';
+import { AdminTemplateComponent } from './template/admin-template/admin-template.component';
+import { LivroCardListComponent } from './list/livro-card-list/livro-card-list.component';
 import { ControleComponent } from './controle/controle.component';
-import { UserViewComponent } from './user/user-view/user-view.component';
 
 export const routes: Routes = [
-    {path: '', component: HomeComponent, title: 'home adm'},
+    {
+        path: '',
+        component: UserTemplateComponent,
+        title: 'e-commerce',
+        children: [
+            { path: '', pathMatch: 'full', redirectTo: 'home' },
 
-    {path: 'controle', component: ControleComponent, title: 'Controle'},
+            { path: 'home', component: LivroCardListComponent, title: 'Lista de Cards de Livros' },
+        ]
+    },
+    {
+        path: 'admin',
+        component: AdminTemplateComponent,
+        title: 'administração',
+        children: [
+            { path: '', pathMatch: 'full', redirectTo: 'livros' },
 
-    {path: 'home', component: UserViewComponent, title: 'home'},
+            { path: 'controle', component: ControleComponent, title: 'Controle' },
 
-    {path: 'fornecedores', component: FornecedorListComponent, title: 'Lista de fornecedores'},
-    {path: 'fornecedores/new', component: FornecedorFormComponent, title: 'Novo fornecedor'},
-    {path: 'fornecedores/edit/:id', component: FornecedorFormComponent, resolve:{fornecedor: fornecedorResolver}},
-    
-    {path: 'editoras', component: EditoraListComponent, title: 'Lista de editoras'},
-    {path: 'editoras/new', component: EditoraFormComponent, title: 'Nova editora'},
-    {path: 'editoras/edit/:id', component: EditoraFormComponent, resolve:{editora: editoraResolver}},
-    
-    {path: 'boxes', component: BoxListComponent, title: 'Lista de boxes'},
-    {path: 'boxes/new', component: BoxFormComponent, title: 'Novo box'},
-    {path: 'boxes/edit/:id', component: BoxFormComponent, resolve: {box: boxResolver}},
-    
-    {path: 'generos',component: GeneroListComponent, title: 'Lista de Generos'},
-    {path: 'generos/new',component: GeneroFormComponent, title: 'Novo genero'},
-    {path: 'generos/edit/:id', component: GeneroFormComponent, resolve: {genero: generoResolver}},
-    
-    {path: 'autores',component: AutorListComponent, title: 'Lista de Autores'},
-    {path: 'autores/new',component: AutorFormComponent, title: 'Novo Autor'},
-    {path: 'autores/edit/:id', component: AutorFormComponent, resolve: {autor: autorResolver}},
+            { path: 'fornecedores', component: FornecedorListComponent, title: 'Lista de fornecedores' },
+            { path: 'fornecedores/new', component: FornecedorFormComponent, title: 'Novo fornecedor' },
+            { path: 'fornecedores/edit/:id', component: FornecedorFormComponent, resolve: { fornecedor: fornecedorResolver } },
 
-    {path: 'livros',component: LivroListComponent, title: 'Lista de Livros'},
-    {path: 'livros/new',component: LivroFormComponent, title: 'Novo Livro'},
-    {path: 'livros/edit/:id', component: LivroFormComponent, resolve: {livro: livroResolver}}
+            { path: 'editoras', component: EditoraListComponent, title: 'Lista de editoras' },
+            { path: 'editoras/new', component: EditoraFormComponent, title: 'Nova editora' },
+            { path: 'editoras/edit/:id', component: EditoraFormComponent, resolve: { editora: editoraResolver } },
+
+            { path: 'boxes', component: BoxListComponent, title: 'Lista de boxes' },
+            { path: 'boxes/new', component: BoxFormComponent, title: 'Novo box' },
+            { path: 'boxes/edit/:id', component: BoxFormComponent, resolve: { box: boxResolver } },
+
+            { path: 'generos', component: GeneroListComponent, title: 'Lista de Generos' },
+            { path: 'generos/new', component: GeneroFormComponent, title: 'Novo genero' },
+            { path: 'generos/edit/:id', component: GeneroFormComponent, resolve: { genero: generoResolver } },
+
+            { path: 'autores', component: AutorListComponent, title: 'Lista de Autores' },
+            { path: 'autores/new', component: AutorFormComponent, title: 'Novo Autor' },
+            { path: 'autores/edit/:id', component: AutorFormComponent, resolve: { autor: autorResolver } },
+
+            { path: 'livros', component: LivroListComponent, title: 'Lista de Livros' },
+            { path: 'livros/new', component: LivroFormComponent, title: 'Novo Livro' },
+            { path: 'livros/edit/:id', component: LivroFormComponent, resolve: { livro: livroResolver } }
+        ]
+    }
 ];
