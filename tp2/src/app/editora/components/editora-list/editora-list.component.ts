@@ -14,8 +14,8 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { NavigationComponent } from '../../../components/navigation/navigation.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { SidebarComponent } from '../../../components/sidebar/sidebar.component';
-import { FooterComponent } from '../../../components/footer/footer.component';
+import { SidebarComponent } from '../../../template/sidebar/sidebar.component';
+import { FooterComponent } from '../../../template/footer/footer.component';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
@@ -27,14 +27,14 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 })
 export class EditoraListComponent implements OnInit {
   editoras: Editora[] = [];
-  displayedColumns: string[] = ['id', 'nome', 'email','telefone', 'cidade', 'estado', 'acao'];
+  displayedColumns: string[] = ['id', 'nome', 'email', 'telefone', 'cidade', 'estado', 'acao'];
   //Variaveis de controle para a paginação
   totalRecords = 0;
   pageSize = 4;
   page = 0;
   filtro: string = "";
 
-  constructor(private editoraService: EditoraService, private dialog: MatDialog, private snackBar: MatSnackBar){
+  constructor(private editoraService: EditoraService, private dialog: MatDialog, private snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -46,8 +46,8 @@ export class EditoraListComponent implements OnInit {
     );
   }
 
-  carregarEditoras(){
-    if(this.filtro){
+  carregarEditoras() {
+    if (this.filtro) {
       this.editoraService.findByNome(this.filtro, this.page, this.pageSize).subscribe(data => {
         this.editoras = data;
         console.log(JSON.stringify(data));
@@ -61,7 +61,7 @@ export class EditoraListComponent implements OnInit {
   }
 
   carregarTodosRegistros() {
-    if(this.filtro){
+    if (this.filtro) {
       this.editoraService.countByNome(this.filtro).subscribe(data => {
         this.totalRecords = data;
         console.log(JSON.stringify(data));
@@ -74,13 +74,13 @@ export class EditoraListComponent implements OnInit {
     }
   }
 
-  paginar(event: PageEvent): void{
-    this.page = event.pageIndex;  
+  paginar(event: PageEvent): void {
+    this.page = event.pageIndex;
     this.pageSize = event.pageSize;
     this.ngOnInit();
   }
-  
-  aplicarFiltro(){
+
+  aplicarFiltro() {
     this.carregarEditoras();
     this.carregarTodosRegistros();
     this.snackBar.open('Filtro aplicado com sucesso!', 'Fechar', { duration: 3000 });
@@ -91,7 +91,7 @@ export class EditoraListComponent implements OnInit {
       width: '300px',
       data: { message: 'Deseja realmente excluir este Autor?' }
     });
-    
+
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
         this.editoraService.delete(editora).subscribe({

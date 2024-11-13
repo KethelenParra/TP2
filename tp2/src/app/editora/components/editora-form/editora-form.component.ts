@@ -14,7 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog/confirmation-dialog.component';
 import { NavigationService } from '../../../service/navigation.service';
-import { FooterComponent } from '../../../components/footer/footer.component';
+import { FooterComponent } from '../../../template/footer/footer.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
@@ -25,7 +25,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
   templateUrl: './editora-form.component.html',
   styleUrl: './editora-form.component.css'
 })
-export class EditoraFormComponent implements OnInit{
+export class EditoraFormComponent implements OnInit {
   formGroup: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
@@ -34,22 +34,22 @@ export class EditoraFormComponent implements OnInit{
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog,
     public navService: NavigationService,
-    private snackBar: MatSnackBar ) {
+    private snackBar: MatSnackBar) {
 
-      const editora: Editora = this.activatedRoute.snapshot.data['editora'];
+    const editora: Editora = this.activatedRoute.snapshot.data['editora'];
 
-      this.formGroup = formBuilder.group({
-        id: [null],
-        nome: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(20)])],
-        email: ['', Validators.compose([Validators.required, Validators.email])],
-        cidade: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(30)])],
-        estado: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(30)])],
-        telefone: this.formBuilder.group({
-          codigoArea: [null, Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(3)])],
-          numero: [null, Validators.compose([Validators.required, Validators.minLength(9), Validators.maxLength(10)])],
-        }),                                
-      });
-    }
+    this.formGroup = formBuilder.group({
+      id: [null],
+      nome: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(20)])],
+      email: ['', Validators.compose([Validators.required, Validators.email])],
+      cidade: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(30)])],
+      estado: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(30)])],
+      telefone: this.formBuilder.group({
+        codigoArea: [null, Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(3)])],
+        numero: [null, Validators.compose([Validators.required, Validators.minLength(9), Validators.maxLength(10)])],
+      }),
+    });
+  }
 
   ngOnInit(): void {
     this.initializeForm();
@@ -61,17 +61,17 @@ export class EditoraFormComponent implements OnInit{
     this.formGroup = this.formBuilder.group({
       id: [(editora && editora.id) ? editora.id : null],
       nome: [(editora && editora.nome) ? editora.nome : null,
-                              Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(20)])],
+      Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(20)])],
       email: [(editora && editora.email) ? editora.email : null,
-                          Validators.compose([Validators.required, Validators.email])],
+      Validators.compose([Validators.required, Validators.email])],
       cidade: [(editora && editora.cidade) ? editora.cidade : null,
-                              Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(30)])],
+      Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(30)])],
       estado: [(editora && editora.estado) ? editora.estado : null,
-                                Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(30)])],
+      Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(30)])],
       telefone: this.formBuilder.group({
         codigoArea: [(editora && editora.telefone && editora.telefone.codigoArea) ? editora.telefone.codigoArea : null, Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(3)])],
         numero: [(editora && editora.telefone && editora.telefone.numero) ? editora.telefone.numero : null, Validators.compose([Validators.required, Validators.minLength(9), Validators.maxLength(10)])],
-      }),                                
+      }),
     });
   }
 
@@ -83,12 +83,12 @@ export class EditoraFormComponent implements OnInit{
           const formControl = this.formGroup.get(validationError.fieldName);
 
           if (formControl) {
-            formControl.setErrors({apiError: validationError.message})
+            formControl.setErrors({ apiError: validationError.message })
           }
 
         });
       }
-    } else if (errorResponse.status < 400){
+    } else if (errorResponse.status < 400) {
       alert(errorResponse.error?.message || 'Erro genérico do envio do formulário.');
     } else if (errorResponse.status >= 500) {
       alert('Erro interno do servidor.');
@@ -100,12 +100,12 @@ export class EditoraFormComponent implements OnInit{
     this.formGroup.markAllAsTouched();
     if (this.formGroup.valid) {
       const editora = this.formGroup.value;
-  
+
       // selecionando a operacao (insert ou update)
       const operacao = editora.id == null
         ? this.editoraService.insert(editora)
         : this.editoraService.update(editora);
-  
+
       // executando a operacao
       operacao.subscribe({
         next: () => {
@@ -124,7 +124,7 @@ export class EditoraFormComponent implements OnInit{
       });
     }
   }
-  
+
   excluir() {
     if (this.formGroup.valid) {
       const editora = this.formGroup.value;
@@ -134,7 +134,7 @@ export class EditoraFormComponent implements OnInit{
             message: 'Deseja realmente excluir esta Editora?'
           }
         });
-  
+
         dialogRef.afterClosed().subscribe(result => {
           if (result) {
             this.editoraService.delete(editora).subscribe({
@@ -156,8 +156,8 @@ export class EditoraFormComponent implements OnInit{
       }
     }
   }
-  
-  cancelar(){
+
+  cancelar() {
     this.router.navigateByUrl('/editoras');
   }
 
@@ -181,7 +181,7 @@ export class EditoraFormComponent implements OnInit{
       apiError: ' '
     },
     email: {
-      required: 'O email da editora deve ser informada', 
+      required: 'O email da editora deve ser informada',
       minlength: 'O email da editora deve ter pelo menos 10 caracteres',
       maxlength: 'O email da editora deve ter no maximo 30 caracteres',
       apiError: ' '
@@ -193,7 +193,7 @@ export class EditoraFormComponent implements OnInit{
       apiError: ' '
     },
     estado: {
-      required: 'O estado da editora deve ser informada', 
+      required: 'O estado da editora deve ser informada',
       minlength: 'O estado da editora deve ter pelo menos 3 caracteres',
       maxlength: 'O estado da editora deve ter no maximo 20 caracteres',
       apiError: ' '

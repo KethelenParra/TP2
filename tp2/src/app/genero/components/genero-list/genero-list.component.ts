@@ -14,8 +14,8 @@ import { NavigationComponent } from '../../../components/navigation/navigation.c
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { SidebarComponent } from '../../../components/sidebar/sidebar.component';
-import { FooterComponent } from '../../../components/footer/footer.component';
+import { SidebarComponent } from '../../../template/sidebar/sidebar.component';
+import { FooterComponent } from '../../../template/footer/footer.component';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
@@ -28,13 +28,13 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 export class GeneroListComponent {
   displayedColumns: string[] = ['id', 'nome', 'descricao', 'acao'];
   generos: Genero[] = [];
-   //Variaveis de controle para a paginação
-   totalRecords = 0;
-   pageSize = 4;
-   page = 0;
-   filtro: string = "";
+  //Variaveis de controle para a paginação
+  totalRecords = 0;
+  pageSize = 4;
+  page = 0;
+  filtro: string = "";
 
-  constructor(private generoService: GeneroService, private dialog: MatDialog, private snackBar: MatSnackBar){
+  constructor(private generoService: GeneroService, private dialog: MatDialog, private snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -46,8 +46,8 @@ export class GeneroListComponent {
     );
   }
 
-  carregarGeneros(){
-    if(this.filtro){
+  carregarGeneros() {
+    if (this.filtro) {
       this.generoService.findByNome(this.filtro, this.page, this.pageSize).subscribe(data => {
         this.generos = data;
         console.log(JSON.stringify(data));
@@ -61,7 +61,7 @@ export class GeneroListComponent {
   }
 
   carregarTodosRegistros() {
-    if(this.filtro){
+    if (this.filtro) {
       this.generoService.countByNome(this.filtro).subscribe(data => {
         this.totalRecords = data;
         console.log(JSON.stringify(data));
@@ -74,13 +74,13 @@ export class GeneroListComponent {
     }
   }
 
-  paginar(event: PageEvent): void{
-    this.page = event.pageIndex;  
+  paginar(event: PageEvent): void {
+    this.page = event.pageIndex;
     this.pageSize = event.pageSize;
     this.ngOnInit();
   }
 
-  aplicarFiltro(){
+  aplicarFiltro() {
     this.carregarGeneros();
     this.carregarTodosRegistros();
     this.snackBar.open('Filtro aplicado com sucesso!', 'Fechar', { duration: 3000 });
@@ -91,7 +91,7 @@ export class GeneroListComponent {
       width: '300px',
       data: { message: 'Deseja realmente excluir este Genero?' }
     });
-    
+
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
         this.generoService.delete(genero).subscribe({
@@ -107,5 +107,5 @@ export class GeneroListComponent {
       }
     });
   }
-   
+
 }

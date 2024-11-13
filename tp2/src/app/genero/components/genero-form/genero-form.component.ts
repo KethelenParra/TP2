@@ -14,7 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog/confirmation-dialog.component';
 import { NavigationService } from '../../../service/navigation.service';
-import { FooterComponent } from '../../../components/footer/footer.component';
+import { FooterComponent } from '../../../template/footer/footer.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
@@ -36,16 +36,16 @@ export class GeneroFormComponent {
     public navService: NavigationService,
     private snackBar: MatSnackBar) {
 
-      const genero: Genero = this.activatedRoute.snapshot.data['genero'];
+    const genero: Genero = this.activatedRoute.snapshot.data['genero'];
 
-      this.formGroup = formBuilder.group({
-        id: [null],
-        nome: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(20)])],
-        descricao: ['', Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(10000)])],
-      });
-    }
+    this.formGroup = formBuilder.group({
+      id: [null],
+      nome: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(20)])],
+      descricao: ['', Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(10000)])],
+    });
+  }
 
-    
+
   ngOnInit(): void {
     this.initializeForm();
   }
@@ -53,13 +53,13 @@ export class GeneroFormComponent {
   initializeForm(): void {
     const genero: Genero = this.activatedRoute.snapshot.data['genero'];
 
-      this.formGroup = this.formBuilder.group({
-        id: [(genero && genero.id) ? genero.id : null],
-        nome: [(genero && genero.nome) ? genero.nome : null,
-                                Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(20)])],
-        descricao: [(genero && genero.descricao) ? genero.descricao : null,
-                                Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(10000)])],
-      });
+    this.formGroup = this.formBuilder.group({
+      id: [(genero && genero.id) ? genero.id : null],
+      nome: [(genero && genero.nome) ? genero.nome : null,
+      Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(20)])],
+      descricao: [(genero && genero.descricao) ? genero.descricao : null,
+      Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(10000)])],
+    });
   }
 
   tratarErros(errorResponse: HttpErrorResponse) {
@@ -70,12 +70,12 @@ export class GeneroFormComponent {
           const formControl = this.formGroup.get(validationError.fieldName);
 
           if (formControl) {
-            formControl.setErrors({apiError: validationError.message})
+            formControl.setErrors({ apiError: validationError.message })
           }
 
         });
       }
-    } else if (errorResponse.status < 400){
+    } else if (errorResponse.status < 400) {
       alert(errorResponse.error?.message || 'Erro genérico do envio do formulário.');
     } else if (errorResponse.status >= 500) {
       alert('Erro interno do servidor.');
@@ -87,12 +87,12 @@ export class GeneroFormComponent {
     this.formGroup.markAllAsTouched();
     if (this.formGroup.valid) {
       const genero = this.formGroup.value;
-  
+
       // selecionando a operacao (insert ou update)
       const operacao = genero.id == null
         ? this.generoService.insert(genero)
         : this.generoService.update(genero);
-  
+
       // executando a operacao
       operacao.subscribe({
         next: () => {
@@ -111,7 +111,7 @@ export class GeneroFormComponent {
       });
     }
   }
-  
+
   excluir() {
     if (this.formGroup.valid) {
       const genero = this.formGroup.value;
@@ -121,7 +121,7 @@ export class GeneroFormComponent {
             message: 'Deseja realmente excluir este Genero?'
           }
         });
-  
+
         dialogRef.afterClosed().subscribe(result => {
           if (result) {
             this.generoService.delete(genero).subscribe({
@@ -143,8 +143,8 @@ export class GeneroFormComponent {
       }
     }
   }
-  
-  cancelar(){
+
+  cancelar() {
     this.router.navigateByUrl('/generos');
   }
 
@@ -168,7 +168,7 @@ export class GeneroFormComponent {
       apiError: ' '
     },
     descricao: {
-      required: 'A descricao deve ser informada', 
+      required: 'A descricao deve ser informada',
       minlength: 'A descricao deve ter pelo menos 10 caracteres',
       maxlength: 'A descricao deve ter no maximo 10000 caracteres',
       apiError: ' '

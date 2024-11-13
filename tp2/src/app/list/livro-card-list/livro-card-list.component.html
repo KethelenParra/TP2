@@ -1,3 +1,20 @@
+
+<div class="flex-container">
+    <mat-form-field appearance="outline" class="select-field">
+        <mat-label>Pesquisar por</mat-label>
+        <mat-select [(ngModel)]="tipoFiltro">
+            <mat-option value="titulo">Título</mat-option>
+            <mat-option value="autor">Autor</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="input-field">
+        <mat-label>Digite para pesquisar</mat-label>
+        <input [(ngModel)]="filtro" matInput placeholder="Ex: Harry Potter" (keyup.enter)="filtrar()" />
+    </mat-form-field>
+    <button mat-icon-button color="primary" class="search-button" id="meuBotaoPesquisar" (click)="filtrar()">
+        <mat-icon>search</mat-icon>
+    </button>
+</div>
 <div class="container responsive-grid">
     <mat-card *ngFor="let card of cards()">
         <img mat-card-image [src]="card.imageUrl">

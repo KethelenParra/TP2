@@ -15,8 +15,8 @@ import { NavigationComponent } from '../../../components/navigation/navigation.c
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { SidebarComponent } from '../../../components/sidebar/sidebar.component';
-import { FooterComponent } from '../../../components/footer/footer.component';
+import { SidebarComponent } from '../../../template/sidebar/sidebar.component';
+import { FooterComponent } from '../../../template/footer/footer.component';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
@@ -35,7 +35,7 @@ export class FornecedorListComponent implements OnInit {
   page = 0;
   filtro: string = "";
 
-  constructor(private fornecedorService: FornecedorService, private dialog: MatDialog, private snackBar: MatSnackBar ){
+  constructor(private fornecedorService: FornecedorService, private dialog: MatDialog, private snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -47,8 +47,8 @@ export class FornecedorListComponent implements OnInit {
     );
   }
 
-  carregarfornecedores(){
-    if(this.filtro){
+  carregarfornecedores() {
+    if (this.filtro) {
       this.fornecedorService.findByNome(this.filtro, this.page, this.pageSize).subscribe(data => {
         this.fornecedores = data;
         console.log(JSON.stringify(data));
@@ -62,7 +62,7 @@ export class FornecedorListComponent implements OnInit {
   }
 
   carregarTodosRegistros() {
-    if(this.filtro){
+    if (this.filtro) {
       this.fornecedorService.countByNome(this.filtro).subscribe(data => {
         this.totalRecords = data;
         console.log(JSON.stringify(data));
@@ -75,13 +75,13 @@ export class FornecedorListComponent implements OnInit {
     }
   }
 
-  paginar(event: PageEvent): void{
-    this.page = event.pageIndex;  
+  paginar(event: PageEvent): void {
+    this.page = event.pageIndex;
     this.pageSize = event.pageSize;
     this.ngOnInit();
   }
 
-  aplicarFiltro(){
+  aplicarFiltro() {
     this.carregarfornecedores();
     this.carregarTodosRegistros();
     this.snackBar.open('Filtro aplicado com sucesso!', 'Fechar', { duration: 3000 });
@@ -92,7 +92,7 @@ export class FornecedorListComponent implements OnInit {
       width: '300px',
       data: { message: 'Deseja realmente excluir este Fornecedor?' }
     });
-    
+
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
         this.fornecedorService.delete(fornecedor).subscribe({
@@ -108,5 +108,5 @@ export class FornecedorListComponent implements OnInit {
       }
     });
   }
-   
+
 }

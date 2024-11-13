@@ -15,8 +15,8 @@ import { NavigationComponent } from '../../../components/navigation/navigation.c
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { SidebarComponent } from '../../../components/sidebar/sidebar.component';
-import { FooterComponent } from '../../../components/footer/footer.component';
+import { SidebarComponent } from '../../../template/sidebar/sidebar.component';
+import { FooterComponent } from '../../../template/footer/footer.component';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
@@ -27,20 +27,20 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
   styleUrls: ['./livro-list.component.css'] // Corrigido para "styleUrls"
 })
 export class LivroListComponent implements OnInit {
-  
+
   displayedColumns: string[] = [
-    'id', 
-    'titulo', 
-    'quantidadeEstoque', 
-    'preco', 
-    'isbn', 
-    'descricao', 
+    'id',
+    'titulo',
+    'quantidadeEstoque',
+    'preco',
+    'isbn',
+    'descricao',
     'datalancamento',
-    'classificacao', 
-    'editora', 
+    'classificacao',
+    'editora',
     'fornecedor',
     'genero',
-    'autor', 
+    'autor',
     'acao'
   ];
   livros: Livro[] = [];
@@ -50,7 +50,7 @@ export class LivroListComponent implements OnInit {
   page = 0;
   filtro: string = "";
 
-  constructor(private livroService: LivroService, private dialog: MatDialog, private snackBar: MatSnackBar) {}
+  constructor(private livroService: LivroService, private dialog: MatDialog, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.livroService.findAll(this.page, this.pageSize).subscribe(
@@ -61,8 +61,8 @@ export class LivroListComponent implements OnInit {
     );
   }
 
-  carregarLivros(){
-    if(this.filtro){
+  carregarLivros() {
+    if (this.filtro) {
       this.livroService.findByTitulo(this.filtro, this.page, this.pageSize).subscribe(data => {
         this.livros = data;
         console.log(JSON.stringify(data));
@@ -76,7 +76,7 @@ export class LivroListComponent implements OnInit {
   }
 
   carregarTodosRegistros() {
-    if(this.filtro){
+    if (this.filtro) {
       this.livroService.countByNome(this.filtro).subscribe(data => {
         this.totalRecords = data;
         console.log(JSON.stringify(data));
@@ -89,13 +89,13 @@ export class LivroListComponent implements OnInit {
     }
   }
 
-  paginar(event: PageEvent): void{
-    this.page = event.pageIndex;  
+  paginar(event: PageEvent): void {
+    this.page = event.pageIndex;
     this.pageSize = event.pageSize;
     this.ngOnInit();
   }
 
-  aplicarFiltro(){
+  aplicarFiltro() {
     this.carregarLivros();
     this.carregarTodosRegistros();
     this.snackBar.open('Filtro aplicado com sucesso!', 'Fechar', { duration: 3000 });
@@ -106,7 +106,7 @@ export class LivroListComponent implements OnInit {
       width: '300px',
       data: { message: 'Deseja realmente excluir este Livro?' }
     });
-    
+
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
         this.livroService.delete(livro).subscribe({

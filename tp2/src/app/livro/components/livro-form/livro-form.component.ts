@@ -26,7 +26,7 @@ import { Autor } from '../../../models/autor.model';
 import { Genero } from '../../../models/genero.model';
 import { AutorService } from '../../../service/autor.service';
 import { GeneroService } from '../../../service/genero.service';
-import { FooterComponent } from '../../../components/footer/footer.component';
+import { FooterComponent } from '../../../template/footer/footer.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
@@ -58,7 +58,7 @@ export class LivroFormComponent implements OnInit {
     private dialog: MatDialog,
     public navService: NavigationService,
     private snackBar: MatSnackBar
-  ){
+  ) {
 
     this.formGroup = this.formBuilder.group({
       id: [null],
@@ -108,22 +108,22 @@ export class LivroFormComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       id: [(livro && livro.id) ? livro.id : null],
       titulo: [(livro && livro.titulo) ? livro.titulo : null,
-            Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(60)])],
+      Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(60)])],
       quantidadeEstoque: [(livro && livro.quantidadeEstoque) ? livro.quantidadeEstoque : null,
-                Validators.compose([Validators.required, Validators.minLength(1)])],
+      Validators.compose([Validators.required, Validators.minLength(1)])],
       preco: [(livro && livro.preco) ? livro.preco : null,
-              Validators.compose([Validators.required])],
+      Validators.compose([Validators.required])],
       descricao: [(livro && livro.descricao) ? livro.descricao : null,
-            Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(20000)])],
+      Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(20000)])],
       isbn: [(livro && livro.isbn) ? livro.isbn : null,
-            Validators.compose([Validators.required, Validators.minLength(13), Validators.maxLength(13)])],
+      Validators.compose([Validators.required, Validators.minLength(13), Validators.maxLength(13)])],
       datalancamento: [(livro && livro.datalancamento) ? livro.datalancamento : null,
-            Validators.compose([Validators.required])],
-      classificacao: [(livro && livro.classificacao)? livro.classificacao : null, Validators.required],
+      Validators.compose([Validators.required])],
+      classificacao: [(livro && livro.classificacao) ? livro.classificacao : null, Validators.required],
       editora: [editora, Validators.required],
       fornecedor: [fornecedor, Validators.required],
       generos: [(livro && livro.generos) ? livro.generos.map((genero) => genero.id) : [], Validators.required],
-      autores: [(livro && livro.autores)? livro.autores.map((autor) => autor.id) : [], Validators.required]
+      autores: [(livro && livro.autores) ? livro.autores.map((autor) => autor.id) : [], Validators.required]
     });
   }
 
@@ -135,12 +135,12 @@ export class LivroFormComponent implements OnInit {
           const formControl = this.formGroup.get(validationError.fieldName);
 
           if (formControl) {
-            formControl.setErrors({apiError: validationError.message})
+            formControl.setErrors({ apiError: validationError.message })
           }
 
         });
       }
-    } else if (errorResponse.status < 400){
+    } else if (errorResponse.status < 400) {
       alert(errorResponse.error?.message || 'Erro genérico do envio do formulário.');
     } else if (errorResponse.status >= 500) {
       alert('Erro interno do servidor.');
@@ -152,12 +152,12 @@ export class LivroFormComponent implements OnInit {
     this.formGroup.markAllAsTouched();
     if (this.formGroup.valid) {
       const livro = this.formGroup.value;
-  
+
       // selecionando a operacao (insert ou update)
       const operacao = livro.id == null
         ? this.livroService.insert(livro)
         : this.livroService.update(livro);
-  
+
       // executando a operacao
       operacao.subscribe({
         next: () => {
@@ -176,7 +176,7 @@ export class LivroFormComponent implements OnInit {
       });
     }
   }
-  
+
   excluir() {
     if (this.formGroup.valid) {
       const livro = this.formGroup.value;
@@ -186,7 +186,7 @@ export class LivroFormComponent implements OnInit {
             message: 'Deseja realmente excluir este Livro?'
           }
         });
-  
+
         dialogRef.afterClosed().subscribe(result => {
           if (result) {
             this.livroService.delete(livro).subscribe({
@@ -208,8 +208,8 @@ export class LivroFormComponent implements OnInit {
       }
     }
   }
-  
-  cancelar(){
+
+  cancelar() {
     this.router.navigateByUrl('/admin/livros');
   }
 
@@ -217,16 +217,16 @@ export class LivroFormComponent implements OnInit {
     if (!errors) {
       return '';
     }
- 
+
     for (const errorName in errors) {
       if (errors.hasOwnProperty(errorName) && this.errorMessage[controlName] && this.errorMessage[controlName][errorName]) {
         return this.errorMessage[controlName][errorName];
       }
     }
-    
+
     return 'Campo inválido';
   }
-  
+
   errorMessage: { [controlName: string]: { [errorName: string]: string } } = {
     titulo: {
       required: 'O título deve ser informado',

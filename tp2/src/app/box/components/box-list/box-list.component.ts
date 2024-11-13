@@ -14,8 +14,8 @@ import { NavigationComponent } from '../../../components/navigation/navigation.c
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { SidebarComponent } from '../../../components/sidebar/sidebar.component';
-import { FooterComponent } from '../../../components/footer/footer.component';
+import { SidebarComponent } from '../../../template/sidebar/sidebar.component';
+import { FooterComponent } from '../../../template/footer/footer.component';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
@@ -25,23 +25,22 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
   templateUrl: './box-list.component.html',
   styleUrl: './box-list.component.css'
 })
-export class BoxListComponent implements OnInit{
+export class BoxListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'nome', 'descricaoBox', 'quantidadeEstoque', 'preco', 'classificacao', 'fornecedor', 'editora', 'genero', 'autor', 'acao'];
   boxes: Box[] = [];
-    totalRecords = 0;
+  totalRecords = 0;
   pageSize = 2;
   page = 0;
   filtro: string = "";
-  
+
   constructor(
-    private boxService: BoxService, 
-    private dialog: MatDialog, 
+    private boxService: BoxService,
+    private dialog: MatDialog,
     private snackBar: MatSnackBar
-  ){}
+  ) { }
 
   ngOnInit(): void {
-    this.boxService.findAll(this.page, this.pageSize).subscribe( data => 
-      { this.boxes = data }
+    this.boxService.findAll(this.page, this.pageSize).subscribe(data => { this.boxes = data }
     );
 
     this.boxService.count().subscribe(
@@ -49,8 +48,8 @@ export class BoxListComponent implements OnInit{
     );
   }
 
-  carregarBoxes(){
-    if(this.filtro){
+  carregarBoxes() {
+    if (this.filtro) {
       this.boxService.findByNome(this.filtro, this.page, this.pageSize).subscribe(data => {
         this.boxes = data;
         console.log(JSON.stringify(data));
@@ -64,7 +63,7 @@ export class BoxListComponent implements OnInit{
   }
 
   carregarTodosRegistros() {
-    if(this.filtro){
+    if (this.filtro) {
       this.boxService.countByNome(this.filtro).subscribe(data => {
         this.totalRecords = data;
         console.log(JSON.stringify(data));
@@ -77,13 +76,13 @@ export class BoxListComponent implements OnInit{
     }
   }
 
-  paginar(event: PageEvent): void{
-    this.page = event.pageIndex;  
+  paginar(event: PageEvent): void {
+    this.page = event.pageIndex;
     this.pageSize = event.pageSize;
     this.ngOnInit();
   }
 
-  aplicarFiltro(){
+  aplicarFiltro() {
     this.carregarBoxes();
     this.carregarTodosRegistros();
     this.snackBar.open('Filtro aplicado com sucesso!', 'Fechar', { duration: 3000 });
@@ -94,7 +93,7 @@ export class BoxListComponent implements OnInit{
       width: '300px',
       data: { message: 'Deseja realmente excluir este Box?' }
     });
-    
+
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
         this.boxService.delete(box).subscribe({
