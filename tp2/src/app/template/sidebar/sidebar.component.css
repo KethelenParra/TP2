@@ -5,13 +5,24 @@ mat-drawer-container {
 
 button {
   cursor: pointer;
+  background: none;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  font-family: inherit;
 }
 
 .menu-button {
-  background: none;
-  box-shadow: none;
-  outline: none;
-  margin-bottom: 20px;
+  font-size: 14px;
+  text-transform: none;
+  padding: 0; /* Remove padding extra */
+  color: inherit;
+  display: flex;
+  align-items: center;
+}
+
+.menu-button mat-icon {
+  margin-right: 8px;
 }
 
 mat-drawer {
@@ -19,9 +30,28 @@ mat-drawer {
   transition: width 0.3s;
 }
 
+.mat-toolbar {
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+.mat-nav-list {
+  padding: 0;
+}
+
+.opcao {
+  margin-bottom: 15px; /* Espaçamento consistente entre opções */
+}
+
 .custom-list-item {
   display: flex;
   align-items: center;
+  padding: 8px 16px; /* Espaçamento consistente para itens */
+  transition: background-color 0.2s;
+}
+
+.custom-list-item:hover {
+  background-color: rgba(0, 0, 0, 0.04); /* Efeito hover leve */
 }
 
 .custom-list-item mat-icon {

@@ -9,20 +9,22 @@ import { BoxService } from '../../../service/box.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog/confirmation-dialog.component';
 import { Box } from '../../../models/box.model';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { NavigationComponent } from '../../../components/navigation/navigation.component';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { NavigationComponent } from '../../../components/navigation/navigation.component';
 import { SidebarComponent } from '../../../template/sidebar/sidebar.component';
 import { FooterComponent } from '../../../template/footer/footer.component';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-box-list',
   standalone: true,
-  imports: [MatToolbarModule, MatSnackBarModule, FormsModule, MatFormFieldModule, MatInputModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent, SidebarComponent, FooterComponent],
+  imports: [MatToolbarModule, MatSnackBarModule, FormsModule, MatFormFieldModule, MatInputModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator,
+     NavigationComponent, SidebarComponent, FooterComponent],
   templateUrl: './box-list.component.html',
   styleUrl: './box-list.component.css'
 })
@@ -53,7 +55,7 @@ export class BoxListComponent implements OnInit{
       data => { this.totalRecords = data }
     );
 
-    this.http.get<string>('localhost:8080/boxes').subscribe((data: string) => {
+    this.http.get<string>('localhost:8080/admin/boxes').subscribe((data: string) => {
       this.textoTotal = data;
       this.textoReduzido = data.length > 100 ? data.substring(0, 100) + '...' : data;
     });

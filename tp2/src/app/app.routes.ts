@@ -17,7 +17,7 @@ import { fornecedorResolver } from './fornecedor/resolver/fornecedor.resolver';
 import { livroResolver } from './livro/resolver/livro.resolver';
 import { LivroFormComponent } from './livro/components/livro-form/livro-form.component';
 import { LivroListComponent } from './livro/components/livro-list/livro-list.component';
-import { UserTemplateComponent } from './template/user-template/user-template.component';
+import { UserTemplateComponent } from './template-user/user-template/user-template.component';
 import { AdminTemplateComponent } from './template/admin-template/admin-template.component';
 import { LivroCardListComponent } from './list/livro-card-list/livro-card-list.component';
 import { ControleComponent } from './controle/controle.component';

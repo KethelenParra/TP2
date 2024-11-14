@@ -10,29 +10,31 @@ import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { NavigationComponent } from '../../../components/navigation/navigation.component';
 import { MatSnackBar} from '@angular/material/snack-bar';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-livro-list',
   standalone: true,
-  imports: [MatIconModule, CommonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent],
+  imports: [MatIconModule, CommonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent, MatInputModule, FormsModule],
   templateUrl: './livro-list.component.html',
   styleUrls: ['./livro-list.component.css'] // Corrigido para "styleUrls"
 })
 export class LivroListComponent implements OnInit {
-  
+
   displayedColumns: string[] = [
-    'id', 
-    'titulo', 
-    'quantidadeEstoque', 
-    'preco', 
-    'isbn', 
-    'descricao', 
+    'id',
+    'titulo',
+    'quantidadeEstoque',
+    'preco',
+    'isbn',
+    'descricao',
     'datalancamento',
-    'classificacao', 
-    'editora', 
+    'classificacao',
+    'editora',
     'fornecedor',
     'genero',
-    'autor', 
+    'autor',
     'acao'
   ];
   livros: Livro[] = [];
@@ -54,8 +56,8 @@ export class LivroListComponent implements OnInit {
     );
   }
 
-  carregarLivros(){
-    if(this.filtro){
+  carregarLivros() {
+    if (this.filtro) {
       this.livroService.findByTitulo(this.filtro, this.page, this.pageSize).subscribe(data => {
         this.livros = data;
         console.log(JSON.stringify(data));
@@ -69,7 +71,7 @@ export class LivroListComponent implements OnInit {
   }
 
   carregarTodosRegistros() {
-    if(this.filtro){
+    if (this.filtro) {
       this.livroService.countByNome(this.filtro).subscribe(data => {
         this.totalRecords = data;
         console.log(JSON.stringify(data));
@@ -82,13 +84,13 @@ export class LivroListComponent implements OnInit {
     }
   }
 
-  paginar(event: PageEvent): void{
-    this.page = event.pageIndex;  
+  paginar(event: PageEvent): void {
+    this.page = event.pageIndex;
     this.pageSize = event.pageSize;
     this.ngOnInit();
   }
 
-  aplicarFiltro(){
+  aplicarFiltro() {
     this.carregarLivros();
     this.carregarTodosRegistros();
     this.snackBar.open('Filtro aplicado com sucesso!', 'Fechar', { duration: 3000 });
@@ -99,7 +101,7 @@ export class LivroListComponent implements OnInit {
       width: '300px',
       data: { message: 'Deseja realmente excluir este Livro?' }
     });
-    
+
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
         this.livroService.delete(livro).subscribe({

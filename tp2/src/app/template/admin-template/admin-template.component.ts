@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HeaderComponent } from '../header/header.component';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { FooterComponent } from '../footer/footer.component';
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-template',
@@ -35,6 +35,9 @@ export class AdminTemplateComponent {
       case 'livros': return 'Controle de Livros';
       case 'editoras': return 'Controle de Editoras';
       case 'fornecedores': return 'Controle de Fornecedores'
+      case 'autores': return 'Controle de Autores';
+      case 'boxes': return 'Controle de boxes';
+
       default: return 'Administração';
     }
   }

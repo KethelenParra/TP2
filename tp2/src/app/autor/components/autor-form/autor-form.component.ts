@@ -99,7 +99,7 @@ export class AutorFormComponent implements OnInit{
           this.snackBar.open('Autor salvo com sucesso!', 'Fechar', {
             duration: 3000
           });
-          this.router.navigateByUrl('/autores');
+          this.router.navigateByUrl('/admin/autores');
         },
         error: (error) => {
           console.log('Erro ao Salvar' + JSON.stringify(error));
@@ -129,7 +129,7 @@ export class AutorFormComponent implements OnInit{
                 this.snackBar.open('Autor excluído com sucesso!', 'Fechar', {
                   duration: 3000
                 });
-                this.router.navigateByUrl('/autores');
+                this.router.navigateByUrl('/admin/autores');
               },
               error: (err) => {
                 console.log('Erro ao Excluir' + JSON.stringify(err));
