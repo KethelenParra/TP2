@@ -12,6 +12,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon'; 
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { MatInputModule } from '@angular/material/input'; 
+import { RouterModule } from '@angular/router';
 
 type Card = {
   titulo: string;
@@ -27,7 +28,7 @@ type Card = {
   imports: [
     MatCardModule, MatButtonModule, NgFor, CommonModule,
     MatCardActions, MatCardContent, MatCardTitle, MatCardSubtitle, MatIconModule, FormsModule,
-    MatFormFieldModule, MatInputModule, MatSnackBarModule, MatPaginatorModule, MatSelectModule, MatToolbarModule
+    MatFormFieldModule, MatInputModule, MatSnackBarModule, MatPaginatorModule, MatSelectModule, MatToolbarModule, RouterModule
   ],
   templateUrl: './livro-card-list.component.html',
   styleUrls: ['./livro-card-list.component.css']
@@ -36,17 +37,25 @@ type Card = {
 export class LivroCardListComponent implements OnInit {
   livros: Livro[] = [];
   cards = signal<Card[]>([]);
-  totalRecords = 0;
+  totalRecords = 0; 
   pageSize = 10;
   page = 0;
   filtro: string = "";
   tipoFiltro: string = "titulo";
 
-  constructor(private livroService: LivroService, private snackBar: MatSnackBar) { } // Injeção de MatSnackBar
+  constructor(private livroService: LivroService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.carregarLivros();
     this.buscar();  
+  }
+
+  formatarTitulo(titulo: string): string {
+    return titulo
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/\s+/g, '-');
   }
 
   carregarLivros() {

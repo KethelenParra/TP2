@@ -1,0 +1,46 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    padding: 10px;
+  }
+  
+  .card-content {
+    flex-grow: 1; /* Permite que o conteúdo cresça e ocupe o espaço disponível */
+  }
+  
+  img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+  
+  .container {
+    padding: 20px;
+  }
+  
+  .responsive-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Reduz o tamanho mínimo para 200px */
+    gap: 20px; /* Diminui o espaçamento entre os cards */
+  }
+  
+  .centered-text {
+    text-align: center;
+    display: flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  mat-card {
+    padding: 5px; /* Reduz o padding do card */
+  }
+  
+  button[mat-button] {
+    padding: 8px; /* Reduz o padding dos botões */
+  }
+  

@@ -13,12 +13,13 @@ import { FooterComponent } from '../../../template/footer/footer.component';
 import { HeaderComponent } from '../../../template/header/header.component';
 import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog/confirmation-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-genero-list',
   standalone: true,
-  imports: [MatIconModule, MatSnackBarModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent, SidebarComponent, FooterComponent, HeaderComponent],
+  imports: [MatIconModule, MatSnackBarModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent, SidebarComponent, FooterComponent, HeaderComponent, MatInputModule, FormsModule],
   templateUrl: './genero-list.component.html',
   styleUrl: './genero-list.component.css'
 })

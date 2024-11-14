@@ -18,7 +18,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog/confirmation-dialog.component';
 
-
 @Component({
   selector: 'app-fornecedor-list',
   standalone: true,

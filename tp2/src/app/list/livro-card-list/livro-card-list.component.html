@@ -1,4 +1,3 @@
-
 <div class="flex-container">
     <mat-form-field appearance="outline" class="select-field">
         <mat-label>Pesquisar por</mat-label>
@@ -36,7 +35,7 @@
 
         <mat-card-actions class="centered-text">
             <button mat-button color="primary" style="width: 100%; padding: 16px; text-align: center;">
-                Ver Mais ...
+                <a [routerLink]="[ '/titulo', formatarTitulo(card.titulo)]">Ver Mais ...</a>
             </button>
         </mat-card-actions>
 
@@ -48,3 +47,9 @@
         </mat-card-footer>
     </mat-card>
 </div>
+<mat-paginator
+        (page)="paginar($event)"
+        [length]="totalRecords"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[10, 25, 50, 100]">
+</mat-paginator>

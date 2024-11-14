@@ -1,5 +1,20 @@
-<div class="navigation-container">
-    <app-navigation></app-navigation>
+<div class="container-subheader">
+    <div class="container-pesquisa"> 
+        <mat-form-field appearance="outline" class="input-field">
+            <input [(ngModel)]="filtro" 
+            matInput type="search" 
+            placeholder="Ex. Loja Moderna Ltda" 
+            #input (keyup.enter)="aplicarFiltro()"
+            style="appearance: none;"
+            class="search">
+            <button mat-icon-button matSuffix color="primary" (click)="aplicarFiltro()">
+                <mat-icon>search</mat-icon>
+            </button>
+        </mat-form-field>
+    </div>
+    <span class="material-symbols-outlined">
+    <a href="admin/fornecedores/new"><mat-icon class="add-circle" style="color: black;"> add_circle </mat-icon></a>
+    </span>
 </div>
 <div class="container">
     <div class="container-content">

@@ -10,11 +10,13 @@ import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { NavigationComponent } from '../../../components/navigation/navigation.component';
 import { MatSnackBar} from '@angular/material/snack-bar';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-livro-list',
   standalone: true,
-  imports: [MatIconModule, CommonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent],
+  imports: [MatIconModule, CommonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent, MatInputModule, FormsModule],
   templateUrl: './livro-list.component.html',
   styleUrls: ['./livro-list.component.css'] // Corrigido para "styleUrls"
 })
