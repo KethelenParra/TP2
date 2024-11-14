@@ -27,7 +27,7 @@
 }
 
 .toolbar{
-    background-color: #6B5852;
+    background-color: #F5F5F5;
 }
 
 .cadastrar{
@@ -37,6 +37,7 @@
     letter-spacing: 5px;
     font-weight: 500;
     margin-left: 2.9%;
+    color: black;
 }
 
 /* Título centralizado */
@@ -49,7 +50,7 @@
 
 .menu-button {
     font-size: 15px;
-    background-color: #898E88;
+    background-color: black;
     padding: 8px 16px;
     border-radius: 8px;
     display: flex;
@@ -91,7 +92,7 @@ mat-card-actions {
 .material-icons{
     margin-top: 10px;
     margin-left: 20px;
-    color: #ffffff;
+    color: black;
 }
 
 button[mat-raised-button] {

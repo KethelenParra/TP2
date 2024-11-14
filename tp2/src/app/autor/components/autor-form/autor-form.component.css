@@ -20,7 +20,7 @@
 }
 
 .toolbar{
-    background-color: #6B5852;
+    background-color: #F5F5F5;
 }
 
 /* Título centralizado */
@@ -34,7 +34,7 @@
 /* Estilo do botão do menu */
 .menu-button {
     font-size: 15px;
-    background-color: #898E88;
+    background-color: black;
     padding: 8px 16px;
     border-radius: 8px;
     display: flex;
@@ -47,7 +47,7 @@
 .material-icons{
     margin-top: 10px;
     margin-left: 20px;
-    color: #ffffff;
+    color: black;
 }
 
 
@@ -67,6 +67,7 @@
     letter-spacing: 5px;
     font-weight: 500;
     margin-left: 2.9%;
+    color: black
 }
 
 /* Estilo para o formulário e os inputs */
@@ -103,6 +104,5 @@ button[mat-raised-button].save-button {
 }
 
 button[mat-raised-button].excluir-button {
-    background-color: #eaede6;
+    background-color: #eaede6;
 }
-

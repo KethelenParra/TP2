@@ -14,6 +14,7 @@
     letter-spacing: 5px;
     font-weight: 500;
     margin-left: 2.9%;
+    color: black;
 }
 
 .formulario{
@@ -36,12 +37,12 @@
 }
 
 .toolbar{
-    background-color: var(--color-toolbar);
+    background-color: #F5F5F5;
 }
 
 .menu-button {
     font-size: 15px;
-    background-color: #898E88;
+    background-color: black;
     padding: 8px 16px;
     border-radius: 8px;
     display: flex;
@@ -78,7 +79,7 @@
 .material-icons{
     margin-top: 10px;
     margin-left: 20px;
-    color: #ffffff;
+    color: black;
 }
 
 mat-card {
