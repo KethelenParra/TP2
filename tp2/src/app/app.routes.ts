@@ -21,6 +21,8 @@ import { UserTemplateComponent } from './template/user-template/user-template.co
 import { AdminTemplateComponent } from './template/admin-template/admin-template.component';
 import { LivroCardListComponent } from './list/livro-card-list/livro-card-list.component';
 import { ControleComponent } from './controle/controle.component';
+import { LivroViewComponent } from './livro-view/components/livro-view.component';
+import { livroViewResolver } from './livro-view/resolver/livroView.resolver';
 
 export const routes: Routes = [
     {
@@ -31,6 +33,8 @@ export const routes: Routes = [
             { path: '', pathMatch: 'full', redirectTo: 'home' },
             
             { path: 'home', component: LivroCardListComponent, title: 'Lista de Cards de Livros' },
+
+            { path: 'titulo/:titulo', component: LivroViewComponent, resolve: { livro: livroViewResolver } },
         ]
     },
     {

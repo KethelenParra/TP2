@@ -1,9 +1,10 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule, NgFor } from '@angular/common';
 import { Livro } from '../../models/livro.model';
 import { LivroService } from '../../service/livro.service';
+import { RouterModule } from '@angular/router';
 
 
 type Card = {
@@ -16,7 +17,7 @@ type Card = {
 @Component({
   selector: 'app-livro-card-list',
   standalone: true,
-  imports: [MatCardModule, MatButtonModule, NgFor, CommonModule,],
+  imports: [MatCardModule, MatButtonModule, NgFor, CommonModule, RouterModule],
   templateUrl: './livro-card-list.component.html',
   styleUrl: './livro-card-list.component.css'
 })
@@ -29,6 +30,14 @@ export class LivroCardListComponent {
 
   ngOnInit(): void {
     this.carregarLivros();
+  }
+
+  formatarTitulo(titulo: string): string {
+    return titulo
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/\s+/g, '-');
   }
 
   carregarLivros() {
