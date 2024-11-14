@@ -1,40 +1,37 @@
 import { Component } from '@angular/core';
-import { NgFor } from '@angular/common';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { Genero } from '../../../models/genero.model';
 import { GeneroService } from '../../../service/genero.service';
-import { MatDialog } from '@angular/material/dialog';
-import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog/confirmation-dialog.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTableModule } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { NavigationComponent } from '../../../components/navigation/navigation.component';
-import { FormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { SidebarComponent } from '../../../template/sidebar/sidebar.component';
 import { FooterComponent } from '../../../template/footer/footer.component';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { HeaderComponent } from '../../../template/header/header.component';
+import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog/confirmation-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-genero-list',
   standalone: true,
-  imports: [NgFor, MatToolbarModule, MatIconModule, MatSnackBarModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent, FormsModule, MatFormFieldModule, MatInputModule, SidebarComponent, FooterComponent],
+  imports: [MatIconModule, MatSnackBarModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent, SidebarComponent, FooterComponent, HeaderComponent],
   templateUrl: './genero-list.component.html',
   styleUrl: './genero-list.component.css'
 })
 export class GeneroListComponent {
   displayedColumns: string[] = ['id', 'nome', 'descricao', 'acao'];
   generos: Genero[] = [];
-  //Variaveis de controle para a paginação
-  totalRecords = 0;
-  pageSize = 4;
-  page = 0;
-  filtro: string = "";
+   //Variaveis de controle para a paginação
+   totalRecords = 0;
+   pageSize = 4;
+   page = 0;
+   filtro: string = "";
 
-  constructor(private generoService: GeneroService, private dialog: MatDialog, private snackBar: MatSnackBar) {
+  constructor(private generoService: GeneroService, private dialog: MatDialog, private snackBar: MatSnackBar){
   }
 
   ngOnInit(): void {
@@ -46,8 +43,8 @@ export class GeneroListComponent {
     );
   }
 
-  carregarGeneros() {
-    if (this.filtro) {
+  carregarGeneros(){
+    if(this.filtro){
       this.generoService.findByNome(this.filtro, this.page, this.pageSize).subscribe(data => {
         this.generos = data;
         console.log(JSON.stringify(data));
@@ -61,7 +58,7 @@ export class GeneroListComponent {
   }
 
   carregarTodosRegistros() {
-    if (this.filtro) {
+    if(this.filtro){
       this.generoService.countByNome(this.filtro).subscribe(data => {
         this.totalRecords = data;
         console.log(JSON.stringify(data));
@@ -74,16 +71,16 @@ export class GeneroListComponent {
     }
   }
 
-  paginar(event: PageEvent): void {
-    this.page = event.pageIndex;
-    this.pageSize = event.pageSize;
-    this.ngOnInit();
-  }
-
-  aplicarFiltro() {
+  aplicarFiltro(){
     this.carregarGeneros();
     this.carregarTodosRegistros();
     this.snackBar.open('Filtro aplicado com sucesso!', 'Fechar', { duration: 3000 });
+  }
+  
+  paginar(event: PageEvent): void{
+    this.page = event.pageIndex;  
+    this.pageSize = event.pageSize;
+    this.ngOnInit();
   }
 
   excluir(genero: Genero): void {
@@ -91,7 +88,7 @@ export class GeneroListComponent {
       width: '300px',
       data: { message: 'Deseja realmente excluir este Genero?' }
     });
-
+    
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
         this.generoService.delete(genero).subscribe({
@@ -107,5 +104,5 @@ export class GeneroListComponent {
       }
     });
   }
-
+   
 }

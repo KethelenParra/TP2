@@ -1,11 +1,11 @@
 import { Component, OnInit, signal } from '@angular/core';
-import { MatToolbarModule } from '@angular/material/toolbar';
+import {MatToolbarModule} from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { NgIf, NgFor } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Livro } from '../models/livro.model';
 import { LivroService } from '../service/livro.service';
-import { MatDialog } from '@angular/material/dialog';
+import { LivroCardListComponent } from '../list/livro-card-list/livro-card-list.component';
 import { MatTableModule } from '@angular/material/table';
 import { SidebarComponent } from '../template/sidebar/sidebar.component';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,18 +14,19 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { FooterComponent } from '../template/footer/footer.component';
 import { MatCardModule } from '@angular/material/card';
-import { LivroCardListComponent } from '../list/livro-card-list/livro-card-list.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MatToolbarModule, LivroCardListComponent, MatIconModule, NgIf, NgFor, RouterModule, MatTableModule, SidebarComponent, MatButtonModule, MatSelectModule, MatSidenavModule, MatListModule, FooterComponent, MatCardModule],
+  imports: [MatToolbarModule, LivroCardListComponent,MatIconModule, NgIf, NgFor,RouterModule, MatTableModule, SidebarComponent, MatButtonModule,
+     MatSelectModule, MatSidenavModule, MatListModule, FooterComponent, MatCardModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent implements OnInit {
-
-  constructor(private livroService: LivroService, private dialog: MatDialog) { }
+export class HomeComponent implements OnInit{
+  
+  constructor(private livroService: LivroService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.livroService.findAll().subscribe(
@@ -34,18 +35,18 @@ export class HomeComponent implements OnInit {
   }
 
   displayedColumns: string[] = [
-    'id',
-    'titulo',
-    'quantidadeEstoque',
-    'preco',
-    'isbn',
-    'descricao',
+    'id', 
+    'titulo', 
+    'quantidadeEstoque', 
+    'preco', 
+    'isbn', 
+    'descricao', 
     'datalancamento',
-    'classificacao',
-    'editora',
+    'classificacao', 
+    'editora', 
     'fornecedor',
     'genero',
-    'autor',
+    'autor', 
     'acao'
   ];
   livros: Livro[] = [];

@@ -1,26 +1,65 @@
-/* mat-drawer-container {
+mat-drawer-container {
   height: 100vh;
   background-color: transparent;
 }
 
 button {
   cursor: pointer;
+  background: none;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  font-family: inherit;
 }
 
 .menu-button {
-  background: none;
-  box-shadow: none;
-  outline: none;
+  font-size: 14px;
+  text-transform: none;
+  padding: 0; /* Remove padding extra */
+  color: inherit;
+  display: flex;
+  align-items: center;
+}
+
+.menu-button mat-icon {
+  margin-right: 8px;
 }
 
 mat-drawer {
-  height: 100%;
-  overflow-x: hidden;
+  width: 250px;
+  transition: width 0.3s;
+}
+
+.mat-toolbar {
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+.mat-nav-list {
+  padding: 0;
 }
 
 .opcao {
+  margin-bottom: 15px; /* Espaçamento consistente entre opções */
+}
+
+.custom-list-item {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin-top: 20px;
-} */
+  align-items: center;
+  padding: 8px 16px; /* Espaçamento consistente para itens */
+  transition: background-color 0.2s;
+}
+
+.custom-list-item:hover {
+  background-color: rgba(0, 0, 0, 0.04); /* Efeito hover leve */
+}
+
+.custom-list-item mat-icon {
+  font-size: 24px;
+  margin-right: 8px;
+}
+
+.custom-list-item span {
+  display: flex;
+  align-items: center;
+}

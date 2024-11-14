@@ -129,7 +129,7 @@ export class GeneroFormComponent {
                 this.snackBar.open('Genero excluído com sucesso!', 'Fechar', {
                   duration: 3000
                 });
-                this.router.navigateByUrl('/generos');
+                this.router.navigateByUrl('/admin/generos');
               },
               error: (err) => {
                 console.log('Erro ao Excluir' + JSON.stringify(err));
@@ -145,7 +145,7 @@ export class GeneroFormComponent {
   }
 
   cancelar() {
-    this.router.navigateByUrl('/generos');
+    this.router.navigateByUrl('/admin/generos');
   }
 
   getErrorMessage(controlName: string, errors: ValidationErrors | null | undefined): string {

@@ -112,7 +112,7 @@ export class EditoraFormComponent implements OnInit {
           this.snackBar.open('Editora salvo com sucesso!', 'Fechar', {
             duration: 3000
           });
-          this.router.navigateByUrl('/editoras');
+          this.router.navigateByUrl('/admin/editoras');
         },
         error: (error) => {
           console.log('Erro ao Salvar' + JSON.stringify(error));
@@ -142,7 +142,7 @@ export class EditoraFormComponent implements OnInit {
                 this.snackBar.open('Editora excluído com sucesso!', 'Fechar', {
                   duration: 3000
                 });
-                this.router.navigateByUrl('/editoras');
+                this.router.navigateByUrl('/admin/editoras');
               },
               error: (err) => {
                 console.log('Erro ao Excluir' + JSON.stringify(err));
@@ -158,7 +158,7 @@ export class EditoraFormComponent implements OnInit {
   }
 
   cancelar() {
-    this.router.navigateByUrl('/editoras');
+    this.router.navigateByUrl('/admin/editoras');
   }
 
   getErrorMessage(controlName: string, errors: ValidationErrors | null | undefined): string {

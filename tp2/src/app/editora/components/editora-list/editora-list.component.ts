@@ -1,27 +1,30 @@
+import { NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { NgFor } from '@angular/common';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
+import { NavigationComponent } from '../../../components/navigation/navigation.component';
+import { SidebarComponent } from '../../../template/sidebar/sidebar.component';
+import { FooterComponent } from '../../../template/footer/footer.component';
+import { HeaderComponent } from '../../../template/header/header.component';
 import { Editora } from '../../../models/editora.model';
 import { EditoraService } from '../../../service/editora.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog/confirmation-dialog.component';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { NavigationComponent } from '../../../components/navigation/navigation.component';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { SidebarComponent } from '../../../template/sidebar/sidebar.component';
-import { FooterComponent } from '../../../template/footer/footer.component';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-editora-list',
   standalone: true,
-  imports: [MatToolbarModule, FormsModule, MatSnackBarModule, MatInputModule, MatFormFieldModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent, SidebarComponent, FooterComponent],
+  imports: [MatToolbarModule, FormsModule, MatSnackBarModule, MatInputModule, MatFormFieldModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator,
+     NavigationComponent, SidebarComponent, FooterComponent, HeaderComponent],
   templateUrl: './editora-list.component.html',
   styleUrl: './editora-list.component.css'
 })

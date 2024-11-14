@@ -150,7 +150,7 @@ export class BoxFormComponent implements OnInit {
           this.snackBar.open('Box salvo com sucesso!', 'Fechar', {
             duration: 3000
           });
-          this.router.navigateByUrl('/boxes');
+          this.router.navigateByUrl('/admin/boxes');
         },
         error: (error) => {
           console.log('Erro ao Salvar' + JSON.stringify(error));
@@ -179,7 +179,7 @@ export class BoxFormComponent implements OnInit {
                 this.snackBar.open('Box excluído com sucesso!', 'Fechar', {
                   duration: 3000
                 });
-                this.router.navigateByUrl('/boxes');
+                this.router.navigateByUrl('/admin/boxes');
               },
               error: (err) => {
                 console.log('Erro ao Excluir' + JSON.stringify(err));
@@ -195,7 +195,7 @@ export class BoxFormComponent implements OnInit {
   }
 
   cancelar() {
-    this.router.navigateByUrl('/boxes');
+    this.router.navigateByUrl('/admin/boxes');
   }
 
   getErrorMessage(controlName: string, errors: ValidationErrors | null | undefined): string {

@@ -1,75 +1,45 @@
-<!-- <mat-drawer-container class="example-container" hasBackdrop="false">
-  <mat-drawer opened #drawer mode="over" [style.width]="sideNavWidth()" style="overflow-x: hidden;">
-    <mat-list>
-      <button mat-button (click)="collapsed.set(!collapsed())" class="menu-button">
-        <mat-list-item>
-          <mat-icon matListItemIcon>menu</mat-icon>
+<mat-drawer-container hasBackdrop="false" [style.flex]="1">
+  <mat-drawer class="sidebar" #drawer mode="side" hasB opened>
+    <mat-toolbar>
+      <span>Menu</span>
+    </mat-toolbar>
+    <mat-nav-list>
+      <div class="opcao">
+        <mat-list-item class="custom-list-item" routerLink="../home">
+          <mat-icon matListItemIcon>home</mat-icon>
+          <span matListItemTitle>Home</span>
         </mat-list-item>
-      </button>
-      <div class="opcao">
-        <a href="../">
-          <button mat-button>
-            <mat-list-item>
-              <mat-icon matListItemIcon>home</mat-icon>
-              <span matListItemTitle>Home</span>
-            </mat-list-item>
-          </button>
-        </a>
       </div>
       <div class="opcao">
-        <a href="../clientes">
-          <button mat-button>
-            <mat-list-item>
-              <mat-icon matListItemIcon>people</mat-icon>
-              <span matListItemTitle>Usuários</span>
-            </mat-list-item>
-          </button>
-        </a>
+        <mat-list-item class="custom-list-item" routerLink="../admin/clientes">
+          <mat-icon matListItemIcon>people</mat-icon>
+          <span matListItemTitle>Usuários</span>
+        </mat-list-item>
       </div>
       <div class="opcao">
-        <a href="../admin/controle">
-          <button mat-button>
-            <mat-list-item>
-              <mat-icon matListItemIcon>sports_esports</mat-icon>
-              <span matListItemTitle>Controle</span>
-            </mat-list-item>
-          </button>
-        </a>
+        <mat-list-item class="custom-list-item" routerLink="../admin/controle">
+          <mat-icon matListItemIcon>sports_esports</mat-icon>
+          <span matListItemTitle>Controle</span>
+        </mat-list-item>
       </div>
       <div class="opcao">
-        <a href="../home">
-          <button mat-button>
-            <mat-list-item>
-              <mat-icon matListItemIcon>person</mat-icon>
-              <span matListItemTitle>Visão user</span>
-            </mat-list-item>
-          </button>
-        </a>
+        <mat-list-item class="custom-list-item">
+          <mat-icon matListItemIcon>add</mat-icon>
+        
+          <button mat-button [matMenuTriggerFor]="menu" class="menu-button">Cadastrar</button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="navService.livro()">Livros</button>
+            <button mat-menu-item (click)="navService.box()">Box</button>
+            <button mat-menu-item (click)="navService.autor()">Autores</button>
+            <button mat-menu-item (click)="navService.genero()">Gênero</button>
+            <button mat-menu-item (click)="navService.fornecedor()">Fornecedores</button>
+            <button mat-menu-item (click)="navService.editora()">Editoras</button>
+        </mat-menu>
+        </mat-list-item>
       </div>
-    </mat-list>
+    </mat-nav-list>
   </mat-drawer>
   <mat-drawer-content>
-    <button mat-button (click)="drawer.toggle()" class="menu-button" [style.width]="sideNavWidth()">
-      <mat-icon>menu</mat-icon>
-    </button>
-  </mat-drawer-content>
-</mat-drawer-container> -->
-
-
-<mat-drawer-container class="container">
-
-  <mat-drawer #drawer  mode="side" opened>
-      <mat-toolbar>
-          <span>Menu</span>
-      </mat-toolbar>
-      <mat-nav-list>
-          <mat-list-item>Home</mat-list-item>
-          <mat-list-item routerLink="/admin/estados">Controle de Estado</mat-list-item>
-          <mat-list-item routerLink="/admin/cidades">Controle de Municípios</mat-list-item>
-      </mat-nav-list>
-  </mat-drawer>
-
-  <mat-drawer-content>
-      <router-outlet></router-outlet>
+    <router-outlet></router-outlet>
   </mat-drawer-content>
 </mat-drawer-container>

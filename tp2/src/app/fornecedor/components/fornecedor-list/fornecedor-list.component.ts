@@ -1,28 +1,29 @@
-import { Component, Input, input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgFor } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { FormsModule } from '@angular/forms';
+import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { NavigationComponent } from '../../../components/navigation/navigation.component';
+import { SidebarComponent } from '../../../template/sidebar/sidebar.component';
+import { FooterComponent } from '../../../template/footer/footer.component';
 import { Fornecedor } from '../../../models/fornecedor.model';
 import { FornecedorService } from '../../../service/fornecedor.service';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog/confirmation-dialog.component';
-import { MatFormField } from '@angular/material/form-field';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { NavigationComponent } from '../../../components/navigation/navigation.component';
-import { FormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { SidebarComponent } from '../../../template/sidebar/sidebar.component';
-import { FooterComponent } from '../../../template/footer/footer.component';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-fornecedor-list',
   standalone: true,
-  imports: [MatToolbarModule, FormsModule, MatFormFieldModule, MatInputModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatFormField, MatPaginator, NavigationComponent, SidebarComponent, FooterComponent],
+  imports: [MatToolbarModule, FormsModule, MatFormFieldModule, MatInputModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatFormField, MatPaginator,
+     NavigationComponent, SidebarComponent, FooterComponent],
   templateUrl: './fornecedor-list.component.html',
   styleUrl: './fornecedor-list.component.css'
 })

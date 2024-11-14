@@ -1,8 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { NgFor } from '@angular/common';
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
@@ -12,17 +9,12 @@ import { LivroService } from '../../../service/livro.service';
 import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog/confirmation-dialog.component';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { NavigationComponent } from '../../../components/navigation/navigation.component';
-import { FormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { SidebarComponent } from '../../../template/sidebar/sidebar.component';
-import { FooterComponent } from '../../../template/footer/footer.component';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-livro-list',
   standalone: true,
-  imports: [MatToolbarModule, NgFor, MatSnackBarModule, MatIconModule, FormsModule, MatFormFieldModule, MatInputModule, CommonModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent, SidebarComponent, FooterComponent],
+  imports: [MatIconModule, CommonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent],
   templateUrl: './livro-list.component.html',
   styleUrls: ['./livro-list.component.css'] // Corrigido para "styleUrls"
 })
@@ -50,7 +42,8 @@ export class LivroListComponent implements OnInit {
   page = 0;
   filtro: string = "";
 
-  constructor(private livroService: LivroService, private dialog: MatDialog, private snackBar: MatSnackBar) { }
+
+  constructor(private livroService: LivroService, private dialog: MatDialog, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.livroService.findAll(this.page, this.pageSize).subscribe(

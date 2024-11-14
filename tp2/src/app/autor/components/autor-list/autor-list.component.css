@@ -125,7 +125,13 @@ mat-form-field {
 }
 
 .search {
-    width: 50vh;
+    width: 100%;
+    background: transparent; /* Transparent to match background of .mat-form-field */
+    border: none;
+    outline: none;
+    font-size: 16px;
+    padding-left: 15px; /* Padding to match the design */
+    font-family: sans-serif;
 }
 
 button {
@@ -144,4 +150,10 @@ input[type="text"]::-ms-clear {
 
 input[type="text"]::-webkit-search-cancel-button {
     display: none;
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
 }

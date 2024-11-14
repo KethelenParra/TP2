@@ -122,7 +122,7 @@ export class FornecedorFormComponent implements OnInit {
           this.snackBar.open('Fornecedor salvo com sucesso!', 'Fechar', {
             duration: 3000
           });
-          this.router.navigateByUrl('/fornecedores');
+          this.router.navigateByUrl('/admin/fornecedores');
         },
         error: (error) => {
           console.log('Erro ao Salvar' + JSON.stringify(error));
@@ -152,7 +152,7 @@ export class FornecedorFormComponent implements OnInit {
                 this.snackBar.open('Fornecedor excluído com sucesso!', 'Fechar', {
                   duration: 3000
                 });
-                this.router.navigateByUrl('/fornecedores');
+                this.router.navigateByUrl('/admin/fornecedores');
               },
               error: (err) => {
                 console.log('Erro ao Excluir' + JSON.stringify(err));
@@ -168,7 +168,7 @@ export class FornecedorFormComponent implements OnInit {
   }
 
   cancelar() {
-    this.router.navigateByUrl('/fornecedores');
+    this.router.navigateByUrl('/admin/fornecedores');
   }
 
   getErrorMessage(controlName: string, errors: ValidationErrors | null | undefined): string {
