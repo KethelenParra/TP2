@@ -13,6 +13,11 @@ img{
     padding: 30px;
 }
 
+.preco{
+    font-size: 30px;
+    margin-top: 5%;
+}
+
 .cep{
     display: flex;
     justify-content: end;
