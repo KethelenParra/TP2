@@ -1,45 +1,267 @@
-.card {
+/* Container principal para layout com barra lateral e área de cards */
+.layout-container {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-  padding: 10px;
-}
-
-.card-content {
-  flex-grow: 1; /* Permite que o conteúdo cresça e ocupe o espaço disponível */
-}
-
-img {
-  width: auto;
-  height: auto;
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-}
-
-.container {
+  gap: 20px;
   padding: 20px;
+  background-color: #f5f5f5; /* Cor de fundo clara */
 }
 
-.responsive-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Reduz o tamanho mínimo para 200px */
-  gap: 20px; /* Diminui o espaçamento entre os cards */
-}
-
-.centered-text {
-  text-align: center;
+/* Barra de pesquisa no topo */
+.search-container {
   display: flex;
+  justify-content: center;
+  width: 100%;
+  border-bottom: 3px solid #5D4037; /* Linha marrom abaixo */
+  padding-bottom: 1px;
+  margin-top: 15px;
+  margin-bottom: 25px;
+}
+
+/* Layout da barra de pesquisa */
+.flex-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.centered-search {
+  max-width: 800px;
+  width: 100%;
+}
+
+.select-field,
+.input-field {
+  border-radius: 25px;
+}
+
+.select-field .mat-form-field-outline-start,
+.select-field .mat-form-field-outline-end,
+.input-field .mat-form-field-outline-start,
+.input-field .mat-form-field-outline-end {
+  border-radius: 25px;
+}
+
+.large-input {
+  flex-grow: 1;
+}
+
+.input-field input {
+  width: 100%;
+}
+
+.search-button {
+  margin-left: 5px;
+}
+
+/* Área principal com barra lateral e cards */
+.main-content {
+  display: flex;
+  gap: 20px;
+}
+
+/* Estilo da barra lateral */
+.sidebar {
+  width: 350px;
+  padding: 16px;
+  background-color: #ffffff;
+  border: 2px solid #5D4037;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-height: 1300px; /* Defina uma altura máxima para a barra lateral */
+}
+
+/* Estilo das seções de filtro */
+.filter-section {
+  margin-bottom: 20px;
+}
+
+.filter-section h3 {
+  font-size: 1.2rem; /* Aumenta o tamanho da fonte do título */
+  color: #5D4037;
+  font-weight: bold;
+  margin-bottom: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-mat-card {
-  padding: 5px; /* Reduz o padding do card */
+/* Estilo dos contêineres com rolagem para autor, editora e gênero */
+.author-filter, .editor-filter, .genre-filter {
+  max-height: 350px; /* Reduz a altura máxima de cada filtro para exibir menos itens */
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  padding: 8px;
+  border-radius: 8px;
+  background-color: #f8f4f4;
+}
+/* Estilo individual de cada item de filtro */
+.filter-item {
+  display: flex;
+  align-items: center;
+  font-size: 1rem; /* Aumenta o tamanho da fonte dos itens */
+  color: #333;
+  padding: 4px 0;
+}
+
+.mat-checkbox-label {
+  font-size: 1rem !important; /* Aumenta o tamanho do texto do checkbox */
+  color: #333 !important;
+}
+
+/* Barra de rolagem estilizada */
+.author-filter::-webkit-scrollbar,
+.editor-filter::-webkit-scrollbar,
+.genre-filter::-webkit-scrollbar {
+  width: 8px;
+}
+
+.author-filter::-webkit-scrollbar-thumb,
+.editor-filter::-webkit-scrollbar-thumb,
+.genre-filter::-webkit-scrollbar-thumb {
+  background-color: #5D4037;
+  border-radius: 8px;
+}
+
+.author-filter::-webkit-scrollbar-track,
+.editor-filter::-webkit-scrollbar-track,
+.genre-filter::-webkit-scrollbar-track {
+  background-color: #e0e0e0;
+  border-radius: 8px;
+}
+
+/* Estilo do checkbox */
+.filter-item mat-checkbox {
+  font-size: 0.95rem;
+  width: 100%;
+}
+
+/* Área dos cards */
+.card-area {
+  flex-grow: 1;
+  padding-left: 20px;
+}
+
+/* Grade de cards */
+.responsive-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.centered-text {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-content {
+  flex-grow: 1;
 }
 
 button[mat-button] {
-  padding: 8px; /* Reduz o padding dos botões */
+  padding: 8px;
+}
+
+.card-actions-footer {
+  width: 100%;
+  margin-top: auto;
+}
+
+/* Estilo dos cards de livros */
+.book-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border-right: 1px solid #5D4037; /* Linha marrom à direita */
+  border-bottom: 1px solid #5D4037; /* Linha marrom abaixo */
+  padding: 10px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+  background-color: #ffffff;
+  border-radius: 8px;
+}
+
+.book-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.clickable-card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.mat-card-actions,
+.card-footer {
+  position: relative;
+  z-index: 2;
+}
+
+/* Conteúdo interno do card */
+.card-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex-grow: 1;
+}
+
+.book-image {
+  width: auto;
+  height: 180px; /* Ajusta a altura da imagem */
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.book-title {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.book-author {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.book-price {
+  font-size: 1rem;
+  color: #000;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.book-info {
+  font-size: 0.85rem;
+  color: #777;
+}
+
+/* Estilo do paginador */
+mat-paginator {
+  background-color: #f5f5f5; 
+  border-radius: 8px;
+  padding: 8px;
+  justify-content: center;
+  display: flex;
+}
+
+/* Spinner de carregamento */
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
 }

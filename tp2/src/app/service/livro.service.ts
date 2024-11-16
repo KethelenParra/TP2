@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Livro } from '../models/livro.model';
@@ -35,6 +35,29 @@ export class LivroService {
     return this.httpClient.get<Livro[]>(`${this.baseUrl}`, { params });
   }
 
+  findByFilters(
+    autores: number[],
+    editoras: number[],
+    generos: number[],
+    page?: number,
+    pageSize?: number
+  ): Observable<Livro[]> {
+    let params = new HttpParams();
+  
+    if (autores.length > 0) {
+      params = params.set('autores', autores.join(','));
+    }
+    if (editoras.length > 0) {
+      params = params.set('editoras', editoras.join(','));
+    }
+    if (generos.length > 0) {
+      params = params.set('generos', generos.join(','));
+    }
+  
+    return this.httpClient.get<Livro[]>(`${this.baseUrl}/search/filters`, { params });
+  }
+  
+  
   findByTitulo(nome: string, page?: number, pageSize?: number): Observable<Livro[]> {
     let params = {};
 
