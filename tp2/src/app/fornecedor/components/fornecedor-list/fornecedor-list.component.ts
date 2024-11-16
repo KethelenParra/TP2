@@ -31,7 +31,7 @@ export class FornecedorListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'nome', 'cnpj', 'inscricaoestadual', 'email', 'quantlivrosfornecido', 'telefone', 'estado', 'cidade', 'acao'];
   //Variaveis de controle para a paginação
   totalRecords = 0;
-  pageSize = 4;
+  pageSize = 10;
   page = 0;
   filtro: string = "";
 

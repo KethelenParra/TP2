@@ -40,7 +40,7 @@ export class LivroCardListComponent implements OnInit {
   livros: Livro[] = [];
   cards = signal<Card[]>([]);
   totalRecords = 0; 
-  pageSize = 10;
+  pageSize = 24;
   page = 0;
   filtro: string = "";
   tipoFiltro: string = "titulo";

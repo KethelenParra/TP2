@@ -33,7 +33,7 @@ export class EditoraListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'nome', 'email', 'telefone', 'cidade', 'estado', 'acao'];
   //Variaveis de controle para a paginação
   totalRecords = 0;
-  pageSize = 4;
+  pageSize = 10;
   page = 0;
   filtro: string = "";
 

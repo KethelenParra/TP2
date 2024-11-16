@@ -32,7 +32,7 @@ export class BoxListComponent implements OnInit{
   displayedColumns: string[] = ['id', 'nome', 'descricaoBox', 'quantidadeEstoque', 'preco', 'classificacao', 'fornecedor', 'editora', 'genero', 'autor', 'acao'];
   boxes: Box[] = [];
   totalRecords = 0;
-  pageSize = 2;
+  pageSize = 8;
   page = 0;
   filtro: string = "";
   isExpanded = true;

@@ -99,7 +99,7 @@ export class GeneroFormComponent {
           this.snackBar.open('Genero salvo com sucesso!', 'Fechar', {
             duration: 3000
           });
-          this.router.navigateByUrl('/generos');
+          this.router.navigateByUrl('/admin/generos');
         },
         error: (error) => {
           console.log('Erro ao Salvar' + JSON.stringify(error));
