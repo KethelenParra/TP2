@@ -18,6 +18,10 @@ img {
   object-fit: contain;
 }
 
+.cards-content{
+  gap: 20px;
+}
+
 .container {
   padding: 20px;
 }

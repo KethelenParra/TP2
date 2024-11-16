@@ -34,7 +34,7 @@ export const routes: Routes = [
             
             { path: 'home', component: LivroCardListComponent, title: 'Lista de Cards de Livros' },
 
-            { path: 'titulo/:titulo', component: LivroViewComponent, resolve: { livro: livroViewResolver } },
+            { path: 'produto/:formattedTitulo', component: LivroViewComponent, resolve: { livro: livroViewResolver } },
         ]
     },
     {

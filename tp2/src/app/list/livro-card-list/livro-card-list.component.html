@@ -15,29 +15,29 @@
     </button>
 </div>
 <div class="container responsive-grid">
-    <mat-card *ngFor="let card of cards()">
+    <mat-card *ngFor="let card of cards()" class="cards-content">
         <img mat-card-image [src]="card.imageUrl">
 
         <div class="card-content">
             <mat-card-title class="centered-text">{{ card.titulo }}</mat-card-title>
 
-        <mat-card-content class="centered-text">
-            <strong>Autores:</strong> {{ card.autores }}
-        </mat-card-content>
-        
-        <mat-card-content class="centered-text">
-            {{ card.descricao }}
-        </mat-card-content>
-        
-        <mat-card-content class="centered-text">
-            <strong>Preço:</strong> {{ card.preco | currency: 'BRL' }}
-        </mat-card-content>
+            <mat-card-content class="centered-text">
+                <strong>Autores:</strong> {{ card.autores }}
+            </mat-card-content>
+            
+            <mat-card-content class="centered-text">
+                {{ card.descricao | slice: 0:100 }}...
+            </mat-card-content>
+            
+            <mat-card-content class="centered-text">
+                <strong>Preço:</strong> {{ card.preco | currency: 'BRL' }}
+            </mat-card-content>
 
-        <mat-card-actions class="centered-text">
-            <button mat-button color="primary" style="width: 100%; padding: 16px; text-align: center;">
-                <a [routerLink]="[ '/titulo', formatarTitulo(card.titulo)]">Ver Mais ...</a>
-            </button>
-        </mat-card-actions>
+            <mat-card-actions class="centered-text">
+                <button mat-button color="primary" style="width: 100%; padding: 16px; text-align: center;">
+                    <a [routerLink]="[ '/produto', card.formattedTitulo]">Ver Mais ...</a>
+                </button>
+            </mat-card-actions>
 
         </div>
         <mat-card-footer>

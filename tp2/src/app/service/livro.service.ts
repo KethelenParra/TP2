@@ -16,6 +16,7 @@ export class LivroService {
   getUrlImage(nomeImagem: string): string {
     return `${this.baseUrl}/image/download/${nomeImagem}`;
   }
+  
   getLivros(): Observable<Livro[]> {
     return this.httpClient.get<Livro[]>(`${this.baseUrl}/livros`);
   }
@@ -45,8 +46,16 @@ export class LivroService {
       };
     }
 
+    const normalizedNome = nome
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '') // Remove acentos
+      .replace(/[^\w\s]/g, ''); // Remove caracteres especiais
+
     console.log(params);
-    return this.httpClient.get<Livro[]>(`${this.baseUrl}/search/titulo/${nome}`, { params });
+    return this.httpClient.get<Livro[]>(
+      `${this.baseUrl}/search/titulo/${encodeURIComponent(normalizedNome)}`, { params }
+    );
   }
 
   findByAutor(autor: string, page?: number, pageSize?: number): Observable<Livro[]> {

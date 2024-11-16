@@ -15,11 +15,13 @@ import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
 
 type Card = {
+  id: number;
   titulo: string;
   preco: number;
   descricao: string;
   autores: string;
   imageUrl: string;
+  formattedTitulo: string;
 }
 
 @Component({
@@ -28,7 +30,7 @@ type Card = {
   imports: [
     MatCardModule, MatButtonModule, NgFor, CommonModule,
     MatCardActions, MatCardContent, MatCardTitle, MatCardSubtitle, MatIconModule, FormsModule,
-    MatFormFieldModule, MatInputModule, MatSnackBarModule, MatPaginatorModule, MatSelectModule, MatToolbarModule, RouterModule
+    MatFormFieldModule, MatInputModule, MatSnackBarModule, MatPaginatorModule, MatSelectModule, MatToolbarModule, RouterModule, 
   ],
   templateUrl: './livro-card-list.component.html',
   styleUrls: ['./livro-card-list.component.css']
@@ -55,7 +57,8 @@ export class LivroCardListComponent implements OnInit {
       .toLowerCase()
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
-      .replace(/\s+/g, '-');
+      .replace(/\s+/g, '-')
+      .replace(/[^\w\s-]/g, '')
   }
 
   carregarLivros() {
@@ -83,11 +86,13 @@ export class LivroCardListComponent implements OnInit {
     const cards: Card[] = [];
     this.livros.forEach(livro => {
       cards.push({
+        id: livro.id,
         titulo: livro.titulo,
         preco: livro.preco,
         descricao: livro.descricao,
         autores: livro.autores.map(autor => autor.nome).join(', '),
-        imageUrl: this.livroService.getUrlImage(livro.nomeImagem)
+        imageUrl: this.livroService.getUrlImage(livro.nomeImagem),
+        formattedTitulo: this.formatarTitulo(livro.titulo) + '-' + livro.id
       });
     });
     this.cards.set(cards);
