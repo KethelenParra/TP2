@@ -6,4 +6,5 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 :root{
     --color-toolbar: #6B5852;
     --color-footer: #927166;
+    --color-button: #ba9e95;
 }

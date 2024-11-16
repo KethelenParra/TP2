@@ -16,6 +16,7 @@ export class LivroService {
   getUrlImage(nomeImagem: string): string {
     return `${this.baseUrl}/image/download/${nomeImagem}`;
   }
+  
   getLivros(): Observable<Livro[]> {
     return this.httpClient.get<Livro[]>(`${this.baseUrl}/livros`);
   }
@@ -57,20 +58,27 @@ export class LivroService {
     return this.httpClient.get<Livro[]>(`${this.baseUrl}/search/filters`, { params });
   }
   
-  
   findByTitulo(nome: string, page?: number, pageSize?: number): Observable<Livro[]> {
-    let params = {};
-
-    if (page !== undefined && pageSize !== undefined) {
-      params = {
-        page: page.toString(),
-        pageSize: pageSize.toString()
-      };
+    // Inicializa os parâmetros da query string
+    const params: any = {};
+  
+    // Adiciona paginação se fornecida
+    if (page !== undefined) {
+      params.page = page.toString();
     }
-
-    console.log(params);
-    return this.httpClient.get<Livro[]>(`${this.baseUrl}/search/titulo/${nome}`, { params });
+    if (pageSize !== undefined) {
+      params.pageSize = pageSize.toString();
+    }
+  
+    console.log('Parâmetros da requisição:', params);
+  
+    // Faz a requisição HTTP diretamente com o nome recebido
+    return this.httpClient.get<Livro[]>(
+      `${this.baseUrl}/search/titulo/${encodeURIComponent(nome)}`, 
+      { params }
+    );
   }
+  
 
   findByAutor(autor: string, page?: number, pageSize?: number): Observable<Livro[]> {
     let params = {};

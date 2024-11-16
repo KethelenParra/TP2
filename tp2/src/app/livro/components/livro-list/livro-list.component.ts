@@ -43,6 +43,7 @@ export class LivroListComponent implements OnInit {
   pageSize = 10;
   page = 0;
   filtro: string = "";
+  isExpanded = true;
 
 
   constructor(private livroService: LivroService, private dialog: MatDialog, private snackBar: MatSnackBar) {}
@@ -117,4 +118,14 @@ export class LivroListComponent implements OnInit {
       }
     });
   }
+
+  toggleExpand(livro: any){
+    livro.isExpanded = !livro.isExpanded;
+  }
+
+  getTruncatedText(text: string, length: number): string {
+    return text.length > length ? text.substring(0, length) + '...' : text;
+  }
+
+
 }

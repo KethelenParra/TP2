@@ -13,7 +13,7 @@
       </mat-form-field>
   </div>
   <span class="material-symbols-outlined">
-  <a href="admin/fornecedores/new"><mat-icon class="add-circle" style="color: black;"> add_circle </mat-icon></a>
+  <a href="admin/livros/new"><mat-icon class="add-circle" style="color: black;"> add_circle </mat-icon></a>
   </span>
 </div>
 <div class="container">
@@ -59,7 +59,13 @@
       <!-- Descrição Column -->
       <ng-container matColumnDef="descricao">
         <th mat-header-cell *matHeaderCellDef class="column"> Descrição </th>
-        <td mat-cell *matCellDef="let livro" class="desc"> {{livro.descricao}} </td>
+       <td mat-cell *matCellDef="let livro">
+          <p class="desc">
+            {{ livro.isExpanded ? livro.descricao : getTruncatedText(livro.descricao, 100) }}
+          <button mat-button (click)="toggleExpand(livro)">
+            {{ livro.isExpanded ? 'Ver menos' : 'Ver mais' }}
+          </button>
+        </td>
       </ng-container>
     
       <!-- Classificação Column -->

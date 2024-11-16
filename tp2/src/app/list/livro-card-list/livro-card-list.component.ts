@@ -23,6 +23,7 @@ import { EditoraService } from '../../service/editora.service';
 import { GeneroService } from '../../service/genero.service';
 
 type Card = {
+  id: number;
   titulo: string;
   preco: number;
   descricao: string;
@@ -143,7 +144,6 @@ export class LivroCardListComponent implements OnInit {
     }
   }
   
-
   carregarFiltros(): void {
     this.autorService.findAll().subscribe((data) => this.autores = data);
     this.editoraService.findAll().subscribe((data) => this.editoras = data);
@@ -151,15 +151,18 @@ export class LivroCardListComponent implements OnInit {
   }
 
   carregarCards(): void {
-    this.cards.set(this.livros.map((livro) => ({
-      titulo: livro.titulo,
-      preco: livro.preco,
-      descricao: livro.descricao,
-      autores: livro.autores.map((autor) => autor.nome).join(', '),
-      imageUrl: this.livroService.getUrlImage(livro.nomeImagem),
-    })));
+    this.cards.set(
+      this.livros.map((livro) => ({
+        id: livro.id, // Adicione o id aqui
+        titulo: livro.titulo,
+        preco: livro.preco,
+        descricao: livro.descricao,
+        autores: livro.autores.map((autor) => autor.nome).join(', '),
+        imageUrl: this.livroService.getUrlImage(livro.nomeImagem),
+      }))
+    );
   }
-
+  
   paginar(event: PageEvent): void {
     this.page = event.pageIndex;
     this.pageSize = event.pageSize;
@@ -192,8 +195,8 @@ export class LivroCardListComponent implements OnInit {
     }
     this.carregarLivros();
   }
-
   navigateToDetail(titulo: string): void {
     this.router.navigate(['/titulo', titulo]);
   }
+  
 }

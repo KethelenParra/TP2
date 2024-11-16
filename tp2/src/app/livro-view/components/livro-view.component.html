@@ -1,13 +1,65 @@
-<h1>a</h1>
-
-<!-- <div class="container" *ngIf="livro">
-    <mat-card>
+<div class="container" *ngIf="livro">
+  <div class="imagem-livro">
       <img mat-card-image [src]="getImageUrl(livro.nomeImagem)" alt="{{ livro.titulo }}">
-      <mat-card-title>{{ livro.titulo }}</mat-card-title>
-      <mat-card-content>
+  </div>
+  <div class="livro-content">
+    <div class="livro-data">
+      <div class="titulo-livro">
+        <mat-card-title>{{ livro.titulo }}</mat-card-title>
+      </div>
+      <div class="preco">
+        <p>{{ livro.preco | currency: 'BRL' }}</p>
+      </div>
+      <div class="descricao">
+        <strong>Descrição:</strong> 
+        <p>{{ livro.descricao }}</p>
+      </div>
+      <div class="editora">
+        <p><strong>Editora: </strong>{{livro.editora.nome}}</p>
+      </div>
+      <div class="isbn">
+        <p><strong>ISBN: </strong>{{livro.isbn}}</p>
+      </div>
+      <div class="quantidade-estoque">
+        <p><strong>Quantidade em estoque: </strong>{{livro.quantidadeEstoque}}</p>
+      </div>
+      <div class="autores">
         <p *ngIf="livro.autores && livro.autores.length"><strong>Autores:</strong> {{ autoresFormatados }}</p>
-        <p><strong>Descrição:</strong> {{ livro.descricao }}</p>
-        <p><strong>Preço:</strong> {{ livro.preco | currency: 'BRL' }}</p>
-      </mat-card-content>
-    </mat-card>
-  </div> -->
+      </div>
+      <div class="classificacao">
+        <p><strong>Classificação: </strong> {{livro.classificacao.descricao}}</p>
+      </div>
+
+      <div class="compra">
+        <mat-form-field appearance="outline" class="counter-field">
+          <button mat-icon-button matPrefix (click)="decrement()" class="counter-button">
+            <mat-icon>remove</mat-icon>
+          </button>
+        
+          <input matInput type="text" [value]="count" readonly class="counter-input">
+        
+          <button mat-icon-button matSuffix (click)="increment()" class="counter-button">
+            <mat-icon>add</mat-icon>
+          </button>
+        </mat-form-field>
+        <div class="carrinho">
+          <section>
+            <div class="example-button-row">
+              <button mat-stroked-button class="botao-carrinho">Adicionar no carrinho</button>
+            </div>
+          </section>
+        </div>  
+      </div>
+      <mat-divider></mat-divider>
+      <div class="cep">
+        <mat-form-field class="mat-form-cep" appearance="outline">
+          <mat-label>CEP</mat-label>
+          <mat-icon matPrefix>local_shipping</mat-icon>
+          <input matInput placeholder="000000-000">
+        </mat-form-field>
+        <button mat-stroked-button class="botao-frete">Calcular Frete</button>
+      </div>
+    </div>
+  </div>
+  
+</div>
