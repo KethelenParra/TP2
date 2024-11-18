@@ -9,14 +9,11 @@
 }
 
 img{
-    width: 400px;
+    width: 300px;
     padding: 30px;
 }
 
-.preco{
-    font-size: 30px;
-    margin-top: 5%;
-}
+
 
 .cep{
     display: flex;
@@ -56,10 +53,38 @@ img{
     justify-content: center;
     flex-direction: column;
     gap: 15px;
-}
 
-.titulo-livro{
-    font-size: 30px;
+    & .preco{
+        font-size: 25px;
+        margin-top: 5%;
+    }
+    & .titulo-livro{
+        font-size: 25px;
+    }
+
+    & .descricao{
+        font-size: 15px;
+    }
+
+    & .editora{
+        font-size: 15px;
+    }
+
+    & .isbn{
+        font-size: 15px;
+    }
+
+    & .autores{
+        font-size: 15px;
+    }
+
+    & .quantidade-estoque{
+        font-size: 15px;
+    }
+
+    & .classificacao{
+        font-size: 15px;
+    }
 }
 
 section {

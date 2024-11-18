@@ -1,21 +1,25 @@
 <mat-toolbar color="primary" class="toolbar mat-elevation-z3">
-    <button (click)="clickMenu()" mat-icon-button>
-        <mat-icon>menu</mat-icon>
-    </button>
-    <h1 class="titulo-pag">Cantinho dos livros</h1>
+    <a href="/home"><h1 class="titulo-pag">Cantinho dos livros</h1></a>
     <div class="icons-toolbar">
         <div class="icon-with-label">
             <mat-icon class="icon">favorite_border</mat-icon>
             <span class="icon-label">Minhas Listas</span>
         </div>
         <div class="icon-with-label">
-            <mat-icon class="icon">person</mat-icon>
-            <span class="icon-label">Entrar</span>
-            <mat-icon class="dropdown-arrow">keyboard_arrow_down</mat-icon>
+            <div class="entrar" [matMenuTriggerFor]="login">
+                <mat-icon class="icon">person</mat-icon>
+                <button mat-button class="icon-label" >
+                    Entrar
+                    <mat-menu #login="matMenu">
+                        <button mat-menu-item routerLink="/login"> Entrar/Cadastrar </button>
+                    </mat-menu>
+                </button>
+                <mat-icon class="dropdown-arrow">keyboard_arrow_down</mat-icon>
+            </div>
         </div>
         <div class="icon-with-label">
             <mat-icon class="icon">shopping_cart</mat-icon>
-            <span class="icon-label">Carrinho</span>
+            <span class="icon-label" mat-badge="4">Carrinho</span>
         </div>
     </div>
 </mat-toolbar>
