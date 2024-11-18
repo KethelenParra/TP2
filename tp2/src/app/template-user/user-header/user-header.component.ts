@@ -10,11 +10,12 @@ import { MatSelect, MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { LivroService } from '../../service/livro.service';
 import { Livro } from '../../models/livro.model';
+import {MatMenuModule} from '@angular/material/menu';
 
 @Component({
   selector: 'app-user-header',
   standalone: true,
-  imports: [MatToolbarModule, MatIconModule, FormsModule, MatSelectModule, MatSelect, MatButtonModule, MatFormFieldModule, MatInputModule, RouterModule],
+  imports: [MatToolbarModule, MatIconModule, FormsModule, MatSelectModule, MatSelect, MatButtonModule, MatFormFieldModule, MatInputModule, RouterModule, MatMenuModule],
   templateUrl: './user-header.component.html',
   styleUrls: ['./user-header.component.css']
 })
@@ -30,9 +31,9 @@ export class UserHeaderComponent implements OnInit {
   ngOnInit(): void {
     this.buscar();  
   }
-  clickMenu() {
-    this.sidebarService.toggle();
-  }
+  // clickMenu() {
+  //   this.sidebarService.toggle();
+  // }
 
   buscar() {
     if (this.filtro) {

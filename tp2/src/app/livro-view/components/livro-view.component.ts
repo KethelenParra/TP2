@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
+import { AutorPopUpComponent } from '../autor-pop-up/autor-pop-up.component';
 
 type Card = {
   titulo: string;
@@ -21,7 +22,7 @@ type Card = {
 @Component({
   selector: 'app-livro-view',
   standalone: true,
-  imports: [MatCardModule, NgIf, CurrencyPipe, MatButtonModule, MatInputModule, MatIconModule, MatDividerModule],
+  imports: [MatCardModule, NgIf, CurrencyPipe, MatButtonModule, MatInputModule, MatIconModule, MatDividerModule, AutorPopUpComponent],
   templateUrl: './livro-view.component.html',
   styleUrl: './livro-view.component.css'
 })
@@ -29,7 +30,7 @@ export class LivroViewComponent implements OnInit {
   livro: Livro | undefined;
   autoresFormatados: string = '';
   titulo: string = '';
-
+  
   constructor(private route: ActivatedRoute, private livroService: LivroService) {}
 
   ngOnInit(): void {

@@ -23,6 +23,7 @@ import { LivroCardListComponent } from './livro/components/livro-card-list/livro
 import { ControleComponent } from './controle/controle.component';
 import { LivroViewComponent } from './livro-view/components/livro-view.component';
 import { livroViewResolver } from './livro-view/resolver/livroView.resolver';
+import { LoginComponent } from './login/login.component';
 
 export const routes: Routes = [
     {
@@ -31,6 +32,8 @@ export const routes: Routes = [
         title: 'e-commerce',
         children: [
             { path: '', pathMatch: 'full', redirectTo: 'home' },
+            
+            { path: 'login', component: LoginComponent, title: 'Login'},
 
             { path: 'home', component: LivroCardListComponent, title: 'Lista de Cards de Livros' },
 
@@ -42,6 +45,7 @@ export const routes: Routes = [
         component: AdminTemplateComponent,
         title: 'administração',
         children: [
+            { path: '', pathMatch: 'full', redirectTo: 'controle' },
 
             { path: 'controle', component: ControleComponent, title: 'Controle' },
 
