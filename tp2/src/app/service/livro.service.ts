@@ -33,7 +33,7 @@ export class LivroService {
 
     console.log(params);
 
-    return this.httpClient.get<Livro[]>(`${this.baseUrl}`, { params });
+    return this.httpClient.get<Livro[]>(this.baseUrl, {params});
   }
 
   findByFilters(
@@ -42,7 +42,7 @@ export class LivroService {
     generos: number[],
     page?: number,
     pageSize?: number
-  ): Observable<Livro[]> {
+  ): Observable<{ livros: Livro[]; editoras: number[]; generos: number[]; autores: number[] }> {
     let params = new HttpParams();
   
     if (autores.length > 0) {
@@ -54,10 +54,19 @@ export class LivroService {
     if (generos.length > 0) {
       params = params.set('generos', generos.join(','));
     }
+    if (page !== undefined) {
+      params = params.set('page', page.toString());
+    }
+    if (pageSize !== undefined) {
+      params = params.set('pageSize', pageSize.toString());
+    }
   
-    return this.httpClient.get<Livro[]>(`${this.baseUrl}/search/filters`, { params });
+    return this.httpClient.get<{ livros: Livro[]; editoras: number[]; generos: number[]; autores: number[] }>(
+      `${this.baseUrl}/search/filters`,
+      { params }
+    );
   }
-  
+    
   findByTitulo(nome: string, page?: number, pageSize?: number): Observable<Livro[]> {
     // Inicializa os parâmetros da query string
     const params: any = {};
@@ -79,7 +88,6 @@ export class LivroService {
     );
   }
   
-
   findByAutor(autor: string, page?: number, pageSize?: number): Observable<Livro[]> {
     let params = {};
 
@@ -99,11 +107,11 @@ export class LivroService {
   }
 
   countByNome(nome: string): Observable<number> {
-    return this.httpClient.get<number>(`${this.baseUrl}/count/search/${nome}`);
+    return this.httpClient.get<number>(`${this.baseUrl}/count/search/titulo/${nome}`);
   }
 
   countByAutor(autor: string): Observable<number> {
-    return this.httpClient.get<number>(`${this.baseUrl}/count/search/${autor}`);
+    return this.httpClient.get<number>(`${this.baseUrl}/count/search/autor/${autor}`);
   }
 
   findById(id: string): Observable<Livro> {

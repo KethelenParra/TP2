@@ -19,7 +19,7 @@ import { LivroFormComponent } from './livro/components/livro-form/livro-form.com
 import { LivroListComponent } from './livro/components/livro-list/livro-list.component';
 import { UserTemplateComponent } from './template-user/user-template/user-template.component';
 import { AdminTemplateComponent } from './template/admin-template/admin-template.component';
-import { LivroCardListComponent } from './list/livro-card-list/livro-card-list.component';
+import { LivroCardListComponent } from './livro/components/livro-card-list/livro-card-list.component';
 import { ControleComponent } from './controle/controle.component';
 import { LivroViewComponent } from './livro-view/components/livro-view.component';
 import { livroViewResolver } from './livro-view/resolver/livroView.resolver';

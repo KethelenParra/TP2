@@ -25,12 +25,12 @@
       <div class="sidebar">
           <!-- Filtro por Autor -->
           <div class="filter-section">
-              <h3>Autor</h3>
-              <div class="author-filter">
-                  <div *ngFor="let autor of autores" class="filter-item">
-                      <mat-checkbox (change)="onAutorSelect(autor.id)">{{ autor.nome }}</mat-checkbox>
-                  </div>
+            <h3>Autor</h3>
+            <div class="author-filter">
+              <div *ngFor="let autor of autores" class="filter-item">
+                <mat-checkbox (change)="onAutorSelect(autor.id)">{{ autor.nome }}</mat-checkbox>
               </div>
+            </div>
           </div>
       
           <!-- Filtro por Editora -->
@@ -85,10 +85,10 @@
           </div>
       </div>
   </div>
-  <mat-paginator
-    (page)="paginar($event)"
-    [length]="totalRecords"
-    [pageSize]="pageSize"
-    [pageSizeOptions]="[10, 25, 50, 100]">
-  </mat-paginator>
+  <mat-paginator 
+  [pageSizeOptions]="[25, 30, 50, 100]"
+  [pageSize]="pageSize"
+  [length]="totalRecords"
+  (page)="paginar($event)">
+</mat-paginator>
 </div>
