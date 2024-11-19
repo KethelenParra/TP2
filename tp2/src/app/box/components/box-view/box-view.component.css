@@ -1,0 +1,117 @@
+.container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.box-content{
+    display: flex;
+}
+
+img{
+    width: 300px;
+    padding: 30px;
+}
+
+
+
+.cep{
+    display: flex;
+    justify-content: end;
+    width: 70.5%;
+    align-items: center;
+    margin-top: 1%;
+    gap: 20px;
+}
+
+.botao-frete{
+    width: 50%;
+    height: 73%;
+    border: 1px solid black;
+    background-color: var(--color-button);
+    margin-bottom: 6.2%;
+}
+
+.compra{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 30px;
+}
+.botao-carrinho{
+    width: 100%;
+    height: 55px;
+    border: 1px solid black;
+    background-color: var(--color-button);
+    margin-bottom: 11%;
+}
+
+.box-data{
+    margin-top: 7%;
+    width: 500px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 15px;
+
+    & .preco{
+        font-size: 25px;
+        margin-top: 5%;
+    }
+    & .nome-box{
+        font-size: 25px;
+    }
+
+    & .descricao{
+        font-size: 15px;
+    }
+
+    & .editora{
+        font-size: 15px;
+    }
+
+    & .autores{
+        font-size: 15px;
+    }
+
+    & .quantidade-estoque{
+        font-size: 15px;
+    }
+
+    & .classificacao{
+        font-size: 15px;
+    }
+}
+
+section {
+    display: table;
+}
+
+.counter-field {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    width: 30%;
+}
+
+.counter-input {
+    display: flex;
+    align-items: center; /* Centraliza verticalmente */
+    justify-content: center; /* Centraliza horizontalmente */
+    text-align: center;
+    width: 40px; /* Largura fixa */
+    height: 36px; /* Altura padrão */
+    font-size: 16px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.counter-field .counter-input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
