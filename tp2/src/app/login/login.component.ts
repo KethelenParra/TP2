@@ -32,22 +32,22 @@ export class LoginComponent implements OnInit {
     });  
   }
 
-  onSubmit(){
-    if (this.loginForm.valid) {
-      const username = this.loginForm.get('username')?.value;
-      const password = this.loginForm.get('password')?.value;
-      this.authService.loginADM(username, password).subscribe ({
-        next: (resp) => {
-          // redirecionando para a pagina principal
-          this.router.navigateByUrl('/admin');
-        },
-        error: (err) => {
-          console.log(err);
-          this.showSnackbarTopPosition("Username ou senha inválido");
-        }
-      })
-    }
-    }
+  // onSubmit(){
+  //   if (this.loginForm.valid) {
+  //     const username = this.loginForm.get('username')?.value;
+  //     const password = this.loginForm.get('password')?.value;
+  //     this.authService.loginADM(username, password).subscribe ({
+  //       next: (resp) => {
+  //         // redirecionando para a pagina principal
+  //         this.router.navigateByUrl('/admin');
+  //       },
+  //       error: (err) => {
+  //         console.log(err);
+  //         this.showSnackbarTopPosition("Username ou senha inválido");
+  //       }
+  //     })
+  //   }
+  // }
 
   // onRegister() {
   //   // criar usuário
