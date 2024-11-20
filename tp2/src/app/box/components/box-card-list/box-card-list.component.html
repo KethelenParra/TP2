@@ -1,0 +1,94 @@
+<div class="layout-container">
+    <!-- Barra de pesquisa no topo -->
+    <div class="search-container">
+        <div class="flex-container centered-search">
+            <mat-form-field appearance="outline" class="select-field small-select">
+                <mat-label>Pesquisar por</mat-label>
+                <mat-select [(ngModel)]="tipoFiltro">
+                    <mat-option value="nome">Título</mat-option>
+                    <mat-option value="autor">Autor</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="input-field large-input">
+                <mat-label>Digite para pesquisar</mat-label>
+                <input [(ngModel)]="filtro" matInput placeholder="Ex: Harry Potter" (keyup.enter)="filtrar()" />
+            </mat-form-field>
+            <button mat-icon-button color="primary" class="search-button" id="meuBotaoPesquisar" (click)="filtrar()" aria-label="Pesquisar">
+                <mat-icon>search</mat-icon>
+            </button>
+        </div>
+    </div>
+  
+    <!-- Área principal com barra lateral e cards -->
+    <div class="main-content">
+        <!-- Barra lateral para filtros -->
+        <div class="sidebar">
+            <!-- Filtro por Autor -->
+            <div class="filter-section">
+              <h3>Autor</h3>
+              <div class="author-filter">
+                <div *ngFor="let autor of autores" class="filter-item">
+                  <mat-checkbox (change)="onAutorSelect(autor.id)">{{ autor.nome }}</mat-checkbox>
+                </div>
+              </div>
+            </div>
+        
+            <!-- Filtro por Editora -->
+            <div class="filter-section">
+                <h3>Editora</h3>
+                <div class="editor-filter">
+                    <div *ngFor="let editora of editoras" class="filter-item">
+                        <mat-checkbox (change)="onEditoraSelect(editora.id)">{{ editora.nome }}</mat-checkbox>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Filtro por Gênero -->
+            <div class="filter-section">
+                <h3>Gênero</h3>
+                <div class="genre-filter">
+                    <div *ngFor="let genero of generos" class="filter-item">
+                        <mat-checkbox (change)="onGeneroSelect(genero.id)">{{ genero.nome }}</mat-checkbox>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Área dos cards -->
+        <div class="card-area">
+            <div *ngIf="loading" class="loading-spinner">
+                <mat-spinner diameter="50"></mat-spinner>
+            </div>
+            <div *ngIf="!loading && errorMessage" class="error-message">
+                {{ errorMessage }}
+            </div>
+            <div *ngIf="!loading && cards().length > 0" class="responsive-grid">
+                <mat-card *ngFor="let card of cards()" class="book-card" (click)="navigateToDetail(card.nome)">
+                    <img mat-card-image [src]="card.imageUrl" alt="{{ card.nome }}" class="book-image">
+                    <div class="card-content">
+                        <mat-card-title class="book-title">{{ card.nome }}</mat-card-title>
+                        <mat-card-subtitle class="book-author">{{ card.autores }}</mat-card-subtitle>
+                        <mat-card-content class="book-price">
+                            A partir de <strong>{{ card.preco | currency: 'BRL' }}</strong>
+                        </mat-card-content>
+                    </div>
+                    <div class="card-actions-footer">
+                        <mat-card-actions class="centered-text">
+                            <button mat-button color="primary" style="width: 100%; padding: 16px; text-align: center;">
+                                Minha Lista
+                            </button>
+                        </mat-card-actions>
+                    </div>
+                </mat-card>
+            </div>
+            <div *ngIf="!loading && cards().length === 0" class="no-results-message">
+                <p>Nenhum boxe encontrado para os filtros aplicados.</p>
+            </div>
+        </div>
+    </div>
+    <mat-paginator 
+    [pageSizeOptions]="[2, 5, 10, 30]"
+    [pageSize]="pageSize"
+    [length]="totalRecords"
+    (page)="paginar($event)">
+  </mat-paginator>
+  </div>

@@ -1,7 +1,9 @@
-import { Perfil } from "./perfil.model";
-
-export class Usuario{
+export class Usuario {
     id!: number;
+    nome!: string;
     username!: string;
-    perfil!: Perfil;
-}
+    email?: string; // Opcional
+    dataNascimento?: string; // ISO format (string)
+    cpf?: string;
+    sexo?: string;
+  }

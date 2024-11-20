@@ -1,86 +1,49 @@
-import { Injectable } from "@angular/core";
-import { BehaviorSubject, Observable, tap } from "rxjs";
-import { Usuario } from "../models/usuario.model";
-import { LocalStorageService } from "./local-storage.service"; 
-import { JwtHelperService } from "@auth0/angular-jwt";
-import { HttpClient } from "@angular/common/http";
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
+
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class AuthService {
-    private baseUrl = 'http://localhost:8080/auth';
-    private tokenKey = 'jwt_token';
-    private usuarioLogadoKey = 'usuario_logado';
-    private usuarioLogadoSubject = new BehaviorSubject<Usuario|null>(null);
-    constructor(
-        private httpClient: HttpClient,
-        private localStorageService: LocalStorageService,
-        private jwtHelper: JwtHelperService
-    ) {
-        this.initUsuarioLogado();
-    }
-    private initUsuarioLogado():void {
-        const usuario = this.localStorageService.getItem(this.usuarioLogadoKey);
-        if (usuario) {
-            // const usuarioLogado = JSON.parse(usuario);
-            this.usuarioLogadoSubject.next(usuario);
+  private apiUrl = 'http://localhost:8080/auth';
+  private loggedIn = new BehaviorSubject<boolean>(this.hasToken());
+
+  constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService) {}
+
+  login(username: string, senha: string, perfil: number): Observable<any> {
+    const payload = { username, senha, perfil };
+    return this.http.post(this.apiUrl, payload, { observe: 'response' }).pipe(
+      map((response) => {
+        const token = response.headers.get('Authorization');
+        if (token) {
+          localStorage.setItem('token', token);
+          this.loggedIn.next(true);
         }
-    }
-    public loginADM(username: string, senha: string): Observable<any> {
-        const params = {
-            login: username,
-            senha: senha,
-            perfil: 1 // ADM
-        }
-        //{ observe: 'response' } para garantir que a resposta completa seja retornada (incluindo o cabeçalho)
-    return this.httpClient.post(`${this.baseUrl}`, params, {observe: 'response'}).pipe(
-        tap((res: any) => {
-          const authToken = res.headers.get('Authorization') ?? '';
-          if (authToken) {
-            this.setToken(authToken);
-            const usuarioLogado = res.body;
-            //console.log(usuarioLogado);
-            if (usuarioLogado) {
-              this.setUsuarioLogado(usuarioLogado);
-              this.usuarioLogadoSubject.next(usuarioLogado);
-            }
-          }
-        })
-      );
-    }
-  
-    setUsuarioLogado(usuario: Usuario): void {
-      this.localStorageService.setItem(this.usuarioLogadoKey, usuario);
-    }
-    setToken(token: string): void {
-        this.localStorageService.setItem(this.tokenKey, token);
-    }
-    getUsuarioLogado() {
-        return this.usuarioLogadoSubject.asObservable();
-    }
-    getToken(): string | null {
-        return this.localStorageService.getItem(this.tokenKey);
-    }
-    removeToken(): void {
-        this.localStorageService.removeItem(this.tokenKey);
-    }
-    removeUsuarioLogado() :void {
-        this.localStorageService.removeItem(this.usuarioLogadoKey);
-        this.usuarioLogadoSubject.next(null);
-    }
-    isTokenExpired(): boolean {
-        const token = this.getToken();
-        if (!token) {
-            console.warn('Nenhum token encontrado')
-            return true;
-        }
-        try {
-            const isExpired = this.jwtHelper.isTokenExpired(token);
-            console.log('Token está expirado:', isExpired);
-            return isExpired;
-        } catch (error) {
-            console.error('Token invalido', error);
-            return true;
-        }
-    }
+        return response.body;
+      })
+    );
+  }
+
+  logout(): void {
+    localStorage.removeItem('token');
+    this.loggedIn.next(false);
+    this.router.navigate(['/login']);
+  }
+
+  isLoggedIn(): boolean {
+    const token = localStorage.getItem('token');
+    return token != null && !this.jwtHelper.isTokenExpired(token);
+  }
+
+  hasToken(): boolean {
+    return !!localStorage.getItem('token');
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
 }

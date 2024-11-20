@@ -24,6 +24,9 @@ import { ControleComponent } from './controle/controle.component';
 import { LivroViewComponent } from './livro-view/components/livro-view.component';
 import { livroViewResolver } from './livro-view/resolver/livroView.resolver';
 import { LoginComponent } from './login/login.component';
+import { BoxCardListComponent } from './box/components/box-card-list/box-card-list.component';
+import { BoxViewComponent } from './box/components/box-view/box-view.component';
+import { BoxViewResolver } from './box/components/box-view/resolver/BoxView.resolver';
 
 export const routes: Routes = [
     {
@@ -35,9 +38,13 @@ export const routes: Routes = [
             
             { path: 'login', component: LoginComponent, title: 'Login'},
 
-            { path: 'home', component: LivroCardListComponent, title: 'Lista de Cards de Livros' },
+            { path: 'livrosCard', component: LivroCardListComponent, title: 'Lista de Cards de Livros' },
+
+            { path: 'boxesCard', component: BoxCardListComponent, title: 'Lista de Cards de Boxes' },
 
             { path: 'titulo/:titulo', component: LivroViewComponent, resolve: { livro: livroViewResolver } },
+
+            { path: 'nome/:nome', component: BoxViewComponent, resolve: { box: BoxViewResolver } },
         ]
     },
     {
