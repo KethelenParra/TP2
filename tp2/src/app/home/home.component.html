@@ -1,12 +1,18 @@
-<mat-toolbar color="primary" class="toolbar mat-elevation-z3">
-    <h1 class="titulo-pag">Cantinho dos livros</h1>
-    <div class="icons-toolbar">
-        <mat-icon class="cart" id="icones">shopping_cart</mat-icon>
-        <a href="/clientes"><mat-icon class="account-circle" id="icones"> account_circle </mat-icon></a>
-    </div>
-</mat-toolbar>
-<app-livro-card-list></app-livro-card-list>
-<div class="container">
-  <div class="content-container">
+<!-- <div class="search-container">
+  <div class="flex-container centered-search">
+      <mat-form-field appearance="outline" class="select-field small-select">
+          <mat-label>Pesquisar por</mat-label>
+          <mat-select [(ngModel)]="tipoFiltro">
+              <mat-option value="titulo">Título</mat-option>
+              <mat-option value="autor">Autor</mat-option>
+          </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="input-field large-input">
+          <mat-label>Digite para pesquisar</mat-label>
+          <input [(ngModel)]="filtro" matInput placeholder="Ex: Harry Potter" (keyup.enter)="filtrar()" />
+      </mat-form-field>
+      <button mat-icon-button color="primary" class="search-button" id="meuBotaoPesquisar" (click)="filtrar()" aria-label="Pesquisar">
+          <mat-icon>search</mat-icon>
+      </button>
   </div>
-</div>
+</div> -->

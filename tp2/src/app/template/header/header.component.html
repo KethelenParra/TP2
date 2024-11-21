@@ -3,8 +3,22 @@
         <mat-icon>menu</mat-icon>
     </button>
     <h1 class="titulo-pag">{{headerText}}</h1>
-    <div class="icons-toolbar"> 
-        <a href="/admin"><mat-icon class="account-circle" id="icones">account_circle</mat-icon>
-        </a>
+    <div class="menu-adm"> 
+        <button mat-button [matMenuTriggerFor]="menu" class="menu-perfil">
+            <mat-icon class="icon-adm">account_circle</mat-icon> 
+            <p class="text-adm">{{usuarioLogado ? 'Olá, ' + usuarioLogado.nome : 'Entrar' }}</p>
+        </button>
+        <mat-menu #menu="matMenu" class="custom-menu">
+            <button mat-menu-item>
+                <mat-icon>person</mat-icon>
+                <span>Minha Conta</span>
+            </button>
+            <mat-divider class="divider"></mat-divider>
+            <button mat-menu-item [routerLink]="'/admin/loginAdm'" (click)="deslogar()">
+                <mat-icon>logout</mat-icon>
+                <span>Sair</span>
+            </button>
+        </mat-menu>
     </div>
+    
 </mat-toolbar>

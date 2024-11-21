@@ -21,8 +21,7 @@ import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog
 @Component({
   selector: 'app-fornecedor-list',
   standalone: true,
-  imports: [MatToolbarModule, FormsModule, MatFormFieldModule, MatInputModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatFormField, MatPaginator,
-     NavigationComponent, SidebarComponent, FooterComponent],
+  imports: [MatToolbarModule, FormsModule, MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatFormField, MatPaginator],
   templateUrl: './fornecedor-list.component.html',
   styleUrl: './fornecedor-list.component.css'
 })
