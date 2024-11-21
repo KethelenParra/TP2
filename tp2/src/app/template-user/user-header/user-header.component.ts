@@ -6,34 +6,63 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
 import { SidebarService } from '../../service/sidebar.service';
-import { MatSelect, MatSelectModule } from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { LivroService } from '../../service/livro.service';
 import { Livro } from '../../models/livro.model';
 import {MatMenuModule} from '@angular/material/menu';
+import { Usuario } from '../../models/usuario.model';
+import { Subscription } from 'rxjs';
+import { AuthService } from '../../service/auth.service';
+import { Router } from '@angular/router';	
+import { MatDivider } from '@angular/material/divider';
 
 @Component({
   selector: 'app-user-header',
   standalone: true,
-  imports: [MatToolbarModule, MatIconModule, FormsModule, MatSelectModule, MatSelect, MatButtonModule, MatFormFieldModule, MatInputModule, RouterModule, MatMenuModule],
+  imports: [MatToolbarModule, MatIconModule, FormsModule, MatSelectModule, MatButtonModule, MatFormFieldModule, MatInputModule, RouterModule, MatMenuModule, MatDivider],
   templateUrl: './user-header.component.html',
   styleUrls: ['./user-header.component.css']
 })
 export class UserHeaderComponent implements OnInit {
+  usuarioLogado: Usuario | null = null;
+  private subscription = new Subscription();
+
   filtro: string = "";
   tipoFiltro: string = "titulo";
   livros: Livro[] = [];
   totalRecords = 0; 
 
-  constructor(private sidebarService: SidebarService, private livroService: LivroService) {
-  }
+  constructor(
+    private sidebarService: SidebarService, 
+    private livroService: LivroService,
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.buscar();  
+
+    this.subscription.add(
+      this.authService.getUsuarioLogado().subscribe((usuario) => {
+        this.usuarioLogado = usuario; // Atualiza o estado do usuário logado
+      })
+    );
   }
-  // clickMenu() {
-  //   this.sidebarService.toggle();
-  // }
+  ngOnDestroy(){
+    this.subscription.unsubscribe();
+  }
+
+  sair(): void {
+    this.deslogar(); // Limpa o token e estado do usuário
+    this.router.navigate(['/livrosCard']); // Redireciona para a página de livros
+  }
+
+  deslogar(){
+    this.authService.removeToken();
+    this.authService.removeUsuarioLogado();
+    this.usuarioLogado = null;
+  }
 
   buscar() {
     if (this.filtro) {

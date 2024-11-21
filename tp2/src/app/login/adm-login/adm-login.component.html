@@ -1,0 +1,26 @@
+<div class="container">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div>
+            <h1>Login Administrador</h1>
+        </div>
+
+        <div class="flex-column">
+          <label>Username</label>
+        </div>
+        <div class="inputForm">
+          <mat-icon>person</mat-icon>
+          <input matInput placeholder="Digite seu username" formControlName="username" type="text" required>
+          <mat-error *ngIf="loginForm.get('username')!.hasError('required')"></mat-error>
+        </div>
+        
+        <div class="flex-column">
+          <label>Password</label>
+        </div>
+        <div class="inputForm">
+          <mat-icon>lock</mat-icon>
+          <input matInput placeholder="Digite sua senha" formControlName="senha" type="password" required>
+          <mat-error *ngIf="loginForm.get('senha')!.hasError('required')"></mat-error>
+        </div>
+        <button class="button-submit" type="submit">Entrar</button>    
+    </form>
+</div>

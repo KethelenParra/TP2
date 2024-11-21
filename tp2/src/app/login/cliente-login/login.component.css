@@ -65,6 +65,16 @@
     gap: 10px;
 }
 
+input{
+    width: 90%;
+    height: 90%;
+    border: none;
+}
+
+input:focus{
+    outline: none;
+}
+
 .btn.google {
     width: 30%;
     height: 50px;

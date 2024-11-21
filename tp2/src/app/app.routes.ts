@@ -23,10 +23,14 @@ import { LivroCardListComponent } from './livro/components/livro-card-list/livro
 import { ControleComponent } from './controle/controle.component';
 import { LivroViewComponent } from './livro-view/components/livro-view.component';
 import { livroViewResolver } from './livro-view/resolver/livroView.resolver';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './login/cliente-login/login.component';
 import { BoxCardListComponent } from './box/components/box-card-list/box-card-list.component';
 import { BoxViewComponent } from './box/components/box-view/box-view.component';
 import { BoxViewResolver } from './box/components/box-view/resolver/BoxView.resolver';
+import { HomeComponent } from './home/home.component';
+import { AdmLoginComponent } from './login/adm-login/adm-login.component';
+import { AuthGuard } from './authGuard';
+import { FavoritosComponent } from './favoritos/favoritos.component';
 
 export const routes: Routes = [
     {
@@ -34,9 +38,13 @@ export const routes: Routes = [
         component: UserTemplateComponent,
         title: 'e-commerce',
         children: [
-            { path: '', pathMatch: 'full', redirectTo: 'home' },
+            { path: '', pathMatch: 'full', redirectTo: 'livrosCard' },
+
+            { path: 'home', component: HomeComponent, title: 'Home' },
             
             { path: 'login', component: LoginComponent, title: 'Login'},
+
+            { path: 'favoritos', component: FavoritosComponent, title: 'Favoritos' },
 
             { path: 'livrosCard', component: LivroCardListComponent, title: 'Lista de Cards de Livros' },
 
@@ -51,8 +59,11 @@ export const routes: Routes = [
         path: 'admin',
         component: AdminTemplateComponent,
         title: 'administração',
+        // canActivate: [AuthGuard],
         children: [
             { path: '', pathMatch: 'full', redirectTo: 'controle' },
+
+            { path: 'loginAdm', component: AdmLoginComponent, title: 'Login Adm' },
 
             { path: 'controle', component: ControleComponent, title: 'Controle' },
 

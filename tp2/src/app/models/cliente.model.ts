@@ -1,8 +1,8 @@
 import { Usuario } from './usuario.model';
 
-export interface Cliente {
-  id: number;
-  usuario: Usuario;
+export class Cliente {
+  id!: number;
+  usuario!: Usuario;
   cep?: string;
   logradouro?: string;
   complemento?: string;

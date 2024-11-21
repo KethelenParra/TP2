@@ -1,25 +1,31 @@
 <mat-toolbar color="primary" class="toolbar mat-elevation-z3">
-    <a href="/home"><h1 class="titulo-pag">Cantinho dos livros</h1></a>
-    <div class="icons-toolbar">
-        <div class="icon-with-label">
-            <mat-icon class="icon">favorite_border</mat-icon>
-            <span class="icon-label">Minhas Listas</span>
-        </div>
-        <div class="icon-with-label">
-            <div class="entrar" [matMenuTriggerFor]="login">
-                <mat-icon class="icon">person</mat-icon>
-                <button mat-button class="icon-label" >
-                    Entrar
-                    <mat-menu #login="matMenu">
-                        <button mat-menu-item routerLink="/login"> Entrar/Cadastrar </button>
-                    </mat-menu>
+    <h1 class="titulo-pag" [routerLink]="'/home'">Cantinho dos livros</h1>
+    <div class="menu">
+        <button mat-button class="favoritos">
+            <mat-icon class="icone-fora">favorite_border</mat-icon>
+            <p class="text-menu" [routerLink]="'/favoritos'">Lista Favoritos</p>
+        </button>
+        <button mat-button class="carrinho">
+            <mat-icon class="icone-fora">shopping_cart</mat-icon>
+            <span>carrinho</span>
+        </button>
+        <div class="menu-user">
+            <button mat-button [matMenuTriggerFor]="menu" class="menu-perfil">
+                <mat-icon class="icone-fora">account_circle</mat-icon> 
+                <p class="text-user">{{usuarioLogado ? 'Olá, ' + usuarioLogado.nome : 'Entrar' }}</p>
+            </button>
+
+            <mat-menu #menu="matMenu" class="custom-menu">
+                <button mat-menu-item>
+                    <mat-icon>person</mat-icon>
+                    <span>Minha Conta</span>
                 </button>
-                <mat-icon class="dropdown-arrow">keyboard_arrow_down</mat-icon>
-            </div>
-        </div>
-        <div class="icon-with-label">
-            <mat-icon class="icon">shopping_cart</mat-icon>
-            <span class="icon-label" mat-badge="4">Carrinho</span>
+                <mat-divider class="divider"></mat-divider>
+                <button mat-menu-item [routerLink]="'/login'" (click)="deslogar()">
+                    <mat-icon>logout</mat-icon>
+                    <span >{{usuarioLogado ?  'Sair' : 'Entrar' }}</span>
+                </button>
+            </mat-menu>
         </div>
     </div>
 </mat-toolbar>
