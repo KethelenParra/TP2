@@ -23,7 +23,7 @@
                 <mat-divider class="divider"></mat-divider>
                 <button mat-menu-item [routerLink]="'/login'" (click)="deslogar()">
                     <mat-icon>logout</mat-icon>
-                    <span>Sair</span>
+                    <span >{{usuarioLogado ?  'Sair' : 'Entrar' }}</span>
                 </button>
             </mat-menu>
         </div>
