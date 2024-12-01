@@ -45,8 +45,6 @@
 }
 
 .material-icons{
-    margin-top: 10px;
-    margin-left: 20px;
     color: black;
 }
 
@@ -78,10 +76,17 @@
 
 mat-card {
     max-width: 800px;
-    /* margin: 2rem auto; */
+    margin: 1rem auto;
     padding: 1.5rem;
     background-color: #f9f9f9; /* Fundo claro para o card */
     border-radius: 12px;
+}
+
+img[mat-card-image] {
+    max-width: 100%; /* Garantindo que a imagem não ultrapasse o card */
+    height: auto; /* Mantendo as proporções */
+    max-height: 100px; /* Definindo uma altura máxima */
+    object-fit: contain; /* Ajuste da imagem no espaço disponível */
 }
 
 /* Estilo dos botões no final do formulário */

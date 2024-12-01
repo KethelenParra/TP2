@@ -29,6 +29,19 @@ export class AutorService {
     return this.httpClient.get<Autor[]>(`${this.baseUrl}`, {params}); 
   }
 
+  getUrlImage(nomeImagem: string): string {
+    return `${this.baseUrl}/image/download/${nomeImagem}`;
+  }
+
+  uploadImage(id: number, nomeImagem: string, imagem: File): Observable<any>{
+    const formData: FormData = new FormData();
+    formData.append('id', id.toString());
+    formData.append('nomeImagem', imagem.name);
+    formData.append('imagem', imagem, imagem.name);
+
+    return this.httpClient.patch<Livro>(`${this.baseUrl}/image/upload`, formData);
+  }
+
   count(): Observable<number>{
     return this.httpClient.get<number>(`${this.baseUrl}/count`);
   }
