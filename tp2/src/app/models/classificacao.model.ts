@@ -1,4 +1,4 @@
-export class classificacao{
+export class Classificacao{
     id!: number;
     descricao!: string;
 }
