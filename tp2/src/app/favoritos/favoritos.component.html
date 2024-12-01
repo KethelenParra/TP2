@@ -1,1 +1,28 @@
-<p>favoritos works!</p>
+<div class="favoritos-container">
+    <h2>Minha Lista de Desejos</h2>
+  
+    <div *ngIf="loading" class="loading-spinner">
+      <mat-spinner diameter="50"></mat-spinner>
+    </div>
+  
+    <div *ngIf="!loading && errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+  
+    <div *ngIf="!loading && desejos.length > 0" class="responsive-grid">
+      <mat-card *ngFor="let desejo of desejos" class="book-card">
+        <img mat-card-image [src]="desejo.imageUrl" alt="{{ desejo.titulo }}" class="book-image" />
+        <mat-card-title>{{ desejo.titulo }}</mat-card-title>
+        <mat-card-subtitle>{{ desejo.autores }}</mat-card-subtitle>
+        <mat-card-content>{{ desejo.descricao }}</mat-card-content>
+        <mat-card-actions>
+          <button mat-button (click)="removerDaLista(desejo.id)">Remover da lista</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  
+    <div *ngIf="!loading && desejos.length === 0" class="no-results-message">
+      <p>Nenhum livro encontrado na sua lista de desejos.</p>
+    </div>
+  </div>
+  
