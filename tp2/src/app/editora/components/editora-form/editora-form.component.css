@@ -75,9 +75,16 @@
     padding-bottom: 0 auto;
 }
 
+img[mat-card-image] {
+    max-width: 100%; /* Garantindo que a imagem não ultrapasse o card */
+    height: auto; /* Mantendo as proporções */
+    max-height: 100px; /* Definindo uma altura máxima */
+    object-fit: contain; /* Ajuste da imagem no espaço disponível */
+}
+
 mat-card {
     max-width: 800px;
-    margin: 2rem auto;
+    margin: 1rem auto;
     padding: 1.5rem;
     background-color: #f9f9f9; /* Fundo claro para o card */
     border-radius: 12px;
@@ -90,10 +97,9 @@ mat-card-actions {
 }
 
 .material-icons{
-    margin-top: 10px;
-    margin-left: 20px;
     color: black;
 }
+
 
 button[mat-raised-button] {
     width: 120px;
@@ -127,8 +133,3 @@ button[mat-raised-button].excluir-button {
     width: 70%; /* Campo de número de telefone ocupa 70% do espaço */
 }
 
-/* Garantir que o layout geral do formulário permaneça inalterado */
-.full-width-input {
-    width: 100%;
-    margin-bottom: 20px;
-}

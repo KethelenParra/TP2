@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Editora } from '../../../models/editora.model';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
-import { NgIf } from '@angular/common';
+import { Location, NgIf } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
@@ -28,13 +28,18 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 export class EditoraFormComponent implements OnInit {
   formGroup: FormGroup;
 
+  fileName: string = '';
+  selectedFile: File | null = null;
+  imagePreview: string | ArrayBuffer | null = null;
+
   constructor(private formBuilder: FormBuilder,
     private editoraService: EditoraService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog,
     public navService: NavigationService,
-    private snackBar: MatSnackBar) {
+    private snackBar: MatSnackBar,
+    private locate: Location) {
 
     const editora: Editora = this.activatedRoute.snapshot.data['editora'];
 
@@ -58,6 +63,18 @@ export class EditoraFormComponent implements OnInit {
   initializeForm(): void {
     const editora: Editora = this.activatedRoute.snapshot.data['editora'];
 
+    if (editora) {
+      // Verificar e configurar o preview da imagem
+      if (editora.nomeImagem) {
+        const imageUrl = this.editoraService.getUrlImage(editora.nomeImagem);
+        console.log('URL da imagem:', imageUrl); // Log da URL da imagem
+        this.imagePreview = imageUrl;
+        this.fileName = editora.nomeImagem;
+      } else {
+        this.imagePreview = null; // Defina uma imagem padrão ou deixe vazio
+      }
+    }
+   console.log('Editora: ' + JSON.stringify(editora));
     this.formGroup = this.formBuilder.group({
       id: [(editora && editora.id) ? editora.id : null],
       nome: [(editora && editora.nome) ? editora.nome : null,
@@ -96,6 +113,40 @@ export class EditoraFormComponent implements OnInit {
 
   }
 
+  carregarImagemSelecionada(event: any) {
+    this.selectedFile = event.target.files[0];
+
+    if (this.selectedFile) {
+      this.fileName = this.selectedFile.name;
+      // carregando image preview
+      const reader = new FileReader();
+      reader.onload = e => this.imagePreview = reader.result;
+      reader.readAsDataURL(this.selectedFile);
+    }
+
+  }
+
+  private uploadImage(livroId: number) {
+    if (this.selectedFile) {
+      this.editoraService.uploadImage(livroId, this.selectedFile.name, this.selectedFile)
+      .subscribe({
+        next: () => {
+          this.voltarPagina();
+        },
+        error: err => {
+          console.log('Erro ao fazer o upload da imagem');
+          // tratar o erro
+        }
+      })
+    } else {
+      this.voltarPagina();
+    }
+  }
+
+  voltarPagina() {
+    this.locate.back();
+  }
+
   salvar() {
     this.formGroup.markAllAsTouched();
     if (this.formGroup.valid) {
@@ -108,7 +159,13 @@ export class EditoraFormComponent implements OnInit {
 
       // executando a operacao
       operacao.subscribe({
-        next: () => {
+        next: (editoraCadastrada) => {
+            // Certifique-se de que o ID foi retornado
+            if (editora && editora.id) {
+              this.uploadImage(editora.id); // Agora enviará a imagem
+            } else {
+              this.uploadImage(editoraCadastrada.id); // Agora enviará a imagem
+            }
           this.snackBar.open('Editora salvo com sucesso!', 'Fechar', {
             duration: 3000
           });

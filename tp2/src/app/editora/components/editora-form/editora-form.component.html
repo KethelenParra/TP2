@@ -115,7 +115,25 @@
                             </mat-form-field>
                         </div>
                     </div>
-                </form>
+
+                    
+                <!-- inserindo a Imagem -->
+                <mat-form-field appearance="fill" class="full-width-input">
+                    <mat-label>Imagem de Editora</mat-label>
+                    <input type="file" (change)="carregarImagemSelecionada($event)" hidden #fileInput>
+                    <input matInput [value]="fileName" readonly>
+                    
+                    <button mat-icon-button matSuffix (click)="fileInput.click()">
+                        <mat-icon>folder_open</mat-icon>
+                    </button>   
+                </mat-form-field>
+
+                <div class="container responsive-grid">
+                    <mat-card>
+                            <img mat-card-image [src]="imagePreview" />
+                    </mat-card>
+                </div>
+            </form>
         </mat-card-content>
         <mat-card-actions>
             <button mat-raised-button class="cancel-button" (click)="cancelar()">Cancelar</button>

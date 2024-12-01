@@ -31,6 +31,19 @@ export class EditoraService {
     return this.httpClient.get<Editora[]>(`${this.baseUrl}`, {params}); 
   }
 
+  getUrlImage(nomeImagem: string): string {
+    return `${this.baseUrl}/image/download/${nomeImagem}`;
+  }
+
+  uploadImage(id: number, nomeImagem: string, imagem: File): Observable<any>{
+    const formData: FormData = new FormData();
+    formData.append('id', id.toString());
+    formData.append('nomeImagem', imagem.name);
+    formData.append('imagem', imagem, imagem.name);
+
+    return this.httpClient.patch<Editora>(`${this.baseUrl}/image/upload`, formData);
+  }
+
   findByNome(nome: string, page?: number, pageSize?: number): Observable<Editora[]> {
     let params = {};
   
