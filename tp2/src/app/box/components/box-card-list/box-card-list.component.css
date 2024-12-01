@@ -32,7 +32,7 @@ img {
   display: flex;
   justify-content: center;
   width: 100%;
-  border-bottom: 3px solid #5D4037; /* Linha marrom abaixo */
+  border-bottom: 3px solid #1d9f96; /* Linha marrom abaixo */
   padding-bottom: 1px;
   margin-bottom: 25px;
 }
@@ -84,7 +84,7 @@ img {
   width: 350px;
   padding: 16px;
   background-color: #ffffff;
-  border: 2px solid #5D4037;
+  border: 2px solid #3c877e;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -100,7 +100,7 @@ img {
 
 .filter-section h3 {
   font-size: 1.2rem; /* Aumenta o tamanho da fonte do título */
-  color: #5D4037;
+  color: #282b2b;
   font-weight: bold;
   margin-bottom: 8px;
   display: flex;
@@ -128,7 +128,7 @@ img {
 
 .mat-checkbox-label {
   font-size: 1rem !important; /* Aumenta o tamanho do texto do checkbox */
-  color: #333 !important;
+  color: #2f72a1 !important;
 }
 
 /* Barra de rolagem estilizada */
@@ -141,7 +141,7 @@ img {
 .author-filter::-webkit-scrollbar-thumb,
 .editor-filter::-webkit-scrollbar-thumb,
 .genre-filter::-webkit-scrollbar-thumb {
-  background-color: #5D4037;
+  background-color: #1d777c;
   border-radius: 8px;
 }
 
@@ -197,8 +197,8 @@ button[mat-button] {
   flex-direction: column;
   align-items: center;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  border-right: 1px solid #5D4037; /* Linha marrom à direita */
-  border-bottom: 1px solid #5D4037; /* Linha marrom abaixo */
+  border-right: 1px solid #2b7c7e; /* Linha marrom à direita */
+  border-bottom: 1px solid #2b7c7e; /* Linha marrom abaixo */
   padding: 10px;
   position: relative;
   overflow: hidden;
