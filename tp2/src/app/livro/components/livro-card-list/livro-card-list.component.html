@@ -55,40 +55,46 @@
       </div>
       <!-- Área dos cards -->
       <div class="card-area">
-          <div *ngIf="loading" class="loading-spinner">
-              <mat-spinner diameter="50"></mat-spinner>
-          </div>
-          <div *ngIf="!loading && errorMessage" class="error-message">
-              {{ errorMessage }}
-          </div>
-          <div *ngIf="!loading && cards().length > 0" class="responsive-grid">
-              <mat-card *ngFor="let card of cards()" class="book-card" (click)="navigateToDetail(card.titulo)">
-                  <img mat-card-image [src]="card.imageUrl" alt="{{ card.titulo }}" class="book-image">
-                  <div class="card-content">
-                      <mat-card-title class="book-title">{{ card.titulo }}</mat-card-title>
-                      <mat-card-subtitle class="book-author">{{ card.autores }}</mat-card-subtitle>
-                      <mat-card-content class="book-price">
-                          A partir de <strong>{{ card.preco | currency: 'BRL' }}</strong>
-                      </mat-card-content>
-                  </div>
-                  <div class="card-actions-footer">
-                      <mat-card-actions class="centered-text">
-                          <button mat-button color="primary" style="width: 100%; padding: 16px; text-align: center;">
-                              Minha Lista
-                          </button>
-                      </mat-card-actions>
-                  </div>
+        <div *ngIf="loading" class="loading-spinner">
+          <mat-spinner diameter="50"></mat-spinner>
+        </div>
+        <div *ngIf="!loading && errorMessage" class="error-message">
+          {{ errorMessage }}
+        </div>
+        <div *ngIf="!loading && cards().length > 0" class="responsive-grid">
+            <mat-card *ngFor="let card of cards()" class="book-card" (click)="navigateToDetail(card.titulo)">
+                <img mat-card-image [src]="card.imageUrl" alt="{{ card.titulo }}" class="book-image" />
+                <div class="card-content">
+                  <mat-card-title class="book-title">{{ card.titulo }}</mat-card-title>
+                  <mat-card-subtitle class="book-author">{{ card.autores }}</mat-card-subtitle>
+                  <mat-card-content class="book-price">
+                    A partir de <strong>{{ card.preco | currency: 'BRL' }}</strong>
+                  </mat-card-content>
+                </div>
+                <div class="card-actions-footer">
+                  <mat-card-actions class="centered-text">
+                    <button
+                      mat-button
+                      color="primary"
+                      style="width: 100%; padding: 16px; text-align: center;"
+                      (click)="adicionarEFavoritar(card); $event.stopPropagation()"
+                    >
+                      Minha Lista
+                    </button>
+                  </mat-card-actions>
+                </div>
               </mat-card>
-          </div>
-          <div *ngIf="!loading && cards().length === 0" class="no-results-message">
-              <p>Nenhum livro encontrado para os filtros aplicados.</p>
-          </div>
+              
+        </div>
+        <div *ngIf="!loading && cards().length === 0" class="no-results-message">
+          <p>Nenhum livro encontrado para os filtros aplicados.</p>
+        </div>
       </div>
-  </div>
-  <mat-paginator 
-  [pageSizeOptions]="[25, 30, 50, 100]"
-  [pageSize]="pageSize"
-  [length]="totalRecords"
-  (page)="paginar($event)">
-</mat-paginator>
-</div>
+      
+    </div>
+    <mat-paginator 
+    [pageSizeOptions]="[25, 30, 50, 100]"
+    [pageSize]="pageSize"
+    [length]="totalRecords"
+    (page)="paginar($event)">
+  </mat-paginator>

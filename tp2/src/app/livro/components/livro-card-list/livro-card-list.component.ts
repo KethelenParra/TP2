@@ -21,6 +21,7 @@ import { Genero } from '../../../models/genero.model';
 import { AutorService } from '../../../service/autor.service';
 import { EditoraService } from '../../../service/editora.service';
 import { GeneroService } from '../../../service/genero.service';
+import { ClienteService } from '../../../service/cliente.service';
 
 type Card = {
   id: number;
@@ -29,6 +30,7 @@ type Card = {
   descricao: string;
   autores: string;
   imageUrl: string;
+  listaDesejo: boolean;
 };
 
 @Component({
@@ -68,12 +70,19 @@ export class LivroCardListComponent implements OnInit {
     private router: Router,
     private autorService: AutorService,
     private editoraService: EditoraService,
-    private generoService: GeneroService
+    private generoService: GeneroService,
+    private clienteService: ClienteService
   ) { }
 
   ngOnInit(): void {
     this.carregarLivrosFiltro();
     this.carregarLivrosAll();
+
+    if (!localStorage.getItem('token')) {
+      this.router.navigateByUrl('/login');
+      return;
+    }
+    
   }
 
   carregarLivrosFiltro(): void {
@@ -160,19 +169,64 @@ export class LivroCardListComponent implements OnInit {
   }
 
   carregarCards(): void {
-    const cards: Card[] = [];
-    this.livros.forEach(livro => {
-      cards.push({
-        id: livro.id,
-        titulo: livro.titulo,
-        preco: livro.preco,
-        descricao: livro.descricao,
-        autores: livro.autores.map(autor => autor.nome).join(', '),
-        imageUrl: this.livroService.getUrlImage(livro.nomeImagem)
-      });
+    this.clienteService.getLivrosListaDesejos().subscribe({
+      next: (livrosDesejados) => {
+        const idsDesejados = livrosDesejados.map((livro) => livro.id);
+  
+        const cards: Card[] = this.livros.map((livro) => ({
+          id: livro.id,
+          titulo: livro.titulo,
+          preco: livro.preco,
+          descricao: livro.descricao,
+          autores: livro.autores.map((autor) => autor.nome).join(', '),
+          imageUrl: this.livroService.getUrlImage(livro.nomeImagem),
+          listaDesejo: idsDesejados.includes(livro.id),
+        }));
+  
+        this.cards.set(cards);
+      },
+      error: (error) => {
+        console.error('Erro ao carregar lista de desejos:', error);
+        this.snackBar.open(
+          'Erro ao carregar a lista de desejos. Exibindo apenas livros disponíveis.',
+          'Fechar',
+          { duration: 3000 }
+        );
+        // Carregar os livros sem marcar lista de desejos
+        const cards: Card[] = this.livros.map((livro) => ({
+          id: livro.id,
+          titulo: livro.titulo,
+          preco: livro.preco,
+          descricao: livro.descricao,
+          autores: livro.autores.map((autor) => autor.nome).join(', '),
+          imageUrl: this.livroService.getUrlImage(livro.nomeImagem),
+          listaDesejo: false,
+        }));
+  
+        this.cards.set(cards);
+      },
     });
-    this.cards.set(cards);
   }
+  
+  adicionarEFavoritar(card: Card): void {
+    if (!card.listaDesejo) {
+      // Adiciona o livro à lista de desejos
+      this.clienteService.adicionarLivroDesejo(card.id).subscribe({
+        next: () => {
+          this.snackBar.open('Livro adicionado à lista de desejos.', 'Fechar', { duration: 3000 });
+          card.listaDesejo = true; // Atualiza o estado do card
+          this.router.navigateByUrl('/favoritos'); // Redireciona para a página de favoritos
+        },
+        error: () => {
+          this.snackBar.open('Erro ao adicionar livro à lista de desejos.', 'Fechar', { duration: 3000 });
+        },
+      });
+    } else {
+      // Apenas redireciona para a página de favoritos
+      this.router.navigateByUrl('/favoritos');
+    }
+  }
+  
 
   paginar(event: PageEvent): void {
     this.page = event.pageIndex;
@@ -239,7 +293,7 @@ export class LivroCardListComponent implements OnInit {
     this.livroService.findAll(this.page, this.pageSize).subscribe({
       next: (livros) => {
         this.livros = livros;
-        this.totalRecords = 59;
+        this.totalRecords = 65;
         this.carregarCards();
         this.loading = false;
       },
