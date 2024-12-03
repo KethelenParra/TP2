@@ -9,7 +9,7 @@
             <p class="text-adm">{{usuarioLogado ? 'Olá, ' + usuarioLogado.nome : 'Entrar' }}</p>
         </button>
         <mat-menu #menu="matMenu" class="custom-menu">
-            <button mat-menu-item>
+            <button mat-menu-item [routerLink]="'/minhaConta'">
                 <mat-icon>person</mat-icon>
                 <span>Minha Conta</span>
             </button>

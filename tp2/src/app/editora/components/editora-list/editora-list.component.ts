@@ -1,4 +1,3 @@
-import { NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,10 +9,6 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
-import { NavigationComponent } from '../../../components/navigation/navigation.component';
-import { SidebarComponent } from '../../../template/sidebar/sidebar.component';
-import { FooterComponent } from '../../../template/footer/footer.component';
-import { HeaderComponent } from '../../../template/header/header.component';
 import { Editora } from '../../../models/editora.model';
 import { EditoraService } from '../../../service/editora.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -23,8 +18,7 @@ import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog
 @Component({
   selector: 'app-editora-list',
   standalone: true,
-  imports: [MatToolbarModule, FormsModule, MatSnackBarModule, MatInputModule, MatFormFieldModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator,
-     NavigationComponent, SidebarComponent, FooterComponent, HeaderComponent],
+  imports: [MatToolbarModule, FormsModule, MatSnackBarModule, MatInputModule, MatFormFieldModule,MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator],
   templateUrl: './editora-list.component.html',
   styleUrl: './editora-list.component.css'
 })

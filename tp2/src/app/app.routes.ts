@@ -31,6 +31,9 @@ import { HomeComponent } from './home/home.component';
 import { AdmLoginComponent } from './login/adm-login/adm-login.component';
 import { AuthGuard } from './authGuard';
 import { FavoritosComponent } from './favoritos/favoritos.component';
+import { MinhaContaComponent } from './cliente/minha-conta/minha-conta.component';
+import { EnderecoComponent } from './usuario/endereco/endereco.component';
+import { CadastroClienteComponent } from './cliente/cadastro-cliente/cadastro-cliente.component';
 
 export const routes: Routes = [
     {
@@ -53,6 +56,10 @@ export const routes: Routes = [
             { path: 'titulo/:titulo', component: LivroViewComponent, resolve: { livro: livroViewResolver } },
 
             { path: 'nome/:nome', component: BoxViewComponent, resolve: { box: BoxViewResolver } },
+
+            { path: 'minhaConta', component: MinhaContaComponent, title: 'Minha Conta' },
+
+            {path: 'register', component: CadastroClienteComponent, title: 'Registrar Usuário'}
         ]
     },
     {

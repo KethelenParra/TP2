@@ -16,11 +16,12 @@ import { Subscription } from 'rxjs';
 import { AuthService } from '../../service/auth.service';
 import { Router } from '@angular/router';	
 import { MatDivider } from '@angular/material/divider';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-user-header',
   standalone: true,
-  imports: [MatToolbarModule, MatIconModule, FormsModule, MatSelectModule, MatButtonModule, MatFormFieldModule, MatInputModule, RouterModule, MatMenuModule, MatDivider],
+  imports: [MatToolbarModule, MatIconModule, FormsModule, MatSelectModule, MatButtonModule, MatFormFieldModule, MatInputModule, RouterModule, MatMenuModule, MatDivider, CommonModule],
   templateUrl: './user-header.component.html',
   styleUrls: ['./user-header.component.css']
 })
@@ -34,7 +35,6 @@ export class UserHeaderComponent implements OnInit {
   totalRecords = 0; 
 
   constructor(
-    private sidebarService: SidebarService, 
     private livroService: LivroService,
     private authService: AuthService,
     private router: Router

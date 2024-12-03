@@ -1,31 +1,33 @@
 <mat-toolbar color="primary" class="toolbar mat-elevation-z3">
-    <h1 class="titulo-pag" [routerLink]="'/home'">Cantinho dos livros</h1>
-    <div class="menu">
-        <button mat-button class="favoritos">
-            <mat-icon class="icone-fora">favorite_border</mat-icon>
-            <p class="text-menu" [routerLink]="'/favoritos'">Lista Favoritos</p>
-        </button>
-        <button mat-button class="carrinho">
-            <mat-icon class="icone-fora">shopping_cart</mat-icon>
-            <span>carrinho</span>
-        </button>
-        <div class="menu-user">
-            <button mat-button [matMenuTriggerFor]="menu" class="menu-perfil">
-                <mat-icon class="icone-fora">account_circle</mat-icon> 
-                <p class="text-user">{{usuarioLogado ? 'Olá, ' + usuarioLogado.nome : 'Entrar' }}</p>
-            </button>
+  <h1 class="titulo-pag" [routerLink]="'/home'" style="cursor: pointer;">Cantinho dos livros</h1>
+  <div class="menu">
+    <button mat-button class="favoritos">
+      <mat-icon class="icone-fora">favorite_border</mat-icon>
+      <p class="text-menu" [routerLink]="'/favoritos'">Lista Favoritos</p>
+    </button>
+    <button mat-button class="carrinho">
+      <mat-icon class="icone-fora">shopping_cart</mat-icon>
+      <span>carrinho</span>
+    </button>
+    <div class="menu-user">
+      <button mat-button [matMenuTriggerFor]="menu" class="menu-perfil">
+        <mat-icon class="icone-fora">account_circle</mat-icon> 
+        <p class="text-user">{{usuarioLogado ? 'Olá, ' + usuarioLogado.nome : 'Entrar' }}</p>
+      </button>
 
-            <mat-menu #menu="matMenu" class="custom-menu">
-                <button mat-menu-item>
-                    <mat-icon>person</mat-icon>
-                    <span>Minha Conta</span>
-                </button>
-                <mat-divider class="divider"></mat-divider>
-                <button mat-menu-item [routerLink]="'/login'" (click)="deslogar()">
-                    <mat-icon>logout</mat-icon>
-                    <span >{{usuarioLogado ?  'Sair' : 'Entrar' }}</span>
-                </button>
-            </mat-menu>
+      <mat-menu #menu="matMenu" class="custom-menu">
+        <div *ngIf="usuarioLogado != null">
+          <button mat-menu-item [routerLink]="'/minhaConta'">
+            <mat-icon>person</mat-icon>
+            <span>Minha Conta</span>
+          </button>
+          <mat-divider class="divider"></mat-divider>
         </div>
+        <button mat-menu-item [routerLink]="'/login'" (click)="deslogar()">
+          <mat-icon>logout</mat-icon>
+          <span>{{usuarioLogado ? 'Sair' : 'Entrar' }}</span>
+        </button>
+      </mat-menu>
     </div>
+  </div>
 </mat-toolbar>

@@ -32,7 +32,7 @@ export class AuthService {
           localStorage.setItem('token', token);
           this.loggedIn.next(true);
           this.setUsuarioLogado(usuario); // Atualiza o usuário logado
-        }
+      }
         return usuario;
       })
     );

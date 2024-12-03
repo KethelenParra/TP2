@@ -4,7 +4,8 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 :root{
-    --color-toolbar: #6B5852;
-    --color-footer: #927166;
-    --color-button: #ba9e95;
+    --color-toolbar: #3fa3a8;
+    --color-footer: #3fa3a8;
+    --color-button: #ba9e95;
+    --opacidade-borda: #0000002d;
 }
