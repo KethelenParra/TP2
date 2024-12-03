@@ -7,4 +7,5 @@ export class Editora {
     telefone!: Telefone;
     estado!: string;
     cidade!: string;
+    nomeImagem!: string;
 }

@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Box } from '../models/box.model';
+import { Classificacao } from '../models/classificacao.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,19 @@ export class BoxService{
   
   getBoxes(): Observable<Box[]> {
     return this.httpClient.get<Box[]>(`${this.baseUrl}/boxes`);
+  }
+
+  uploadImage(id: number, nomeImagem: string, imagem: File): Observable<any>{
+    const formData: FormData = new FormData();
+    formData.append('id', id.toString());
+    formData.append('nomeImagem', imagem.name);
+    formData.append('imagem', imagem, imagem.name);
+
+    return this.httpClient.patch<Box>(`${this.baseUrl}/image/upload`, formData);
+  }
+
+  findClassificacoes(): Observable<Classificacao[]>{
+    return this.httpClient.get<Classificacao[]>(`${this.baseUrl}/classificacao`);
   }
 
   findByNome(nome: string, page?: number, pageSize?: number): Observable<Box[]> {
@@ -119,7 +133,7 @@ export class BoxService{
       fornecedor: box.fornecedor.id,
       editora: box.editora.id,
       preco: box.preco,
-      classificacao: box.classificacao,
+      classificacao: box.classificacao.id,
       generos: box.generos.filter(genero => genero?.id).map(genero => genero.id),
       autores: box.autores.filter(autor => autor?.id).map(autor => autor.id)
     }
@@ -135,7 +149,7 @@ export class BoxService{
       fornecedor: box.fornecedor.id,
       editora: box.editora.id,
       preco: box.preco,
-      classificacao: box.classificacao,
+      classificacao: box.classificacao.id,
       generos: box.generos.filter(genero => genero?.id).map(genero => genero.id),
       autores: box.autores.filter(autor => autor?.id).map(autor => autor.id)
     }

@@ -4,7 +4,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
-import { NgIf } from '@angular/common';
+import { Location, NgIf } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
@@ -30,6 +30,10 @@ export class AutorFormComponent implements OnInit{
   formGroup: FormGroup;
   searchTerm: string = '';
 
+  fileName: string = '';
+  selectedFile: File | null = null;
+  imagePreview: string | ArrayBuffer | null = null;
+
   constructor(
     private formBuilder: FormBuilder,
     private autorService: AutorService,
@@ -37,7 +41,8 @@ export class AutorFormComponent implements OnInit{
     public navService: NavigationService,
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog,
-    private snackBar: MatSnackBar 
+    private snackBar: MatSnackBar,
+    private locate: Location 
   ) {
       
     this.formGroup = formBuilder.group({
@@ -54,6 +59,11 @@ export class AutorFormComponent implements OnInit{
   initializeForm(): void {
     const autor: Autor = this.activatedRoute.snapshot.data['autor'];
     console.log(autor);
+
+    if (autor && autor.nomeImagem) {
+      this.imagePreview = this.autorService.getUrlImage(autor.nomeImagem);
+      this.fileName = autor.nomeImagem;
+    }
     
     this.formGroup = this.formBuilder.group({
       id: [(autor && autor.id) ? autor.id : null],
@@ -83,6 +93,40 @@ export class AutorFormComponent implements OnInit{
 
   }
 
+  carregarImagemSelecionada(event: any) {
+    this.selectedFile = event.target.files[0];
+
+    if (this.selectedFile) {
+      this.fileName = this.selectedFile.name;
+      // carregando image preview
+      const reader = new FileReader();
+      reader.onload = e => this.imagePreview = reader.result;
+      reader.readAsDataURL(this.selectedFile);
+    }
+
+  }
+
+  private uploadImage(livroId: number) {
+    if (this.selectedFile) {
+      this.autorService.uploadImage(livroId, this.selectedFile.name, this.selectedFile)
+      .subscribe({
+        next: () => {
+          this.voltarPagina();
+        },
+        error: err => {
+          console.log('Erro ao fazer o upload da imagem');
+          // tratar o erro
+        }
+      })
+    } else {
+      this.voltarPagina();
+    }
+  }
+
+  voltarPagina() {
+    this.locate.back();
+  }
+
   salvar() {
     this.formGroup.markAllAsTouched();
     if (this.formGroup.valid) {
@@ -93,13 +137,19 @@ export class AutorFormComponent implements OnInit{
         ? this.autorService.insert(autor)
         : this.autorService.update(autor);
   
+        this.router.navigateByUrl('/admin/autores');
       // executando a operacao
       operacao.subscribe({
-        next: () => {
+        next: (autorCadastrado) => {
+           // Certifique-se de que o ID foi retornado
+           if (autor && autor.id) {
+            this.uploadImage(autor.id); // Agora enviará a imagem
+          } else {
+            this.uploadImage(autorCadastrado.id); // Agora enviará a imagem
+          }
           this.snackBar.open('Autor salvo com sucesso!', 'Fechar', {
             duration: 3000
           });
-          this.router.navigateByUrl('/admin/autores');
         },
         error: (error) => {
           console.log('Erro ao Salvar' + JSON.stringify(error));
@@ -145,7 +195,7 @@ export class AutorFormComponent implements OnInit{
   }
   
   cancelar(){
-    this.router.navigateByUrl('/autores');
+    this.router.navigateByUrl('/admin/autores');
   }
 
   getErrorMessage(controlName: string, errors: ValidationErrors | null | undefined): string {

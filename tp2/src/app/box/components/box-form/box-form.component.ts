@@ -6,7 +6,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Box } from '../../../models/box.model';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
-import { NgFor, NgIf } from '@angular/common';
+import { Location, NgFor, NgIf } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
@@ -26,6 +26,8 @@ import { AutorService } from '../../../service/autor.service';
 import { FooterComponent } from '../../../template/footer/footer.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { Classificacao } from '../../../models/classificacao.model';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-box-form',
@@ -40,6 +42,11 @@ export class BoxFormComponent implements OnInit {
   editoras: Editora[] = [];
   generos: Genero[] = [];
   autores: Autor[] = [];
+  classificacoes: Classificacao[] = [];
+
+  fileName: string = '';
+  selectedFile: File | null = null;
+  imagePreview: string | ArrayBuffer | null = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -52,7 +59,8 @@ export class BoxFormComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog,
     public navService: NavigationService,
-    private snackBar: MatSnackBar) {
+    private snackBar: MatSnackBar,
+    private locate: Location) {
 
     this.formGroup = this.formBuilder.group({
       id: [],
@@ -62,32 +70,35 @@ export class BoxFormComponent implements OnInit {
       fornecedor: [null, Validators.required],
       editora: [null, Validators.required],
       preco: ['', Validators.required],
-      classificacao: ['', Validators.required],
+      classificacao: [null, Validators.required],
       generos: [[], Validators.required],
       autores: [[], Validators.required]
     });
   }
 
   ngOnInit(): void {
-    this.fornecedorService.findAll().subscribe(data => {
-      this.fornecedores = data;
-      this.initializeForm();
-    });
+  // Combina todas as chamadas assíncronas
+  forkJoin({
+    classificacoes: this.boxService.findClassificacoes(),
+    fornecedores: this.fornecedorService.findAll(),
+    editoras: this.editoraService.findAll(),
+    autores: this.autorService.findAll(),
+    generos: this.generoService.findAll()
+  }).subscribe({
+    next: ({ classificacoes, fornecedores, editoras, autores, generos }) => {
+      this.classificacoes = classificacoes;
+      this.fornecedores = fornecedores;
+      this.editoras = editoras;
+      this.autores = autores;
+      this.generos = generos;
 
-    this.editoraService.findAll().subscribe(data => {
-      this.editoras = data;
+      // Inicializa o formulário somente após carregar tudo
       this.initializeForm();
-    });
-
-    this.generoService.findAll().subscribe(data => {
-      this.generos = data;
-      this.initializeForm();
-    });
-
-    this.autorService.findAll().subscribe(data => {
-      this.autores = data;
-      this.initializeForm();
-    });
+    },
+    error: (err) => {
+      console.error('Erro ao carregar os dados:', err);
+    }
+  });
   }
 
   initializeForm(): void {
@@ -95,6 +106,22 @@ export class BoxFormComponent implements OnInit {
 
     const fornecedor = this.fornecedores.find(fornecedor => fornecedor.id === (box?.fornecedor?.id || null));
     const editora = this.editoras.find(editora => editora.id === (box?.editora?.id || null));
+    const classificacao = this.classificacoes.find(c => c.id === box?.classificacao?.id) || null;
+
+     // Garantindo que os gêneros sejam mapeados corretamente
+     const generos = box?.generos?.length
+     ? box.generos.map((genero) => this.generos.find((g) => g.id === genero.id)?.id).filter((id) => id !== undefined)
+     : [];
+
+   // Garantindo que os autores sejam mapeados corretamente
+   const autores = box?.autores?.length
+     ? box.autores.map((autor) => this.autores.find((a) => a.id === autor.id)?.id).filter((id) => id !== undefined)
+     : [];
+
+     if (box && box.nomeImagem) {
+      this.imagePreview = this.boxService.getUrlImage(box.nomeImagem);
+      this.fileName = box.nomeImagem;
+    }
 
     this.formGroup = this.formBuilder.group({
       id: [(box && box.id) ? box.id : null],
@@ -107,9 +134,9 @@ export class BoxFormComponent implements OnInit {
       fornecedor: [fornecedor, Validators.required],
       editora: [editora, Validators.required],
       preco: [(box && box.preco) ? box.preco : '', Validators.required],
-      classificacao: [(box && box.classificacao) ? box.classificacao : null, Validators.required],
-      generos: [(box && box.generos) ? box.generos.map((genero) => genero.id) : [], Validators.required],
-      autores: [(box && box.autores) ? box.autores.map((autor) => autor.id) : [], Validators.required]
+      classificacao: [classificacao, Validators.required],
+      generos: [generos, Validators.required], // IDs dos Gêneros
+      autores: [autores, Validators.required]  
     })
   }
 
@@ -146,7 +173,13 @@ export class BoxFormComponent implements OnInit {
 
       // executando a operacao
       operacao.subscribe({
-        next: () => {
+        next: (boxCadastrado) => {
+           // Certifique-se de que o ID foi retornado
+           if (box && box.id) {
+            this.uploadImage(box.id); // Agora enviará a imagem
+          } else {
+            this.uploadImage(boxCadastrado.id); // Agora enviará a imagem
+          }
           this.snackBar.open('Box salvo com sucesso!', 'Fechar', {
             duration: 3000
           });
@@ -162,6 +195,7 @@ export class BoxFormComponent implements OnInit {
       });
     }
   }
+
   excluir() {
     if (this.formGroup.valid) {
       const box = this.formGroup.value;
@@ -196,6 +230,40 @@ export class BoxFormComponent implements OnInit {
 
   cancelar() {
     this.router.navigateByUrl('/admin/boxes');
+  }
+
+  carregarImagemSelecionada(event: any) {
+    this.selectedFile = event.target.files[0];
+
+    if (this.selectedFile) {
+      this.fileName = this.selectedFile.name;
+      // carregando image preview
+      const reader = new FileReader();
+      reader.onload = e => this.imagePreview = reader.result;
+      reader.readAsDataURL(this.selectedFile);
+    }
+
+  }
+
+  private uploadImage(livroId: number) {
+    if (this.selectedFile) {
+      this.boxService.uploadImage(livroId, this.selectedFile.name, this.selectedFile)
+      .subscribe({
+        next: () => {
+          this.voltarPagina();
+        },
+        error: err => {
+          console.log('Erro ao fazer o upload da imagem');
+          // tratar o erro
+        }
+      })
+    } else {
+      this.voltarPagina();
+    }
+  }
+
+  voltarPagina() {
+    this.locate.back();
   }
 
   getErrorMessage(controlName: string, errors: ValidationErrors | null | undefined): string {

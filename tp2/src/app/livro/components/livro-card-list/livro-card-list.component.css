@@ -32,7 +32,7 @@ img {
   display: flex;
   justify-content: center;
   width: 100%;
-  border-bottom: 3px solid #5D4037; /* Linha marrom abaixo */
+  border-bottom: 3px solid #00c8c8; /* Linha marrom abaixo */
   margin-bottom: 25px;
 }
 
@@ -83,7 +83,7 @@ img {
   width: 350px;
   padding: 16px;
   background-color: #ffffff;
-  border: 2px solid #5D4037;
+  border: 2px solid #32c2a5;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -99,7 +99,7 @@ img {
 
 .filter-section h3 {
   font-size: 1.2rem; /* Aumenta o tamanho da fonte do título */
-  color: #5D4037;
+  color: #1d1f1f;
   font-weight: bold;
   margin-bottom: 8px;
   display: flex;
@@ -121,13 +121,13 @@ img {
   display: flex;
   align-items: center;
   font-size: 1rem; /* Aumenta o tamanho da fonte dos itens */
-  color: #333;
+  color: #4c9b7b;
   padding: 4px 0;
 }
 
 .mat-checkbox-label {
   font-size: 1rem !important; /* Aumenta o tamanho do texto do checkbox */
-  color: #333 !important;
+  color: #1b7174 !important;
 }
 
 /* Barra de rolagem estilizada */
@@ -140,7 +140,7 @@ img {
 .author-filter::-webkit-scrollbar-thumb,
 .editor-filter::-webkit-scrollbar-thumb,
 .genre-filter::-webkit-scrollbar-thumb {
-  background-color: #5D4037;
+  background-color: #36806d;
   border-radius: 8px;
 }
 
@@ -196,8 +196,8 @@ button[mat-button] {
   flex-direction: column;
   align-items: center;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  border-right: 1px solid #5D4037; /* Linha marrom à direita */
-  border-bottom: 1px solid #5D4037; /* Linha marrom abaixo */
+  border-right: 1px solid #1a5843; /* Linha marrom à direita */
+  border-bottom: 1px solid #296771; /* Linha marrom abaixo */
   padding: 10px;
   position: relative;
   overflow: hidden;

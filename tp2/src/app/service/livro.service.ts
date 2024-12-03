@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Livro } from '../models/livro.model';
+import { Classificacao } from '../models/classificacao.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,19 @@ export class LivroService {
 
   getUrlImage(nomeImagem: string): string {
     return `${this.baseUrl}/image/download/${nomeImagem}`;
+  }
+
+  uploadImage(id: number, nomeImagem: string, imagem: File): Observable<any>{
+    const formData: FormData = new FormData();
+    formData.append('id', id.toString());
+    formData.append('nomeImagem', imagem.name);
+    formData.append('imagem', imagem, imagem.name);
+
+    return this.httpClient.patch<Livro>(`${this.baseUrl}/image/upload`, formData);
+  }
+
+  findClassificacoes(): Observable<Classificacao[]>{
+    return this.httpClient.get<Classificacao[]>(`${this.baseUrl}/classificacao`);
   }
   
   getLivros(): Observable<Livro[]> {
@@ -126,7 +140,7 @@ export class LivroService {
       isbn: livro.isbn,
       descricao: livro.descricao,
       datalancamento: livro.datalancamento,
-      classificacao: livro.classificacao,
+      classificacao: livro.classificacao.id,
       editora: livro.editora.id,
       fornecedor: livro.fornecedor.id,
       generos: livro.generos.filter(genero => genero?.id).map(genero => genero.id),
@@ -144,9 +158,9 @@ export class LivroService {
       isbn: livro.isbn,
       descricao: livro.descricao,
       datalancamento: livro.datalancamento,
-      classificacao: livro.classificacao,
-      editora: livro.editora.id,
-      fornecedor: livro.fornecedor.id,
+      classificacao: livro.classificacao.id || null,
+      editora: livro.editora.id || null,
+      fornecedor: livro.fornecedor.id || null,
       generos: livro.generos.filter(genero => genero?.id).map(genero => genero.id),
       autores: livro.autores.filter(autor => autor?.id).map(autor => autor.id)
     }

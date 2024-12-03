@@ -1,0 +1,193 @@
+<div class="home-container">
+      <!-- Barra de Pesquisa -->
+      <div class="search-container">
+        <div class="logo-container">
+          <img src="assets/logo.svg" alt="Logo" class="logo">
+        </div>
+        <mat-form-field appearance="outline" class="select-field">
+          <mat-label>Pesquisar por</mat-label>
+          <mat-select [(ngModel)]="tipoFiltro">
+            <mat-option value="titulo">Título</mat-option>
+            <mat-option value="autor">Autor</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="input-field">
+          <mat-label>Digite para pesquisar</mat-label>
+          <input matInput [(ngModel)]="filtro" placeholder="Ex: Harry Potter" (keyup.enter)="filtrar()" />
+        </mat-form-field>
+        <button mat-icon-button color="primary" class="search-button" (click)="filtrar()">
+          <mat-icon>search</mat-icon>
+        </button>
+      </div>
+      <div class="divider"></div>
+      <div class="buttons-container">
+        <button class="styled-button" (click)="verTodosBoxes()">Ver todos os Boxes</button>
+        <button class="styled-button" (click)="verTodosLivros()">Ver todos os Livros</button>
+      </div>
+      
+      <br>
+    <!-- Carrossel de Livros -->
+    <div class="carousel-section">
+      <h2 class="centralizado">Livros</h2>
+      <div class="carousel-container">
+        <button mat-icon-button class="carousel-button left" (click)="moveCarouselLeft('livros')">
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+        <div class="carousel-wrapper" [ngClass]="animationClass">
+          <mat-card
+            *ngFor="let livro of livros.slice(livrosCarouselIndex, livrosCarouselIndex + livrosPorPagina)"
+            class="carousel-item"
+            (click)="navigateToDetailLivro(livro.titulo)"
+          >
+            <img mat-card-image [src]="getLivroImageUrl(livro.nomeImagem)" alt="{{ livro.titulo }}" />
+            <mat-card-title>{{ livro.titulo }}</mat-card-title>
+            <mat-card-subtitle>{{ livro.preco | currency: 'BRL' }}</mat-card-subtitle>
+          </mat-card>
+        </div>
+        <button mat-icon-button class="carousel-button right" (click)="moveCarouselRight('livros')">
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+      </div>      
+    </div>
+    <br>
+    <!-- Carrossel de Boxes -->
+    <div class="carousel-section">
+        <h2 class="centralizado">Boxes</h2>
+        <div class="carousel-container">
+            <button mat-icon-button class="carousel-button left" (click)="moveCarouselLeft('boxes')">
+            <mat-icon>chevron_left</mat-icon>
+            </button>
+            <div class="carousel-wrapper">
+                <mat-card
+                *ngFor="let box of boxes.slice(boxCarouselIndex, boxCarouselIndex + boxesPorPagina)"
+                class="carousel-item"
+                (click)="navigateToDetailBox(box.nome)"
+                >
+                <img mat-card-image [src]="getBoxImageUrl(box.nomeImagem)" alt="{{ box.nome }}" />
+                <mat-card-title>{{ box.nome }}</mat-card-title>
+                <mat-card-subtitle>{{ box.preco | currency: 'BRL' }}</mat-card-subtitle>
+                </mat-card>
+            </div>          
+            <button mat-icon-button class="carousel-button right" (click)="moveCarouselRight('boxes')">
+            <mat-icon>chevron_right</mat-icon>
+            </button>
+        </div>
+    </div>
+    <br>
+    <!-- Carrossel de Autores -->
+    <div class="carousel-section">
+      <h2 class="centralizado">Autores</h2>
+      <div class="carousel-container">
+        <button mat-icon-button class="carousel-button left" (click)="moveCarouselLeft('autores')">
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+        <div class="carousel-wrapper" #autoresCarouselWrapper [ngClass]="animationClass">
+            <mat-card 
+              *ngFor="let autor of autores.slice(autoresCarouselIndex, autoresCarouselIndex + autoresPorPagina)" 
+              class="carousel-item autor-card"
+              (click)="abrirBiografiaAutor(autor)"
+            >
+              <img [src]="getAutorImageUrl(autor.nomeImagem)" alt="{{ autor.nome }}" class="autor-image" />
+              <mat-card-title>{{ autor.nome }}</mat-card-title>
+            </mat-card>
+          </div>
+          
+        <button mat-icon-button class="carousel-button right" (click)="moveCarouselRight('autores')">
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+      </div>
+    </div>
+    <br>
+    <!-- Carrossel de Livros de Romance -->
+    <div class="carousel-section">
+      <h2 class="centralizado">Livros de Romance</h2>
+      <div class="carousel-container">
+        <button
+          mat-icon-button
+          class="carousel-button left"
+          [disabled]="romanceCarouselIndex === 0"
+          (click)="moveCarouselLeft('romance')"
+        >
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+        <div class="carousel-wrapper">
+          <mat-card
+            *ngFor="let livro of livrosRomance.slice(romanceCarouselIndex, romanceCarouselIndex + livrosPorPagina)"
+            class="carousel-item"
+            (click)="navigateToDetailLivro(livro.titulo)"
+          >
+            <img mat-card-image [src]="getLivroImageUrl(livro.nomeImagem)" alt="{{ livro.titulo }}" />
+            <mat-card-title>{{ livro.titulo }}</mat-card-title>
+            <mat-card-subtitle>{{ livro.preco | currency: 'BRL' }}</mat-card-subtitle>
+          </mat-card>
+        </div>
+        <button
+          mat-icon-button
+          class="carousel-button right"
+          [disabled]="romanceCarouselIndex + livrosPorPagina >= livrosRomance.length"
+          (click)="moveCarouselRight('romance')"
+        >
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+      </div>
+    </div>
+    <br>
+
+    <!-- Carrossel de Editoras -->
+    <div class="carousel-section">
+        <h2 class="centralizado">Editoras</h2>
+        <div class="carousel-container">
+            <button mat-icon-button class="carousel-button left" (click)="moveCarouselLeft('editoras')">
+            <mat-icon>chevron_left</mat-icon>
+            </button>
+            <div class="carousel-wrapper">
+                <mat-card
+                  *ngFor="let editora of editoras | slice: editorasCarouselIndex:(editorasCarouselIndex + editorasPorPagina)"
+                  class="carousel-item"
+                >
+                  <img
+                    class="editora-image"
+                    mat-card-image
+                    [src]="getAutorImageUrl(editora.nomeImagem)"
+                    alt="{{ editora.nome }}"
+                  />
+                  <mat-card-title>{{ editora.nome }}</mat-card-title>
+                </mat-card>
+            </div>      
+
+            <button mat-icon-button class="carousel-button right" (click)="moveCarouselRight('editoras')">
+            <mat-icon>chevron_right</mat-icon>
+            </button>
+        </div>
+      </div>
+
+      <br>
+      <div class="info-section">
+        <h2 class="info-title">Conheça o Cantinho do Livro</h2>
+        <div class="info-cards">
+          <div class="info-card">
+            <img src="assets/typewriter.png" alt="Ícone Conectando histórias" class="info-icon" />
+            <h3>Conectando histórias</h3>
+            <p>
+              No Cantinho do Livro, unimos leitores e livros em uma experiência única,
+              promovendo a magia das palavras e novas descobertas literárias.
+            </p>
+          </div>
+          <div class="info-card">
+            <img src="assets/open-book.png" alt="Ícone Leitura acessível" class="info-icon" />
+            <h3>Leitura acessível</h3>
+            <p>
+              Oferecemos uma ampla seleção de livros, dos clássicos aos best-sellers, com uma leitura com títulos para todos os gostos e preços, fazendo
+              com que o prazer da leitura esteja ao alcance de todos.
+            </p>
+          </div>
+          <div class="info-card">
+            <img src="assets/money.png" alt="Ícone Sustentabilidade" class="info-icon" />
+            <h3>Investimento</h3>
+            <p>
+              Ao escolher o Cantinho do Livro, você tem os melhore preços, que são super acessíveis e os descontos especiais que cabem no seu bolso.
+            </p>
+          </div>
+        </div>
+      </div>   
+  </div>

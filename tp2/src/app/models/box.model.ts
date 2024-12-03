@@ -1,5 +1,5 @@
 import { Autor } from "./autor.model";
-import { classificacao } from "./classificacao.model";
+import { Classificacao } from "./classificacao.model";
 import { Editora } from "./editora.model";
 import { Fornecedor } from "./fornecedor.model";
 import { Genero } from "./genero.model";
@@ -12,7 +12,7 @@ export class Box {
     fornecedor!: Fornecedor;
     editora!: Editora;
     preco!: number;
-    classificacao!: classificacao;
+    classificacao!: Classificacao;
     generos!: Genero[];
     autores!: Autor[];
     nomeImagem!: string;

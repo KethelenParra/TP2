@@ -133,12 +133,9 @@
                 <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label> Classificação </mat-label>
                         <mat-select formControlName="classificacao" name="classificacao">
-                        <mat-option value="1">Livre</mat-option>
-                        <mat-option value="2">10 Anos</mat-option>
-                        <mat-option value="3">12 Anos</mat-option>
-                        <mat-option value="4">14 Anos</mat-option>
-                        <mat-option value="5">16 Anos</mat-option>
-                        <mat-option value="6">18 Anos</mat-option>
+                            <mat-option *ngFor="let classificacao of classificacoes" [value]="classificacao">
+                                {{classificacao.descricao}}
+                            </mat-option>
                     </mat-select>
                     <mat-error *ngIf="formGroup.get('classificacao')
                                     && formGroup.get('classificacao')?.invalid 
@@ -195,6 +192,23 @@
                          }
                     </mat-error>
                 </mat-form-field>
+
+                  <!-- inserindo a Imagem -->
+                  <mat-form-field appearance="fill" class="full-width-input">
+                    <mat-label>Imagem do Box</mat-label>
+                    <input type="file" (change)="carregarImagemSelecionada($event)" hidden #fileInput>
+                    <input matInput [value]="fileName" readonly>
+                    
+                    <button mat-icon-button matSuffix (click)="fileInput.click()">
+                        <mat-icon>folder_open</mat-icon>
+                    </button>   
+                </mat-form-field>
+
+                <div class="container responsive-grid">
+                    <mat-card>
+                            <img mat-card-image [src]="imagePreview" />
+                    </mat-card>
+                </div>
 
             </form>
         </mat-card-content>
