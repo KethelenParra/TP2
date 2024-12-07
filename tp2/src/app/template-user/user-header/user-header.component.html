@@ -1,5 +1,4 @@
 <mat-toolbar color="primary" class="toolbar mat-elevation-z3">
-<<<<<<< HEAD
   <h1 class="titulo-pag" [routerLink]="'/home'" style="cursor: pointer;">Cantinho dos livros</h1>
   <div class="menu">
     <button mat-button class="favoritos">
@@ -8,30 +7,13 @@
     </button>
     <button mat-button class="carrinho">
       <mat-icon class="icone-fora">shopping_cart</mat-icon>
-      <span>carrinho</span>
+      <span [routerLink]="'/carrinho'">carrinho</span>
     </button>
     <div class="menu-user">
       <button mat-button [matMenuTriggerFor]="menu" class="menu-perfil">
         <mat-icon class="icone-fora">account_circle</mat-icon> 
         <p class="text-user">{{usuarioLogado ? 'Olá, ' + usuarioLogado.nome : 'Entrar' }}</p>
       </button>
-=======
-    <h1 class="titulo-pag" [routerLink]="'/home'">Cantinho dos livros</h1>
-    <div class="menu">
-        <button mat-button class="favoritos">
-            <mat-icon class="icone-fora">favorite_border</mat-icon>
-            <p class="text-menu" [routerLink]="'/favoritos'">Lista Favoritos</p>
-        </button>
-        <button mat-button class="carrinho">
-            <mat-icon class="icone-fora">shopping_cart</mat-icon>
-            <span [routerLink]="'/carrinho'">carrinho</span>
-        </button>
-        <div class="menu-user">
-            <button mat-button [matMenuTriggerFor]="menu" class="menu-perfil">
-                <mat-icon class="icone-fora">account_circle</mat-icon> 
-                <p class="text-user">{{usuarioLogado ? 'Olá, ' + usuarioLogado.nome : 'Entrar' }}</p>
-            </button>
->>>>>>> a33ac26be969b7ca3cf15bdf1500a97a51592f5e
 
       <mat-menu #menu="matMenu" class="custom-menu">
         <div *ngIf="usuarioLogado != null">
