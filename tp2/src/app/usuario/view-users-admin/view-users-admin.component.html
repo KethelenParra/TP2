@@ -1,0 +1,110 @@
+<div class="container">
+  <h1 class="text_titulo">Lista de Usuários</h1>
+  <div class="usuarios">
+    
+    <mat-form-field appearance="outline" class="caixa_pesquisa">
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+      <mat-icon matIconSuffix>search</mat-icon>
+    </mat-form-field>
+
+    <mat-tab-group animationDuration="0ms">
+      <mat-tab label="Cliente">
+        <table mat-table [dataSource]="cliente" class="mat-elevation-z8">
+          <!-- Id Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> No. </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+          </ng-container>
+        
+          <!-- Nome Column -->
+          <ng-container matColumnDef="nome">
+            <th mat-header-cell *matHeaderCellDef> Nome </th>
+            <td mat-cell *matCellDef="let element"> {{element.usuario.nome}} </td>
+          </ng-container>
+        
+          <!-- Username Column -->
+          <ng-container matColumnDef="username">
+            <th mat-header-cell *matHeaderCellDef> Username </th>
+            <td mat-cell *matCellDef="let element"> {{element.usuario.username}} </td>
+          </ng-container>
+        
+          <!-- Email Column -->
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef> Email </th>
+            <td mat-cell *matCellDef="let element"> {{element.usuario.email}} </td>
+          </ng-container>
+        
+          <!-- CPF Column -->
+          <ng-container matColumnDef="cpf">
+            <th mat-header-cell *matHeaderCellDef> CPF </th>
+            <td mat-cell *matCellDef="let element"> {{element.usuario.cpf | formatarCpf }} </td>
+          </ng-container>
+        
+          <!-- CEP Column -->
+          <ng-container matColumnDef="cep">
+            <th mat-header-cell *matHeaderCellDef> CEP </th>
+            <td mat-cell *matCellDef="let element"> {{element.cep}} </td>
+          </ng-container>
+        
+          <!-- Data de Nascimento Column -->
+          <ng-container matColumnDef="dataNascimento">
+            <th mat-header-cell *matHeaderCellDef> Data de Nascimento </th>
+            <td mat-cell *matCellDef="let element"> {{element?.usuario?.dataNascimento | date: 'dd/MM/yyyy'}} </td>
+          </ng-container>
+        
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsClientes"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsClientes;"></tr>
+        </table>
+        <mat-paginator
+          (page)="paginar($event)"
+          [length]="totalRecords"
+          [pageSize]="pageSize"
+          [pageSizeOptions]="[5, 10, 15, 20]">
+        </mat-paginator>
+      </mat-tab>
+      <mat-tab label="Funcionario">
+        <table mat-table [dataSource]="funcionario" class="mat-elevation-z8">
+          <!-- Id Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> No. </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+          </ng-container>
+        
+          <!-- Nome Column -->
+          <ng-container matColumnDef="nome">
+            <th mat-header-cell *matHeaderCellDef> Nome </th>
+            <td mat-cell *matCellDef="let element"> {{element.usuario.nome}} </td>
+          </ng-container>
+
+           <!-- Username Column -->
+           <ng-container matColumnDef="username">
+            <th mat-header-cell *matHeaderCellDef> Username </th>
+            <td mat-cell *matCellDef="let element"> {{element.usuario.username}} </td>
+          </ng-container>
+
+          <!-- Salário Column -->
+          <ng-container matColumnDef="salario">
+            <th mat-header-cell *matHeaderCellDef> Salário </th>
+            <td mat-cell *matCellDef="let element"> {{element.salario}} </td>
+          </ng-container>
+
+          <!-- Cargo Column -->
+          <ng-container matColumnDef="cargo">
+            <th mat-header-cell *matHeaderCellDef> Cargo </th>
+            <td mat-cell *matCellDef="let element"> {{element.cargo}} </td>
+          </ng-container>
+      
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsFuncionarios"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsFuncionarios;"></tr>
+        </table>
+        <mat-paginator
+          (page)="paginar($event)"
+          [length]="totalRecords"
+          [pageSize]="pageSize"
+          [pageSizeOptions]="[5, 10, 15, 20]">
+        </mat-paginator>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

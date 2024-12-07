@@ -34,6 +34,7 @@ import { FavoritosComponent } from './favoritos/favoritos.component';
 import { MinhaContaComponent } from './cliente/minha-conta/minha-conta.component';
 import { EnderecoComponent } from './usuario/endereco/endereco.component';
 import { CadastroClienteComponent } from './cliente/cadastro-cliente/cadastro-cliente.component';
+import { CarrinhoComponent } from './carrinho/components/carrinho.component';
 
 export const routes: Routes = [
     {
@@ -41,7 +42,7 @@ export const routes: Routes = [
         component: UserTemplateComponent,
         title: 'e-commerce',
         children: [
-            { path: '', pathMatch: 'full', redirectTo: 'livrosCard' },
+            { path: '', pathMatch: 'full', redirectTo: 'home' },
 
             { path: 'home', component: HomeComponent, title: 'Home' },
             
@@ -59,7 +60,9 @@ export const routes: Routes = [
 
             { path: 'minhaConta', component: MinhaContaComponent, title: 'Minha Conta' },
 
-            {path: 'register', component: CadastroClienteComponent, title: 'Registrar Usuário'}
+            {path: 'register', component: CadastroClienteComponent, title: 'Registrar Usuário'},
+            
+            { path: 'carrinho', component: CarrinhoComponent, title: 'Carrinho de compra' },
         ]
     },
     {

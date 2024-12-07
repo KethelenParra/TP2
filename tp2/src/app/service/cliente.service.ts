@@ -4,6 +4,8 @@ import { Observable, throwError } from 'rxjs';
 import { Cliente } from '../models/cliente.model';
 import { Livro } from '../models/livro.model';
 import { Router } from '@angular/router';
+import { Box } from '../models/box.model';
+import { ItemDesejo } from '../models/item-desejo.model';
 
 @Injectable({
   providedIn: 'root',
@@ -13,37 +15,54 @@ export class ClienteService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  adicionarLivroDesejo(idLivro: number): Observable<void> {
+  private getHeaders(): HttpHeaders {
     const token = localStorage.getItem('token');
     if (!token) {
       this.router.navigate(['/login']);
-      return throwError(() => new Error('Usuário não autenticado'));
+      throw new Error('Usuário não autenticado');
     }
+    return new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  }
+
+  adicionarItemDesejo(idLivro?: number, idBox?: number): Observable<void> {
+    const headers = this.getHeaders();
+    const params: any = {};
+    if (idLivro) params.idLivro = idLivro;
+    if (idBox) params.idBox = idBox;
+
+    return this.http.patch<void>(`${this.apiUrl}/desejos/adicionar`, null, {
+      headers,
+      params,
+    });
+  }
+
+  removerItemDesejo(id: number): Observable<void> {
+    const headers = this.getHeaders();
+    return this.http.patch<void>(`${this.apiUrl}/desejos/remover/${id}`, {}, { headers });
+  }
+  getListaDesejos(): Observable<ItemDesejo[]> {
+    const headers = this.getHeaders();
+    return this.http.get<ItemDesejo[]>(`${this.apiUrl}/desejos`, { headers });
+  }
   
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.patch<void>(`${this.apiUrl}/search/incluir-livro-desejo/${idLivro}`, {}, { headers });
+  // Métodos específicos para livros
+  adicionarLivroDesejo(idLivro: number): Observable<void> {
+    return this.adicionarItemDesejo(idLivro);
   }
 
   removerLivroDesejo(idLivro: number): Observable<void> {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      this.router.navigate(['/login']);
-      return throwError(() => new Error('Usuário não autenticado'));
-    }
-  
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.patch<void>(`${this.apiUrl}/search/remover-livro-desejo/${idLivro}`, {}, { headers });
+    return this.removerItemDesejo(idLivro);
   }
-  
-  getLivrosListaDesejos(): Observable<Livro[]> {
-    const headers = new HttpHeaders().set(
-      'Authorization',
-      `Bearer ${localStorage.getItem('token')}` // Token deve estar armazenado no localStorage
-    );
-  
-    return this.http.get<Livro[]>(`${this.apiUrl}/search/lista-desejos`, { headers });
+
+  // Métodos específicos para boxes
+  adicionarBoxDesejo(idBox: number): Observable<void> {
+    return this.adicionarItemDesejo(undefined, idBox);
   }
-  
+
+  removerBoxDesejo(idBox: number): Observable<void> {
+    return this.removerItemDesejo(idBox);
+  }
+ 
   // Criar um cliente
   create(cliente: Cliente): Observable<Cliente> {
     return this.http.post<Cliente>(this.apiUrl, cliente);

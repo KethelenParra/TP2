@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Usuario } from '../models/usuario.model';
+import { CarrinhoService } from './carrinho.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +20,8 @@ export class AuthService {
   constructor(
     private http: HttpClient, 
     private router: Router, 
-    private jwtHelper: JwtHelperService
+    private jwtHelper: JwtHelperService,
+    private carrinhoService: CarrinhoService
   ) {}
 
   login(username: string, senha: string, perfil: number): Observable<any> {
@@ -26,17 +29,27 @@ export class AuthService {
     return this.http.post(this.apiUrl, payload, { observe: 'response' }).pipe(
       map((response) => {
         const token = response.headers.get('Authorization');
-        const usuario = response.body;
-
+        // const usuario = response.body;
+        const usuario: Usuario = response.body as Usuario; 
+  
         if (token) {
           localStorage.setItem('token', token);
           this.loggedIn.next(true);
-          this.setUsuarioLogado(usuario); // Atualiza o usuário logado
-      }
+          this.setUsuarioLogado(usuario);
+  
+          // Configurar o cliente no CarrinhoService
+          if (usuario && usuario.id) {
+            this.carrinhoService.configurarCliente(usuario.id); // Certifique-se de que este método é chamado corretamente
+          } else {
+            console.error('Usuário inválido, não possui ID.');
+          }
+          console.log('Usuário logado:', usuario);
+        }
         return usuario;
       })
     );
   }
+  
 
   register(email: string): Observable<any> {
     const payload = { email };

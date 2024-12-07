@@ -9,7 +9,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
-import { AutorPopUpComponent } from '../autor-pop-up/autor-pop-up.component';
+import { CarrinhoService } from '../../service/carrinho.service';
+import { ItemPedido } from '../../models/item-pedido.model';
+
 
 type Card = {
   titulo: string;
@@ -22,7 +24,7 @@ type Card = {
 @Component({
   selector: 'app-livro-view',
   standalone: true,
-  imports: [MatCardModule, NgIf, CurrencyPipe, MatButtonModule, MatInputModule, MatIconModule, MatDividerModule, AutorPopUpComponent],
+  imports: [MatCardModule, NgIf, CurrencyPipe, MatButtonModule, MatInputModule, MatIconModule, MatDividerModule],
   templateUrl: './livro-view.component.html',
   styleUrl: './livro-view.component.css'
 })
@@ -30,8 +32,9 @@ export class LivroViewComponent implements OnInit {
   livro: Livro | undefined;
   autoresFormatados: string = '';
   titulo: string = '';
+  count: number = 1;
   
-  constructor(private route: ActivatedRoute, private livroService: LivroService) {}
+  constructor(private route: ActivatedRoute, private livroService: LivroService, private carrinhoService: CarrinhoService) {}
 
   ngOnInit(): void {
     this.route.data.subscribe(
@@ -54,8 +57,6 @@ export class LivroViewComponent implements OnInit {
     return this.livroService.getUrlImage(nomeImagem);
   }
 
-  count: number = 1;
-
   increment(): void {
     this.count++;
   }
@@ -63,6 +64,20 @@ export class LivroViewComponent implements OnInit {
   decrement(): void {
     if (this.count > 0) {
       this.count--;
+    }
+  }
+
+  adicionarAoCarrinho(): void {
+    if (this.livro) {
+      const item: ItemPedido = {
+        idLivro: this.livro.id,
+        titulo: this.livro.titulo,
+        preco: this.livro.preco,
+        quantidade: this.count,
+        subTotal: this.livro.preco * this.count,
+      };
+      this.carrinhoService.adicionarAoCarrinho(item);
+      alert(`${this.livro.titulo} foi adicionado ao carrinho!`);
     }
   }
 }

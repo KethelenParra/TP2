@@ -21,6 +21,7 @@ import { BoxService } from '../../../service/box.service';
 import { AutorService } from '../../../service/autor.service';
 import { EditoraService } from '../../../service/editora.service';
 import { GeneroService } from '../../../service/genero.service';
+import { ClienteService } from '../../../service/cliente.service';
 
 type Card = {
   id: number;
@@ -29,6 +30,7 @@ type Card = {
   descricao: string;
   autores: string;
   imageUrl: string;
+  listaDesejo: boolean;
 };
 
 @Component({
@@ -50,7 +52,7 @@ export class BoxCardListComponent implements OnInit {
   generos: Genero[] = [];
   cards = signal<Card[]>([]);
   totalRecords = 0;
-  pageSize = 5;
+  pageSize = 10;
   page = 0;
   filtro: string = "";
   tipoFiltro: string = "titulo";
@@ -67,12 +69,18 @@ export class BoxCardListComponent implements OnInit {
     private router: Router,
     private autorService: AutorService,
     private editoraService: EditoraService,
-    private generoService: GeneroService
+    private generoService: GeneroService,
+    private clienteService: ClienteService
   ) {}
 
   ngOnInit(): void {
     this.carregarBoxesFiltro();
     this.carregarBoxesAll();
+
+    if (!localStorage.getItem('token')) {
+      this.router.navigateByUrl('/login');
+      return;
+    }
   }
 
   carregarBoxesFiltro(): void {
@@ -159,20 +167,64 @@ export class BoxCardListComponent implements OnInit {
   }
 
   carregarCards(): void {
-    const cards: Card[] = [];
-    this.boxes.forEach(box => {
-      cards.push({
-        id: box.id,
-        nome: box.nome,
-        preco: box.preco,
-        descricao: box.descricaoBox,
-        autores: box.autores.map(autor => autor.nome).join(', '),
-        imageUrl: this.boxService.getUrlImage(box.nomeImagem)
-      });
+    this.clienteService.getListaDesejos().subscribe({
+      next: (boxDesejados) => {
+        const idsDesejados = boxDesejados.map((box) => box.id);
+  
+        const cards: Card[] = this.boxes.map((box) => ({
+          id: box.id,
+          nome: box.nome,
+          preco: box.preco,
+          descricao: box.descricaoBox,
+          autores: box.autores.map((autor) => autor.nome).join(', '),
+          imageUrl: this.boxService.getUrlImage(box.nomeImagem),
+          listaDesejo: idsDesejados.includes(box.id),
+        }));
+  
+        this.cards.set(cards);
+      },
+      error: (error) => {
+        console.error('Erro ao carregar lista de desejos:', error);
+        this.snackBar.open(
+          'Erro ao carregar a lista de desejos. Exibindo apenas livros disponíveis.',
+          'Fechar',
+          { duration: 3000 }
+        );
+        // Carregar os livros sem marcar lista de desejos
+        const cards: Card[] = this.boxes.map((box) => ({
+          id: box.id,
+          nome: box.nome,
+          preco: box.preco,
+          descricao: box.descricaoBox,
+          autores: box.autores.map((autor) => autor.nome).join(', '),
+          imageUrl: this.boxService.getUrlImage(box.nomeImagem),
+          listaDesejo: false,
+        }));
+  
+        this.cards.set(cards);
+      },
     });
-    this.cards.set(cards);
   }
 
+  adicionarEFavoritar(card: Card): void {
+    if (!card.listaDesejo) {
+      // Adiciona o livro à lista de desejos
+      this.clienteService.adicionarBoxDesejo(card.id).subscribe({
+        next: () => {
+          this.snackBar.open('Box adicionado à lista de desejos.', 'Fechar', { duration: 3000 });
+          card.listaDesejo = true; // Atualiza o estado visual do card
+        },
+        error: () => {
+          this.snackBar.open('Erro ao adicionar box à lista de desejos.', 'Fechar', { duration: 3000 });
+        },
+      });
+    } else {
+      // Se já está na lista de desejos, exibe mensagem informativa
+      this.snackBar.open('Este Box já está na sua lista de desejos.', 'Fechar', { duration: 3000 });
+    }
+  }
+  
+  
   paginar(event: PageEvent): void {
     this.page = event.pageIndex;
     this.pageSize = event.pageSize;
