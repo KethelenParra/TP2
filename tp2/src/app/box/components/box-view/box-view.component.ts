@@ -8,6 +8,8 @@ import { MatInputModule } from '@angular/material/input';
 import { Box } from '../../../models/box.model';
 import { BoxService } from '../../../service/box.service';
 import { ActivatedRoute } from '@angular/router';
+import { ItemPedido } from '../../../models/item-pedido.model';
+import { CarrinhoService } from '../../../service/carrinho.service';
 
 @Component({
   selector: 'app-box-view',
@@ -20,8 +22,9 @@ export class BoxViewComponent implements OnInit {
   box: Box | undefined;
   autoresFormatados: string = '';
   titulo: string = '';
+  count: number = 1;
 
-  constructor(private route: ActivatedRoute, private boxService: BoxService) {}
+  constructor(private route: ActivatedRoute, private boxService: BoxService,  private carrinhoService: CarrinhoService) {}
 
   ngOnInit(): void {
     this.route.data.subscribe(
@@ -44,8 +47,6 @@ export class BoxViewComponent implements OnInit {
     return this.boxService.getUrlImage(nomeImagem);
   }
 
-  count: number = 1;
-
   increment(): void {
     this.count++;
   }
@@ -53,6 +54,20 @@ export class BoxViewComponent implements OnInit {
   decrement(): void {
     if (this.count > 0) {
       this.count--;
+    }
+  }
+
+  adicionarAoCarrinho(): void {
+    if (this.box) {
+      const item: ItemPedido = {
+        idBox: this.box.id,
+        titulo: this.box.nome,
+        preco: this.box.preco,
+        quantidade: this.count,
+        subTotal: this.box.preco * this.count,
+      };
+      this.carrinhoService.adicionarAoCarrinho(item);
+      alert(`${this.box.nome} foi adicionado ao carrinho!`);
     }
   }
 }
