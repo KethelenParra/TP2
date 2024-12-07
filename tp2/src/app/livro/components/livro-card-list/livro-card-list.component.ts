@@ -169,7 +169,7 @@ export class LivroCardListComponent implements OnInit {
   }
 
   carregarCards(): void {
-    this.clienteService.getLivrosListaDesejos().subscribe({
+    this.clienteService.getListaDesejos().subscribe({
       next: (livrosDesejados) => {
         const idsDesejados = livrosDesejados.map((livro) => livro.id);
   
@@ -214,18 +214,18 @@ export class LivroCardListComponent implements OnInit {
       this.clienteService.adicionarLivroDesejo(card.id).subscribe({
         next: () => {
           this.snackBar.open('Livro adicionado à lista de desejos.', 'Fechar', { duration: 3000 });
-          card.listaDesejo = true; // Atualiza o estado do card
-          this.router.navigateByUrl('/favoritos'); // Redireciona para a página de favoritos
+          card.listaDesejo = true; // Atualiza o estado visual do card
         },
         error: () => {
           this.snackBar.open('Erro ao adicionar livro à lista de desejos.', 'Fechar', { duration: 3000 });
         },
       });
     } else {
-      // Apenas redireciona para a página de favoritos
-      this.router.navigateByUrl('/favoritos');
+      // Se já está na lista de desejos, exibe mensagem informativa
+      this.snackBar.open('Este livro já está na sua lista de desejos.', 'Fechar', { duration: 3000 });
     }
   }
+  
   
 
   paginar(event: PageEvent): void {
