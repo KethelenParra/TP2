@@ -1,28 +1,35 @@
 <div class="favoritos-container">
-    <h2>Minha Lista de Desejos</h2>
-  
-    <div *ngIf="loading" class="loading-spinner">
-      <mat-spinner diameter="50"></mat-spinner>
-    </div>
-  
-    <div *ngIf="!loading && errorMessage" class="error-message">
-      {{ errorMessage }}
-    </div>
-  
-    <div *ngIf="!loading && desejos.length > 0" class="responsive-grid">
-      <mat-card *ngFor="let desejo of desejos" class="book-card">
-        <img mat-card-image [src]="desejo.imageUrl" alt="{{ desejo.titulo }}" class="book-image" />
-        <mat-card-title>{{ desejo.titulo }}</mat-card-title>
-        <mat-card-subtitle>{{ desejo.autores }}</mat-card-subtitle>
-        <mat-card-content>{{ desejo.descricao }}</mat-card-content>
-        <mat-card-actions>
-          <button mat-button (click)="removerDaLista(desejo.id)">Remover da lista</button>
-        </mat-card-actions>
-      </mat-card>
-    </div>
-  
-    <div *ngIf="!loading && desejos.length === 0" class="no-results-message">
-      <p>Nenhum livro encontrado na sua lista de desejos.</p>
-    </div>
+  <h2>Minha Lista de Desejos</h2>
+
+  <div *ngIf="loading" class="loading-spinner">
+    <mat-spinner diameter="50"></mat-spinner>
   </div>
-  
+
+  <div *ngIf="!loading && errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="!loading && (desejos.length > 0 || desejosBox.length > 0)" class="responsive-grid">
+    <mat-card *ngFor="let desejo of desejos" class="book-card" (click)="navigateToDetailLivro(desejo.titulo)">
+      <img mat-card-image [src]="desejo.imageUrl" alt="{{ desejo.titulo }}" class="book-image" />
+      <mat-card-title>{{ desejo.titulo }}</mat-card-title>
+      <mat-card-title>{{ desejo.autores }}</mat-card-title>
+      <mat-card-actions>
+        <button mat-button (click)="removerDaLista(desejo.id, 'livro')">Remover da lista</button>
+      </mat-card-actions>
+    </mat-card>
+
+    <mat-card *ngFor="let desejoBox of desejosBox" class="book-card" (click)="navigateToDetailBox(desejoBox.nome)">
+      <img mat-card-image [src]="desejoBox.imageUrl" alt="{{ desejoBox.nome }}" class="book-image" />
+      <mat-card-title>{{ desejoBox.nome }}</mat-card-title>
+      <mat-card-title>{{ desejoBox.autores }}</mat-card-title>
+      <mat-card-actions>
+        <button mat-button (click)="removerDaLista(desejoBox.id, 'box')">Remover da lista</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <div *ngIf="!loading && desejos.length === 0 && desejosBox.length === 0" class="no-results-message">
+    <p>Sua lista de desejos está vazia. Adicione livros ou boxes para começar!</p>
+  </div>
+</div>
