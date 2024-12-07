@@ -31,6 +31,7 @@ import { HomeComponent } from './home/home.component';
 import { AdmLoginComponent } from './login/adm-login/adm-login.component';
 import { AuthGuard } from './authGuard';
 import { FavoritosComponent } from './favoritos/favoritos.component';
+import { CarrinhoComponent } from './carrinho/components/carrinho.component';
 
 export const routes: Routes = [
     {
@@ -38,7 +39,7 @@ export const routes: Routes = [
         component: UserTemplateComponent,
         title: 'e-commerce',
         children: [
-            { path: '', pathMatch: 'full', redirectTo: 'livrosCard' },
+            { path: '', pathMatch: 'full', redirectTo: 'home' },
 
             { path: 'home', component: HomeComponent, title: 'Home' },
             
@@ -53,6 +54,8 @@ export const routes: Routes = [
             { path: 'titulo/:titulo', component: LivroViewComponent, resolve: { livro: livroViewResolver } },
 
             { path: 'nome/:nome', component: BoxViewComponent, resolve: { box: BoxViewResolver } },
+
+            { path: 'carrinho', component: CarrinhoComponent, title: 'Carrinho de compra' },
         ]
     },
     {
