@@ -10,4 +10,5 @@ export class Cliente {
   localidade?: string;
   uf?: string;
   listaDesejo?: number[]; // IDs dos livros na lista de desejo
+  tipo?: 'cliente';
 }

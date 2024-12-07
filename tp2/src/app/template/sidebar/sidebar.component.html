@@ -5,19 +5,19 @@
     </mat-toolbar>
     <mat-nav-list>
       <div class="opcao">
-        <mat-list-item class="custom-list-item" routerLink="../home">
+        <mat-list-item class="custom-list-item" [routerLink]="'../home'">
           <mat-icon matListItemIcon>home</mat-icon>
           <span matListItemTitle>Home</span>
         </mat-list-item>
       </div>
       <div class="opcao">
-        <mat-list-item class="custom-list-item" routerLink="../admin/clientes">
+        <mat-list-item class="custom-list-item" [routerLink]="'../admin/viewUsers'">
           <mat-icon matListItemIcon>people</mat-icon>
           <span matListItemTitle>Usuários</span>
         </mat-list-item>
       </div>
       <div class="opcao">
-        <mat-list-item class="custom-list-item" routerLink="../admin/controle">
+        <mat-list-item class="custom-list-item" [routerLink]="'../admin/controle'">
           <mat-icon matListItemIcon>sports_esports</mat-icon>
           <span matListItemTitle>Controle</span>
         </mat-list-item>

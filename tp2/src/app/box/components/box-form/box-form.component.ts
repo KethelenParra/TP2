@@ -32,7 +32,7 @@ import { forkJoin } from 'rxjs';
 @Component({
   selector: 'app-box-form',
   standalone: true,
-  imports: [NgIf, NgFor, MatSnackBarModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, MatMenuModule, MatIconModule, MatSelectModule, RouterModule, FooterComponent],
+  imports: [NgIf, NgFor, MatSnackBarModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, MatMenuModule, MatIconModule, MatSelectModule, RouterModule],
   templateUrl: './box-form.component.html',
   styleUrls: ['./box-form.component.css']
 })

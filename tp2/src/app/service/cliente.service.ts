@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class ClienteService {
   private apiUrl = 'http://localhost:8080/clientes';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private router: Router, private httpClient: HttpClient) {}
 
   adicionarLivroDesejo(idLivro: number): Observable<void> {
     const token = localStorage.getItem('token');
@@ -21,7 +21,7 @@ export class ClienteService {
     }
   
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.patch<void>(`${this.apiUrl}/search/incluir-livro-desejo/${idLivro}`, {}, { headers });
+    return this.httpClient.patch<void>(`${this.apiUrl}/search/incluir-livro-desejo/${idLivro}`, {}, { headers });
   }
 
   removerLivroDesejo(idLivro: number): Observable<void> {
@@ -32,7 +32,7 @@ export class ClienteService {
     }
   
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.patch<void>(`${this.apiUrl}/search/remover-livro-desejo/${idLivro}`, {}, { headers });
+    return this.httpClient.patch<void>(`${this.apiUrl}/search/remover-livro-desejo/${idLivro}`, {}, { headers });
   }
   
   getLivrosListaDesejos(): Observable<Livro[]> {
@@ -41,36 +41,40 @@ export class ClienteService {
       `Bearer ${localStorage.getItem('token')}` // Token deve estar armazenado no localStorage
     );
   
-    return this.http.get<Livro[]>(`${this.apiUrl}/search/lista-desejos`, { headers });
-  }
-  
-  // Criar um cliente
-  create(cliente: Cliente): Observable<Cliente> {
-    return this.http.post<Cliente>(this.apiUrl, cliente);
+    return this.httpClient.get<Livro[]>(`${this.apiUrl}/search/lista-desejos`, { headers });
   }
 
-  // Atualizar um cliente
-  update(id: number, cliente: Cliente): Observable<void> {
-    return this.http.put<void>(`${this.apiUrl}/${id}`, cliente);
+  insertUsuario(cliente: Cliente): Observable<Cliente> {
+    console.log(JSON.stringify(cliente));
+    return this.httpClient.post<Cliente>(this.apiUrl, cliente);
+  }
+
+  updateUsuario(cliente: Cliente): Observable<Cliente>{
+    console.log(JSON.stringify(cliente));
+    return this.httpClient.put<Cliente>(`${this.apiUrl}/${cliente.id}`, cliente);
+  }
+
+  deleteUsuario(cliente: Cliente): Observable<any>{//void, sem retorno
+    return this.httpClient.delete<any>(`${this.apiUrl}/${cliente.id}`);
   }
 
   // Buscar cliente por ID
   findById(id: number): Observable<Cliente> {
-    return this.http.get<Cliente>(`${this.apiUrl}/${id}`);
+    return this.httpClient.get<Cliente>(`${this.apiUrl}/${id}`);
   }
 
   // Buscar cliente por CPF
   findByCpf(cpf: string): Observable<Cliente[]> {
-    return this.http.get<Cliente[]>(`${this.apiUrl}/search/cpf/${cpf}`);
+    return this.httpClient.get<Cliente[]>(`${this.apiUrl}/search/cpf/${cpf}`);
   }
 
   // Listar todos os clientes
-  findAll(): Observable<Cliente[]> {
-    return this.http.get<Cliente[]>(this.apiUrl);
+  findAll(page: number, pageSize: number): Observable<Cliente[]> {
+    return this.httpClient.get<Cliente[]>(`${this.apiUrl}?page=${page}&pageSize=${pageSize}`);
   }
 
-  // Excluir um cliente
-  delete(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  count(): Observable<number>{
+    return this.httpClient.get<number>(`${this.apiUrl}/count`)
   }
+
 }

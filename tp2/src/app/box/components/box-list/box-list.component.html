@@ -1,24 +1,18 @@
-<div class="container-subheader">
-  <div class="container-pesquisa"> 
-      <mat-form-field appearance="outline" class="input-field">
-          <input [(ngModel)]="filtro" 
-          matInput type="search" 
-          placeholder="Ex. Coleção Harry Potter" 
-          #input (keyup.enter)="aplicarFiltro()"
-          style="appearance: none;"
-          class="search">
-          <button mat-icon-button matSuffix color="primary" (click)="aplicarFiltro()">
-              <mat-icon>search</mat-icon>
-          </button>
-      </mat-form-field>
-  </div>
-  <span class="material-symbols-outlined">
-  <a href="admin/boxes/new"><mat-icon class="add-circle" style="color: black;"> add_circle </mat-icon></a>
-  </span>
-</div>
 <div class="container">
   <div class="container-content">
-    <table mat-table [dataSource]="boxes" class="mat-elevation-z8">
+
+    <div class="container-subheader">
+      <mat-form-field appearance="outline" class="caixa_pesquisa">
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Coleção Harry Potter" #input>
+        <mat-icon matIconSuffix>search</mat-icon>
+      </mat-form-field>
+
+      <span class="material-symbols-outlined">
+        <a href="admin/boxes/new"><mat-icon class="add-circle" style="color: black;"> add_circle </mat-icon></a>
+      </span>
+    </div>
+    <table mat-table [dataSource]="box" class="mat-elevation-z8">
 
       <!-- Id Column -->
       <ng-container matColumnDef="id">

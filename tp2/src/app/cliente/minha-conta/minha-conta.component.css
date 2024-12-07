@@ -56,7 +56,6 @@
     & .container_dados_pessoais{
         display: flex;
         flex-direction: column;
-        margin-top: 7%;
         margin-left: 5%;
     }
 
@@ -64,7 +63,7 @@
         display: flex;
         justify-content: center;
         border: 1px solid var(--opacidade-borda);
-        border-radius: 5%;
+        border-radius: 50px;
         width: 140vh;
         height: 75vh;
     }

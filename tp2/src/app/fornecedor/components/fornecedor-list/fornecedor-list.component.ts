@@ -6,7 +6,7 @@ import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { MatTableModule } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { NavigationComponent } from '../../../components/navigation/navigation.component';
@@ -26,7 +26,7 @@ import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog
   styleUrl: './fornecedor-list.component.css'
 })
 export class FornecedorListComponent implements OnInit {
-  fornecedores: Fornecedor[] = [];
+  fornecedor = new MatTableDataSource<Fornecedor>();
   displayedColumns: string[] = ['id', 'nome', 'cnpj', 'inscricaoestadual', 'email', 'quantlivrosfornecido', 'telefone', 'estado', 'cidade', 'acao'];
   //Variaveis de controle para a paginação
   totalRecords = 0;
@@ -39,22 +39,32 @@ export class FornecedorListComponent implements OnInit {
 
   ngOnInit(): void {
     this.fornecedorService.findAll(this.page, this.pageSize).subscribe(
-      data => { this.fornecedores = data }
+      data => { this.fornecedor.data = data }
     );
+
     this.fornecedorService.count().subscribe(
       data => { this.totalRecords = data }
     );
+
+    this.fornecedor.filterPredicate = (data: Fornecedor, filter: string) => {
+      return data.nome?.toLowerCase().includes(filter) ?? null;
+    };
+  }
+
+  applyFilter(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.fornecedor.filter = filterValue.trim().toLowerCase();
   }
 
   carregarfornecedores() {
     if (this.filtro) {
       this.fornecedorService.findByNome(this.filtro, this.page, this.pageSize).subscribe(data => {
-        this.fornecedores = data;
+        this.fornecedor.data = data;
         console.log(JSON.stringify(data));
       })
     } else {
       this.fornecedorService.findAll(this.page, this.pageSize).subscribe(data => {
-        this.fornecedores = data;
+        this.fornecedor.data = data;
         console.log(JSON.stringify(data));
       })
     };
@@ -96,7 +106,7 @@ export class FornecedorListComponent implements OnInit {
       if (result === true) {
         this.fornecedorService.delete(fornecedor).subscribe({
           next: () => {
-            this.fornecedores = this.fornecedores.filter(e => e.id !== fornecedor.id);
+            this.fornecedor.data = this.fornecedor.data.filter(e => e.id !== fornecedor.id);
             this.snackBar.open('Fornecedor excluído com sucesso!', 'Fechar', { duration: 3000 });
           },
           error: (err) => {

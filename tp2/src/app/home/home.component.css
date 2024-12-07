@@ -1,92 +1,276 @@
-:host .titulo-pag {
-    font-size: 24px;
-    letter-spacing: 2px;
+:host {
+  display: block;
+  width: 100%;
 }
 
-.toolbar{
-    background-color: var(--color-toolbar);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px;
+.home-container {
+  padding: 20px;
 }
 
-.pesquisa-container{
-    display: flex;
-    align-items: center;
+.search-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin-top: -50px; /* Ajuste para mover mais para cima */
 }
 
-.content-container{
-    width: 100%;
-    padding: 60px;
+.divider {
+  width: 100%;
+  height: 5px;
+  background-color: #3aafa9; /* Mesma cor do header */
+  margin-top: 10px;
+  margin-bottom: 20px; /* Espaço entre a linha e os próximos elementos */
 }
 
-mat-card{
-    width: 15%;
-    height: 20%;
+.search-container mat-form-field {
+  margin: 10px;
+  flex: 1;
+  min-width: 200px;
+  max-width: 400px;
 }
 
-mat-card-title{
-    display: flex;
-    justify-content: center;
+.search-container .logo {
+  width: 150px; /* Largura da logo */
+  height: auto;
+  margin-right: 15px; /* Espaçamento entre a logo e o campo de pesquisa */
+  object-fit: contain; /* Ajusta a proporção da imagem */
 }
 
-.icons-toolbar{
-    display: flex;
-    justify-content: space-between;
+.carousel-section {
+  margin: 20px 0;
 }
 
-#icones{
-    font-size: 35px;
-    padding: 10px 12px;  
-    margin-bottom: 0.5%;
+.carousel-item img {
+  width: 18vh; /* Defina a largura padrão */
+  height: 180vh; /* Defina a altura padrão */
+  object-fit: cover; /* Ajusta a imagem para caber no tamanho definido */
+  border-radius: 8px; /* Opcional: para bordas arredondadas */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Opcional: sombra para destaque */
 }
 
-.input{
-  width: 50em;
-  height: 40px;
-  padding: 10px 15px;
+.carousel-item img.editora-image {
+  width: auto !important;
+  height: 18vh !important; /* Ajuste conforme necessário */
+  object-fit: contain !important;
+  border-radius: 100%;
+
+}
+
+.carousel-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centraliza os cards no espaço disponível */
+  width: 100%;
+}
+
+.carousel-wrapper {
+  display: flex;
+  gap: 16px;
+  overflow: hidden;
+  justify-content: center; /* Garante a centralização dos cards */
+  align-items: center;
+  flex: 1; /* Permite que o wrapper ocupe o máximo de espaço possível */
+  height: 45vh;
+}
+
+.carousel-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-item {
+  min-width: 200px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  width: 150px; /* Largura fixa */
+  height: 350px; /* Altura fixa */
+  padding: 10px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.mat-card-title {
+  font-size: 10px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 1.0; /* Espaçamento entre linhas */
+  white-space: normal; /* Permite quebras de linha */
+  overflow: hidden; /* Evita overflow */
+  text-overflow: ellipsis; /* Adiciona "..." se necessário */
+}
+
+.carousel-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-button {
+  background: transparent;
   border: none;
-  border-radius: 5px;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  padding: 0 10px;
+  z-index: 10;
 }
 
-.button {
-    padding: 10px 25px;
-    border: 2px solid #2c2c2c;
-    background-color: #1a1a1a;
-    color: #ffffff;
-    font-size: 1.2rem;
-    cursor: pointer;
-    border-radius: 30px;
-    position: relative;
-    overflow: hidden;
-    font-weight: bold;
-    margin-left: 10px;
-}
-  
-.button:hover {
-    border-color: #666666;
-    background: #292929;
+.carousel-button.left {
+  left: 0;
 }
 
-table {
-    width: 100%;
+.carousel-button.right {
+  right: 0;
 }
 
-.account-circle{
-    color: white;
+.carousel-item:hover {
+  transform: scale(1.05); /* Adiciona um efeito de zoom ao passar o mouse */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-.container{
-    display: flex;
+.livro-image,
+.autor-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
 }
 
-mat-icon{
-    cursor: pointer;
+.centralizado {
+  text-align: left; /* Alinha o texto à esquerda */
+  margin-left: 120px; /* Adiciona margem para movê-lo mais à esquerda */
+  font-size: 25px; /* Opcional: ajuste o tamanho da fonte */
+  font-weight: bold; /* Opcional: deixa o título em negrito */
+  color: #3c3c3c; /* Opcional: ajuste a cor do texto */
+  letter-spacing: 3px;
 }
 
-.menu-button{
-    background: none;
-    box-shadow: none;
-    outline: none;
+.buttons-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* Espaço entre os botões */
+  margin-top: 20px; /* Espaço acima dos botões */
+}
+
+.styled-button {
+  background-color: #000; /* Fundo preto */
+  color: #00c8c8; /* Texto em verde água */
+  border: none;
+  padding: 10px 20px; /* Espaçamento interno */
+  border-radius: 25px; /* Bordas arredondadas */
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: capitalize;
+  letter-spacing: 1px; /* Espaçamento entre letras */
+  cursor: pointer;
+  transition: all 0.3s ease; /* Transição suave */
+  position: relative;
+}
+
+.styled-button:hover {
+  background-color: #222; /* Fundo mais claro ao passar o mouse */
+  transform: scale(1.05); /* Efeito de zoom */
+  box-shadow: 0 0 10px 2px #00c8c8; /* Efeito de brilho */
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .search-container {
+    flex-direction: column;
+  }
+
+  .carousel-item {
+    min-width: 150px;
+  }
+
+  .livro-image,
+  .autor-image {
+    height: 150px;
+  }
+}
+
+.info-section {
+  text-align: center;
+  margin: 40px 0;
+}
+
+.info-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: #3a3a3a;
+  letter-spacing: 1px; /* Espaçamento entre letras */
+}
+
+.info-cards {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.info-card {
+  padding: 40px;
+  width: 350px;
+  text-align: center;
+}
+
+.info-icon {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 15px;
+}
+
+.info-card h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #2a2a2a;
+}
+
+.info-card p {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.6;
+}
+
+.card-header {
+  position: relative;
+}
+
+.favorite-icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
+}
+
+.favorite-icon:hover {
+  transform: scale(1.2);
+  background: rgba(255, 0, 0, 0.8);
+}
+
+.favorite-icon mat-icon {
+  color: #ff4081; /* Cor do coração */
+}
+
+@media (max-width: 480px) {
+  .carousel-item {
+    min-width: 100px;
+  }
+
+  .livro-image,
+  .autor-image {
+    height: 100px;
+  }
 }

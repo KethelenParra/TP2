@@ -90,22 +90,11 @@
           <p>Nenhum livro encontrado para os filtros aplicados.</p>
         </div>
       </div>
-<<<<<<< HEAD
-  </div>
-    <mat-paginator 
-        [pageSizeOptions]="[25, 30, 50, 100]"
-        [pageSize]="pageSize"
-        [length]="totalRecords"
-        (page)="paginar($event)">
-    </mat-paginator>
 </div>
-=======
-      
-    </div>
-    <mat-paginator 
-    [pageSizeOptions]="[25, 30, 50, 100]"
-    [pageSize]="pageSize"
-    [length]="totalRecords"
-    (page)="paginar($event)">
+  <mat-paginator 
+      [pageSizeOptions]="[25, 30, 50, 100]"
+      [pageSize]="pageSize"
+      [length]="totalRecords"
+      (page)="paginar($event)">
   </mat-paginator>
->>>>>>> fdbe6c08154e8f9f601a67987c0c69804560d034
+</div>

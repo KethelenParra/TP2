@@ -5,7 +5,7 @@ import { GeneroService } from '../../../service/genero.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
-import { MatTableModule } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog/confirmation-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -21,7 +21,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class GeneroListComponent {
   displayedColumns: string[] = ['id', 'nome', 'descricao', 'acao'];
-  generos: Genero[] = [];
+  genero = new MatTableDataSource<Genero>();
    //Variaveis de controle para a paginação
    totalRecords = 0;
    pageSize = 10;
@@ -33,51 +33,25 @@ export class GeneroListComponent {
 
   ngOnInit(): void {
     this.generoService.findAll(this.page, this.pageSize).subscribe(
-      data => { this.generos = data }
+      data => { this.genero.data = data }
     );
     this.generoService.count().subscribe(
       data => { this.totalRecords = data }
     );
-  }
-
-  carregarGeneros(){
-    if(this.filtro){
-      this.generoService.findByNome(this.filtro, this.page, this.pageSize).subscribe(data => {
-        this.generos = data;
-        console.log(JSON.stringify(data));
-      })
-    } else {
-      this.generoService.findAll(this.page, this.pageSize).subscribe(data => {
-        this.generos = data;
-        console.log(JSON.stringify(data));
-      })
+    this.genero.filterPredicate = (data: Genero, filter: string) => {
+      return data.nome?.toLowerCase().includes(filter) ?? null;
     };
   }
 
-  carregarTodosRegistros() {
-    if(this.filtro){
-      this.generoService.countByNome(this.filtro).subscribe(data => {
-        this.totalRecords = data;
-        console.log(JSON.stringify(data));
-      })
-    } else {
-      this.generoService.count().subscribe(data => {
-        this.totalRecords = data;
-        console.log(JSON.stringify(data));
-      });
-    }
-  }
-
-  aplicarFiltro(){
-    this.carregarGeneros();
-    this.carregarTodosRegistros();
-    this.snackBar.open('Filtro aplicado com sucesso!', 'Fechar', { duration: 3000 });
-  }
-  
   paginar(event: PageEvent): void{
     this.page = event.pageIndex;  
     this.pageSize = event.pageSize;
     this.ngOnInit();
+  }
+
+  applyFilter(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.genero.filter = filterValue.trim().toLowerCase();
   }
 
   excluir(genero: Genero): void {
@@ -90,7 +64,7 @@ export class GeneroListComponent {
       if (result === true) {
         this.generoService.delete(genero).subscribe({
           next: () => {
-            this.generos = this.generos.filter(e => e.id !== genero.id);
+            this.genero.data = this.genero.data.filter(e => e.id !== genero.id);
             this.snackBar.open('Genero excluído com sucesso!', 'Fechar', { duration: 3000 });
           },
           error: (err) => {

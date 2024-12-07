@@ -34,6 +34,7 @@ import { FavoritosComponent } from './favoritos/favoritos.component';
 import { MinhaContaComponent } from './cliente/minha-conta/minha-conta.component';
 import { EnderecoComponent } from './usuario/endereco/endereco.component';
 import { CadastroClienteComponent } from './cliente/cadastro-cliente/cadastro-cliente.component';
+import { ViewUsersAdminComponent } from './usuario/view-users-admin/view-users-admin.component';
 
 export const routes: Routes = [
     {
@@ -68,7 +69,9 @@ export const routes: Routes = [
         title: 'administração',
         // canActivate: [AuthGuard],
         children: [
-            { path: '', pathMatch: 'full', redirectTo: 'controle' },
+            { path: '', pathMatch: 'full', redirectTo: 'loginAdm' },
+
+            { path: 'viewUsers', component: ViewUsersAdminComponent, title: ' Visualização de usuários' },
 
             { path: 'loginAdm', component: AdmLoginComponent, title: 'Login Adm' },
 

@@ -28,24 +28,9 @@
         </mat-nav-list>
     </div>
     <div class="perfil">
-        <!-- <input type="file" (change)="carregarImagemSelecionada($event)" hidden #fileInput>
-        <input matInput [value]="fileName" readonly>
-
-        <button mat-icon-button matSuffix (click)="fileInput.click()">
-            <mat-icon>folder_open</mat-icon>
-        </button>   
-
-        <img mat-card-image [src]="imagePreview"> -->
-        <!-- <label class="picture" for="picture__input">
-            <span class="picture__image" *ngIf="!imagemPreview">Selecione uma imagem</span>
-            <img *ngIf="imagemPreview" [src]="imagemPreview" alt="Imagem de perfil" class="image">
-        </label>
-        <input type="file" accept="image/*" id="picture__input" (change)="onImageSelected($event)">
-        <h1 class="nome__perfil">{{usuarioLogado?.nome}}</h1> -->
     </div>
 
     <div class="container_dados">
-        
         <div class="container_dados_pessoais">
             <h1>Seus Dados</h1>
             <div class="container_dados_d">
@@ -59,36 +44,36 @@
                         </mat-form-field>
                         <mat-form-field appearance="outline" style="width: 100%" class="campos">
                             <mat-label>Email: </mat-label>
-                            <input matInput placeholder="Digite seu nome" [disabled]="true">
+                            <input matInput [disabled]="true">
                             {{ usuarioLogado?.email }}
                             <mat-icon matSuffix>edit</mat-icon>
                         </mat-form-field>
                         <mat-form-field appearance="outline" style="width: 100%" class="campos">
                             <mat-label>Telefone: </mat-label>
-                            <input matInput placeholder="Digite seu nome" [disabled]="true">
+                            <input matInput placeholder="Digite seu telefone" [disabled]="true">
                             {{"(" + usuarioLogado?.telefone.codigoArea + ")" + " " + usuarioLogado?.telefone.numero}}
                             <mat-icon matSuffix>edit</mat-icon>
                         </mat-form-field>
                         <mat-form-field appearance="outline" style="width: 100%" class="campos">
                             <mat-label>Data: </mat-label>
-                            <input matInput placeholder="Digite seu nome" [disabled]="true">
+                            <input matInput [disabled]="true">
                             {{usuarioLogado?.dataNascimento | date: 'dd/MM/yyyy'}}
                         </mat-form-field>
                         <mat-form-field appearance="outline" style="width: 100%" class="campos">
                             <mat-label>CPF: </mat-label>
-                            <input matInput placeholder="Digite seu nome" [disabled]="true">
+                            <input matInput placeholder="Digite seu CPF" [disabled]="true">
                             {{usuarioLogado?.cpf | formatarCpf}}
                         </mat-form-field>
                         <mat-form-field appearance="outline" style="width: 100%" class="campos">
                             <mat-label>Sexo: </mat-label>
-                            <input matInput placeholder="Digite seu nome" [disabled]="true">
+                            <input matInput placeholder="Digite seu sexo" [disabled]="true">
                             {{usuarioLogado?.sexo?.nome}}
                         </mat-form-field>
                     </div>
                     <div class="dados_pessoais">
                         <mat-form-field appearance="outline" style="width: 100%" class="campos">
                             <mat-label>Endereço: </mat-label>
-                            <input matInput placeholder="Digite seu nome" [disabled]="true">
+                            <input matInput [disabled]="true">
                         </mat-form-field>
                     </div>
                 </div>
@@ -98,7 +83,7 @@
                     <div class="campo_dados_acesso">
                         <mat-form-field appearance="outline" style="width: 100%" class="campos">
                             <mat-label>Username: </mat-label>
-                            <input matInput placeholder="Digite seu nome" [disabled]="true">
+                            <input matInput placeholder="Digite seu username" [disabled]="true">
                             {{usuarioLogado?.username}}
                         </mat-form-field>
                     </div>
