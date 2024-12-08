@@ -43,6 +43,7 @@ export class FornecedorListComponent implements OnInit {
     this.fornecedorService.findAll(this.page, this.pageSize).subscribe(
       data => { this.fornecedores.data = data }
     );
+
     this.fornecedorService.count().subscribe(
       data => { this.totalRecords = data }
     );

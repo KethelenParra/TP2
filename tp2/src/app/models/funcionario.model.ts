@@ -5,4 +5,5 @@ export class Funcionario {
   usuario!: Usuario;
   salario?: number;
   cargo?: string;
+  tipo?: 'funcionario';
 }

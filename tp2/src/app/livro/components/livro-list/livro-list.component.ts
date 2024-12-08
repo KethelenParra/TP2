@@ -40,6 +40,7 @@ export class LivroListComponent implements OnInit {
     'autor',
     'acao'
   ];
+  livro = new MatTableDataSource<Livro>();
   //Variaveis de controle para a paginação
   totalRecords = 0;
   pageSize = 12;
@@ -60,6 +61,9 @@ export class LivroListComponent implements OnInit {
     this.livros.filterPredicate = (data: Livro, filter: string) => {
       return data.titulo.toLowerCase().includes(filter.toLowerCase());
     };
+    this.livro.filterPredicate = (data: Livro, filter: string) => {
+      return data.titulo?.toLowerCase().includes(filter) ?? null;
+    };
   }
 
   paginar(event: PageEvent): void {
@@ -68,9 +72,9 @@ export class LivroListComponent implements OnInit {
     this.ngOnInit();
   }
 
-  applyFilter(event: Event) {
+  applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.livros.filter = filterValue.trim().toLowerCase();
+    this.livro.filter = filterValue.trim().toLowerCase();
   }
 
   excluir(livro: Livro): void {
@@ -84,6 +88,7 @@ export class LivroListComponent implements OnInit {
         this.livroService.delete(livro).subscribe({
           next: () => {
             this.livros.data = this.livros.data.filter(e => e.id !== livro.id);
+            this.livro.data = this.livro.data.filter(e => e.id !== livro.id);
             this.snackBar.open('Livro excluído com sucesso!', 'Fechar', { duration: 3000 });
           },
           error: (err) => {
@@ -102,6 +107,4 @@ export class LivroListComponent implements OnInit {
   getTruncatedText(text: string, length: number): string {
     return text.length > length ? text.substring(0, length) + '...' : text;
   }
-
-
 }

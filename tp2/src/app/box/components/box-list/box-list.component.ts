@@ -14,9 +14,6 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { NavigationComponent } from '../../../components/navigation/navigation.component';
-import { SidebarComponent } from '../../../template/sidebar/sidebar.component';
-import { FooterComponent } from '../../../template/footer/footer.component';
 import { HttpClient } from '@angular/common/http';
 
 const ELEMENT_DATA: Box[] = [];
@@ -47,9 +44,9 @@ export class BoxListComponent implements OnInit{
   ){}
 
   ngOnInit(): void {
-    this.boxService.findAll(this.page, this.pageSize).subscribe( data => { 
-      this.boxes.data = data.map(box => ({ ...box, isExpanded: false })); }
-    );
+    this.boxService.findAll(this.page, this.pageSize).subscribe( data => {
+      this.boxes.data = data.map(box => ({ ...box, isExpanded: false }));
+    });
 
     this.boxService.count().subscribe(
       data => { this.totalRecords = data }
@@ -59,6 +56,10 @@ export class BoxListComponent implements OnInit{
       this.textoTotal = data;
       this.textoReduzido = data.length > 100 ? data.substring(0, 100) + '...' : data;
     });
+
+    this.boxes.filterPredicate = (data: Box, filter: string) => {
+      return data.nome?.toLowerCase().includes(filter) ?? null;
+    };
   }
 
   applyFilter(event: Event) {
@@ -74,44 +75,10 @@ export class BoxListComponent implements OnInit{
     return text.length > length ? text.substring(0, length) + '...' : text;
   }
 
-  carregarBoxes(){
-    if(this.filtro){
-      this.boxService.findByNome(this.filtro, this.page, this.pageSize).subscribe(data => {
-        this.boxes.data = data;
-        console.log(JSON.stringify(data));
-      })
-    } else {
-      this.boxService.findAll(this.page, this.pageSize).subscribe(data => {
-        this.boxes.data = data;
-        console.log(JSON.stringify(data));
-      })
-    };
-  }
-
-  carregarTodosRegistros() {
-    if(this.filtro){
-      this.boxService.countByNome(this.filtro).subscribe(data => {
-        this.totalRecords = data;
-        console.log(JSON.stringify(data));
-      })
-    } else {
-      this.boxService.count().subscribe(data => {
-        this.totalRecords = data;
-        console.log(JSON.stringify(data));
-      });
-    }
-  }
-
   paginar(event: PageEvent): void{
     this.page = event.pageIndex;  
     this.pageSize = event.pageSize;
     this.ngOnInit();
-  }
-
-  aplicarFiltro(){
-    this.carregarBoxes();
-    this.carregarTodosRegistros();
-    this.snackBar.open('Filtro aplicado com sucesso!', 'Fechar', { duration: 3000 });
   }
 
   excluir(box: Box): void {

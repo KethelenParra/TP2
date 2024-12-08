@@ -45,18 +45,16 @@ export class GeneroListComponent {
       return data.nome.toLowerCase().includes(filter.toLowerCase());
     };
   }
-  
+
   paginar(event: PageEvent): void{
     this.page = event.pageIndex;  
     this.pageSize = event.pageSize;
     this.ngOnInit();
   }
-
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.generos.filter = filterValue.trim().toLowerCase();
   }
-
   excluir(genero: Genero): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '300px',
@@ -78,5 +76,4 @@ export class GeneroListComponent {
       }
     });
   }
-   
 }

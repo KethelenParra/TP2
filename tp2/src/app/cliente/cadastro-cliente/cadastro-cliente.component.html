@@ -1,58 +1,102 @@
 <div class="container">
-  <h1>Cadastro de cliente</h1>
-  <div class="campos-cadastro">
-    <form [formGroup]="cadastroForm" (ngSubmit)="cadastrar()" class="grid-form">
-      <mat-form-field appearance="outline" style="width: 100%" class="campos">
-        <mat-label>Nome</mat-label>
-        <input matInput formControlName="nome" required>
-      </mat-form-field>
-      <mat-form-field appearance="outline" style="width: 100%" class="campos">
-        <mat-label>Usuário</mat-label>
-        <input matInput formControlName="username" required>
-      </mat-form-field>
-      <mat-form-field appearance="outline" style="width: 100%" class="campos">
-        <mat-label>Email</mat-label>
-        <input matInput formControlName="email" type="email" required [disabled]="true">
-      </mat-form-field>
-      <mat-form-field appearance="outline" style="width: 100%" class="campos">
-        <mat-label>Senha</mat-label>
-        <input matInput formControlName="senha" type="password" required>
-      </mat-form-field>
-      <mat-form-field appearance="outline" style="width: 100%" class="campos">
-        <mat-label>CPformatarCpfF</mat-label>
-        <input 
-          matInput 
-          formControlName="cpf" 
-          required 
-          [value]="cadastroForm.get('cpf')?.value | formatarCpf"
-        >
-      </mat-form-field>
-      <mat-form-field appearance="outline" style="width: 100%" class="campos">
-        <mat-label>CEP</mat-label>
-        <input matInput formControlName="cep" required (blur)="onCepBlur()">
-      </mat-form-field>
-      <mat-form-field appearance="outline" style="width: 100%" class="campos">
-        <mat-label>Logradouro</mat-label>
-        <input matInput formControlName="logradouro" [disabled]="true">
-      </mat-form-field>
-      <mat-form-field appearance="outline" style="width: 100%" class="campos">
-        <mat-label>Complemento</mat-label>
-        <input matInput formControlName="complemento">
-      </mat-form-field>
-      <mat-form-field appearance="outline" style="width: 100%" class="campos">
-        <mat-label>Bairro</mat-label>
-        <input matInput formControlName="bairro" [disabled]="true">
-      </mat-form-field>
-      <mat-form-field appearance="outline" style="width: 100%" class="campos">
-        <mat-label>Localidade</mat-label>
-        <input matInput formControlName="localidade" [disabled]="true">
-      </mat-form-field>
-      <mat-form-field appearance="outline" style="width: 100%" class="campos">
-        <mat-label>UF</mat-label>
-        <input matInput formControlName="uf" [disabled]="true">
-      </mat-form-field>
-      <button type="submit" class="botao-cadastrar">Cadastrar</button>
-    </form>
-    <div *ngIf="error" class="error-message">{{ error }}</div>
-  </div>
+  <h1 class="titulo_pagina">Cadastro de cliente</h1>
+  <div class="formulario-cadastro">
+    <div class="campo-dados-usuario-titulo">
+      <h3 class="titulo">Dados do usuário</h3>
+        <div class="campo-dados-usuario">
+          <form [formGroup]="cadastroForm" (ngSubmit)="cadastrarUsuario()" class="grid-form">
+            <mat-form-field appearance="outline" style="width: 100%" class="campos">
+              <mat-label>Nome</mat-label>
+              <input matInput formControlName="nome" required>
+              <mat-error *ngIf="cadastroForm.get('nome')?.invalid && cadastroForm.get('nome')?.touched">
+                {{ getErrorMessage('nome', cadastroForm.get('nome')?.errors) }}
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" style="width: 100%" class="campos">
+              <mat-label>Usuário</mat-label>
+              <input matInput formControlName="username" required>
+              <mat-error *ngIf="cadastroForm.get('username')?.invalid && cadastroForm.get('username')?.touched">
+                {{ getErrorMessage('username', cadastroForm.get('username')?.errors) }}
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" style="width: 100%" class="campos">
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="email" type="email" required [disabled]="true">
+              <mat-error *ngIf="cadastroForm.get('email')?.invalid && cadastroForm.get('email')?.touched">
+                {{ getErrorMessage('email', cadastroForm.get('email')?.errors) }}
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" style="width: 100%" class="campos">
+              <mat-label>Senha</mat-label>
+              <input matInput formControlName="senha" type="password" required>
+              <mat-error *ngIf="cadastroForm.get('senha')?.invalid && cadastroForm.get('senha')?.touched">
+                {{ getErrorMessage('senha', cadastroForm.get('senha')?.errors) }}
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" style="width: 100%" class="campos">
+              <mat-label>Telefone</mat-label>
+              <input matInput formControlName="telefone" placeholder="Digite seu Telefone" (input)="formatarTelefone()" maxlength="15">
+              <mat-error *ngIf="cadastroForm.get('telefone')?.invalid && cadastroForm.get('telefone')?.touched">
+                {{ getErrorMessage('telefone', cadastroForm.get('telefone')?.errors) }}
+              </mat-error>
+            </mat-form-field>      
+            <mat-form-field appearance="outline" style="width: 100%" class="campos">
+              <mat-label>CPF</mat-label>
+              <input matInput formControlName="cpf" placeholder="Digite seu CPF" (input)="formatarCpf()" maxlength="14">
+              <mat-error *ngIf="cadastroForm.get('cpf')?.invalid && cadastroForm.get('cpf')?.touched">
+                {{ getErrorMessage('cpf', cadastroForm.get('cpf')?.errors) }}
+              </mat-error>
+            </mat-form-field>      
+          </form>
+        </div>
+      </div>
+    <div class="campo-endereco-titulo">
+      <h3 class="titulo">Dados de endereço</h3>
+        <div class="campo-endereco">
+          <form [formGroup]="cadastroForm" (ngSubmit)="cadastrarUsuario()" class="grid-form">
+              <mat-form-field appearance="outline" style="width: 100%" class="campos">
+                <mat-label>CEP</mat-label>
+                <input matInput formControlName="cep" required (blur)="onCepBlur()" (input)="formatarCep()">
+                <mat-error *ngIf="cadastroForm.get('cep')?.invalid && cadastroForm.get('cep')?.touched">
+                  {{ getErrorMessage('cep', cadastroForm.get('cep')?.errors) }}
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline" style="width: 100%" class="campos">
+                <mat-label>Logradouro</mat-label>
+                <input matInput formControlName="logradouro" [disabled]="true">
+                <mat-error *ngIf="cadastroForm.get('logradouro')?.invalid && cadastroForm.get('logradouro')?.touched">
+                  {{ getErrorMessage('logradouro', cadastroForm.get('logradouro')?.errors) }}
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline" style="width: 100%" class="campos">
+                <mat-label>Complemento</mat-label>
+                <input matInput formControlName="complemento">
+              </mat-form-field>
+              <mat-form-field appearance="outline" style="width: 100%" class="campos">
+                <mat-label>Bairro</mat-label>
+                <input matInput formControlName="bairro" [disabled]="true">
+                <mat-error *ngIf="cadastroForm.get('bairro')?.invalid && cadastroForm.get('bairro')?.touched">
+                  {{ getErrorMessage('bairro', cadastroForm.get('bairro')?.errors) }}
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline" style="width: 100%" class="campos">
+                <mat-label>Localidade</mat-label>
+                <input matInput formControlName="localidade" [disabled]="true">
+                <mat-error *ngIf="cadastroForm.get('localidade')?.invalid && cadastroForm.get('localidade')?.touched">
+                  {{ getErrorMessage('localidade', cadastroForm.get('localidade')?.errors) }}
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline" style="width: 100%" class="campos">
+                <mat-label>UF</mat-label>
+                <input matInput formControlName="uf" [disabled]="true">
+                <mat-error *ngIf="cadastroForm.get('uf')?.invalid && cadastroForm.get('uf')?.touched">
+                  {{ getErrorMessage('uf', cadastroForm.get('uf')?.errors) }}
+                </mat-error>
+              </mat-form-field>
+            </form>
+          </div>
+        </div>
+    </div>
+    <button type="submit" class="botao-cadastrar" (click)="cadastrarUsuario()">Cadastrar</button>
+  <div *ngIf="error" class="error-message">{{ error }}</div>
 </div>

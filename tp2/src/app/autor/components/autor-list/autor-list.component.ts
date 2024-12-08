@@ -46,7 +46,6 @@ export class AutorListComponent {
     this.autorService.count().subscribe(
       data => { this.totalRecords = data }
     );
-
     this.autores.filterPredicate = (data: Autor, filter: string) => {
       return data.nome.toLowerCase().includes(filter.toLowerCase());
     }; 
@@ -84,5 +83,4 @@ export class AutorListComponent {
       }
     });
   }
-   
 }

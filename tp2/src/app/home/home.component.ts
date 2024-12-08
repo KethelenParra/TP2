@@ -280,7 +280,7 @@ export class HomeComponent implements OnInit {
   }
 
   verTodosLivros(): void{
-    this.router.navigate(['/livrosCard']);
+    this.router.navigateByUrl('/livrosCard');
   }
 
   verTodosBoxes(): void{
