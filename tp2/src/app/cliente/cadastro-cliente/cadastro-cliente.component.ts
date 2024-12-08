@@ -27,17 +27,16 @@ export class CadastroClienteComponent implements OnInit {
   error: string | null = null;
 
   constructor(
-    private formGroup: FormGroup,
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private clienteService: ClienteService,
+    private activatedRoute: ActivatedRoute,
     private enderecoService: EnderecoService,
     private snackBar: MatSnackBar,
     private router: Router,
     private dialog: MatDialog
-  ) {}
-
-  ngOnInit(): void {
+  ) {
+    
     this.route.queryParams.subscribe(params => {
       const email = params['email'] || '';
       this.cadastroForm = this.fb.group({
@@ -49,6 +48,34 @@ export class CadastroClienteComponent implements OnInit {
         cep: ['', Validators.required],
         logradouro: [{ value: '', disabled: true }, Validators.required],
         complemento: [],
+        bairro: [{ value: '', disabled: true }, Validators.required],
+        localidade: [{ value: '', disabled: true }, Validators.required],
+        uf: [{ value: '', disabled: true }, Validators.required]
+      });
+    });
+  }
+
+  ngOnInit(): void{
+    this.initializeForm();
+  }
+
+  initializeForm(): void{
+    const cliente: Cliente = this.activatedRoute.snapshot.data['cliente'];
+    
+    console.log('Cliente' + JSON.stringify(cliente));
+    this.route.queryParams.subscribe(params => {
+      const email = params['email'] || '';
+      this.cadastroForm = this.fb.group({
+        id: [(cliente && cliente.id) ? cliente.id : null],
+        nome: [(cliente && cliente.usuario.nome) ? cliente.usuario.nome : null, 
+        Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(80)])],
+        username: [(cliente && cliente.usuario.username) ? cliente.usuario.username : null, Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(80)])],
+        email: [{ value: email, disabled: true }, [Validators.required, Validators.email]],
+        senha: [(cliente && cliente.usuario.senha) ? cliente.usuario.senha : null, Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(10)])],
+        cpf: [(cliente && cliente.usuario.cpf) ? cliente.usuario.cpf : null, Validators.compose([Validators.required, Validators.minLength(11), Validators.maxLength(14)])],
+        cep: [(cliente && cliente.cep) ? cliente.cep : null, Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(9)])],
+        logradouro: [{ value: '', disabled: true }, Validators.required],
+        complemento: [(cliente && cliente.complemento) ? cliente.complemento : null],
         bairro: [{ value: '', disabled: true }, Validators.required],
         localidade: [{ value: '', disabled: true }, Validators.required],
         uf: [{ value: '', disabled: true }, Validators.required]
@@ -84,9 +111,9 @@ export class CadastroClienteComponent implements OnInit {
   }
 
   cadastrarUsuario() {
-    this.formGroup.markAllAsTouched();
-    if (this.formGroup.valid) {
-      const cliente = this.formGroup.value;
+    this.cadastroForm.markAllAsTouched();
+    if (this.cadastroForm.valid) {
+      const cliente = this.cadastroForm.value;
 
       // selecionando a operacao (insert ou update)
       const operacao = cliente.id == null
@@ -95,10 +122,16 @@ export class CadastroClienteComponent implements OnInit {
 
       // executando a operacao
       operacao.subscribe({
+        next: () => {
+          this.snackBar.open('Cliente salvo com sucesso!', 'Fechar', {
+            duration: 3000
+          });
+          this.router.navigateByUrl('/home');
+        },
         error: (error) => {
           console.log('Erro ao Salvar' + JSON.stringify(error));
           this.tratarErros(error);
-          this.snackBar.open('Erro ao salvar box.', 'Fechar', {
+          this.snackBar.open('Erro ao salvar cliente.', 'Fechar', {
             duration: 3000
           });
         }
@@ -107,16 +140,14 @@ export class CadastroClienteComponent implements OnInit {
   }
 
   tratarErros(errorResponse: HttpErrorResponse) {
-
     if (errorResponse.status === 400) {
       if (errorResponse.error?.errors) {
         errorResponse.error.errors.forEach((validationError: any) => {
-          const formControl = this.formGroup.get(validationError.fieldName);
+          const formControl = this.cadastroForm.get(validationError.fieldName);
 
           if (formControl) {
             formControl.setErrors({apiError: validationError.message})
           }
-
         });
       }
     } else if (errorResponse.status < 400){
@@ -124,7 +155,6 @@ export class CadastroClienteComponent implements OnInit {
     } else if (errorResponse.status >= 500) {
       alert('Erro interno do servidor.');
     }
-
   }
 
   formatarTelefone(): void {

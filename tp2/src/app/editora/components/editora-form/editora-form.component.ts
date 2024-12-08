@@ -73,7 +73,7 @@ export class EditoraFormComponent implements OnInit {
         this.imagePreview = null; // Defina uma imagem padrão ou deixe vazio
       }
     }
-   console.log('Editora: ' + JSON.stringify(editora));
+    console.log('Editora: ' + JSON.stringify(editora));
     this.formGroup = this.formBuilder.group({
       id: [(editora && editora.id) ? editora.id : null],
       nome: [(editora && editora.nome) ? editora.nome : null,

@@ -11,6 +11,7 @@
   }
 
   & .formulario-cadastro{
+    margin-top: 2%;
     display: flex;
     justify-content: center;
     flex-direction: row;
@@ -18,15 +19,16 @@
     
     & .campo-dados-usuario{
       display: grid;
-      border: 1px solid #353535;
       width: 100%;
       border-radius: 30px;  
       width: 90vh;
     }
+    & .campo-dados-usuario .cpf{
+      grid-column: span 2;
+    }
     
     & .campo-endereco{
       display: grid;
-      border: 1px solid #353535;
       width: 100%;
       border-radius: 30px;  
       width: 90vh;
