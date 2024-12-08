@@ -3,7 +3,7 @@ import { NgFor } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { MatTableModule } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { BoxService } from '../../../service/box.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -19,18 +19,17 @@ import { SidebarComponent } from '../../../template/sidebar/sidebar.component';
 import { FooterComponent } from '../../../template/footer/footer.component';
 import { HttpClient } from '@angular/common/http';
 
+const ELEMENT_DATA: Box[] = [];
 
 @Component({
   selector: 'app-box-list',
   standalone: true,
-  imports: [MatToolbarModule, MatSnackBarModule, FormsModule, MatFormFieldModule, MatInputModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator,
-     NavigationComponent, SidebarComponent, FooterComponent],
+  imports: [MatToolbarModule, MatSnackBarModule, FormsModule, MatFormFieldModule, MatInputModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator],
   templateUrl: './box-list.component.html',
   styleUrl: './box-list.component.css'
 })
 export class BoxListComponent implements OnInit{
   displayedColumns: string[] = ['id', 'nome', 'descricaoBox', 'quantidadeEstoque', 'preco', 'classificacao', 'fornecedor', 'editora', 'genero', 'autor', 'acao'];
-  boxes: Box[] = [];
   totalRecords = 0;
   pageSize = 8;
   page = 0;
@@ -38,6 +37,7 @@ export class BoxListComponent implements OnInit{
   isExpanded = true;
   textoTotal: string = '';
   textoReduzido: string = '';
+  boxes = new MatTableDataSource(ELEMENT_DATA);
   
   constructor(
     private boxService: BoxService, 
@@ -48,7 +48,7 @@ export class BoxListComponent implements OnInit{
 
   ngOnInit(): void {
     this.boxService.findAll(this.page, this.pageSize).subscribe( data => { 
-      this.boxes = data.map(box => ({ ...box, isExpanded: false })); }
+      this.boxes.data = data.map(box => ({ ...box, isExpanded: false })); }
     );
 
     this.boxService.count().subscribe(
@@ -59,6 +59,11 @@ export class BoxListComponent implements OnInit{
       this.textoTotal = data;
       this.textoReduzido = data.length > 100 ? data.substring(0, 100) + '...' : data;
     });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.boxes.filter = filterValue.trim().toLowerCase();
   }
 
   toggleExpand(box: any){
@@ -72,12 +77,12 @@ export class BoxListComponent implements OnInit{
   carregarBoxes(){
     if(this.filtro){
       this.boxService.findByNome(this.filtro, this.page, this.pageSize).subscribe(data => {
-        this.boxes = data;
+        this.boxes.data = data;
         console.log(JSON.stringify(data));
       })
     } else {
       this.boxService.findAll(this.page, this.pageSize).subscribe(data => {
-        this.boxes = data;
+        this.boxes.data = data;
         console.log(JSON.stringify(data));
       })
     };
@@ -119,7 +124,7 @@ export class BoxListComponent implements OnInit{
       if (result === true) {
         this.boxService.delete(box).subscribe({
           next: () => {
-            this.boxes = this.boxes.filter(e => e.id !== box.id);
+            this.boxes.data = this.boxes.data.filter(e => e.id !== box.id);
             this.snackBar.open('Box excluído com sucesso!', 'Fechar', { duration: 3000 });
           },
           error: (err) => {

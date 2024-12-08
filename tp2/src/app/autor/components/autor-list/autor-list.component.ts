@@ -1,4 +1,3 @@
-import { NgFor } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -7,27 +6,26 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatTableModule } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog/confirmation-dialog.component';
 import { Autor } from '../../../models/autor.model';
-import { NavigationComponent } from '../../../components/navigation/navigation.component';
 import { AutorService } from '../../../service/autor.service';
-import { SidebarComponent } from '../../../template/sidebar/sidebar.component';
-import { FooterComponent } from '../../../template/footer/footer.component';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+
+const ELEMENT_DATA: Autor[] = [];
 
 @Component({
   selector: 'app-autor-list',
   standalone: true,
-  imports:[MatToolbarModule, FormsModule, MatSnackBarModule, MatFormFieldModule, MatInputModule ,NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent, SidebarComponent, FooterComponent],
+  imports:[MatToolbarModule, FormsModule, MatSnackBarModule, MatFormFieldModule, MatInputModule , MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator],
   templateUrl: './autor-list.component.html',
   styleUrl: './autor-list.component.css'
 })
 export class AutorListComponent {
   displayedColumns: string[] = ['id', 'nome', 'biografia', 'acao'];
-  autores: Autor[] = [];
+  autores = new MatTableDataSource(ELEMENT_DATA);
    //Variaveis de controle para a paginação
    totalRecords = 0;
    pageSize = 10;
@@ -42,52 +40,27 @@ export class AutorListComponent {
 
   ngOnInit(): void {
     this.autorService.findAll(this.page, this.pageSize).subscribe(
-      data => { this.autores = data}
+      data => { this.autores.data = data}
     );
 
     this.autorService.count().subscribe(
       data => { this.totalRecords = data }
     );
+
+    this.autores.filterPredicate = (data: Autor, filter: string) => {
+      return data.nome.toLowerCase().includes(filter.toLowerCase());
+    }; 
   }
 
-  carregarAutores(){
-    if(this.filtro){
-      this.autorService.findByNome(this.filtro, this.page, this.pageSize).subscribe(data => {
-        this.autores = data;
-        console.log(JSON.stringify(data));
-      })
-    } else {
-      this.autorService.findAll(this.page, this.pageSize).subscribe(data => {
-        this.autores = data;
-        console.log(JSON.stringify(data));
-      })
-    };
-  }
-
-  carregarTodosRegistros() {
-    if(this.filtro){
-      this.autorService.countByNome(this.filtro).subscribe(data => {
-        this.totalRecords = data;
-        console.log(JSON.stringify(data));
-      })
-    } else {
-      this.autorService.count().subscribe(data => {
-        this.totalRecords = data;
-        console.log(JSON.stringify(data));
-      });
-    }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.autores.filter = filterValue.trim().toLowerCase();
   }
 
   paginar(event: PageEvent): void{
     this.page = event.pageIndex;  
     this.pageSize = event.pageSize;
     this.ngOnInit();
-  }
-
-  aplicarFiltro() {
-    this.carregarAutores();
-    this.carregarTodosRegistros();
-    this.snackBar.open('Filtro aplicado com sucesso!', 'Fechar', { duration: 3000 });
   }
 
   excluir(autor: Autor): void {
@@ -100,7 +73,7 @@ export class AutorListComponent {
       if (result === true) {
         this.autorService.delete(autor).subscribe({
           next: () => {
-            this.autores = this.autores.filter(e => e.id !== autor.id);
+            this.autores.data = this.autores.data.filter(e => e.id !== autor.id);
             this.snackBar.open('Autor excluído com sucesso!', 'Fechar', { duration: 3000 });
           },
           error: (err) => {

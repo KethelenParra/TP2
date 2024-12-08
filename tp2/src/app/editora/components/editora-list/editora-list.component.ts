@@ -6,7 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatTableModule } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 import { Editora } from '../../../models/editora.model';
@@ -14,6 +14,7 @@ import { EditoraService } from '../../../service/editora.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog/confirmation-dialog.component';
 
+const ELEMENT_DATA: Editora[] = [];
 
 @Component({
   selector: 'app-editora-list',
@@ -23,64 +24,38 @@ import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog
   styleUrl: './editora-list.component.css'
 })
 export class EditoraListComponent implements OnInit {
-  editoras: Editora[] = [];
   displayedColumns: string[] = ['id', 'nome', 'email', 'telefone', 'cidade', 'estado', 'acao'];
   //Variaveis de controle para a paginação
   totalRecords = 0;
   pageSize = 10;
   page = 0;
   filtro: string = "";
+  editoras = new MatTableDataSource(ELEMENT_DATA);
 
   constructor(private editoraService: EditoraService, private dialog: MatDialog, private snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
     this.editoraService.findAll(this.page, this.pageSize).subscribe(
-      data => { this.editoras = data }
+      data => { this.editoras.data = data }
     );
     this.editoraService.count().subscribe(
       data => { this.totalRecords = data }
     );
-  }
-
-  carregarEditoras() {
-    if (this.filtro) {
-      this.editoraService.findByNome(this.filtro, this.page, this.pageSize).subscribe(data => {
-        this.editoras = data;
-        console.log(JSON.stringify(data));
-      })
-    } else {
-      this.editoraService.findAll(this.page, this.pageSize).subscribe(data => {
-        this.editoras = data;
-        console.log(JSON.stringify(data));
-      })
+    this.editoras.filterPredicate = (data: Editora, filter: string) => {
+      return data.nome.toLowerCase().includes(filter.toLowerCase());
     };
   }
 
-  carregarTodosRegistros() {
-    if (this.filtro) {
-      this.editoraService.countByNome(this.filtro).subscribe(data => {
-        this.totalRecords = data;
-        console.log(JSON.stringify(data));
-      })
-    } else {
-      this.editoraService.count().subscribe(data => {
-        this.totalRecords = data;
-        console.log(JSON.stringify(data));
-      });
-    }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.editoras.filter = filterValue.trim().toLowerCase();
   }
 
   paginar(event: PageEvent): void {
     this.page = event.pageIndex;
     this.pageSize = event.pageSize;
     this.ngOnInit();
-  }
-
-  aplicarFiltro() {
-    this.carregarEditoras();
-    this.carregarTodosRegistros();
-    this.snackBar.open('Filtro aplicado com sucesso!', 'Fechar', { duration: 3000 });
   }
 
   excluir(editora: Editora): void {
@@ -93,7 +68,7 @@ export class EditoraListComponent implements OnInit {
       if (result === true) {
         this.editoraService.delete(editora).subscribe({
           next: () => {
-            this.editoras = this.editoras.filter(e => e.id !== editora.id);
+            this.editoras.data = this.editoras.data.filter(e => e.id !== editora.id);
             this.snackBar.open('Editora excluído com sucesso!', 'Fechar', { duration: 3000 });
           },
           error: (err) => {

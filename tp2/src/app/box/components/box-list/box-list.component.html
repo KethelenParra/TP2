@@ -1,4 +1,4 @@
-<div class="container-subheader">
+<!-- <div class="container-subheader">
   <div class="container-pesquisa"> 
       <mat-form-field appearance="outline" class="input-field">
           <input [(ngModel)]="filtro" 
@@ -15,9 +15,19 @@
   <span class="material-symbols-outlined">
   <a href="admin/boxes/new"><mat-icon class="add-circle" style="color: black;"> add_circle </mat-icon></a>
   </span>
-</div>
+</div> -->
 <div class="container">
   <div class="container-content">
+    <div class="pesquisa">
+      <mat-form-field appearance="outline">
+          <mat-label>Filter</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+      </mat-form-field>
+      <span class="material-symbols-outlined">
+        <a href="admin/boxes/new"><mat-icon class="add-circle" style="color: black;"> add_circle </mat-icon></a>
+      </span>
+    </div>
+    
     <table mat-table [dataSource]="boxes" class="mat-elevation-z8">
 
       <!-- Id Column -->

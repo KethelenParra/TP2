@@ -8,6 +8,13 @@
     align-items: center; /* Centraliza verticalmente */
 }
 
+.pesquisa{
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .container-content {
     position: relative;
 }

@@ -18,6 +18,19 @@
     text-align: center;
 }
 
+.pesquisa{
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-circle{
+    font-size: 35px;
+    padding: 15px;
+    color: white;
+}
+
 .search{
     border-radius: 25px;
 }
