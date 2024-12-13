@@ -62,6 +62,7 @@ export class BoxCardListComponent implements OnInit {
   selectedGeneros: number[] = [];
   loading: boolean = false;
   errorMessage: string = '';
+  isLoggedIn: boolean = false;
 
   constructor(
     private boxService: BoxService,
@@ -74,13 +75,9 @@ export class BoxCardListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoggedIn = !!localStorage.getItem('token');
     this.carregarBoxesFiltro();
     this.carregarBoxesAll();
-
-    if (!localStorage.getItem('token')) {
-      this.router.navigateByUrl('/login');
-      return;
-    }
   }
 
   carregarBoxesFiltro(): void {
@@ -167,6 +164,41 @@ export class BoxCardListComponent implements OnInit {
   }
 
   carregarCards(): void {
+
+    const tipoUsuario = localStorage.getItem('usuario_tipo'); // Assume que o tipo foi salvo no localStorage pelo AuthService
+    if (tipoUsuario === 'Funcionario') {
+      console.log('Funcionário logado - ignorando carregamento de lista de desejos.');
+      // Carrega os livros sem marcar a lista de desejos
+      const cards: Card[] = this.boxes.map((box) => ({
+        id: box.id,
+        nome: box.nome,
+        preco: box.preco,
+        descricao: box.descricaoBox,
+        autores: box.autores.map((autor) => autor.nome).join(', '),
+        imageUrl: this.boxService.getUrlImage(box.nomeImagem),
+        listaDesejo: false,
+      }));
+
+  
+      this.cards.set(cards);
+      return;
+    }  
+
+    if (!this.isLoggedIn) {
+      const cards: Card[] = this.boxes.map((box) => ({
+        id: box.id,
+        nome: box.nome,
+        preco: box.preco,
+        descricao: box.descricaoBox,
+        autores: box.autores.map((autor) => autor.nome).join(', '),
+        imageUrl: this.boxService.getUrlImage(box.nomeImagem),
+        listaDesejo: false,
+      }));
+
+      this.cards.set(cards);
+      return;
+    }
+
     this.clienteService.getListaDesejos().subscribe({
       next: (boxDesejados) => {
         const idsDesejados = boxDesejados.map((box) => box.id);
@@ -207,6 +239,15 @@ export class BoxCardListComponent implements OnInit {
   }
 
   adicionarEFavoritar(card: Card): void {
+    if (!this.isLoggedIn) {
+      this.snackBar.open(
+        'Você precisa estar logado para adicionar à lista de desejos.',
+        'Fechar',
+        { duration: 3000 }
+      );
+      return;
+    }
+
     if (!card.listaDesejo) {
       // Adiciona o livro à lista de desejos
       this.clienteService.adicionarBoxDesejo(card.id).subscribe({

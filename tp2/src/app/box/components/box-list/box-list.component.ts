@@ -23,8 +23,7 @@ import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-box-list',
   standalone: true,
-  imports: [MatToolbarModule, MatSnackBarModule, FormsModule, MatFormFieldModule, MatInputModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator,
-     NavigationComponent, SidebarComponent, FooterComponent],
+  imports: [MatToolbarModule, MatSnackBarModule, FormsModule, MatFormFieldModule, MatInputModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator ],
   templateUrl: './box-list.component.html',
   styleUrl: './box-list.component.css'
 })
@@ -47,18 +46,13 @@ export class BoxListComponent implements OnInit{
   ){}
 
   ngOnInit(): void {
-    this.boxService.findAll(this.page, this.pageSize).subscribe( data => { 
-      this.boxes = data.map(box => ({ ...box, isExpanded: false })); }
+    this.boxService.findAll(this.page, this.pageSize).subscribe( 
+      data => { this.boxes = data }
     );
 
     this.boxService.count().subscribe(
       data => { this.totalRecords = data }
     );
-
-    this.http.get<string>('localhost:8080/admin/boxes').subscribe((data: string) => {
-      this.textoTotal = data;
-      this.textoReduzido = data.length > 100 ? data.substring(0, 100) + '...' : data;
-    });
   }
 
   toggleExpand(box: any){

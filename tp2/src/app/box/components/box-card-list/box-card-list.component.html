@@ -78,7 +78,8 @@
                             color="primary"
                             style="width: 100%; padding: 16px; text-align: center;"
                             (click)="adicionarEFavoritar(card); $event.stopPropagation()"
-                          >
+                            [disabled]="!isLoggedIn"
+                            >
                             Minha Lista
                           </button>
                         </mat-card-actions>
