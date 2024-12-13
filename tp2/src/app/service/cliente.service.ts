@@ -92,4 +92,9 @@ export class ClienteService {
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+
+  meuPerfil(idCliente: number): Observable<Cliente> {
+    const headers = this.getHeaders();
+    return this.http.get<Cliente>(`${this.apiUrl}/search/meu-perfil`, { headers });
+  }
 }

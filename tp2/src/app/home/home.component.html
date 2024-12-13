@@ -2,7 +2,13 @@
       <!-- Barra de Pesquisa -->
       <div class="search-container">
         <div class="logo-container">
-          <img src="assets/logo.svg" alt="Logo" class="logo">
+          <img
+            src="assets/logo.svg"
+            alt="Logo"
+            class="logo"
+            (click)="refreshPage()"
+            style="cursor: pointer;"
+          />
         </div>
         <mat-form-field appearance="outline" class="select-field">
           <mat-label>Pesquisar por</mat-label>
@@ -40,7 +46,7 @@
             (click)="navigateToDetailLivro(livro.titulo)"
           >
             <img mat-card-image [src]="getLivroImageUrl(livro.nomeImagem)" alt="{{ livro.titulo }}" />
-            <mat-card-title>{{ livro.titulo }}</mat-card-title>
+            <mat-card-title class="titulo">{{ livro.titulo }}</mat-card-title>
             <mat-card-subtitle>{{ livro.preco | currency: 'BRL' }}</mat-card-subtitle>
           </mat-card>
         </div>
@@ -64,7 +70,7 @@
                 (click)="navigateToDetailBox(box.nome)"
                 >
                 <img mat-card-image [src]="getBoxImageUrl(box.nomeImagem)" alt="{{ box.nome }}" />
-                <mat-card-title>{{ box.nome }}</mat-card-title>
+                <mat-card-title class="titulo">{{ box.nome }}</mat-card-title>
                 <mat-card-subtitle>{{ box.preco | currency: 'BRL' }}</mat-card-subtitle>
                 </mat-card>
             </div>          
