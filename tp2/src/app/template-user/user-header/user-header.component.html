@@ -1,31 +1,85 @@
 <mat-toolbar color="primary" class="toolbar mat-elevation-z3">
-    <h1 class="titulo-pag" [routerLink]="'/home'">Cantinho dos livros</h1>
-    <div class="menu">
-        <button mat-button class="favoritos">
-            <mat-icon class="icone-fora">favorite_border</mat-icon>
-            <p class="text-menu" [routerLink]="'/favoritos'">Lista Favoritos</p>
-        </button>
-        <button mat-button class="carrinho">
-            <mat-icon class="icone-fora">shopping_cart</mat-icon>
-            <span [routerLink]="'/carrinho'">carrinho</span>
-        </button>
-        <div class="menu-user">
-            <button mat-button [matMenuTriggerFor]="menu" class="menu-perfil">
-                <mat-icon class="icone-fora">account_circle</mat-icon> 
-                <p class="text-user">{{usuarioLogado ? 'Olá, ' + usuarioLogado.nome : 'Entrar' }}</p>
-            </button>
+  <h1 class="titulo-pag" [routerLink]="'/home'">Cantinho dos Livros</h1>
+  <div class="menu">
+    <button mat-button class="favoritos">
+      <mat-icon class="icone-fora">favorite_border</mat-icon>
+      <p class="text-menu" [routerLink]="'/favoritos'">Lista Favoritos</p>
+    </button>
+    <button mat-button class="carrinho">
+      <mat-icon class="icone-fora">shopping_cart</mat-icon>
+      <span [routerLink]="'/carrinho'">Carrinho</span>
+    </button>
 
-            <mat-menu #menu="matMenu" class="custom-menu">
-                <button mat-menu-item>
-                    <mat-icon>person</mat-icon>
-                    <span>Minha Conta</span>
-                </button>
-                <mat-divider class="divider"></mat-divider>
-                <button mat-menu-item [routerLink]="'/login'" (click)="deslogar()">
-                    <mat-icon>logout</mat-icon>
-                    <span >{{usuarioLogado ?  'Sair' : 'Entrar' }}</span>
-                </button>
-            </mat-menu>
-        </div>
+    <!-- Notificações -->
+    <button
+      mat-button
+      [matMenuTriggerFor]="notificationsMenu"
+      class="notificacoes"
+      [matBadge]="notificacoesCount > 0 ? notificacoesCount : null"
+      matBadgePosition="above after"
+      matBadgeColor="accent"
+      (click)="abrirNotificacoes()"
+    >
+    <mat-icon class="icone-fora">notifications</mat-icon>
+      <p class="text-menu">Notificações</p>
+    </button>
+
+    <!-- Menu de Notificações -->
+    <mat-menu #notificationsMenu="matMenu" class="notifications-menu">
+    
+      <!-- Favoritos Recentes -->
+      <div *ngIf="favoritosRecentes && favoritosRecentes.length > 0" class="notification-section">
+        <h4>Favoritos Recentes</h4>
+        <ul class="notification-list">
+          <li *ngFor="let favorito of favoritosRecentes" class="notification-item">
+            <div class="notification-content">
+              <span class="notification-title">{{ favorito.titulo }}</span>
+              <span class="notification-authors">{{ favorito.autores }}</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    
+      <!-- Últimos Pedidos -->
+      <div *ngIf="pedidosRecentes && pedidosRecentes.length > 0" class="notification-section">
+        <h4>Últimos Pedidos</h4>
+        <ul class="notification-list">
+          <li *ngFor="let pedido of pedidosRecentes" class="notification-item">
+            <div class="notification-content">
+              <span class="notification-date">Data: {{ pedido.data | date: 'shortDate' }}</span>
+              <span class="notification-total">Valor Total: {{ pedido.valorTotal | currency: 'BRL' }}</span>
+              <span class="notification-items">Itens: {{ pedido.quantidadeItens }}</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    
+      <!-- Cupom Promocional -->
+      <div *ngIf="cupomDisponivel" class="cupom-section">
+        <p>Cupom Promocional</p>
+        <p>{{ cupomDisponivel }}</p>
+        <button mat-button color="primary" (click)="copiarCupom()">Copiar Cupom</button>
+      </div>
+    </mat-menu>
+    
+
+    <div class="menu-user">
+      <button mat-button [matMenuTriggerFor]="menu" class="menu-perfil">
+        <mat-icon class="icone-fora">account_circle</mat-icon>
+        <p class="text-user">{{usuarioLogado ? 'Olá, ' + usuarioLogado.nome : 'Entrar' }}</p>
+      </button>
+
+      <mat-menu #menu="matMenu" class="custom-menu">
+        <button mat-menu-item>
+          <mat-icon>person</mat-icon>
+          <span>Minha Conta</span>
+        </button>
+        <mat-divider class="divider"></mat-divider>
+        <button mat-menu-item [routerLink]="'/login'" (click)="deslogar()">
+          <mat-icon>logout</mat-icon>
+          <span>{{usuarioLogado ? 'Sair' : 'Entrar'}}</span>
+        </button>
+      </mat-menu>
     </div>
+  </div>
 </mat-toolbar>
