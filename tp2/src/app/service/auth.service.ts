@@ -12,17 +12,18 @@ import { CarrinhoService } from './carrinho.service';
 })
 export class AuthService {
   private apiUrl = 'http://localhost:8080/auth';
-  private token = 'jwt_token';
+  //private token = 'jwt_token';
   private usuarioLogadoKey = 'usuario_logado';
   private loggedIn = new BehaviorSubject<boolean>(this.hasToken());
   private usuarioLogadoSubject = new BehaviorSubject<any>(this.getUsuarioLogadoFromLocalStorage());
+  private usuarioTipoKey = 'usuario_tipo';
 
   constructor(
-    private http: HttpClient, 
-    private router: Router, 
+    private http: HttpClient,
+    private router: Router,
     private jwtHelper: JwtHelperService,
     private carrinhoService: CarrinhoService
-  ) {}
+  ) { }
 
   login(username: string, senha: string, perfil: number): Observable<any> {
     const payload = { username, senha, perfil };
@@ -30,26 +31,44 @@ export class AuthService {
       map((response) => {
         const token = response.headers.get('Authorization');
         // const usuario = response.body;
-        const usuario: Usuario = response.body as Usuario; 
-  
+        const usuario: Usuario = response.body as Usuario;
+
         if (token) {
           localStorage.setItem('token', token);
           this.loggedIn.next(true);
           this.setUsuarioLogado(usuario);
-  
+
+          const tipo = perfil === 1 ? 'Funcionario' : 'Cliente';
+          this.setUsuarioTipo(tipo);
+
           // Configurar o cliente no CarrinhoService
-          if (usuario && usuario.id) {
+          if (usuario && usuario.id && perfil === 2) {
             this.carrinhoService.configurarCliente(usuario.id); // Certifique-se de que este método é chamado corretamente
           } else {
-            console.error('Usuário inválido, não possui ID.');
+            //console.error('Usuário inválido, não possui ID.');
+            console.log('Usuário logado:', usuario);
           }
-          console.log('Usuário logado:', usuario);
         }
+
         return usuario;
       })
     );
   }
-  
+
+  // Salvar o tipo do usuário logado
+  private setUsuarioTipo(tipo: string): void {
+    localStorage.setItem(this.usuarioTipoKey, tipo);
+  }
+
+  // Recuperar o tipo do usuário logado
+  getUsuarioTipo(): string | null {
+    return localStorage.getItem(this.usuarioTipoKey);
+  }
+
+  // Remover o tipo do usuário
+  removeUsuarioTipo(): void {
+    localStorage.removeItem(this.usuarioTipoKey);
+  }
 
   register(email: string): Observable<any> {
     const payload = { email };
@@ -69,7 +88,8 @@ export class AuthService {
   }
 
   logout(): void {
-    localStorage.removeItem('token');
+    this.removeToken();
+    this.removeUsuarioTipo();
     this.loggedIn.next(false);
     this.usuarioLogadoSubject.next(null); // Limpa o usuário logado
     this.router.navigate(['/login']);
@@ -118,5 +138,18 @@ export class AuthService {
   removeUsuarioLogado(): void {
     localStorage.removeItem(this.usuarioLogadoKey);
     this.usuarioLogadoSubject.next(null); // Limpa o usuário logado
+  }
+
+  isTokenExpired(): boolean {
+    const token = this.getToken();
+    if (!token) {
+      return true;
+    }
+    try {
+      return this.jwtHelper.isTokenExpired(token);
+    } catch (error) {
+      console.error('Token invalido', error);
+      return true;
+    }
   }
 }
