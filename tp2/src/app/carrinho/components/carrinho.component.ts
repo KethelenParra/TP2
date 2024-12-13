@@ -4,11 +4,12 @@ import { Router } from '@angular/router';
 import { ItemPedido } from '../../models/item-pedido.model';
 import { CarrinhoService } from '../../service/carrinho.service';
 import { ClienteService } from '../../service/cliente.service';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-carrinho',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatSnackBarModule],
   templateUrl: './carrinho.component.html',
   styleUrls: ['./carrinho.component.css'],
 })
@@ -19,7 +20,8 @@ export class CarrinhoComponent implements OnInit {
   constructor(
     private carrinhoService: CarrinhoService,
     private clienteService: ClienteService,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -53,18 +55,17 @@ export class CarrinhoComponent implements OnInit {
       this.carrinhoService.salvarPedido(cliente.id, this.itensCarrinho).subscribe({
         next: (carrinho) => {
           this.carrinhoId = carrinho.id;
-          alert('Pedido fechado com sucesso!');
+          this.snackBar.open('Pedido fechado com sucesso!', 'Fechar', {
+            duration: 3000, // Exibe por 3 segundos
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          });
+          this.router.navigateByUrl('/finalizarPedido');
         },
         error: (err) => console.error('Erro ao fechar o pedido:', err),
       });
     }
-  }
-
-  finalizarPedido(): void {
-    this.carrinhoService.finalizarPedido().subscribe({
-      next: () => alert('Pedido finalizado com sucesso!'),
-      error: (err) => console.error('Erro ao finalizar o pedido:', err),
-    });
+    this.router.navigateByUrl('/finalizarPedido');
   }
 
   removerItem(index: number): void {
@@ -73,11 +74,26 @@ export class CarrinhoComponent implements OnInit {
   }
 
   limparCarrinho(): void {
-    this.carrinhoService.limparCarrinho();
+    this.carrinhoService.cancelarPedido();
     this.itensCarrinho = [];
   }
 
   calcularTotal(): number {
     return this.itensCarrinho.reduce((total, item) => total + item.quantidade * (item.preco ?? 0), 0);
   }
+
+  aumentarQuantidade(index: number): void {
+    this.itensCarrinho[index].quantidade++;
+    const preco = this.itensCarrinho[index].preco ?? 0;
+    this.itensCarrinho[index].subTotal = this.itensCarrinho[index].quantidade * preco;
+  }
+  
+  diminuirQuantidade(index: number): void {
+    if (this.itensCarrinho[index].quantidade > 1) {
+      this.itensCarrinho[index].quantidade--;
+      const preco = this.itensCarrinho[index].preco ?? 0;
+      this.itensCarrinho[index].subTotal = this.itensCarrinho[index].quantidade * preco;
+    }
+  }
+  
 }

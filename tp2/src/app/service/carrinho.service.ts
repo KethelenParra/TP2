@@ -2,6 +2,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ItemPedido } from '../models/item-pedido.model';
+import { CartaoCreditoDTO } from '../models/cartao.model';
 
 @Injectable({
   providedIn: 'root',
@@ -100,17 +101,17 @@ export class CarrinhoService {
     return this.http.post(`${this.apiUrl}`, body, { headers });
   }
 
-  limparCarrinho(): void {
-    if (this.clienteAtualId === null) {
-      throw new Error('Cliente não configurado. Não é possível limpar o carrinho.');
-    }
+  // limparCarrinho(): void {
+  //   if (this.clienteAtualId === null) {
+  //     throw new Error('Cliente não configurado. Não é possível limpar o carrinho.');
+  //   }
 
-    this.itensCarrinho.set(this.clienteAtualId, []);
-    this.carrinhoAtual.next([]);
-    localStorage.removeItem(`carrinho_${this.clienteAtualId}`);
-  }
+  //   this.itensCarrinho.set(this.clienteAtualId, []);
+  //   this.carrinhoAtual.next([]);
+  //   localStorage.removeItem(`carrinho_${this.clienteAtualId}`);
+  // }
 
-  finalizarPedido(): Observable<any> {
+  finalizarPedidoPix(): Observable<any> {
     const token = localStorage.getItem('token');
     if (!token) {
       throw new Error('Token não encontrado. Faça login novamente.');
@@ -120,10 +121,52 @@ export class CarrinhoService {
     return this.http.patch(`${this.apiUrl}/search/pagar-Pix`, null, { headers });
   }
 
+  finalizarPedidoBoleto(): Observable<any> {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('Token não encontrado. Faça login novamente.');
+    }
+
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.patch(`${this.apiUrl}/search/pagar-Boleto`, null, { headers });
+  }
+
+  finalizarPedidoCartao(cartaoCreditoDTO: CartaoCreditoDTO): Observable<any> { 
+    const token = localStorage.getItem('token'); 
+    if (!token) 
+      { 
+        throw new Error('Token não encontrado. Faça login novamente.'); 
+      } 
+      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`); 
+      return this.http.patch(`${this.apiUrl}/search/pagar-Cartao-Credito`, cartaoCreditoDTO, { headers});
+  }
+
   atualizarCarrinho(itens: ItemPedido[]): void {
     if (this.clienteAtualId === null) {
       throw new Error('Cliente não configurado.');
     }
     this.carrinhoAtual.next(itens);
   }
+
+  pedidosRealizados(idCliente: number): Observable<any> {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('Token não encontrado. Faça login novamente.');
+    }
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get(`${this.apiUrl}/pedidos-realizados/${idCliente}`, { headers });
+  }
+
+  cancelarPedido(): Observable<void> {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('Token não encontrado. Faça login novamente.');
+    }
+  
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  
+    // Realiza a requisição DELETE para o endpoint fornecido
+    return this.http.delete<void>(`${this.apiUrl}/search/cancelar-Pedido`, { headers });
+  }
+  
 }
