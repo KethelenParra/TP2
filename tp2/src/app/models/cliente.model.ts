@@ -9,6 +9,6 @@ export class Cliente {
   bairro?: string;
   localidade?: string;
   uf?: string;
-  listaDesejo?: number[]; // IDs dos livros na lista de desejo
   listaDesejoBox?: number[];
+  tipo?: 'cliente';
 }

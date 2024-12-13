@@ -30,10 +30,14 @@ import { BoxViewResolver } from './box/components/box-view/resolver/BoxView.reso
 import { HomeComponent } from './home/home.component';
 import { AdmLoginComponent } from './login/adm-login/adm-login.component';
 import { FavoritosComponent } from './favoritos/favoritos.component';
+import { MinhaContaComponent } from './cliente/minha-conta/minha-conta.component';
+import { EnderecoComponent } from './usuario/endereco/endereco.component';
+import { CadastroClienteComponent } from './cliente/cadastro-cliente/cadastro-cliente.component';
 import { CarrinhoComponent } from './carrinho/components/carrinho.component';
 import { authGuard } from './guard/auth.guard';
 import { authClienteGuard } from './guard/auth-cliente.guard';
 import { FinalizarPedidoComponent } from './carrinho/finalizar-pedido/finalizar-pedido.component';
+import { ViewUsersAdminComponent } from './usuario/view-users-admin/view-users-admin.component';
 
 export const routes: Routes = [
     {
@@ -59,7 +63,12 @@ export const routes: Routes = [
 
             { path: 'carrinho', component: CarrinhoComponent, title: 'Carrinho de compra', canActivate: [authClienteGuard] },
         
-            { path: 'finalizarPedido', component: FinalizarPedidoComponent, title: 'Finalizar Pedido', canActivate: [authClienteGuard] }
+            { path: 'finalizarPedido', component: FinalizarPedidoComponent, title: 'Finalizar Pedido', canActivate: [authClienteGuard] },
+
+            { path: 'minhaConta', component: MinhaContaComponent, title: 'Minha Conta' },
+
+            {path: 'register', component: CadastroClienteComponent, title: 'Registrar Usuário'},
+            
         ]
     },
     {
@@ -67,7 +76,12 @@ export const routes: Routes = [
         component: AdminTemplateComponent,
         title: 'administração',
         children: [
+
             { path: '', pathMatch: 'full', redirectTo: 'controle'},
+
+            { path: '', pathMatch: 'full', redirectTo: 'loginAdm' },
+
+            { path: 'viewUsers', component: ViewUsersAdminComponent, title: ' Visualização de usuários' },
 
             { path: 'loginAdm', component: AdmLoginComponent, title: 'Login Adm' },
 

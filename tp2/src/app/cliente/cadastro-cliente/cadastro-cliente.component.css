@@ -1,0 +1,71 @@
+.container{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 20px;
+  
+  & .titulo{
+    text-align: center;
+    font-size: 27px;
+    letter-spacing: 7px;
+  }
+
+  & .formulario-cadastro{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    gap: 40px;
+    
+    & .campo-dados-usuario{
+      display: grid;
+      border: 1px solid #353535;
+      width: 100%;
+      border-radius: 30px;  
+      width: 90vh;
+    }
+    
+    & .campo-endereco{
+      display: grid;
+      border: 1px solid #353535;
+      width: 100%;
+      border-radius: 30px;  
+      width: 90vh;
+    }
+  }
+
+  & .grid-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Duas colunas de largura igual */
+    gap: 16px; /* Espaçamento entre os campos */
+    padding: 2%;
+  }
+
+  & .campos {
+    width: 100%; /* Garantir que os campos ocupem o espaço da célula */
+  }
+  
+  & .botao-cadastrar {
+    margin-top: 30px;
+    margin-left: 37.5%;
+    background-color: transparent;
+    font-size: 25px;
+    width: 25%;
+    height: 100%;
+    border-radius: 20px;
+    grid-column: span 2; /* Botão ocupa as duas colunas */
+    text-align: center;
+    cursor: pointer;
+  }
+
+  & .botao-cadastrar:hover {
+    background-color: #353535;
+    color: white;
+  }
+
+  & .titulo_pagina{
+    text-align: center;
+    letter-spacing: 5px;
+    font-size: 29px;
+  }
+
+}

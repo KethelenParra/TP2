@@ -20,6 +20,7 @@ import { ClienteService } from '../../service/cliente.service';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { MatBadgeModule } from '@angular/material/badge';
 
+
 @Component({
   selector: 'app-user-header',
   standalone: true,
@@ -39,6 +40,7 @@ export class UserHeaderComponent implements OnInit, OnDestroy {
   isLoading: boolean = false;
 
   constructor(
+    private livroService: LivroService,
     private authService: AuthService,
     private carrinhoService: CarrinhoService,
     private clienteService: ClienteService,

@@ -305,8 +305,9 @@ export class HomeComponent implements OnInit {
     return result;
   }
 
-  verTodosLivros(): void {
-    this.router.navigate(['/livrosCard']);
+
+  verTodosLivros(): void{
+    this.router.navigateByUrl('/livrosCard');
   }
 
   verTodosBoxes(): void {

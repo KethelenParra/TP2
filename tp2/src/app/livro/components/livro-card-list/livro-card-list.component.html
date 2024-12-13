@@ -91,11 +91,19 @@
           <p>Nenhum livro encontrado para os filtros aplicados.</p>
         </div>
       </div>
-      
-    </div>
+  </div>
     <mat-paginator 
-    [pageSizeOptions]="[25, 30, 50, 100]"
-    [pageSize]="pageSize"
-    [length]="totalRecords"
-    (page)="paginar($event)">
+        [pageSizeOptions]="[25, 30, 50, 100]"
+        [pageSize]="pageSize"
+        [length]="totalRecords"
+        (page)="paginar($event)">
+    </mat-paginator>
+</div>
+<div>
+  <mat-paginator 
+      [pageSizeOptions]="[25, 30, 50, 100]"
+      [pageSize]="pageSize"
+      [length]="totalRecords"
+      (page)="paginar($event)">
   </mat-paginator>
+</div>

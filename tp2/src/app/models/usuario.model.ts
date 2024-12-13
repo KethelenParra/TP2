@@ -6,4 +6,5 @@ export interface Usuario {
     dataNascimento?: string; // ISO format (string)
     cpf?: string;
     sexo?: string;
+    senha?: string;
   }

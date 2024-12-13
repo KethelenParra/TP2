@@ -1,0 +1,102 @@
+<div class="container">
+    <div class="navegacao_dados">
+        <mat-nav-list>
+            <mat-list-item class="opcao" routerLink="">
+                <mat-icon matListItemIcon>local_shipping</mat-icon>
+                <span matListItemTitle>Pedidos</span>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item class="opcao">
+                <mat-icon matListItemIcon>account_circle</mat-icon>
+                <span matListItemTitle>Pedidos</span>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item class="opcao">
+                <mat-icon matListItemIcon>other_houses</mat-icon>
+                <span matListItemTitle>Endereço</span>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item class="opcao">
+                <mat-icon matListItemIcon>credit_card</mat-icon>
+                <span matListItemTitle>Cartões</span>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item class="opcao">
+                <mat-icon matListItemIcon>arrow_back</mat-icon>
+                <span matListItemTitle>Voltar</span>
+            </mat-list-item>
+        </mat-nav-list>
+    </div>
+    <div class="perfil">
+    </div>
+
+    <div class="container_dados">
+        <div class="container_dados_pessoais">
+            <h1>Seus Dados</h1>
+            <div class="container_dados_d">
+                <div class="dados">
+                    <h2 class="titulo">Dados Pessoais</h2>
+                    <div class="dados_pessoais_grid"> 
+                        <mat-form-field appearance="outline" style="width: 100%" class="campos">
+                            <mat-label>Nome: </mat-label>
+                            <input matInput placeholder="Digite seu nome" [disabled]="true">
+                            {{ usuarioLogado?.nome }}
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" style="width: 100%" class="campos">
+                            <mat-label>Email: </mat-label>
+                            <input matInput [disabled]="true">
+                            {{ usuarioLogado?.email }}
+                            <mat-icon matSuffix>edit</mat-icon>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" style="width: 100%" class="campos">
+                            <mat-label>Telefone: </mat-label>
+                            <input matInput placeholder="Digite seu telefone" [disabled]="true">
+                            {{"(" + usuarioLogado?.telefone.codigoArea + ")" + " " + usuarioLogado?.telefone.numero}}
+                            <mat-icon matSuffix>edit</mat-icon>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" style="width: 100%" class="campos">
+                            <mat-label>Data: </mat-label>
+                            <input matInput [disabled]="true">
+                            {{usuarioLogado?.dataNascimento | date: 'dd/MM/yyyy'}}
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" style="width: 100%" class="campos">
+                            <mat-label>CPF: </mat-label>
+                            <input matInput placeholder="Digite seu CPF" [disabled]="true">
+                            {{usuarioLogado?.cpf | formatarCpf}}
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" style="width: 100%" class="campos">
+                            <mat-label>Sexo: </mat-label>
+                            <input matInput placeholder="Digite seu sexo" [disabled]="true">
+                            {{usuarioLogado?.sexo?.nome}}
+                        </mat-form-field>
+                    </div>
+                    <div class="dados_pessoais">
+                        <mat-form-field appearance="outline" style="width: 100%" class="campos">
+                            <mat-label>Endereço: </mat-label>
+                            <input matInput [disabled]="true">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <mat-divider vertical></mat-divider>
+                <div class="dados_acesso">
+                    <h2 class="titulo">Dados de Acesso</h2>
+                    <div class="campo_dados_acesso">
+                        <mat-form-field appearance="outline" style="width: 100%" class="campos">
+                            <mat-label>Username: </mat-label>
+                            <input matInput placeholder="Digite seu username" [disabled]="true">
+                            {{usuarioLogado?.username}}
+                        </mat-form-field>
+                    </div>
+                    <div class="botoes">
+                        <button mat-button class="botao">
+                            <span>Alterar Username</span>
+                        </button>
+                        <button mat-button class="botao">
+                            <span>Alterar Senha</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

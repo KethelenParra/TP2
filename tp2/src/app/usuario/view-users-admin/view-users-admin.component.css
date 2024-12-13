@@ -1,0 +1,21 @@
+table {
+    width: 100%;
+  }
+  
+  .mat-mdc-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+
+.caixa_pesquisa{
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+}
+
+.text_titulo{
+    letter-spacing: 3px;
+    margin-top: 1%;
+    text-align: center;
+}

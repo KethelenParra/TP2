@@ -6,7 +6,7 @@ import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { MatTableModule } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { NavigationComponent } from '../../../components/navigation/navigation.component';
@@ -18,6 +18,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog/confirmation-dialog.component';
 
+const ELEMENT_DATA: Fornecedor[] = [];
+
 @Component({
   selector: 'app-fornecedor-list',
   standalone: true,
@@ -26,7 +28,7 @@ import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog
   styleUrl: './fornecedor-list.component.css'
 })
 export class FornecedorListComponent implements OnInit {
-  fornecedores: Fornecedor[] = [];
+  fornecedores = new MatTableDataSource(ELEMENT_DATA);
   displayedColumns: string[] = ['id', 'nome', 'cnpj', 'inscricaoestadual', 'email', 'quantlivrosfornecido', 'telefone', 'estado', 'cidade', 'acao'];
   //Variaveis de controle para a paginação
   totalRecords = 0;
@@ -39,51 +41,26 @@ export class FornecedorListComponent implements OnInit {
 
   ngOnInit(): void {
     this.fornecedorService.findAll(this.page, this.pageSize).subscribe(
-      data => { this.fornecedores = data }
+      data => { this.fornecedores.data = data }
     );
+
     this.fornecedorService.count().subscribe(
       data => { this.totalRecords = data }
     );
+    this.fornecedores.filterPredicate = (data: Fornecedor, filter: string) => {
+      return data.nome.toLowerCase().includes(filter.toLowerCase());
+    }; 
   }
 
-  carregarfornecedores() {
-    if (this.filtro) {
-      this.fornecedorService.findByNome(this.filtro, this.page, this.pageSize).subscribe(data => {
-        this.fornecedores = data;
-        console.log(JSON.stringify(data));
-      })
-    } else {
-      this.fornecedorService.findAll(this.page, this.pageSize).subscribe(data => {
-        this.fornecedores = data;
-        console.log(JSON.stringify(data));
-      })
-    };
-  }
-
-  carregarTodosRegistros() {
-    if (this.filtro) {
-      this.fornecedorService.countByNome(this.filtro).subscribe(data => {
-        this.totalRecords = data;
-        console.log(JSON.stringify(data));
-      })
-    } else {
-      this.fornecedorService.count().subscribe(data => {
-        this.totalRecords = data;
-        console.log(JSON.stringify(data));
-      });
-    }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.fornecedores.filter = filterValue.trim().toLowerCase();
   }
 
   paginar(event: PageEvent): void {
     this.page = event.pageIndex;
     this.pageSize = event.pageSize;
     this.ngOnInit();
-  }
-
-  aplicarFiltro() {
-    this.carregarfornecedores();
-    this.carregarTodosRegistros();
-    this.snackBar.open('Filtro aplicado com sucesso!', 'Fechar', { duration: 3000 });
   }
 
   excluir(fornecedor: Fornecedor): void {
@@ -96,7 +73,7 @@ export class FornecedorListComponent implements OnInit {
       if (result === true) {
         this.fornecedorService.delete(fornecedor).subscribe({
           next: () => {
-            this.fornecedores = this.fornecedores.filter(e => e.id !== fornecedor.id);
+            this.fornecedores.data = this.fornecedores.data.filter(e => e.id !== fornecedor.id);
             this.snackBar.open('Fornecedor excluído com sucesso!', 'Fechar', { duration: 3000 });
           },
           error: (err) => {

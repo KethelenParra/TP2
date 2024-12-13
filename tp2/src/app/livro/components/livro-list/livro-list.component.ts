@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { MatTableModule } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
@@ -8,19 +8,22 @@ import { Livro } from '../../../models/livro.model';
 import { LivroService } from '../../../service/livro.service';
 import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog/confirmation-dialog.component';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { NavigationComponent } from '../../../components/navigation/navigation.component';
 import { MatSnackBar} from '@angular/material/snack-bar';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 
+const ELEMENT_DATA: Livro[] = [];
+
 @Component({
   selector: 'app-livro-list',
   standalone: true,
-  imports: [MatIconModule, CommonModule, MatTableModule, RouterModule, MatPaginator, NavigationComponent, MatInputModule, FormsModule],
+  imports: [MatIconModule, CommonModule, MatTableModule, RouterModule, MatPaginator, MatInputModule, FormsModule],
   templateUrl: './livro-list.component.html',
   styleUrls: ['./livro-list.component.css'] // Corrigido para "styleUrls"
 })
 export class LivroListComponent implements OnInit {
+
+  livros = new MatTableDataSource(ELEMENT_DATA);
 
   displayedColumns: string[] = [
     'id',
@@ -37,7 +40,7 @@ export class LivroListComponent implements OnInit {
     'autor',
     'acao'
   ];
-  livros: Livro[] = [];
+  livro = new MatTableDataSource<Livro>();
   //Variaveis de controle para a paginação
   totalRecords = 0;
   pageSize = 12;
@@ -50,39 +53,17 @@ export class LivroListComponent implements OnInit {
 
   ngOnInit(): void {
     this.livroService.findAll(this.page, this.pageSize).subscribe(
-      data => { this.livros = data }
+      data => { this.livros.data = data }
     );
     this.livroService.count().subscribe(
       data => { this.totalRecords = data }
     );
-  }
-
-  carregarLivros() {
-    if (this.filtro) {
-      this.livroService.findByTitulo(this.filtro, this.page, this.pageSize).subscribe(data => {
-        this.livros = data;
-        console.log(JSON.stringify(data));
-      })
-    } else {
-      this.livroService.findAll(this.page, this.pageSize).subscribe(data => {
-        this.livros = data;
-        console.log(JSON.stringify(data));
-      })
+    this.livros.filterPredicate = (data: Livro, filter: string) => {
+      return data.titulo.toLowerCase().includes(filter.toLowerCase());
     };
-  }
-
-  carregarTodosRegistros() {
-    if (this.filtro) {
-      this.livroService.countByNome(this.filtro).subscribe(data => {
-        this.totalRecords = data;
-        console.log(JSON.stringify(data));
-      })
-    } else {
-      this.livroService.count().subscribe(data => {
-        this.totalRecords = data;
-        console.log(JSON.stringify(data));
-      });
-    }
+    this.livro.filterPredicate = (data: Livro, filter: string) => {
+      return data.titulo?.toLowerCase().includes(filter) ?? null;
+    };
   }
 
   paginar(event: PageEvent): void {
@@ -91,10 +72,9 @@ export class LivroListComponent implements OnInit {
     this.ngOnInit();
   }
 
-  aplicarFiltro() {
-    this.carregarLivros();
-    this.carregarTodosRegistros();
-    this.snackBar.open('Filtro aplicado com sucesso!', 'Fechar', { duration: 3000 });
+  applyFilter(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.livro.filter = filterValue.trim().toLowerCase();
   }
 
   excluir(livro: Livro): void {
@@ -107,7 +87,8 @@ export class LivroListComponent implements OnInit {
       if (result === true) {
         this.livroService.delete(livro).subscribe({
           next: () => {
-            this.livros = this.livros.filter(e => e.id !== livro.id);
+            this.livros.data = this.livros.data.filter(e => e.id !== livro.id);
+            this.livro.data = this.livro.data.filter(e => e.id !== livro.id);
             this.snackBar.open('Livro excluído com sucesso!', 'Fechar', { duration: 3000 });
           },
           error: (err) => {
@@ -126,6 +107,4 @@ export class LivroListComponent implements OnInit {
   getTruncatedText(text: string, length: number): string {
     return text.length > length ? text.substring(0, length) + '...' : text;
   }
-
-
 }

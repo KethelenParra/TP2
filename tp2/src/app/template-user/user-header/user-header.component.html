@@ -1,5 +1,6 @@
 <mat-toolbar color="primary" class="toolbar mat-elevation-z3">
-  <h1 class="titulo-pag" [routerLink]="'/home'">Cantinho dos Livros</h1>
+
+  <h1 class="titulo-pag" [routerLink]="'/home'" style="cursor: pointer;">Cantinho dos livros</h1>
   <div class="menu">
     <button mat-button class="favoritos">
       <mat-icon class="icone-fora">favorite_border</mat-icon>
@@ -76,10 +77,14 @@
         </button>
         <mat-divider class="divider"></mat-divider>
         <button mat-menu-item [routerLink]="'/login'" (click)="deslogar()">
-          <mat-icon>logout</mat-icon>
-          <span>{{usuarioLogado ? 'Sair' : 'Entrar'}}</span>
+            <mat-icon>logout</mat-icon>
+            <span>{{usuarioLogado ? 'Sair' : 'Entrar'}}</span>
+
+          <span [routerLink]="'/carrinho'">carrinho</span>
         </button>
       </mat-menu>
     </div>
   </div>
 </mat-toolbar>
+
+
