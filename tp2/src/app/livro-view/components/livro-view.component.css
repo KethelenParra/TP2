@@ -1,10 +1,11 @@
-.container{
+ /* Container principal */
+ .container {
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
-
-.livro-content{
+/* Área do conteúdo do livro */
+.livro-content {
     display: flex;
 }
 
@@ -12,8 +13,6 @@ img{
     width: 300px;
     padding: 30px;
 }
-
-
 
 .cep{
     display: flex;
@@ -117,5 +116,89 @@ section {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.media-estrelas {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Estilo da linha de separação */
+.divider {
+  display: flex;
+  border: none;
+  border-top: 2px solid #302f2f;
+  margin: 20px 0;
+}
+
+/* Seção de Avaliações */
+.avaliacoes-container {
+  margin-top: 20px;
+  margin-left: 20px; /* Mover as avaliações para o lado esquerdo */
+}
+
+.estrelas {
+    display: flex;
+    gap: 5px;
+}
+
+.estrela-button {
+    font-size: 24px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.avaliacao-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
-  
+
+.avaliacao {
+  border-bottom: 1px solid #ccc;
+  padding: 10px 0;
+}
+
+.avaliacoes-container h3 {
+  margin-top: 20px;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.enviar-button {
+    margin-left: 20px;
+    padding: 10px 20px;
+    right: -300px;
+    position: relative;
+  }
+
+.avaliacoes-side {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .delete-button {
+    display: flex;
+    bottom: 10px;
+    right: -440px;
+    position: relative;
+    background-color: none;
+    border: none;
+    color: #dc3545;
+    cursor: pointer;
+    font-size: 24px;
+  }
+
+  .delete-button mat-icon {
+    font-size: 24px;
+  }
+
+  .frete-mensagem {
+   
+    font-size: 14px;
+    color: #0ab810; /* Verde para mensagens positivas */
+  }
