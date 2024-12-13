@@ -1,4 +1,4 @@
-import { Component,  OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
@@ -33,7 +33,7 @@ import { AutorBiografiaDialogComponent } from '../autor/components/autor-biograf
     MatSelectModule,
     NgFor,
     FormsModule,
-    CommonModule  
+    CommonModule
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
@@ -46,7 +46,7 @@ export class HomeComponent implements OnInit {
   generos: Genero[] = [];
   livrosRomance: Livro[] = [];
   loading = true;
-  animationClass = ''; 
+  animationClass = '';
 
   livrosCarouselIndex = 0;
   boxCarouselIndex = 0;
@@ -69,13 +69,13 @@ export class HomeComponent implements OnInit {
     private snackBar: MatSnackBar,
     private router: Router,
     private dialog: MatDialog
-  ) {}
+  ) { }
 
-   ngOnInit(): void {
+  ngOnInit(): void {
     this.carregarDados();
   }
 
-  carregarLivros(): void{
+  carregarLivros(): void {
     this.livroService.findAll().subscribe(
       (livros: Livro[]) => {
         this.livros = livros;
@@ -91,7 +91,7 @@ export class HomeComponent implements OnInit {
     )
   }
 
-  carregarBox(): void{
+  carregarBox(): void {
     this.boxService.findAll().subscribe(
       (box: Box[]) => {
         this.boxes = box;
@@ -104,7 +104,7 @@ export class HomeComponent implements OnInit {
     )
   }
 
-  carregarAutores(): void{
+  carregarAutores(): void {
     this.autorService.findAll().subscribe(
       (autor: Autor[]) => {
         this.autores = autor;
@@ -117,7 +117,7 @@ export class HomeComponent implements OnInit {
     )
   }
 
-  carregarEditoras(): void{
+  carregarEditoras(): void {
     this.editoraService.findAll().subscribe(
       (editora: Editora[]) => {
         this.editoras = editora;
@@ -149,24 +149,50 @@ export class HomeComponent implements OnInit {
     }
 
     if (this.tipoFiltro === 'titulo') {
-      this.livroService.findByTitulo(this.filtro).subscribe({
-        next: (data) => {
-          this.livros = data;
-          this.snackBar.open('Resultados para o título encontrados.', 'Fechar', { duration: 3000 });
+      const livros$ = this.livroService.findByTitulo(this.filtro);
+      const boxes$ = this.boxService.findByNome(this.filtro);
+  
+      // Combina os resultados dos dois observables
+      livros$.subscribe({
+        next: (livros) => {
+          this.livros = livros;
         },
         error: () => {
-          this.snackBar.open('Erro ao buscar por título. Tente novamente.', 'Fechar', { duration: 3000 });
+          this.snackBar.open('Erro ao buscar livros por título. Tente novamente.', 'Fechar', { duration: 3000 });
+        }
+      });
+  
+      boxes$.subscribe({
+        next: (boxes) => {
+          this.boxes = boxes;
+          this.snackBar.open('Resultados de livros e boxes encontrados.', 'Fechar', { duration: 3000 });
         },
+        error: () => {
+          this.snackBar.open('Erro ao buscar boxes por nome. Tente novamente.', 'Fechar', { duration: 3000 });
+        }
       });
     } else if (this.tipoFiltro === 'autor') {
-      this.livroService.findByAutor(this.filtro).subscribe({
-        next: (data) => {
-          this.livros = data;
-          this.snackBar.open('Resultados para o autor encontrados.', 'Fechar', { duration: 3000 });
+      const livros$ = this.livroService.findByAutor(this.filtro);
+      const boxes$ = this.boxService.findByAutor(this.filtro);
+  
+      // Combina os resultados dos dois observables
+      livros$.subscribe({
+        next: (livros) => {
+          this.livros = livros;
         },
         error: () => {
-          this.snackBar.open('Erro ao buscar por autor. Tente novamente.', 'Fechar', { duration: 3000 });
+          this.snackBar.open('Erro ao buscar livros por autor. Tente novamente.', 'Fechar', { duration: 3000 });
+        }
+      });
+  
+      boxes$.subscribe({
+        next: (boxes) => {
+          this.boxes = boxes;
+          this.snackBar.open('Resultados de livros e boxes encontrados.', 'Fechar', { duration: 3000 });
         },
+        error: () => {
+          this.snackBar.open('Erro ao buscar boxes por autor. Tente novamente.', 'Fechar', { duration: 3000 });
+        }
       });
     } else {
       this.snackBar.open('Filtro inválido. Escolha título ou autor.', 'Fechar', { duration: 3000 });
@@ -178,7 +204,7 @@ export class HomeComponent implements OnInit {
     this.boxService.findAll().subscribe((data) => (this.boxes = data));
     this.autorService.findAll().subscribe((data) => (this.autores = data));
     this.editoraService.findAll().subscribe((data) => (this.editoras = data));
-    this.livroService.findAll().subscribe((romance) => (this.livrosRomance  = romance.filter((livro) => livro.generos?.some((genero) => genero.nome.toLowerCase() === 'romance')))); 
+    this.livroService.findAll().subscribe((romance) => (this.livrosRomance = romance.filter((livro) => livro.generos?.some((genero) => genero.nome.toLowerCase() === 'romance'))));
   }
 
   getGenerosNomes(livro: Livro): string {
@@ -197,28 +223,28 @@ export class HomeComponent implements OnInit {
       setTimeout(() => {
         this.boxCarouselIndex--;
         this.animationClass = ''; // Remove
-      },  500); // Tempo da animação
+      }, 500); // Tempo da animação
     } else if (carouselType === 'autores' && this.autoresCarouselIndex > 0) {
       this.animationClass = 'slide-right'; // Animação de deslizar para a direita
       setTimeout(() => {
         this.autoresCarouselIndex--;
         this.animationClass = ''; // Remove
-      },  500); // Tempo da animação
+      }, 500); // Tempo da animação
     } else if (carouselType === 'editoras' && this.editorasCarouselIndex > 0) {
       this.animationClass = 'slide-right'; // Animação de deslizar para a direita
       setTimeout(() => {
         this.editorasCarouselIndex--;
         this.animationClass = ''; // Remove
-      },  500); // Tempo da animação
+      }, 500); // Tempo da animação
     } else if (carouselType === 'romance' && this.romanceCarouselIndex > 0) {
       this.animationClass = 'slide-right'; // Animação de deslizar para a direita
       setTimeout(() => {
         this.romanceCarouselIndex--;
         this.animationClass = ''; // Remove
-      },  500); // Tempo da animação
+      }, 500); // Tempo da animação
     }
   }
-  
+
   moveCarouselRight(carouselType: 'livros' | 'boxes' | 'autores' | 'editoras' | 'romance'): void {
     if (carouselType === 'livros' && this.livrosCarouselIndex + this.livrosPorPagina < this.livros.length) {
       this.animationClass = 'slide-left'; // Animação de deslizar para a esquerda
@@ -231,7 +257,7 @@ export class HomeComponent implements OnInit {
       setTimeout(() => {
         this.boxCarouselIndex++;
         this.animationClass = ''; // Remove
-      },  20); // Tempo da animação
+      }, 20); // Tempo da animação
     } else if (carouselType === 'autores' && this.autoresCarouselIndex + this.autoresPorPagina < this.autores.length) {
       this.animationClass = 'slide-left'; // Animação de deslizar para a esquerda
       setTimeout(() => {
@@ -252,7 +278,7 @@ export class HomeComponent implements OnInit {
       }, 20); // Tempo da animação
     }
   }
-  
+
   getCarouselLength(carouselType: string): number {
     switch (carouselType) {
       case 'livros':
@@ -263,13 +289,13 @@ export class HomeComponent implements OnInit {
         return this.autores.length;
       case 'editoras':
         return this.editoras.length;
-        case 'romance':
-          return this.livrosRomance.length;
+      case 'romance':
+        return this.livrosRomance.length;
       default:
         return 0;
     }
   }
-  
+
   getCircularItems(array: any[], startIndex: number, count: number): any[] {
     const result = [];
     for (let i = 0; i < count; i++) {
@@ -279,11 +305,11 @@ export class HomeComponent implements OnInit {
     return result;
   }
 
-  verTodosLivros(): void{
+  verTodosLivros(): void {
     this.router.navigate(['/livrosCard']);
   }
 
-  verTodosBoxes(): void{
+  verTodosBoxes(): void {
     this.router.navigate(['/boxesCard']);
   }
 
@@ -304,5 +330,10 @@ export class HomeComponent implements OnInit {
         imagem: this.getAutorImageUrl(autor.nomeImagem), // Passando a URL da imagem
       },
     });
+  }
+
+  refreshPage(): void {
+    this.carregarDados(); // Chama o método que carrega todos os dados
+    this.snackBar.open('Livros atualizados com sucesso!', 'Fechar', { duration: 3000 });
   }
 }
