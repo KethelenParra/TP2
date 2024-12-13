@@ -1,0 +1,34 @@
+.container{ 
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    & .formulario{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        width: 100vh;
+    }
+
+    & mat-card{
+        margin-top: 2%;
+    }
+
+    & .cpf{
+        width: 0 auto;
+    }
+
+    & .phone-fields {
+        display: flex; /* Torna os campos flexíveis e alinhados em linha */
+        gap: 10px; /* Espaçamento entre os campos */
+      }
+      
+    & .area-code-input, .phone-number-input {
+        flex: 1; /* Faz com que ambos os campos ocupem o mesmo espaço */
+    }
+
+    & .codigo-area{
+        width: 10vh;
+    }
+}
+

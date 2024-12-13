@@ -19,7 +19,7 @@ const ELEMENT_DATA: Livro[] = [];
   standalone: true,
   imports: [MatIconModule, CommonModule, MatTableModule, RouterModule, MatPaginator, MatInputModule, FormsModule],
   templateUrl: './livro-list.component.html',
-  styleUrls: ['./livro-list.component.css'] // Corrigido para "styleUrls"
+  styleUrls: ['./livro-list.component.css']
 })
 export class LivroListComponent implements OnInit {
 
@@ -47,7 +47,6 @@ export class LivroListComponent implements OnInit {
   page = 0;
   filtro: string = "";
   isExpanded = true;
-
 
   constructor(private livroService: LivroService, private dialog: MatDialog, private snackBar: MatSnackBar) {}
 

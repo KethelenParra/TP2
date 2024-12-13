@@ -9,7 +9,6 @@ import { Fornecedor } from '../models/fornecedor.model';
 export class FornecedorService {
   private baseUrl = 'http://localhost:8080/fornecedores';
 
-
   constructor(private httpClient: HttpClient) { }
 
   findById(id: string): Observable<Fornecedor>{

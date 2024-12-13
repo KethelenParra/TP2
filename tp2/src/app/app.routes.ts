@@ -29,13 +29,16 @@ import { BoxViewComponent } from './box/components/box-view/box-view.component';
 import { BoxViewResolver } from './box/components/box-view/resolver/BoxView.resolver';
 import { HomeComponent } from './home/home.component';
 import { AdmLoginComponent } from './login/adm-login/adm-login.component';
-import { AuthGuard } from './authGuard';
 import { FavoritosComponent } from './favoritos/favoritos.component';
 import { MinhaContaComponent } from './cliente/minha-conta/minha-conta.component';
-import { EnderecoComponent } from './usuario/endereco/endereco.component';
 import { CadastroClienteComponent } from './cliente/cadastro-cliente/cadastro-cliente.component';
 import { CarrinhoComponent } from './carrinho/components/carrinho.component';
-import { ViewUsersAdminComponent } from './usuario/view-users-admin/view-users-admin.component';
+import { clienteResolver } from './usuario/view-users-admin/resolver/userView.resolver';
+import { ViewClientsAdminComponent } from './usuario/view-users-admin/view-clients-admin/view-clients-admin.component';
+import { ViewFuncionariosAdminComponent } from './usuario/view-users-admin/view-funcionarios-admin/view-funcionarios-admin.component';
+import { funcionarioResolver } from './usuario/view-users-admin/resolver/funcionarioView.resolver';
+import { ViewClientesEditComponent } from './usuario/view-users-admin/view-clientes-edit/view-clientes-edit.component';
+import { ViewFuncionariosEditComponent } from './usuario/view-users-admin/view-funcionarios-edit/view-funcionarios-edit.component';
 
 export const routes: Routes = [
     {
@@ -74,7 +77,10 @@ export const routes: Routes = [
         children: [
             { path: '', pathMatch: 'full', redirectTo: 'loginAdm' },
 
-            { path: 'viewUsers', component: ViewUsersAdminComponent, title: ' Visualização de usuários' },
+            { path: 'viewClients', component: ViewClientsAdminComponent, title: ' Visualização de Clientes' },
+            { path: 'viewClients/edit/:id', component: ViewClientesEditComponent, resolve: { cliente: clienteResolver }},
+            { path: 'viewFuncionarios', component: ViewFuncionariosAdminComponent, title: ' Visualização de Funcionários' },
+            { path: 'viewFuncionarios/edit/:id', component: ViewFuncionariosEditComponent, resolve: {funcionario: funcionarioResolver} },
 
             { path: 'loginAdm', component: AdmLoginComponent, title: 'Login Adm' },
 

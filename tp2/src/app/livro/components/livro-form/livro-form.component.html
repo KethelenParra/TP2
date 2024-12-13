@@ -122,13 +122,6 @@
                             <mat-option *ngFor="let classificacao of classificacoes" [value]="classificacao">
                                 {{classificacao.descricao}}
                             </mat-option>
-
-                            <!-- <mat-option value="1">Livre</mat-option>
-                            <mat-option value="2">10 Anos</mat-option>
-                            <mat-option value="3">12 Anos</mat-option>
-                            <mat-option value="4">14 Anos</mat-option>
-                            <mat-option value="5">16 Anos</mat-option>
-                            <mat-option value="6">18 Anos</mat-option> -->
                         </mat-select>
                     <mat-error *ngIf="formGroup.get('classificacao')
                                     && formGroup.get('classificacao')?.invalid 

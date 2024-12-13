@@ -2,19 +2,15 @@
 
 <div class="container">
   <div class="container-container">
-
-    <div class="container-subheader">
-      <mat-form-field appearance="outline" class="caixa_pesquisa">
-        <mat-label>Filter</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Verity" #input>
-        <mat-icon matIconSuffix>search</mat-icon>
+    <div class="pesquisa">
+      <mat-form-field appearance="outline">
+          <mat-label>Filtrar por fornecedor</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
       </mat-form-field>
-
       <span class="material-symbols-outlined">
-        <a href="admin/livros/new"><mat-icon class="add-circle" style="color: black;"> add_circle </mat-icon></a>
+          <a href="admin/livro/new"><mat-icon class="add-circle" style="color: black;"> add_circle </mat-icon></a>
       </span>
     </div>
-    
     <table mat-table [dataSource]="livros" class="mat-elevation-z8">
   
       <!-- Id Column -->

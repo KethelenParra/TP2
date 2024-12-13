@@ -1,10 +1,15 @@
+import { Sexo } from "./sexo.model";
+import { Telefone } from "./telefone.model";
+
 export interface Usuario {
     id: number;
     nome: string;
     username: string;
-    email?: string; // Opcional
-    dataNascimento?: string; // ISO format (string)
+    email?: string;
+    dataNascimento?: string; 
+    telefone?: Telefone;
     cpf?: string;
-    sexo?: string;
+    sexo?: Sexo;
     senha?: string;
+    ativo?: boolean;
   }

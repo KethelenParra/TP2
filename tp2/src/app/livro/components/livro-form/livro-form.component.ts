@@ -35,7 +35,7 @@ import { forkJoin } from 'rxjs';
 @Component({
   selector: 'app-livro-form',
   standalone: true,
-  imports: [NgIf, NgFor, ReactiveFormsModule, MatDatepickerModule, MatCardModule, MatSnackBarModule, MatTableModule, MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, MatMenuModule, MatIconModule, MatSelectModule, RouterModule, FooterComponent],
+  imports: [NgIf, NgFor, ReactiveFormsModule, MatDatepickerModule, MatCardModule, MatSnackBarModule, MatTableModule, MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, MatMenuModule, MatIconModule, MatSelectModule, RouterModule],
   templateUrl: './livro-form.component.html',
   styleUrls: ['./livro-form.component.css']
 })
@@ -113,22 +113,22 @@ export class LivroFormComponent implements OnInit {
     const livro: Livro = this.activatedRoute.snapshot.data['livro'];
 
      // Garantindo que o fornecedor, editora e classificação sejam selecionados corretamente
-      const fornecedor = this.fornecedores.find(f => f.id === livro?.fornecedor?.id) || null;
-      const editora = this.editoras.find(e => e.id === livro?.editora?.id) || null;
-      const classificacao = this.classificacoes.find(c => c.id === livro?.classificacao?.id) || null;
+    const fornecedor = this.fornecedores.find(f => f.id === livro?.fornecedor?.id) || null;
+    const editora = this.editoras.find(e => e.id === livro?.editora?.id) || null;
+    const classificacao = this.classificacoes.find(c => c.id === livro?.classificacao?.id) || null;
 
-      // Garantindo que os gêneros sejam mapeados corretamente
-      const generos = livro?.generos?.length
-        ? livro.generos.map((genero) => this.generos.find((g) => g.id === genero.id)?.id).filter((id) => id !== undefined)
-        : [];
+    // Garantindo que os gêneros sejam mapeados corretamente
+    const generos = livro?.generos?.length
+      ? livro.generos.map((genero) => this.generos.find((g) => g.id === genero.id)?.id).filter((id) => id !== undefined)
+      : [];
 
-      // Garantindo que os autores sejam mapeados corretamente
-      const autores = livro?.autores?.length
-        ? livro.autores.map((autor) => this.autores.find((a) => a.id === autor.id)?.id).filter((id) => id !== undefined)
-        : [];
+    // Garantindo que os autores sejam mapeados corretamente
+    const autores = livro?.autores?.length
+      ? livro.autores.map((autor) => this.autores.find((a) => a.id === autor.id)?.id).filter((id) => id !== undefined)
+      : [];
 
-      // Convertendo a data de lançamento para o formato esperado
-      const dataLancamento = livro?.datalancamento ? new Date(livro.datalancamento) : null;
+    // Convertendo a data de lançamento para o formato esperado
+    const dataLancamento = livro?.datalancamento ? new Date(livro.datalancamento) : null;
 
     // carregando a imagem do preview
     if (livro && livro.nomeImagem) {

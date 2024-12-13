@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { Cliente } from '../models/cliente.model';
 import { Router } from '@angular/router';
-import { Box } from '../models/box.model';
 import { ItemDesejo } from '../models/item-desejo.model';
 
 @Injectable({
@@ -39,6 +38,7 @@ export class ClienteService {
     const headers = this.getHeaders();
     return this.http.patch<void>(`${this.baseUrl}/desejos/remover/${id}`, {}, { headers });
   }
+
   getListaDesejos(): Observable<ItemDesejo[]> {
     const headers = this.getHeaders();
     return this.http.get<ItemDesejo[]>(`${this.baseUrl}/desejos`, { headers });
@@ -48,8 +48,17 @@ export class ClienteService {
     return this.http.get<number>(`${this.baseUrl}/count`);
   }
 
-  findAll(page: number, pageSize: number): Observable<Cliente[]> {
-    return this.http.get<Cliente[]>(`${this.baseUrl}?page=${page}&pageSize=${pageSize}`);
+  findAll(page?: number, pageSize?: number): Observable<Cliente[]> {
+    let params = {};
+
+    if(page !== undefined && pageSize !== undefined){
+      params = {
+        page: page.toString(),
+        pageSize: pageSize.toString()
+      }
+    }
+
+    return this.http.get<Cliente[]>(`${this.baseUrl}`,{params});
   }
   
   // Métodos específicos para livros
@@ -76,8 +85,8 @@ export class ClienteService {
   }
 
   // Atualizar um cliente
-  update(id: number, cliente: Cliente): Observable<void> {
-    return this.http.put<void>(`${this.baseUrl}/${id}`, cliente);
+  update(cliente: Cliente): Observable<Cliente> {
+    return this.http.put<Cliente>(`${this.baseUrl}/${cliente.id}`, cliente);
   }
 
   // Buscar cliente por ID
@@ -91,20 +100,12 @@ export class ClienteService {
   }
 
   // Excluir um cliente
-  delete(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/${id}`, { headers: this.getHeaders() });
+  delete(cliente: Cliente): Observable<any> {
+    return this.http.delete<any>(`${this.baseUrl}/${cliente.id}`, {headers: this.getHeaders()});
   }
 
-  insertUsuario(cliente: Cliente): Observable<Cliente> {
-    return this.http.post<Cliente>(`${this.baseUrl}`, cliente, { headers: this.getHeaders() });
+  atualizarStatus(id: number, ativo: boolean): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.patch(`${this.baseUrl}/${id}/status`, { ativo }, { headers });
   }
-
-  updateUsuario(cliente: Cliente): Observable<Cliente> {
-    return this.http.put<Cliente>(`${this.baseUrl}/${cliente.id}`, cliente, { headers: this.getHeaders() });
-  }
-
-  deleteUsuario(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/${id}`, { headers: this.getHeaders() });
-  }
-
 }

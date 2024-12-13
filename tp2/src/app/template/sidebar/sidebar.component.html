@@ -3,7 +3,7 @@
     <mat-toolbar>
       <span>Menu</span>
     </mat-toolbar>
-    <mat-nav-list>
+    <mat-nav-list class="sidebar-options">
       <div class="opcao">
         <mat-list-item class="custom-list-item" [routerLink]="'../home'">
           <mat-icon matListItemIcon>home</mat-icon>
@@ -11,9 +11,15 @@
         </mat-list-item>
       </div>
       <div class="opcao">
-        <mat-list-item class="custom-list-item" [routerLink]="'../admin/viewUsers'">
-          <mat-icon matListItemIcon>people</mat-icon>
-          <span matListItemTitle>Usuários</span>
+        <mat-list-item class="custom-list-item" [routerLink]="'../admin/viewClients'">
+          <mat-icon matListItemIcon>person</mat-icon>
+          <span matListItemTitle>Clientes</span>
+        </mat-list-item>
+      </div>
+      <div class="opcao">
+        <mat-list-item class="custom-list-item" [routerLink]="'../admin/viewFuncionarios'">
+          <mat-icon matListItemIcon>manage_accounts</mat-icon>
+          <span matListItemTitle>Func.</span>
         </mat-list-item>
       </div>
       <div class="opcao">

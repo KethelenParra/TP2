@@ -25,6 +25,10 @@ button {
   margin-right: 8px;
 }
 
+.sidebar-options{
+  width: 190px;
+}
+
 mat-drawer {
   width: 250px;
   transition: width 0.3s;

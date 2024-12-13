@@ -9,9 +9,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { NavigationComponent } from '../../../components/navigation/navigation.component';
-import { SidebarComponent } from '../../../template/sidebar/sidebar.component';
-import { FooterComponent } from '../../../template/footer/footer.component';
 import { Fornecedor } from '../../../models/fornecedor.model';
 import { FornecedorService } from '../../../service/fornecedor.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -47,6 +44,7 @@ export class FornecedorListComponent implements OnInit {
     this.fornecedorService.count().subscribe(
       data => { this.totalRecords = data }
     );
+    
     this.fornecedores.filterPredicate = (data: Fornecedor, filter: string) => {
       return data.nome.toLowerCase().includes(filter.toLowerCase());
     }; 

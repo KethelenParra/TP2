@@ -14,14 +14,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../../dialog/confirmation-dialog/confirmation-dialog.component';
 import { NavigationService } from '../../../service/navigation.service';
-import { FooterComponent } from '../../../template/footer/footer.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-genero-form',
   standalone: true,
-  imports: [NgIf, ReactiveFormsModule, MatSnackBarModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, MatMenuModule, MatIconModule, FooterComponent],
+  imports: [NgIf, ReactiveFormsModule, MatSnackBarModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, MatMenuModule, MatIconModule],
   templateUrl: './genero-form.component.html',
   styleUrl: './genero-form.component.css'
 })
@@ -44,7 +43,6 @@ export class GeneroFormComponent {
       descricao: ['', Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(10000)])],
     });
   }
-
 
   ngOnInit(): void {
     this.initializeForm();

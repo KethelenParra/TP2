@@ -1,0 +1,78 @@
+.container {
+    margin: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .pesquisa {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .text_titulo {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .campo-pesquisa {
+    width: 50%;
+    margin-top: 1%;
+  }
+  
+  .clientes {
+    overflow-x: auto;
+  }
+  
+  table {
+    width: 100vh;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  .mat-header-cell, .mat-cell {
+    text-align: center;
+  }
+  
+  .mat-header-row {
+    background-color: #f4f4f4;
+    font-weight: bold;
+  }
+  
+  .mat-row {
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .mat-icon-button {
+    margin-right: 10px;
+  }
+  
+  .habilitar-cliente {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .mat-slide-toggle {
+    margin: 0;
+  }
+  
+  .mat-paginator {
+    margin-top: 20px;
+    justify-content: center;
+    display: flex;
+  }
+  
+  .botao-editar{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  .data{
+    height: 5vh;
+    display: flex;
+    justify-content: center;
+  }

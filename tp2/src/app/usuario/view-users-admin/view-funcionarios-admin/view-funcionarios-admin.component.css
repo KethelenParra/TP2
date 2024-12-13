@@ -19,3 +19,10 @@ table {
     margin-top: 1%;
     text-align: center;
 }
+
+.button{
+  background-color: transparent;
+  border: none;
+  color: rgb(115, 222, 105);
+  cursor: pointer;
+}

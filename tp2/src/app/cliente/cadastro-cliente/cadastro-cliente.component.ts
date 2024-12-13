@@ -46,6 +46,7 @@ export class CadastroClienteComponent implements OnInit {
         senha: ['', Validators.required],
         cpf: ['', Validators.required],
         cep: ['', Validators.required],
+        telefone: ['', Validators.required],
         logradouro: [{ value: '', disabled: true }, Validators.required],
         complemento: [],
         bairro: [{ value: '', disabled: true }, Validators.required],
@@ -74,6 +75,7 @@ export class CadastroClienteComponent implements OnInit {
         senha: [(cliente && cliente.usuario.senha) ? cliente.usuario.senha : null, Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(10)])],
         cpf: [(cliente && cliente.usuario.cpf) ? cliente.usuario.cpf : null, Validators.compose([Validators.required, Validators.minLength(11), Validators.maxLength(14)])],
         cep: [(cliente && cliente.cep) ? cliente.cep : null, Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(9)])],
+        telefone: [(cliente && cliente?.usuario?.telefone) ? cliente?.usuario?.telefone : null, Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(15)])],
         logradouro: [{ value: '', disabled: true }, Validators.required],
         complemento: [(cliente && cliente.complemento) ? cliente.complemento : null],
         bairro: [{ value: '', disabled: true }, Validators.required],
@@ -115,10 +117,10 @@ export class CadastroClienteComponent implements OnInit {
     if (this.cadastroForm.valid) {
       const cliente = this.cadastroForm.value;
 
-      // selecionando a operacao (insert ou update)
+      // selecionando a operacao (create ou update)
       const operacao = cliente.id == null
-        ? this.clienteService.insertUsuario(cliente)
-        : this.clienteService.updateUsuario(cliente);
+        ? this.clienteService.create(cliente)
+        : this.clienteService.update(cliente);
 
       // executando a operacao
       operacao.subscribe({
@@ -206,7 +208,7 @@ export class CadastroClienteComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         const id = this.cadastroForm.get('id')?.value;
-        this.clienteService.deleteUsuario(id).subscribe(
+        this.clienteService.delete(id).subscribe(
           () => {
             this.snackBar.open('Cliente excluído com sucesso!', 'Fechar', {
               duration: 3000
