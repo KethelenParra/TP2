@@ -3,6 +3,18 @@
         <mat-card-content>
             <form [formGroup]="formGroup" class="formulario">
                 <mat-form-field appearance="outline" class="full-width-input">
+                    <mat-label>Id</mat-label>
+                    <input matInput type="text" formControlName="id" class="id">
+                    <mat-error *ngIf="formGroup.get('id')?.invalid
+                                    && formGroup.get('id')?.touched">
+                            {{ getErrorMessage('id', formGroup.get('id')?.errors) }}
+
+                        @if(formGroup.get('id')?.hasError('apiError')){
+                            <span>{{formGroup.get('id')?.getError('apiError')}}</span>
+                        }
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label>Nome</mat-label>
                     <input matInput type="text" formControlName="nome" class="nome">
                     <mat-error *ngIf="formGroup.get('nome')?.invalid
@@ -82,19 +94,19 @@
                         }
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field appearance="outline" class="full-width-input">
-                    <mat-label>Cpf</mat-label>
-                    <input matInput type="text" formControlName="cpf" class="cpf">
-                    <mat-error *ngIf="formGroup.get('cpf')
-                                    && formGroup.get('cpf')?.invalid
-                                    && formGroup.get('cpf')?.touched">
-                            {{ getErrorMessage('cpf', formGroup.get('cpf')?.errors) }}
+                <!-- <mat-form-field appearance="outline" class="full-width-input">
+                    <mat-label>Senha</mat-label>
+                    <input matInput type="text" formControlName="senha" class="senha">
+                    <mat-error *ngIf="formGroup.get('senha')
+                                    && formGroup.get('senha')?.invalid
+                                    && formGroup.get('senha')?.touched">
+                            {{ getErrorMessage('senha', formGroup.get('senha')?.errors) }}
 
-                        @if(formGroup.get('cpf')?.hasError('apiError')){
-                            <span>{{formGroup.get('cpf')?.getError('apiError')}}</span>
+                        @if(formGroup.get('senha')?.hasError('apiError')){
+                            <span>{{formGroup.get('senha')?.getError('apiError')}}</span>
                         }
                     </mat-error>
-                </mat-form-field>
+                </mat-form-field> -->
                 <div formGroupName="telefone">
                     <div class="full-width-input phone-fields">
                         <mat-form-field appearance="outline" class="area-code-input">
@@ -128,16 +140,23 @@
                         </mat-form-field>
                     </div>
                 </div>
+                <!--Sexo-->
                 <mat-form-field appearance="outline" class="full-width-input">
-                    <mat-label>Sexo</mat-label>
-                    <input matInput type="text" formControlName="sexo" class="sexo">
+                    <mat-label> Sexo </mat-label>
+                        <mat-select formControlName="sexo" name="sexo">
+                            <mat-option *ngFor="let sexo of sexos" [value]="sexo">
+                                {{sexo.nome}}
+                            </mat-option>
+                        </mat-select>
                     <mat-error *ngIf="formGroup.get('sexo')
-                                    && formGroup.get('sexo')?.invalid
+                                    && formGroup.get('sexo')?.invalid 
                                     && formGroup.get('sexo')?.touched">
-                            {{ getErrorMessage('sexo', formGroup.get('sexo')?.errors) }}
-                        @if(formGroup.get('sexo')?.hasError('apiError')){
-                            <span>{{formGroup.get('sexo')?.getError('apiError')}}</span>
-                        }
+                        {{ getErrorMessage('sexo', formGroup.get('sexo')?.errors) }}
+
+                         <!-- Error Back-->
+                         @if(formGroup.get('sexo')?.hasError('apiError')) {
+                            <span>{{formGroup.get('sexo')?.getError('apiError')}}</span> 
+                         }
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="full-width-input">

@@ -26,7 +26,6 @@ import { Autor } from '../../../models/autor.model';
 import { Genero } from '../../../models/genero.model';
 import { AutorService } from '../../../service/autor.service';
 import { GeneroService } from '../../../service/genero.service';
-import { FooterComponent } from '../../../template/footer/footer.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Classificacao } from '../../../models/classificacao.model';
@@ -247,7 +246,7 @@ export class LivroFormComponent implements OnInit {
             }
         });
     }
-}
+  }
 
   excluir() {
     if (this.formGroup.valid) {

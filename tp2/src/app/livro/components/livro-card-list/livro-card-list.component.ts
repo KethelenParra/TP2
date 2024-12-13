@@ -63,6 +63,7 @@ export class LivroCardListComponent implements OnInit {
   selectedGeneros: number[] = [];
   loading: boolean = false;
   errorMessage: string = '';
+  isLoggedIn: boolean = false;
 
   constructor(
     private livroService: LivroService,
@@ -75,14 +76,9 @@ export class LivroCardListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.isLoggedIn = !!localStorage.getItem('token');
     this.carregarLivrosFiltro();
     this.carregarLivrosAll();
-
-    if (!localStorage.getItem('token')) {
-      this.router.navigateByUrl('/login');
-      return;
-    }
-    
   }
 
   carregarLivrosFiltro(): void {
@@ -169,6 +165,42 @@ export class LivroCardListComponent implements OnInit {
   }
 
   carregarCards(): void {
+    const tipoUsuario = localStorage.getItem('usuario_tipo'); // Assume que o tipo foi salvo no localStorage pelo AuthService
+    if (tipoUsuario === 'Funcionario') {
+      console.log('Funcionário logado - ignorando carregamento de lista de desejos.');
+      // Carrega os livros sem marcar a lista de desejos
+      const cards: Card[] = this.livros.map((livro) => ({
+        id: livro.id,
+        titulo: livro.titulo,
+        preco: livro.preco,
+        descricao: livro.descricao,
+        autores: livro.autores.map((autor) => autor.nome).join(', '),
+        imageUrl: this.livroService.getUrlImage(livro.nomeImagem),
+        listaDesejo: false, // Funcionários não têm lista de desejos
+      }));
+  
+      this.cards.set(cards);
+      return;
+    }  
+
+    // Verifica se o usuário está logado antes de tentar carregar a lista de desejos
+    if (!this.isLoggedIn) {
+      // Usuário não logado, carrega os livros sem marcar a lista de desejos
+      const cards: Card[] = this.livros.map((livro) => ({
+        id: livro.id,
+        titulo: livro.titulo,
+        preco: livro.preco,
+        descricao: livro.descricao,
+        autores: livro.autores.map((autor) => autor.nome).join(', '),
+        imageUrl: this.livroService.getUrlImage(livro.nomeImagem),
+        listaDesejo: false, // Sem login, nenhum livro está na lista de desejos
+      }));
+  
+      this.cards.set(cards);
+      return;
+    }
+  
+    // Caso o usuário esteja logado, tenta carregar a lista de desejos
     this.clienteService.getListaDesejos().subscribe({
       next: (livrosDesejados) => {
         const idsDesejados = livrosDesejados.map((livro) => livro.id);
@@ -192,7 +224,8 @@ export class LivroCardListComponent implements OnInit {
           'Fechar',
           { duration: 3000 }
         );
-        // Carregar os livros sem marcar lista de desejos
+  
+        // Carrega os livros sem marcar a lista de desejos
         const cards: Card[] = this.livros.map((livro) => ({
           id: livro.id,
           titulo: livro.titulo,
@@ -200,7 +233,7 @@ export class LivroCardListComponent implements OnInit {
           descricao: livro.descricao,
           autores: livro.autores.map((autor) => autor.nome).join(', '),
           imageUrl: this.livroService.getUrlImage(livro.nomeImagem),
-          listaDesejo: false,
+          listaDesejo: false, // Em caso de erro, nenhum livro está na lista de desejos
         }));
   
         this.cards.set(cards);
@@ -209,25 +242,31 @@ export class LivroCardListComponent implements OnInit {
   }
   
   adicionarEFavoritar(card: Card): void {
+    if (!this.isLoggedIn) {
+      this.snackBar.open(
+        'Você precisa estar logado para adicionar à lista de desejos.',
+        'Fechar',
+        { duration: 3000 }
+      );
+      return;
+    }
+  
     if (!card.listaDesejo) {
-      // Adiciona o livro à lista de desejos
       this.clienteService.adicionarLivroDesejo(card.id).subscribe({
         next: () => {
           this.snackBar.open('Livro adicionado à lista de desejos.', 'Fechar', { duration: 3000 });
-          card.listaDesejo = true; // Atualiza o estado visual do card
+          card.listaDesejo = true;
         },
         error: () => {
           this.snackBar.open('Erro ao adicionar livro à lista de desejos.', 'Fechar', { duration: 3000 });
         },
       });
     } else {
-      // Se já está na lista de desejos, exibe mensagem informativa
       this.snackBar.open('Este livro já está na sua lista de desejos.', 'Fechar', { duration: 3000 });
     }
   }
   
   
-
   paginar(event: PageEvent): void {
     this.page = event.pageIndex;
     this.pageSize = event.pageSize;

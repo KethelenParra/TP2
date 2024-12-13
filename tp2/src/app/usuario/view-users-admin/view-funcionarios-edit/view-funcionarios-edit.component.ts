@@ -18,11 +18,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { Sexo } from '../../../models/sexo.model';
 import { forkJoin } from 'rxjs';
 import { MatOptionModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-view-funcionarios-edit',
   standalone: true,
-  imports: [MatCardModule, MatFormFieldModule, ReactiveFormsModule, CommonModule, RouterModule, MatDatepickerModule, MatInputModule, MatButtonModule, MatOptionModule, MatNativeDateModule],
+  imports: [MatCardModule, MatFormFieldModule, ReactiveFormsModule, CommonModule, RouterModule, MatDatepickerModule, MatInputModule, MatButtonModule, MatOptionModule, MatNativeDateModule, MatSelectModule],
   templateUrl: './view-funcionarios-edit.component.html',
   styleUrl: './view-funcionarios-edit.component.css'
 })
@@ -36,7 +37,6 @@ export class ViewFuncionariosEditComponent {
       private router: Router,
       private activatedRoute: ActivatedRoute,
       private dialog: MatDialog,
-      private navService: NavigationService,
       private snackBar: MatSnackBar
     ){
       this.formGroup = this.formBuilder.group({
@@ -47,6 +47,7 @@ export class ViewFuncionariosEditComponent {
         dataNascimento: ['', Validators.compose([Validators.required])],
         email: ['', Validators.compose([Validators.required, Validators.email])],
         cpf: ['', Validators.compose([Validators.required, Validators.minLength(11), Validators.maxLength(11)])],
+        // senha: ['', Validators.required],
         telefone: this.formBuilder.group({
           codigoArea: [null, Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(3)])],
           numero: [null, Validators.compose([Validators.required, Validators.minLength(9), Validators.maxLength(9)])],
@@ -72,6 +73,8 @@ export class ViewFuncionariosEditComponent {
   
     initializeForm(): void {
       const funcionario: Funcionario = this.activatedRoute.snapshot.data['funcionario'];
+
+      const sexo = this.sexos.find(s => s.id === funcionario?.usuario?.sexo?.id) || null;
   
       this.formGroup = this.formBuilder.group({
         id: [(funcionario && funcionario?.usuario?.id) ? funcionario?.usuario?.id : null],
@@ -81,11 +84,12 @@ export class ViewFuncionariosEditComponent {
         dataNascimento: [(funcionario && funcionario.usuario.dataNascimento) ? funcionario.usuario.dataNascimento : '', Validators.compose([Validators.required])],
         email: [(funcionario && funcionario.usuario.email) ? funcionario.usuario.email : '', Validators.compose([Validators.required, Validators.email])],
         cpf: [(funcionario && funcionario.usuario.cpf) ? funcionario.usuario.cpf : '', Validators.compose([Validators.required, Validators.minLength(11), Validators.maxLength(11)])],
+        // senha: [(funcionario && funcionario?.usuario?.senha) ? funcionario?.usuario?.senha : null, Validators.required],
         telefone: this.formBuilder.group({
           codigoArea: [(funcionario && funcionario.usuario.telefone?.codigoArea) ? funcionario.usuario.telefone?.codigoArea : null, Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(3)])],
           numero: [(funcionario && funcionario.usuario.telefone?.numero) ? funcionario.usuario.telefone?.numero : null, Validators.compose([Validators.required, Validators.minLength(9), Validators.maxLength(10)])],
         }),
-        sexo: [(funcionario && funcionario.usuario.sexo?.nome) ? funcionario.usuario.sexo?.nome : null, Validators.required],
+        sexo: [sexo, Validators.required],
         salario: [(funcionario && funcionario.salario) ? funcionario.salario : '', Validators.compose([Validators.required, Validators.minLength(3)])],
       });
     }
@@ -113,49 +117,29 @@ export class ViewFuncionariosEditComponent {
   
     salvar() {
       this.formGroup.markAllAsTouched();
-      if(this.formGroup.valid){
-        const funcionario = this.formGroup.value;
-        console.log(funcionario);
-        
-        const funcionarioReference = funcionario?.usuario?.id
-
-        // Selecionando a operação (create ou update)
-        if(funcionarioReference === null || funcionarioReference === undefined) {
-          this.funcionarioService.create(funcionario).subscribe({
-            next: () => {
-              this.snackBar.open('Funcionario salvo com sucesso!', 'Fechar',{
-                duration: 3000
-              });
-              this.router.navigateByUrl('/admin/viewFuncionarios');
-            },
-            error: (error) => {
-              console.log('Erro ao Salvar' + JSON.stringify(error));
-              this.tratarErros(error);
-              this.snackBar.open('Erro ao salvar funcionário.', 'Fechar',{
-                duration: 3000
-              });
-            }
+      if (this.formGroup.valid) {
+          const funcionario = this.formGroup.value;
+  
+          // Operação de inserção ou atualização
+          const operacao = funcionario?.usuario?.id == null
+              ? this.funcionarioService.update(funcionario)
+              : this.funcionarioService.create(funcionario);
+  
+          operacao.subscribe({
+              next: () => {
+                  this.router.navigateByUrl('/admin/funcionarios');
+                  this.snackBar.open('Funcionario salvo com sucesso!', 'Fechar', {
+                    duration: 3000
+                  });
+              },
+              error: (error) => {
+                  console.error('Erro ao salvar o funcionario:', error);
+                  this.tratarErros(error);
+                  this.snackBar.open('Erro ao salvar funcionario.', 'Fechar', {
+                      duration: 3000
+                  });
+              }
           });
-        } else {
-          this.funcionarioService.update(funcionario).subscribe({
-            next: () => {
-              this.snackBar.open('Funcionario salvo com sucesso!', 'Fechar',{
-                duration: 3000
-              });
-              this.router.navigateByUrl('/admin/viewFuncionarios');
-            },
-            error: (error) => {
-              console.log('Erro ao Salvar' + JSON.stringify(error));
-              this.tratarErros(error);
-              this.snackBar.open('Erro ao salvar funcionário.', 'Fechar',{
-                duration: 3000
-              });
-            }
-          });
-        }
-          
-        // Executando a operação
-        
       }
     }
     

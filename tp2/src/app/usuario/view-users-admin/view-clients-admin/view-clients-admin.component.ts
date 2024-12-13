@@ -62,7 +62,7 @@ export class ViewClientsAdminComponent implements OnInit {
     );
 
     this.clientes.filterPredicate = (data: Cliente, filter: string) => {
-      return data.usuario.nome.toLowerCase().includes(filter.toLowerCase());
+      return data?.usuario?.nome?.toLowerCase().includes(filter.toLowerCase()) ?? false;
     };
   }
   

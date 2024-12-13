@@ -78,6 +78,7 @@
                       color="primary"
                       style="width: 100%; padding: 16px; text-align: center;"
                       (click)="adicionarEFavoritar(card); $event.stopPropagation()"
+                      [disabled]="!isLoggedIn"
                     >
                       Minha Lista
                     </button>
@@ -97,12 +98,4 @@
         [length]="totalRecords"
         (page)="paginar($event)">
     </mat-paginator>
-</div>
-<div>
-  <mat-paginator 
-      [pageSizeOptions]="[25, 30, 50, 100]"
-      [pageSize]="pageSize"
-      [length]="totalRecords"
-      (page)="paginar($event)">
-  </mat-paginator>
 </div>

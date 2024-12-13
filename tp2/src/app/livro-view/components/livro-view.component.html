@@ -1,33 +1,42 @@
 <div class="container" *ngIf="livro">
   <div class="imagem-livro">
-      <img mat-card-image [src]="getImageUrl(livro.nomeImagem)" alt="{{ livro.titulo }}">
+    <img mat-card-image [src]="getImageUrl(livro.nomeImagem)" alt="{{ livro.titulo }}">
   </div>
   <div class="livro-content">
     <div class="livro-data">
       <div class="titulo-livro">
         <mat-card-title>{{ livro.titulo }}</mat-card-title>
       </div>
+
+      <!-- Média de Estrelas -->
+      <div class="media-estrelas">
+        <p>
+          Avaliação Média: {{ (mediaEstrelas || 0).toFixed(1) }}
+          <span *ngIf="mediaEstrelas > 0">{{ '⭐'.repeat((mediaEstrelas || 0)) }}</span>
+        </p>
+      </div>
+
       <div class="preco">
         <p>{{ livro.preco | currency: 'BRL' }}</p>
       </div>
       <div class="descricao">
-        <strong>Descrição:</strong> 
+        <strong>Descrição:</strong>
         <p>{{ livro.descricao }}</p>
       </div>
       <div class="editora">
-        <p><strong>Editora: </strong>{{livro.editora.nome}}</p>
+        <p><strong>Editora: </strong>{{ livro.editora.nome }}</p>
       </div>
       <div class="isbn">
-        <p><strong>ISBN: </strong>{{livro.isbn}}</p>
+        <p><strong>ISBN: </strong>{{ livro.isbn }}</p>
       </div>
       <div class="quantidade-estoque">
-        <p><strong>Quantidade em estoque: </strong>{{livro.quantidadeEstoque}}</p>
+        <p><strong>Quantidade em estoque: </strong>{{ livro.quantidadeEstoque }}</p>
       </div>
-      <div class="autores" >
+      <div class="autores">
         <p *ngIf="livro.autores && livro.autores.length"><strong>Autores:</strong> {{ autoresFormatados }}</p>
       </div>
       <div class="classificacao">
-        <p><strong>Classificação: </strong> {{livro.classificacao.descricao}}</p>
+        <p><strong>Classificação: </strong> {{ livro.classificacao.descricao }}</p>
       </div>
 
       <div class="compra">
@@ -35,9 +44,7 @@
           <button mat-icon-button matPrefix (click)="decrement()" class="counter-button">
             <mat-icon>remove</mat-icon>
           </button>
-        
           <input matInput type="text" [value]="count" readonly class="counter-input">
-        
           <button mat-icon-button matSuffix (click)="increment()" class="counter-button">
             <mat-icon>add</mat-icon>
           </button>
@@ -45,21 +52,73 @@
         <div class="carrinho">
           <section>
             <div class="example-button-row">
-              <button mat-stroked-button class="botao-carrinho"  (click)="adicionarAoCarrinho()">Adicionar no carrinho</button>
+              <button mat-stroked-button class="botao-carrinho" (click)="adicionarAoCarrinho()">Adicionar no carrinho</button>
             </div>
           </section>
-        </div>  
+        </div>
       </div>
       <mat-divider></mat-divider>
+
+      <!-- CEP Section -->
       <div class="cep">
         <mat-form-field class="mat-form-cep" appearance="outline">
           <mat-label>CEP</mat-label>
           <mat-icon matPrefix>local_shipping</mat-icon>
-          <input matInput placeholder="000000-000">
+          <input matInput #cepInput placeholder="00000-000">
         </mat-form-field>
-        <button mat-stroked-button class="botao-frete">Calcular Frete</button>
+        <button mat-stroked-button class="botao-frete" (click)="calcularFrete(cepInput.value)">Calcular Frete</button>
       </div>
+      <p *ngIf="valorFreteMensagem" class="frete-mensagem">{{ valorFreteMensagem }}</p>
+    
+
+      <!-- Linha de Separação -->
+      <hr class="divider">
+
+  <!-- Seção de Avaliações -->
+  <div class="avaliacoes-side">
+    <div class="nova-avaliacao">
+      <h3>Deixe sua Avaliação</h3>
+      <form (ngSubmit)="enviarAvaliacao()">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Comentário</mat-label>
+          <textarea matInput [(ngModel)]="novoComentario" name="comentario" placeholder="Escreva seu comentário"></textarea>
+        </mat-form-field>
+
+        <div class="estrelas">
+          <div>
+            <button
+              *ngFor="let estrela of [1, 2, 3, 4, 5]"
+              type="button"
+              [class.ativo]="estrela <= novaEstrela"
+              (click)="selecionarEstrela(estrela)"
+              class="estrela-button"
+            >
+              ⭐
+            </button>
+          </div>
+        </div>
+
+        <button mat-raised-button color="primary" type="submit" class="enviar-button">Enviar Avaliação</button>
+      </form>
+    </div>
+
+    <div class="avaliacoes-container">
+      <h3>Avaliações</h3>
+      <div *ngIf="avaliacoes.length > 0; else semAvaliacoes">
+        <div *ngFor="let avaliacao of avaliacoes" class="avaliacao">
+          <div class="avaliacao-header">
+            <strong>{{ avaliacao.cliente.username }}</strong>
+            <span class="estrelas">{{ '⭐'.repeat(avaliacao.estrela.id) }}</span>
+          </div>
+          <p class="avaliacao-comentario">{{ avaliacao.comentario }}</p>
+
+          <!-- Exibir botão excluir apenas se o usuário for o autor ou um funcionário -->
+          <button *ngIf="isUsuarioLogadoAutorizado(avaliacao)" (click)="deletarAvaliacao(avaliacao.id)" class="delete-button"><mat-icon>delete</mat-icon></button>
+        </div>
+      </div>
+      <ng-template #semAvaliacoes>
+        <p>Este livro ainda não possui avaliações.</p>
+      </ng-template>
     </div>
   </div>
-  
 </div>

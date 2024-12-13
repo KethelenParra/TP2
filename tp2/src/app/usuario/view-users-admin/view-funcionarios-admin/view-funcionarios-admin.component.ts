@@ -74,7 +74,7 @@ export class ViewFuncionariosAdminComponent implements OnInit {
     );
 
     this.funcionarios.filterPredicate = (data: Funcionario, filter: string) => {
-      return data.usuario.nome.toLowerCase().includes(filter);
+      return data.usuario && data.usuario.nome ? data.usuario.nome.toLowerCase().includes(filter) : false;
     };
   }
 

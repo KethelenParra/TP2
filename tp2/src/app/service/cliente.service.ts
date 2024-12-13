@@ -108,4 +108,12 @@ export class ClienteService {
     const headers = this.getHeaders();
     return this.http.patch(`${this.baseUrl}/${id}/status`, { ativo }, { headers });
   }
+  
+  meuPerfil(idCliente: number): Observable<Cliente> {
+    const headers = this.getHeaders();
+    return this.http.get<Cliente>(`${this.baseUrl}/search/meu-perfil`, { headers });
+  }
+  insertUsuario(cliente: Cliente): Observable<Cliente> {
+    return this.http.post<Cliente>(`${this.baseUrl}`, cliente, { headers: this.getHeaders() });
+  }
 }

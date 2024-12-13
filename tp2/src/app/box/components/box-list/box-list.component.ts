@@ -21,7 +21,7 @@ const ELEMENT_DATA: Box[] = [];
 @Component({
   selector: 'app-box-list',
   standalone: true,
-  imports: [MatToolbarModule, MatSnackBarModule, FormsModule, MatFormFieldModule, MatInputModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator],
+  imports: [MatToolbarModule, MatSnackBarModule, FormsModule, MatFormFieldModule, MatInputModule, NgFor, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatPaginator ],
   templateUrl: './box-list.component.html',
   styleUrl: './box-list.component.css'
 })

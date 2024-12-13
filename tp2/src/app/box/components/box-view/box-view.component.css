@@ -13,8 +13,6 @@ img{
     padding: 30px;
 }
 
-
-
 .cep{
     display: flex;
     justify-content: end;
@@ -114,4 +112,11 @@ section {
     align-items: center;
     justify-content: center;
   }
+
+  .frete-mensagem {
+   
+    font-size: 14px;
+    color: #0ab810; /* Verde para mensagens positivas */
+  }
+  
   

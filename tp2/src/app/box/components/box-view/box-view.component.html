@@ -52,10 +52,11 @@
           <mat-form-field class="mat-form-cep" appearance="outline">
             <mat-label>CEP</mat-label>
             <mat-icon matPrefix>local_shipping</mat-icon>
-            <input matInput placeholder="000000-000">
+            <input matInput #cepInput placeholder="00000-000">
           </mat-form-field>
-          <button mat-stroked-button class="botao-frete">Calcular Frete</button>
+          <button mat-stroked-button class="botao-frete" (click)="calcularFrete(cepInput.value)">Calcular Frete</button>
         </div>
+        <p *ngIf="valorFreteMensagem" class="frete-mensagem">{{ valorFreteMensagem }}</p>
       </div>
     </div>
     

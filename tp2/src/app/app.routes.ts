@@ -39,6 +39,9 @@ import { ViewFuncionariosAdminComponent } from './usuario/view-users-admin/view-
 import { funcionarioResolver } from './usuario/view-users-admin/resolver/funcionarioView.resolver';
 import { ViewClientesEditComponent } from './usuario/view-users-admin/view-clientes-edit/view-clientes-edit.component';
 import { ViewFuncionariosEditComponent } from './usuario/view-users-admin/view-funcionarios-edit/view-funcionarios-edit.component';
+import { authGuard } from './guard/auth.guard';
+import { authClienteGuard } from './guard/auth-cliente.guard';
+import { FinalizarPedidoComponent } from './carrinho/finalizar-pedido/finalizar-pedido.component';
 
 export const routes: Routes = [
     {
@@ -52,7 +55,7 @@ export const routes: Routes = [
             
             { path: 'login', component: LoginComponent, title: 'Login'},
 
-            { path: 'favoritos', component: FavoritosComponent, title: 'Favoritos' },
+            { path: 'favoritos', component: FavoritosComponent, title: 'Favoritos', canActivate: [authClienteGuard]  },
 
             { path: 'livrosCard', component: LivroCardListComponent, title: 'Lista de Cards de Livros' },
 
@@ -62,19 +65,24 @@ export const routes: Routes = [
 
             { path: 'nome/:nome', component: BoxViewComponent, resolve: { box: BoxViewResolver } },
 
+            { path: 'carrinho', component: CarrinhoComponent, title: 'Carrinho de compra', canActivate: [authClienteGuard] },
+        
+            { path: 'finalizarPedido', component: FinalizarPedidoComponent, title: 'Finalizar Pedido', canActivate: [authClienteGuard] },
+
             { path: 'minhaConta', component: MinhaContaComponent, title: 'Minha Conta' },
 
             {path: 'register', component: CadastroClienteComponent, title: 'Registrar Usuário'},
             
-            { path: 'carrinho', component: CarrinhoComponent, title: 'Carrinho de compra' },
         ]
     },
     {
         path: 'admin',
         component: AdminTemplateComponent,
         title: 'administração',
-        // canActivate: [AuthGuard],
         children: [
+
+            { path: '', pathMatch: 'full', redirectTo: 'controle'},
+
             { path: '', pathMatch: 'full', redirectTo: 'loginAdm' },
 
             { path: 'viewClients', component: ViewClientsAdminComponent, title: ' Visualização de Clientes' },
@@ -84,31 +92,31 @@ export const routes: Routes = [
 
             { path: 'loginAdm', component: AdmLoginComponent, title: 'Login Adm' },
 
-            { path: 'controle', component: ControleComponent, title: 'Controle' },
+            { path: 'controle', component: ControleComponent, title: 'Controle', canActivate: [authGuard] },
 
             { path: 'fornecedores', component: FornecedorListComponent, title: 'Lista de fornecedores' },
-            { path: 'fornecedores/new', component: FornecedorFormComponent, title: 'Novo fornecedor' },
-            { path: 'fornecedores/edit/:id', component: FornecedorFormComponent, resolve: { fornecedor: fornecedorResolver } },
+            { path: 'fornecedores/new', component: FornecedorFormComponent, title: 'Novo fornecedor', canActivate: [authGuard] },
+            { path: 'fornecedores/edit/:id', component: FornecedorFormComponent, resolve: { fornecedor: fornecedorResolver }, canActivate: [authGuard] },
 
             { path: 'editoras', component: EditoraListComponent, title: 'Lista de editoras' },
-            { path: 'editoras/new', component: EditoraFormComponent, title: 'Nova editora' },
-            { path: 'editoras/edit/:id', component: EditoraFormComponent, resolve: { editora: editoraResolver } },
+            { path: 'editoras/new', component: EditoraFormComponent, title: 'Nova editora', canActivate: [authGuard] },
+            { path: 'editoras/edit/:id', component: EditoraFormComponent, resolve: { editora: editoraResolver }, canActivate: [authGuard] },
 
             { path: 'boxes', component: BoxListComponent, title: 'Lista de boxes' },
-            { path: 'boxes/new', component: BoxFormComponent, title: 'Novo box' },
-            { path: 'boxes/edit/:id', component: BoxFormComponent, resolve: { box: boxResolver } },
+            { path: 'boxes/new', component: BoxFormComponent, title: 'Novo box', canActivate: [authGuard] },
+            { path: 'boxes/edit/:id', component: BoxFormComponent, resolve: { box: boxResolver }, canActivate: [authGuard] },
 
             { path: 'generos', component: GeneroListComponent, title: 'Lista de Generos' },
-            { path: 'generos/new', component: GeneroFormComponent, title: 'Novo genero' },
-            { path: 'generos/edit/:id', component: GeneroFormComponent, resolve: { genero: generoResolver } },
+            { path: 'generos/new', component: GeneroFormComponent, title: 'Novo genero', canActivate: [authGuard] },
+            { path: 'generos/edit/:id', component: GeneroFormComponent, resolve: { genero: generoResolver }, canActivate: [authGuard] },
 
             { path: 'autores', component: AutorListComponent, title: 'Lista de Autores' },
-            { path: 'autores/new', component: AutorFormComponent, title: 'Novo Autor' },
-            { path: 'autores/edit/:id', component: AutorFormComponent, resolve: { autor: autorResolver } },
+            { path: 'autores/new', component: AutorFormComponent, title: 'Novo Autor', canActivate: [authGuard] },
+            { path: 'autores/edit/:id', component: AutorFormComponent, resolve: { autor: autorResolver }, canActivate: [authGuard] },
 
             { path: 'livros', component: LivroListComponent, title: 'Lista de Livros' },
-            { path: 'livros/new', component: LivroFormComponent, title: 'Novo Livro' },
-            { path: 'livros/edit/:id', component: LivroFormComponent, resolve: { livro: livroResolver } }
+            { path: 'livros/new', component: LivroFormComponent, title: 'Novo Livro', canActivate: [authGuard] },
+            { path: 'livros/edit/:id', component: LivroFormComponent, resolve: { livro: livroResolver }, canActivate: [authGuard] }
         ]
     }
 ];

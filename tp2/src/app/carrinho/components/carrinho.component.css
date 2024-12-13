@@ -1,20 +1,113 @@
 .carrinho {
-    padding: 20px;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  th, td {
-    padding: 10px;
-    text-align: left;
-    border: 1px solid #ccc;
-  }
-  
-  button {
-    padding: 5px 10px;
-    cursor: pointer;
-  }
-  
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 80%; /* Reduz a largura da seção do carrinho */
+  margin: 0 auto; /* Centraliza a seção na página */
+}
+
+/* Configurações gerais da página */
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 64vh; /* Garante que o container ocupe a altura total da tela */
+}
+
+.content-wrapper {
+  flex: 1; /* Faz com que o conteúdo principal ocupe o espaço restante */
+  padding: 20px;
+}
+
+h2 {
+  font-family: "Arial", sans-serif;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.cart-table th,
+.cart-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.cart-table th {
+  background-color: #f2f2f2;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+}
+
+.quantity-btn {
+  padding: 5px 10px;
+  margin: 0 5px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.quantity-btn:hover {
+  background-color: #0056b3;
+}
+
+.remove-btn {
+  padding: 5px 10px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.remove-btn:hover {
+  background-color: #c82333;
+}
+
+.cart-total {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+}
+
+.cart-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.action-btn {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.action-btn-fechar {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.action-btn:hover {
+  background-color: #218838;
+}
+
+.action-btn:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}

@@ -36,6 +36,23 @@ export class FuncionarioService {
   
   // Criar um funcionario
   create(funcionario: Funcionario): Observable<Funcionario> {
+    const data = {
+      id: funcionario?.usuario?.id,
+      nome: funcionario.usuario?.nome,
+      username: funcionario.usuario?.username,
+      cargo: funcionario?.cargo,
+      dataNascimento: funcionario.usuario?.dataNascimento,
+      email: funcionario.usuario?.email,
+      senha: funcionario.usuario?.senha,
+      telefone: {
+        codigoArea: funcionario.usuario?.telefone?.codigoArea,
+        numero: funcionario.usuario?.telefone?.numero
+      },
+      sexo: funcionario.usuario?.sexo?.id,
+      salario: funcionario.salario,
+    }
+    console.log(data);
+    // console.log(JSON.stringify(data));
     return this.http.post<Funcionario>(this.baseUrl, funcionario);
   }
 
@@ -43,19 +60,21 @@ export class FuncionarioService {
   update(funcionario: Funcionario): Observable<Funcionario> {
     console.log(funcionario);
     const data = {
+      id: funcionario?.usuario?.id,
       nome: funcionario?.usuario?.nome,
       username: funcionario?.usuario?.username,
       cargo: funcionario?.cargo,
       dataNascimento: funcionario?.usuario?.dataNascimento,
       email: funcionario?.usuario?.email,
+      senha: funcionario?.usuario?.senha,
       telefone: {
         codigoArea: funcionario?.usuario?.telefone?.codigoArea,
         numero: funcionario?.usuario?.telefone?.numero
       },
-      sexo: funcionario?.usuario?.sexo,
+      sexo: funcionario?.usuario?.sexo?.id,
       salario: funcionario?.salario,
     }
-    return this.http.put<Funcionario>(`${this.baseUrl}/${funcionario?.usuario?.id}`, data);
+    return this.http.put<Funcionario>(`${this.baseUrl}/${funcionario!.usuario!.id}`, data);
   }
 
   count(): Observable<number> {

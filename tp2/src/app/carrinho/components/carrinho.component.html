@@ -1,31 +1,43 @@
-<div *ngIf="itensCarrinho.length > 0; else vazio">
-    <h2>Meu Carrinho</h2>
-    <table>
-        <thead>
+<div class="page-container">
+    <div class="content-wrapper">
+      <div *ngIf="itensCarrinho.length > 0; else vazio" class="carrinho">
+        <h2>Meu Carrinho</h2>
+        <table class="cart-table">
+          <thead>
             <tr>
-                <th>Produto</th>
-                <th>Quantidade</th>
-                <th>Preço</th>
-                <th>Subtotal</th>
-                <th>Ação</th>
+              <th>Produto</th>
+              <th>Quantidade</th>
+              <th>Preço</th>
+              <th>Subtotal</th>
+              <th>Ação</th>
             </tr>
-        </thead>
-        <tbody>
+          </thead>
+          <tbody>
             <tr *ngFor="let item of itensCarrinho; let i = index">
-                <td>{{ item.titulo }}</td>
-                <td>{{ item.quantidade }}</td>
-                <td>{{ item.preco | currency: 'BRL' }}</td>
-                <td>{{ item.subTotal | currency: 'BRL' }}</td>
-                <td><button (click)="removerItem(i)">Remover</button></td>
+              <td>{{ item.titulo }}</td>
+              <td class="quantity-controls">
+                <button (click)="diminuirQuantidade(i)" class="quantity-btn">-</button>
+                <span>{{ item.quantidade }}</span>
+                <button (click)="aumentarQuantidade(i)" class="quantity-btn">+</button>
+              </td>
+              <td>{{ item.preco | currency: 'BRL' }}</td>
+              <td>{{ item.subTotal | currency: 'BRL' }}</td>
+              <td>
+                <button (click)="removerItem(i)" class="remove-btn">Remover</button>
+              </td>
             </tr>
-            <p>Total do Carrinho: {{ calcularTotal() | currency: 'BRL' }}</p>
-        </tbody>
-    </table>
-    <button (click)="limparCarrinho()">Limpar Carrinho</button>
-    <button (click)="fecharPedido()">Fechar Pedido</button>
-    <button [disabled]="!fecharPedido" (click)="finalizarPedido()">Finalizar Pedido</button>
-    
+          </tbody>
+        </table>
+        <div class="cart-total">
+          <p>Total do Carrinho: {{ calcularTotal() | currency: 'BRL' }}</p>
+        </div>
+        <div class="cart-actions">
+          <button (click)="limparCarrinho()" class="action-btn">Limpar Carrinho</button>
+          <button (click)="fecharPedido()" class="action-btn-fechar">Fechar Pedido</button>
+        </div>
+      </div>
+      <ng-template #vazio>
+        <p>Seu carrinho está vazio.</p>
+      </ng-template>
+    </div>
 </div>
-<ng-template #vazio>
-    <p>Seu carrinho está vazio.</p>
-</ng-template>

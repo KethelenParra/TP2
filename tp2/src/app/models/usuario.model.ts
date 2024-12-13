@@ -1,10 +1,10 @@
 import { Sexo } from "./sexo.model";
 import { Telefone } from "./telefone.model";
 
-export interface Usuario {
-    id: number;
-    nome: string;
-    username: string;
+export class Usuario {
+    id!: number;
+    nome?: string;
+    username?: string;
     email?: string;
     dataNascimento?: string; 
     telefone?: Telefone;
