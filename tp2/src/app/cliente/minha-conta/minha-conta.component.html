@@ -51,13 +51,8 @@
                         <mat-form-field appearance="outline" style="width: 100%" class="campos">
                             <mat-label>Telefone: </mat-label>
                             <input matInput placeholder="Digite seu telefone" [disabled]="true">
-                            {{"(" + usuarioLogado?.telefone.codigoArea + ")" + " " + usuarioLogado?.telefone.numero}}
+                            {{"(" + cliente?.usuario?.telefone?.codigoArea + ") " + cliente?.usuario?.telefone?.numero}}
                             <mat-icon matSuffix>edit</mat-icon>
-                        </mat-form-field>
-                        <mat-form-field appearance="outline" style="width: 100%" class="campos">
-                            <mat-label>Data: </mat-label>
-                            <input matInput [disabled]="true">
-                            {{usuarioLogado?.dataNascimento | date: 'dd/MM/yyyy'}}
                         </mat-form-field>
                         <mat-form-field appearance="outline" style="width: 100%" class="campos">
                             <mat-label>CPF: </mat-label>
@@ -88,7 +83,7 @@
                         </mat-form-field>
                     </div>
                     <div class="botoes">
-                        <button mat-button class="botao">
+                        <button mat-button class="botao" [routerLink]="'/alterarUsername'">
                             <span>Alterar Username</span>
                         </button>
                         <button mat-button class="botao">

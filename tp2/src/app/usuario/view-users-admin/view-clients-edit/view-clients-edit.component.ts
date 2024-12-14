@@ -1,4 +1,4 @@
-  import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { ClienteService } from '../../../service/cliente.service';
@@ -16,14 +16,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
-import { Usuario } from '../../../models/usuario.model';
 
 @Component({
   selector: 'app-view-clientes-edit',
   standalone: true,
   imports: [MatCardModule, ReactiveFormsModule, MatFormFieldModule, MatDatepickerModule, CommonModule, MatInputModule, MatNativeDateModule, MatButtonModule, RouterModule],
-  templateUrl: './view-clientes-edit.component.html',
-  styleUrl: './view-clientes-edit.component.css'
+  templateUrl: './view-clients-edit.component.html',
+  styleUrl: './view-clients-edit.component.css'
 })
 export class ViewClientesEditComponent implements OnInit{
   formGroup: FormGroup;
