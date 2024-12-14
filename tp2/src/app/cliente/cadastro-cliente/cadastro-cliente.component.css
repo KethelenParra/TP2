@@ -1,0 +1,95 @@
+/* Container Principal */
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Título da Página */
+  .titulo-pagina {
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Campo de Formulário em Largura Total */
+  .full-width {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+  
+  /* Campos de Telefone */
+  .phone-fields {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  
+  .area-code-input {
+    width: 30%;
+  }
+  
+  .phone-number-input {
+    width: 65%;
+  }
+  
+  /* Botão de Cadastro */
+  button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  /* Ajustes de Cor e Sombra */
+  mat-form-field {
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  mat-form-field.mat-form-field-appearance-outline .mat-form-field-outline-thick {
+    border-color: #d3d3d3;
+  }
+  
+  mat-form-field.mat-focused .mat-form-field-outline-thick {
+    border-color: #3f51b5; /* Azul primário */
+  }
+  
+  /* Cores e Estilos de Erro */
+  mat-error {
+    color: #f44336;
+    font-size: 12px;
+  }
+  
+  /* Texto dos Labels */
+  mat-label {
+    color: #333;
+  }
+  
+  /* Placeholder Text */
+  input::placeholder {
+    color: #888;
+  }
+  
+  /* Texto de Input */
+  input {
+    color: #333;
+  }
+  
+  /* Select de Sexo */
+  mat-select {
+    color: #333;
+  }
+  
+  /* Estilo das Opções */
+  mat-option {
+    color: #333;
+  }
+  

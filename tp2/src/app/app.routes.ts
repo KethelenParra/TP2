@@ -71,9 +71,9 @@ export const routes: Routes = [
         
             { path: 'finalizarPedido', component: FinalizarPedidoComponent, title: 'Finalizar Pedido', canActivate: [authClienteGuard] },
 
-            { path: 'minhaConta', component: MinhaContaComponent, title: 'Minha Conta' },
-            { path: 'alterarUsername', component: AlterarUsernameComponent, title: 'Alterar Username' },
-            { path: 'alterarSenha', component: AlterarSenhaComponent, title: 'Alterar Senha' },
+            { path: 'minhaConta', component: MinhaContaComponent, title: 'Minha Conta', canActivate: [authClienteGuard] },
+            { path: 'alterarUsername', component: AlterarUsernameComponent, title: 'Alterar Username', canActivate: [authClienteGuard]},
+            { path: 'alterarSenha', component: AlterarSenhaComponent, title: 'Alterar Senha', canActivate: [authClienteGuard]},
 
             { path: 'register', component: CadastroClienteComponent, title: 'Registrar Usuário' },
             

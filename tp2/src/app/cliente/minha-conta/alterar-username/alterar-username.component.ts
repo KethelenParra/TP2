@@ -23,6 +23,7 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class AlterarUsernameComponent implements OnInit{
   usuarioLogado: any;
+  alterar: any;
   cliente: Cliente | null = null;
   private subscription = new Subscription();
   formGroup: FormGroup;
@@ -51,6 +52,19 @@ export class AlterarUsernameComponent implements OnInit{
         this.initializeForm(); // Recria o formulário com os dados carregados
       })
     );
+
+    const usuarioLogado1 = localStorage.getItem('usuario_logado');
+    if (usuarioLogado1) {
+      const cliente = JSON.parse(usuarioLogado1);
+      this.clienteService.meuPerfil(cliente.id).subscribe({
+        next: (dadosCliente) => {
+          this.alterar = {
+            username: dadosCliente.usuario.username,
+          };
+        },
+        error: (err) => console.error('Erro ao carregar o endereço:', err),
+      });
+    }
   }
 
   initializeForm(): void {
