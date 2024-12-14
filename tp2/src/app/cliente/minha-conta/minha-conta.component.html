@@ -31,7 +31,7 @@
                         <mat-form-field appearance="outline" style="width: 100%" class="campos">
                             <mat-label>Telefone: </mat-label>
                             <input matInput placeholder="Digite seu telefone" [disabled]="true">
-                            {{"(" + endereco.codigoArea + ") " + endereco.numero }}
+                            ({{endereco.codigoArea}}) {{endereco.numero | formatarTelefone}}
                             <mat-icon matSuffix>edit</mat-icon>
                         </mat-form-field>
                         <mat-form-field appearance="outline" style="width: 100%" class="campos">
@@ -68,7 +68,7 @@
                         <button mat-button class="botao" [routerLink]="'/alterarUsername'">
                             <span>Alterar Username</span>
                         </button>
-                        <button mat-button class="botao">
+                        <button mat-button class="botao" [routerLink]="'/alterarSenha'">
                             <span>Alterar Senha</span>
                         </button>
                     </div>

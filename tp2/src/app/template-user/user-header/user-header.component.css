@@ -15,6 +15,8 @@
   align-items: center;
 }
 
+
+
 .text-menu {
   color: white;
   font-size: 14px;
@@ -44,8 +46,24 @@
   padding-bottom: 8px; /* Maior espaçamento abaixo do título */
 }
 
+.notifications-menu{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.titulo-notificacao{
+  text-align: center;
+}
+
 .notification-section {
-  padding: 10px 0;
+  margin-left: 8%;
+  margin-right: 8%;
+  margin-top: 3%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .notification-list {
@@ -57,12 +75,21 @@
 .notification-item {
   display: flex;
   flex-direction: column;
+  gap: 20px;
   padding: 12px;
   margin-bottom: 10px;
   border-radius: 8px;
   background-color: #ffffff;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease;
+}
+
+.botao-cupom{
+  font-size: 12px;
+  padding: 6px 12px;
+  height: 30px; /* Ajusta a altura */
+  margin-left: 1px;
+  margin-right: 1px;
 }
 
 .notification-item:hover {

@@ -83,7 +83,13 @@ export class ClienteService {
     const headers = this.getHeaders(); // Inclua os headers se necessário
     return this.http.patch(`${this.baseUrl}/search/alterar-username`, data, { headers });
   }
- 
+
+  alterarSenha(data: { senhaAntiga: string; novaSenha: string }): Observable<any> {
+    const headers = this.getHeaders(); // Certifique-se de que os headers de autenticação estão corretos.
+    return this.http.patch(`${this.baseUrl}/search/alterar-senha`, data, { headers });
+  }
+  
+
   // Criar um cliente
   create(cliente: Cliente): Observable<Cliente> {
     return this.http.post<Cliente>(this.baseUrl, cliente);

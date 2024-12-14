@@ -43,6 +43,7 @@ import { authGuard } from './guard/auth.guard';
 import { authClienteGuard } from './guard/auth-cliente.guard';
 import { FinalizarPedidoComponent } from './carrinho/finalizar-pedido/finalizar-pedido.component';
 import { AlterarUsernameComponent } from './cliente/minha-conta/alterar-username/alterar-username.component';
+import { AlterarSenhaComponent } from './cliente/minha-conta/alterar-senha/alterar-senha.component';
 
 export const routes: Routes = [
     {
@@ -72,6 +73,7 @@ export const routes: Routes = [
 
             { path: 'minhaConta', component: MinhaContaComponent, title: 'Minha Conta' },
             { path: 'alterarUsername', component: AlterarUsernameComponent, title: 'Alterar Username' },
+            { path: 'alterarSenha', component: AlterarSenhaComponent, title: 'Alterar Senha' },
 
             { path: 'register', component: CadastroClienteComponent, title: 'Registrar Usuário' },
             

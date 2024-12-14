@@ -30,7 +30,7 @@
     
       <!-- Favoritos Recentes -->
       <div *ngIf="favoritosRecentes && favoritosRecentes.length > 0" class="notification-section">
-        <h4>Favoritos Recentes</h4>
+        <h4 class="titulo-notificacao">Favoritos Recentes</h4>
         <ul class="notification-list">
           <li *ngFor="let favorito of favoritosRecentes" class="notification-item">
             <div class="notification-content">
@@ -59,7 +59,7 @@
       <div *ngIf="cupomDisponivel" class="cupom-section">
         <p>Cupom Promocional</p>
         <p>{{ cupomDisponivel }}</p>
-        <button mat-button color="primary" (click)="copiarCupom()">Copiar Cupom</button>
+        <button mat-flat-button color="primary" (click)="copiarCupom()" class="botao-cupom">Copiar Cupom</button>
       </div>
     </mat-menu>
     

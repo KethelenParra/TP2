@@ -16,11 +16,12 @@ import { Location } from '@angular/common';
 import { Cliente } from '../../models/cliente.model';
 import { Sexo } from '../../models/sexo.model';
 import { ClienteService } from '../../service/cliente.service';
+import { FormatarTelefonePipe } from '../../pipes/formatar-telefone.pipe';
 
 @Component({
   selector: 'app-minha-conta',
   standalone: true,
-  imports: [MatIconModule, CommonModule, MatInputModule, FormsModule, MatDivider, FormatarCpfPipe, RouterModule, MatListModule, MatButtonModule, MatCardModule],
+  imports: [MatIconModule, CommonModule, MatInputModule, FormsModule, MatDivider, FormatarCpfPipe, RouterModule, MatListModule, MatButtonModule, MatCardModule, FormatarTelefonePipe],
   templateUrl: './minha-conta.component.html',
   styleUrl: './minha-conta.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
