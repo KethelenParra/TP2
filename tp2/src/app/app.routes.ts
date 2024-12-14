@@ -71,7 +71,7 @@ export const routes: Routes = [
 
             { path: 'minhaConta', component: MinhaContaComponent, title: 'Minha Conta' },
 
-            {path: 'register', component: CadastroClienteComponent, title: 'Registrar Usuário'},
+            { path: 'register', component: CadastroClienteComponent, title: 'Registrar Usuário' },
             
         ]
     },
