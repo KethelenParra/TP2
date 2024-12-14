@@ -109,9 +109,6 @@ export class MinhaContaComponent implements OnInit{
       });
     }
   }
-  
-
-
 
   clickEvent(event: MouseEvent) {
     this.hide.set(!this.hide());

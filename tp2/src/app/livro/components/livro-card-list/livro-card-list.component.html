@@ -1,22 +1,29 @@
 <div class="layout-container">
   <!-- Barra de pesquisa no topo -->
   <div class="search-container">
-      <div class="flex-container centered-search">
-          <mat-form-field appearance="outline" class="select-field small-select">
-              <mat-label>Pesquisar por</mat-label>
-              <mat-select [(ngModel)]="tipoFiltro">
-                  <mat-option value="titulo">Título</mat-option>
-                  <mat-option value="autor">Autor</mat-option>
-              </mat-select>
-          </mat-form-field>
-          <mat-form-field appearance="outline" class="input-field large-input">
-              <mat-label>Digite para pesquisar</mat-label>
-              <input [(ngModel)]="filtro" matInput placeholder="Ex: Harry Potter" (keyup.enter)="filtrar()" />
-          </mat-form-field>
-          <button mat-icon-button color="primary" class="search-button" id="meuBotaoPesquisar" (click)="filtrar()" aria-label="Pesquisar">
-              <mat-icon>search</mat-icon>
-          </button>
-      </div>
+    <div class="logo-container">
+      <img
+        src="assets/logo.svg"
+        alt="Logo"
+        class="logo"
+      />
+    </div>
+    <div class="flex-container centered-search">
+        <mat-form-field appearance="outline" class="select-field small-select">
+            <mat-label>Pesquisar por</mat-label>
+            <mat-select [(ngModel)]="tipoFiltro">
+                <mat-option value="titulo">Título</mat-option>
+                <mat-option value="autor">Autor</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="input-field large-input">
+            <mat-label>Digite para pesquisar</mat-label>
+            <input [(ngModel)]="filtro" matInput placeholder="Ex: Harry Potter" (keyup.enter)="filtrar()" />
+        </mat-form-field>
+        <button mat-icon-button color="primary" class="search-button" id="meuBotaoPesquisar" (click)="filtrar()" aria-label="Pesquisar">
+            <mat-icon>search</mat-icon>
+        </button>
+    </div>
   </div>
 
   <!-- Área principal com barra lateral e cards -->

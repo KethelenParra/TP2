@@ -1,11 +1,5 @@
 <div class="container">
-  <img
-    src="assets/logo.svg"
-    alt="Logo"
-    class="logo"
-    style="cursor: pointer;"
-  />
-  <h1 class="titulo-pagina">Cadastre-se</h1>
+  <h1 class="titulo-pagina">Cadastra-se</h1>
   <form [formGroup]="cadastroForm" (ngSubmit)="cadastrar()">
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Nome</mat-label>
@@ -79,7 +73,7 @@
 
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>CEP</mat-label>
-      <input matInput formControlName="cep" (blur)="onCepBlur()" (input)="formatarCep()" placeholder="Seu CEP">
+      <input matInput formControlName="cep" placeholder="Seu CEP">
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="full-width">

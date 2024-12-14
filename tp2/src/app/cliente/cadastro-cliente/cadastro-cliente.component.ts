@@ -35,9 +35,7 @@ export class CadastroClienteComponent implements OnInit {
     private fb: FormBuilder,
     private cadastroService: CadastroBasicoService,
     private snackBar: MatSnackBar,
-    private router: Router,
-    private enderecoService: EnderecoService,
-    private activatedRoute: ActivatedRoute
+    private router: Router
   ) { }
 
   ngOnInit(): void{
@@ -45,8 +43,6 @@ export class CadastroClienteComponent implements OnInit {
   }
 
   initializeForm(): void {
-    const cliente: Cliente = this.activatedRoute.snapshot.data['cliente'];
-
     this.cadastroForm = this.fb.group({
       nome: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
       email: ['', [Validators.required, Validators.email]],
@@ -58,12 +54,12 @@ export class CadastroClienteComponent implements OnInit {
         codigoArea: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(2)]],
         numero: ['', [Validators.required, Validators.minLength(8), Validators.maxLength]],
       }),
-      cep: [(cliente && cliente.cep) ? cliente.cep : null, Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(9)])],
-      logradouro: [{ value: '', disabled: true }, Validators.required],
-      complemento: [(cliente && cliente.complemento) ? cliente.complemento : null],
-      bairro: [{ value: '', disabled: true }, Validators.required],
-      localidade: [{ value: '', disabled: true }, Validators.required],
-      uf: [{ value: '', disabled: true }, Validators.required]
+      cep: [''],
+      logradouro: [''],
+      complemento: [''],
+      bairro: [''],
+      localidade: [''],
+      uf: [''],
     });
   }
 
@@ -85,42 +81,4 @@ export class CadastroClienteComponent implements OnInit {
       this.snackBar.open('Preencha todos os campos obrigatórios.', 'Fechar', { duration: 3000 });
     }
   }
-
-  buscarEndereco(): void {
-    const cep = this.cadastroForm.get('cep')?.value;
-    this.enderecoService.getEndereco(cep).subscribe(
-      (data) => {
-        this.endereco = data;
-        this.error = null;
-        this.cadastroForm.patchValue({
-          logradouro: data.logradouro,
-          complemento: data.complemento,
-          bairro: data.bairro,
-          localidade: data.localidade,
-          uf: data.uf
-        });
-      },
-      (error) => {
-        this.error = 'Erro ao buscar o endereço';
-        this.endereco = null;
-      }
-    );
-  }
-
-  onCepBlur(): void {
-    if (this.cadastroForm.get('cep')?.valid) {
-      this.buscarEndereco();
-    }
-  }
-
-  formatarCep(): void {
-    const cepControl = this.cadastroForm.get('cep');
-    if (cepControl) {
-      let cep = cepControl.value.replace(/\D/g, ''); // Remove caracteres não numéricos
-      cep = cep.slice(0, 8); // Limita o CEP a 8 dígitos
-      cep = cep.replace(/(\d{5})(\d)/, '$1-$2'); // Aplica a máscara XXXXX-XXX
-      cepControl.setValue(cep, { emitEvent: false }); // Atualiza o valor formatado
-    }
-  }
-  
 }

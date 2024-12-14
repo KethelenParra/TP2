@@ -18,6 +18,15 @@ img {
   object-fit: contain;
 }
 
+.logo{
+  width: 150px;
+}
+
+.logo-container{
+  margin-right: 1%;
+  margin-bottom: 1%;
+}
+
 .cards-content{
   gap: 20px;
 }

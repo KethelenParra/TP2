@@ -12,6 +12,13 @@
 
     <div class="container_dados">
         <div class="container_dados_pessoais">
+            <div class="logo-container">
+                <img
+                    src="assets/logo.svg"
+                    alt="Logo"
+                    class="logo"
+                />
+            </div>
             <h1>Seus Dados</h1>
             <div class="container_dados_d">
                 <div class="dados">
@@ -26,20 +33,18 @@
                             <mat-label>Email: </mat-label>
                             <input matInput [disabled]="true">
                             {{ usuarioLogado?.email }}
-                            <mat-icon matSuffix>edit</mat-icon>
                         </mat-form-field>
                         <mat-form-field appearance="outline" style="width: 100%" class="campos">
                             <mat-label>Telefone: </mat-label>
                             <input matInput placeholder="Digite seu telefone" [disabled]="true">
                             ({{endereco.codigoArea}}) {{endereco.numero | formatarTelefone}}
-                            <mat-icon matSuffix>edit</mat-icon>
                         </mat-form-field>
                         <mat-form-field appearance="outline" style="width: 100%" class="campos">
                             <mat-label>CPF: </mat-label>
                             <input matInput placeholder="Digite seu CPF" [disabled]="true">
                             {{usuarioLogado?.cpf | formatarCpf}}
                         </mat-form-field>
-                        <mat-form-field appearance="outline" style="width: 100%" class="campos">
+                        <mat-form-field appearance="outline" style="width: 100%" class="campo-sexo">
                             <mat-label>Sexo: </mat-label>
                             <input matInput placeholder="Digite seu sexo" [disabled]="true">
                             {{usuarioLogado?.sexo?.nome}}
@@ -49,11 +54,11 @@
                         <mat-form-field appearance="outline" style="width: 100%" class="campos">
                             <mat-label>Endereço: </mat-label>
                             <input matInput [disabled]="true">
-                            <p>{{ endereco.logradouro }}</p>
-                            <p>{{ endereco.bairro }}</p>
-                            <p>{{ endereco.localidade }}
-                            <p>{{ endereco.uf }}</p>
-                            <p>{{ endereco.cep }}</p>
+                            <p>CEP: {{ endereco.cep }}</p>
+                            <p>Logradouro: {{ endereco.logradouro }}</p>
+                            <p>Bairro: {{ endereco.bairro }}</p>
+                            <p>Localidade: {{ endereco.localidade }}
+                            <p>UF: {{ endereco.uf }}</p>
                             <p>Complemento: {{ endereco.complemento }}</p>
                         </mat-form-field>
                     </div>
