@@ -19,7 +19,7 @@ import { CarrinhoService } from '../../service/carrinho.service';
 import { ClienteService } from '../../service/cliente.service';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { MatBadgeModule } from '@angular/material/badge';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-header',
@@ -44,7 +44,8 @@ export class UserHeaderComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private carrinhoService: CarrinhoService,
     private clienteService: ClienteService,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -128,7 +129,7 @@ export class UserHeaderComponent implements OnInit, OnDestroy {
   copiarCupom(): void {
     if (this.cupomDisponivel) {
       navigator.clipboard.writeText(this.cupomDisponivel).then(() => {
-        alert('Cupom copiado para a área de transferência!');
+        this.snackBar.open('Cupom copiado com sucesso!', 'Fechar', {duration: 3000});
       });
     }
   }

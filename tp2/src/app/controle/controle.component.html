@@ -1,68 +1,58 @@
 <div class="container">
+  <img
+    src="assets/logo.svg"
+    alt="Logo"
+    class="logo"
+  />
+  <h1 class="titulo-pagina">Bem vindo a página de controle!</h1>
   <div class="content-container">
-      <div class="first-line">
-        <a mat-stroked-button href="../admin/livros">
-          <mat-card>
-            <mat-card-title>
-              <span>Livros</span>
-            </mat-card-title>
-            <mat-card-content>
-              <span>Gerencie e visualize todos os livros cadastrados em uma tabela organizada.</span>
-            </mat-card-content>
-          </mat-card>
-        </a>
-        <a mat-stroked-button href="../admin/editoras">
-          <mat-card>
-            <mat-card-title>
-              <span>Editoras</span>
-            </mat-card-title>
-            <mat-card-content>
-              <span>Acesse e administre todas as editoras disponíveis em uma tabela estruturada.</span>
-            </mat-card-content>
-          </mat-card>
-        </a>
-        <a mat-stroked-button href="../admin/boxes">
-          <mat-card>
-            <mat-card-title>
-              <span>Boxes</span>
-            </mat-card-title>
-            <mat-card-content>
-              <span>Visualize e organize todas as boxes listadas em uma tabela completa.</span>
-            </mat-card-content>
-          </mat-card>
-        </a>
-      </div>
-      <div class="second-line">
-        <a mat-stroked-button href="../admin/generos">
-          <mat-card>
-            <mat-card-title>
-              <span>Gêneros</span>
-            </mat-card-title>
-            <mat-card-content>
-              <span>Explore e gerencie os gêneros registrados em uma tabela detalhada.</span>
-            </mat-card-content>
-          </mat-card>
-        </a>
-        <a mat-stroked-button href="../admin/autores">
-          <mat-card>
-            <mat-card-title>
-              <span>Autores</span>
-            </mat-card-title>
-            <mat-card-content>
-              <span>Consulte e edite todos os autores cadastrados em uma tabela organizada.</span>
-            </mat-card-content>
-          </mat-card>
-        </a>
-        <a mat-stroked-button href="../admin/fornecedores">
-          <mat-card>
-            <mat-card-title>
-              <span>Fornecedores</span>
-            </mat-card-title>
-            <mat-card-content>
-              <span>Controle e veja os dados de todos os fornecedores em uma tabela prática.</span>
-            </mat-card-content>
-          </mat-card>
-        </a>
-      </div>
+    <mat-card class="cards-controle" appearance="outlined" [routerLink]="'/admin/livros'">
+      <mat-card-header>
+        <mat-card-title class="titulo-card">Livros</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Gerencie e visualize todos os livros cadastrados em uma tabela organizada.</p>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="cards-controle" appearance="outlined" [routerLink]="'/admin/editoras'">
+      <mat-card-header>
+        <mat-card-title class="titulo-card">Editoras</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Acesse e administre todas as editoras disponíveis em uma tabela estruturada.</p>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="cards-controle" appearance="outlined" [routerLink]="'/admin/boxes'">
+      <mat-card-header>
+        <mat-card-title class="titulo-card">Boxes</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Visualize e organize todas as boxes listadas em uma tabela completa.</p>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="cards-controle" appearance="outlined" [routerLink]="'/admin/generos'">
+      <mat-card-header>
+        <mat-card-title class="titulo-card">Gêneros</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Explore e gerencie os gêneros registrados em uma tabela detalhada.</p>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="cards-controle" appearance="outlined" [routerLink]="'/admin/autores'">
+      <mat-card-header>
+        <mat-card-title class="titulo-card">Autores</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Consulte e edite todos os autores cadastrados em uma tabela organizada.</p>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="cards-controle" appearance="outlined" [routerLink]="'/admin/fornecedores'">
+      <mat-card-header>
+        <mat-card-title class="titulo-card">Fornecedores</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Controle e veja os dados de todos os fornecedores em uma tabela prática.</p>
+      </mat-card-content>
+    </mat-card>
   </div>
 </div>

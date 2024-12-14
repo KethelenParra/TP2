@@ -37,7 +37,7 @@ const ELEMENT_DATA: Cliente[] = [];
 })
 export class ViewClientsAdminComponent implements OnInit {
   clientes = new MatTableDataSource(ELEMENT_DATA);
-  displayedColumnsClientes: string[] = ['id', 'nome', 'username', 'email', 'cpf', 'cep', 'dataNascimento'];
+  displayedColumnsClientes: string[] = ['id', 'nome', 'username', 'email', 'cpf', 'cep'];
   totalRecords = 0;
   pageSize = 5;
   page = 0;
