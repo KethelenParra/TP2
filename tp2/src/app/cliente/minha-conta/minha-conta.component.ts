@@ -95,6 +95,7 @@ export class MinhaContaComponent implements OnInit{
           this.endereco = {
             codigoArea: dadosCliente.usuario.telefone?.codigoArea,
             numero: dadosCliente.usuario.telefone?.numero,
+            username: dadosCliente.usuario.username,
             logradouro: dadosCliente.logradouro,
             complemento: dadosCliente.complemento,
             bairro: dadosCliente.bairro,

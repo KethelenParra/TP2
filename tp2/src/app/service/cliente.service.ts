@@ -78,6 +78,11 @@ export class ClienteService {
   removerBoxDesejo(idBox: number): Observable<void> {
     return this.removerItemDesejo(idBox);
   }
+
+  alterarUsername(data: { usernameNovo: string; senha: string }): Observable<any> {
+    const headers = this.getHeaders(); // Inclua os headers se necessário
+    return this.http.patch(`${this.baseUrl}/search/alterar-username`, data, { headers });
+  }
  
   // Criar um cliente
   create(cliente: Cliente): Observable<Cliente> {
