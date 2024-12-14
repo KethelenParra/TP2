@@ -14,6 +14,7 @@
     text-align: center;
     font-size: 28px;
     font-weight: bold;
+    margin-top: 20px;
     margin-bottom: 20px;
     color: #333;
   }
@@ -37,6 +38,15 @@
   
   .phone-number-input {
     width: 65%;
+  }
+
+  .logo{
+    display: flex;
+    justify-content: center;
+    width: 180px;
+    align-items: center;
+    margin-top: 1%;
+    margin: 0 auto;
   }
   
   /* Botão de Cadastro */
