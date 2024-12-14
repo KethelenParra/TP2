@@ -1,7 +1,7 @@
 <div class="container">
-  <h1>Cadastro Básico de Cliente</h1>
+  <h1 class="titulo-pagina">Cadastra-se</h1>
   <form [formGroup]="cadastroForm" (ngSubmit)="cadastrar()">
-    <mat-form-field appearance="outline" style="width: 100%;">
+    <mat-form-field appearance="outline" class="full-width">
       <mat-label>Nome</mat-label>
       <input matInput formControlName="nome" placeholder="Seu nome completo" required>
       <mat-error *ngIf="cadastroForm.get('nome')?.invalid && cadastroForm.get('nome')?.touched">
@@ -9,7 +9,7 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="outline" style="width: 100%;">
+    <mat-form-field appearance="outline" class="full-width">
       <mat-label>Email</mat-label>
       <input matInput formControlName="email" type="email" placeholder="Seu email" required>
       <mat-error *ngIf="cadastroForm.get('email')?.invalid && cadastroForm.get('email')?.touched">
@@ -17,30 +17,25 @@
       </mat-error>
     </mat-form-field>
 
-
-    <div formGroupName="telefone">
-      <div class="full-width-input phone-fields">
-        <mat-form-field appearance="outline" class="area-code-input">
-          <mat-label>Código de Área</mat-label>
-          <input matInput type="text" formControlName="codigoArea">
-          <mat-error *ngIf="cadastroForm.get('telefone.codigoArea')?.invalid 
-              && cadastroForm.get('telefone.codigoArea')?.touched">
-            O código de área é inválido.
-          </mat-error>
-        </mat-form-field>
-    
-        <mat-form-field appearance="outline" class="phone-number-input">
-          <mat-label>Número de Telefone</mat-label>
-          <input matInput type="text" formControlName="numero">
-          <mat-error *ngIf="cadastroForm.get('telefone.numero')?.invalid 
-              && cadastroForm.get('telefone.numero')?.touched">
-            O número de telefone é inválido.
-          </mat-error>
-        </mat-form-field>
-      </div>
+    <div formGroupName="telefone" class="full-width-input phone-fields">
+      <mat-form-field appearance="outline" class="area-code-input">
+        <mat-label>Código de Área</mat-label>
+        <input matInput type="text" formControlName="codigoArea">
+        <mat-error *ngIf="cadastroForm.get('telefone.codigoArea')?.invalid && cadastroForm.get('telefone.codigoArea')?.touched">
+          O código de área é inválido.
+        </mat-error>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline" class="phone-number-input">
+        <mat-label>Número de Telefone</mat-label>
+        <input matInput type="text" formControlName="numero">
+        <mat-error *ngIf="cadastroForm.get('telefone.numero')?.invalid && cadastroForm.get('telefone.numero')?.touched">
+          O número de telefone é inválido.
+        </mat-error>
+      </mat-form-field>
     </div>
     
-    <mat-form-field appearance="outline" style="width: 100%;">
+    <mat-form-field appearance="outline" class="full-width">
       <mat-label>Username</mat-label>
       <input matInput formControlName="username" placeholder="Seu username" required>
       <mat-error *ngIf="cadastroForm.get('username')?.invalid && cadastroForm.get('username')?.touched">
@@ -48,7 +43,7 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="outline" style="width: 100%;">
+    <mat-form-field appearance="outline" class="full-width">
       <mat-label>CPF</mat-label>
       <input matInput formControlName="cpf" placeholder="Seu CPF" required>
       <mat-error *ngIf="cadastroForm.get('cpf')?.invalid && cadastroForm.get('cpf')?.touched">
@@ -56,7 +51,7 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="outline" style="width: 100%;">
+    <mat-form-field appearance="outline" class="full-width">
       <mat-label>Senha</mat-label>
       <input matInput formControlName="senha" type="password" placeholder="Crie uma senha" required>
       <mat-error *ngIf="cadastroForm.get('senha')?.invalid && cadastroForm.get('senha')?.touched">
@@ -64,7 +59,7 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="outline" style="width: 100%;">
+    <mat-form-field appearance="outline" class="full-width">
       <mat-label>Sexo</mat-label>
       <mat-select formControlName="idSexo" required>
         <mat-option [value]="1">Masculino</mat-option>
@@ -76,32 +71,32 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="outline" style="width: 100%;">
+    <mat-form-field appearance="outline" class="full-width">
       <mat-label>CEP</mat-label>
       <input matInput formControlName="cep" placeholder="Seu CEP">
     </mat-form-field>
 
-    <mat-form-field appearance="outline" style="width: 100%;">
+    <mat-form-field appearance="outline" class="full-width">
       <mat-label>Logradouro</mat-label>
       <input matInput formControlName="logradouro" placeholder="Rua, avenida...">
     </mat-form-field>
 
-    <mat-form-field appearance="outline" style="width: 100%;">
+    <mat-form-field appearance="outline" class="full-width">
       <mat-label>Complemento</mat-label>
       <input matInput formControlName="complemento" placeholder="Apartamento, bloco...">
     </mat-form-field>
 
-    <mat-form-field appearance="outline" style="width: 100%;">
+    <mat-form-field appearance="outline" class="full-width">
       <mat-label>Bairro</mat-label>
       <input matInput formControlName="bairro" placeholder="Seu bairro">
     </mat-form-field>
 
-    <mat-form-field appearance="outline" style="width: 100%;">
+    <mat-form-field appearance="outline" class="full-width">
       <mat-label>Localidade</mat-label>
       <input matInput formControlName="localidade" placeholder="Cidade">
     </mat-form-field>
 
-    <mat-form-field appearance="outline" style="width: 100%;">
+    <mat-form-field appearance="outline" class="full-width">
       <mat-label>UF</mat-label>
       <input matInput formControlName="uf" placeholder="Estado">
     </mat-form-field>
@@ -111,4 +106,3 @@
     </button>
   </form>
 </div>
-
