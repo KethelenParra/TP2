@@ -1,3 +1,4 @@
+
 export interface CadastroBasicoDTO {
     nome: string;
     email: string;
@@ -5,6 +6,10 @@ export interface CadastroBasicoDTO {
     cpf: string;
     senha: string;
     idSexo: number;
+    telefone: {
+        codigoArea: string;
+        numero: string;
+    };
     cep?: string;
     logradouro?: string;
     complemento?: string;

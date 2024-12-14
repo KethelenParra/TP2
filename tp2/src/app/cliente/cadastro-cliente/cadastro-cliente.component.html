@@ -17,6 +17,29 @@
       </mat-error>
     </mat-form-field>
 
+
+    <div formGroupName="telefone">
+      <div class="full-width-input phone-fields">
+        <mat-form-field appearance="outline" class="area-code-input">
+          <mat-label>Código de Área</mat-label>
+          <input matInput type="text" formControlName="codigoArea">
+          <mat-error *ngIf="cadastroForm.get('telefone.codigoArea')?.invalid 
+              && cadastroForm.get('telefone.codigoArea')?.touched">
+            O código de área é inválido.
+          </mat-error>
+        </mat-form-field>
+    
+        <mat-form-field appearance="outline" class="phone-number-input">
+          <mat-label>Número de Telefone</mat-label>
+          <input matInput type="text" formControlName="numero">
+          <mat-error *ngIf="cadastroForm.get('telefone.numero')?.invalid 
+              && cadastroForm.get('telefone.numero')?.touched">
+            O número de telefone é inválido.
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    
     <mat-form-field appearance="outline" style="width: 100%;">
       <mat-label>Username</mat-label>
       <input matInput formControlName="username" placeholder="Seu username" required>
@@ -88,3 +111,4 @@
     </button>
   </form>
 </div>
+

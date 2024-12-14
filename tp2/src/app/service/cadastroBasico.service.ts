@@ -17,4 +17,6 @@ export class CadastroBasicoService{
   create(dto: CadastroBasicoDTO): Observable<any> {
     return this.httpClient.post<any>(this.baseUrl, dto);
   }
+
 }
+

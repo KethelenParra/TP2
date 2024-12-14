@@ -50,6 +50,10 @@ export class CadastroClienteComponent implements OnInit {
       cpf: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(14)]],
       senha: ['', [Validators.required, Validators.minLength(6)]],
       idSexo: ['', Validators.required],
+      telefone: this.fb.group({
+        codigoArea: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(2)]],
+        numero: ['', [Validators.required, Validators.minLength(8), Validators.maxLength]],
+      }),
       cep: [''],
       logradouro: [''],
       complemento: [''],

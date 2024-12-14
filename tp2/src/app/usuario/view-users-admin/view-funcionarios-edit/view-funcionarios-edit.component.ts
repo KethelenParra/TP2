@@ -47,7 +47,7 @@ export class ViewFuncionariosEditComponent {
         dataNascimento: ['', Validators.compose([Validators.required])],
         email: ['', Validators.compose([Validators.required, Validators.email])],
         cpf: ['', Validators.compose([Validators.required, Validators.minLength(11), Validators.maxLength(11)])],
-        // senha: ['', Validators.required],
+        senha: ['', Validators.required],
         telefone: this.formBuilder.group({
           codigoArea: [null, Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(3)])],
           numero: [null, Validators.compose([Validators.required, Validators.minLength(9), Validators.maxLength(9)])],
@@ -72,25 +72,26 @@ export class ViewFuncionariosEditComponent {
     }
   
     initializeForm(): void {
-      const funcionario: Funcionario = this.activatedRoute.snapshot.data['funcionario'];
-
+      const funcionario: Funcionario = this.activatedRoute.snapshot.data['funcionario'] || ({ usuario: {}, telefone: {} } as unknown as Funcionario);
+      console.log("Funcionario recebido: ", funcionario);
+    
       const sexo = this.sexos.find(s => s.id === funcionario?.usuario?.sexo?.id) || null;
-  
+    
       this.formGroup = this.formBuilder.group({
-        id: [(funcionario && funcionario?.usuario?.id) ? funcionario?.usuario?.id : null],
-        nome: [(funcionario && funcionario.usuario.nome) ? funcionario.usuario.nome : '', Validators.compose([Validators.required,Validators.minLength(3), Validators.maxLength(100)])],
-        username: [(funcionario && funcionario.usuario.username) ? funcionario.usuario.username : '', Validators.compose([Validators.required,Validators.minLength(3), Validators.maxLength(100)])],
-        cargo: [(funcionario && funcionario.cargo) ? funcionario.cargo : '', Validators.compose([Validators.required, Validators.minLength(2)])],
-        dataNascimento: [(funcionario && funcionario.usuario.dataNascimento) ? funcionario.usuario.dataNascimento : '', Validators.compose([Validators.required])],
-        email: [(funcionario && funcionario.usuario.email) ? funcionario.usuario.email : '', Validators.compose([Validators.required, Validators.email])],
-        cpf: [(funcionario && funcionario.usuario.cpf) ? funcionario.usuario.cpf : '', Validators.compose([Validators.required, Validators.minLength(11), Validators.maxLength(11)])],
-        // senha: [(funcionario && funcionario?.usuario?.senha) ? funcionario?.usuario?.senha : null, Validators.required],
+        id: [funcionario?.usuario?.id || null],
+        nome: [funcionario?.usuario?.nome || '', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
+        username: [funcionario?.usuario?.username || '', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
+        cargo: [funcionario?.cargo || '', Validators.compose([Validators.required, Validators.minLength(2)])],
+        dataNascimento: [funcionario?.usuario?.dataNascimento || '', Validators.compose([Validators.required])],
+        email: [funcionario?.usuario?.email || '', Validators.compose([Validators.required, Validators.email])],
+        cpf: [funcionario?.usuario?.cpf || '', Validators.compose([Validators.required, Validators.minLength(11), Validators.maxLength(11)])],
+        senha: [funcionario?.usuario?.senha || '', Validators.required],
         telefone: this.formBuilder.group({
-          codigoArea: [(funcionario && funcionario.usuario.telefone?.codigoArea) ? funcionario.usuario.telefone?.codigoArea : null, Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(3)])],
-          numero: [(funcionario && funcionario.usuario.telefone?.numero) ? funcionario.usuario.telefone?.numero : null, Validators.compose([Validators.required, Validators.minLength(9), Validators.maxLength(10)])],
+          codigoArea: [funcionario?.usuario?.telefone?.codigoArea || null, Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(3)])],
+          numero: [funcionario?.usuario?.telefone?.numero || null, Validators.compose([Validators.required, Validators.minLength(9), Validators.maxLength(10)])],
         }),
         sexo: [sexo, Validators.required],
-        salario: [(funcionario && funcionario.salario) ? funcionario.salario : '', Validators.compose([Validators.required, Validators.minLength(3)])],
+        salario: [funcionario?.salario || '', Validators.compose([Validators.required, Validators.minLength(3)])],
       });
     }
   
@@ -118,28 +119,45 @@ export class ViewFuncionariosEditComponent {
     salvar() {
       this.formGroup.markAllAsTouched();
       if (this.formGroup.valid) {
-          const funcionario = this.formGroup.value;
-  
-          // Operação de inserção ou atualização
-          const operacao = funcionario?.usuario?.id == null
-              ? this.funcionarioService.update(funcionario)
-              : this.funcionarioService.create(funcionario);
-  
-          operacao.subscribe({
-              next: () => {
-                  this.router.navigateByUrl('/admin/funcionarios');
-                  this.snackBar.open('Funcionario salvo com sucesso!', 'Fechar', {
-                    duration: 3000
-                  });
-              },
-              error: (error) => {
-                  console.error('Erro ao salvar o funcionario:', error);
-                  this.tratarErros(error);
-                  this.snackBar.open('Erro ao salvar funcionario.', 'Fechar', {
-                      duration: 3000
-                  });
-              }
-          });
+        const formValue = this.formGroup.value;
+    
+        const funcionario: Funcionario = {
+          id: formValue.id,
+          usuario: {
+            id: formValue.id,
+            nome: formValue.nome,
+            username: formValue.username,
+            dataNascimento: formValue.dataNascimento,
+            email: formValue.email,
+            cpf: formValue.cpf,
+            senha: formValue?.senha,
+            telefone: {
+              codigoArea: formValue.telefone.codigoArea,
+              numero: formValue.telefone.numero
+            },
+            sexo: { id: formValue.sexo } as Sexo, // Certifique-se de que `sexo` seja um objeto compatível
+          },
+          cargo: formValue.cargo,
+          salario: formValue.salario,
+        };
+    
+        console.log('Funcionario enviado:', funcionario);
+    
+        const operacao = funcionario.id == null
+          ? this.funcionarioService.create(funcionario)
+          : this.funcionarioService.update(funcionario);
+    
+        operacao.subscribe({
+          next: () => {
+            this.router.navigateByUrl('/admin/funcionarios');
+            this.snackBar.open('Funcionario salvo com sucesso!', 'Fechar', { duration: 3000 });
+          },
+          error: (error) => {
+            console.error('Erro ao salvar o funcionario:', error);
+            this.tratarErros(error);
+            this.snackBar.open('Erro ao salvar funcionario.', 'Fechar', { duration: 3000 });
+          },
+        });
       }
     }
     

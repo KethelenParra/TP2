@@ -37,11 +37,12 @@ import { clienteResolver } from './usuario/view-users-admin/resolver/userView.re
 import { ViewClientsAdminComponent } from './usuario/view-users-admin/view-clients-admin/view-clients-admin.component';
 import { ViewFuncionariosAdminComponent } from './usuario/view-users-admin/view-funcionarios-admin/view-funcionarios-admin.component';
 import { funcionarioResolver } from './usuario/view-users-admin/resolver/funcionarioView.resolver';
-import { ViewClientesEditComponent } from './usuario/view-users-admin/view-clientes-edit/view-clientes-edit.component';
+import { ViewClientesEditComponent } from './usuario/view-users-admin/view-clients-edit/view-clients-edit.component';
 import { ViewFuncionariosEditComponent } from './usuario/view-users-admin/view-funcionarios-edit/view-funcionarios-edit.component';
 import { authGuard } from './guard/auth.guard';
 import { authClienteGuard } from './guard/auth-cliente.guard';
 import { FinalizarPedidoComponent } from './carrinho/finalizar-pedido/finalizar-pedido.component';
+import { AlterarUsernameComponent } from './cliente/minha-conta/alterar-username/alterar-username.component';
 
 export const routes: Routes = [
     {
@@ -70,6 +71,7 @@ export const routes: Routes = [
             { path: 'finalizarPedido', component: FinalizarPedidoComponent, title: 'Finalizar Pedido', canActivate: [authClienteGuard] },
 
             { path: 'minhaConta', component: MinhaContaComponent, title: 'Minha Conta' },
+            { path: 'alterarUsername', component: AlterarUsernameComponent, title: 'Alterar Username' },
 
             { path: 'register', component: CadastroClienteComponent, title: 'Registrar Usuário' },
             

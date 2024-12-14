@@ -7,6 +7,12 @@ table {
     width: 100%;
   }
 
+  .botao{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
 .caixa_pesquisa{
     display: flex;
     margin-left: auto;

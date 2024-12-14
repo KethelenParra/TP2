@@ -37,7 +37,7 @@ export class FuncionarioService {
   // Criar um funcionario
   create(funcionario: Funcionario): Observable<Funcionario> {
     const data = {
-      id: funcionario?.usuario?.id,
+      id: funcionario?.id,
       nome: funcionario.usuario?.nome,
       username: funcionario.usuario?.username,
       cargo: funcionario?.cargo,
@@ -58,9 +58,9 @@ export class FuncionarioService {
 
   // Atualizar um funcionario
   update(funcionario: Funcionario): Observable<Funcionario> {
-    console.log(funcionario);
+    console.log("Funcionário retornado:", funcionario);
     const data = {
-      id: funcionario?.usuario?.id,
+      id: funcionario?.id,
       nome: funcionario?.usuario?.nome,
       username: funcionario?.usuario?.username,
       cargo: funcionario?.cargo,
@@ -74,7 +74,8 @@ export class FuncionarioService {
       sexo: funcionario?.usuario?.sexo?.id,
       salario: funcionario?.salario,
     }
-    return this.http.put<Funcionario>(`${this.baseUrl}/${funcionario!.usuario!.id}`, data);
+    console.log("Funcionario atualizado enviado para o backend", data);
+    return this.http.put<Funcionario>(`${this.baseUrl}/${funcionario?.id}`, data);
   }
 
   count(): Observable<number> {
