@@ -11,13 +11,14 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSnackBar} from '@angular/material/snack-bar';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { FormatarIsbnPipe } from '../../../pipes/formatar-isbn.pipe';
 
 const ELEMENT_DATA: Livro[] = [];
 
 @Component({
   selector: 'app-livro-list',
   standalone: true,
-  imports: [MatIconModule, CommonModule, MatTableModule, RouterModule, MatPaginator, MatInputModule, FormsModule],
+  imports: [MatIconModule, CommonModule, MatTableModule, RouterModule, MatPaginator, MatInputModule, FormsModule, FormatarIsbnPipe],
   templateUrl: './livro-list.component.html',
   styleUrls: ['./livro-list.component.css']
 })
