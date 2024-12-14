@@ -76,7 +76,7 @@ export class UserHeaderComponent implements OnInit, OnDestroy {
     // Carrega Favoritos Recentes
     this.clienteService.getListaDesejos().subscribe({
       next: (favoritos) => {
-        const novosFavoritos = favoritos.slice(0, 2).map((item) => ({
+        const novosFavoritos = favoritos.slice(0, 5).map((item) => ({
           titulo: item.nome,
           autores: item.autores?.map((autor) => autor.nome).join(', ') || 'Autor desconhecido',
         }));
@@ -88,7 +88,7 @@ export class UserHeaderComponent implements OnInit, OnDestroy {
         // Carrega Pedidos Recentes
         this.carrinhoService.pedidosRealizados(this.usuarioLogado?.id || 0).subscribe({
           next: (pedidos) => {
-            const novosPedidos = pedidos.slice(0, 2).map((pedido: any) => ({
+            const novosPedidos = pedidos.slice(0, 4).map((pedido: any) => ({
               data: pedido.dataPedido,
               valorTotal: parseFloat(pedido.valorTotal.replace('R$', '').replace(',', '.')),
               quantidadeItens: pedido.itens?.length || 0,
