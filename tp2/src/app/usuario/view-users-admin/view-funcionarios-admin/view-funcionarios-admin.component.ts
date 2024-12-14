@@ -45,7 +45,7 @@ const ELEMENT_DATA: Funcionario[] = [];
   ]
 })
 export class ViewFuncionariosAdminComponent implements OnInit {
-  displayedColumnsFuncionarios: string[] = ['id', 'nome', 'username', 'cargo', 'dataNascimento', 'email', 'cpf', 'telefone', 'sexo', 'salario', 'acao'];
+  displayedColumnsFuncionarios: string[] = ['id', 'nome', 'username', 'cargo', 'dataNascimento', 'email', 'cpf', 'telefone', 'sexo', 'salario'];
   funcionarios = new MatTableDataSource(ELEMENT_DATA);
   totalRecords = 0;
   pageSize = 5;

@@ -49,7 +49,11 @@
                         <mat-form-field appearance="outline" style="width: 100%" class="campos">
                             <mat-label>Endereço: </mat-label>
                             <input matInput [disabled]="true">
-                            <p>{{ endereco.logradouro }} - {{ endereco.bairro }}, {{ endereco.localidade }}, {{ endereco.uf }}, {{ endereco.cep }}</p>
+                            <p>{{ endereco.logradouro }}</p>
+                            <p>{{ endereco.bairro }}</p>
+                            <p>{{ endereco.localidade }}
+                            <p>{{ endereco.uf }}</p>
+                            <p>{{ endereco.cep }}</p>
                             <p>Complemento: {{ endereco.complemento }}</p>
                         </mat-form-field>
                     </div>
