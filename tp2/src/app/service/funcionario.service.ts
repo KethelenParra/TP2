@@ -85,4 +85,19 @@ export class FuncionarioService {
   delete(funcionario: Funcionario): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${funcionario.id}`, { headers: this.getHeaders() });
   }
+
+  alterarUsername(data: { usernameNovo: string; senha: string }): Observable<any> {
+    const headers = this.getHeaders(); // Inclua os headers se necessário
+    return this.http.patch(`${this.baseUrl}/search/alterar-username`, data, { headers });
+  }
+
+  alterarSenha(data: { senhaAntiga: string; novaSenha: string }): Observable<any> {
+    const headers = this.getHeaders(); // Certifique-se de que os headers de autenticação estão corretos.
+    return this.http.patch(`${this.baseUrl}/search/alterar-senha`, data, { headers });
+  }
+
+  meuPerfil(idCliente: number): Observable<Funcionario> {
+    const headers = this.getHeaders();
+    return this.http.get<Funcionario>(`${this.baseUrl}/search/meu-perfil`, { headers });
+  }
 }

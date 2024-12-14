@@ -40,5 +40,14 @@
         word-spacing: 2px;
     }
 
+    & .navegacao_dados{
+        display: flex;
+        flex-direction: column;
+        border-radius: 5%;
+        width: 29vh;
+        height: 36vh;
+        cursor: pointer;
+    }
+
 }
 

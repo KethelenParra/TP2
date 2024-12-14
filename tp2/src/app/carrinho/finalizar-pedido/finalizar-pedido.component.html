@@ -103,6 +103,17 @@
         <p *ngIf="descontoAplicado">Cupom aplicado com sucesso! Desconto: {{ valorDesconto | currency: 'BRL' }}</p>
       </div>
 
+      <!-- Barra de Progresso Determinada -->
+      <div *ngIf="isProcessingPayment" class="progress-container">
+        <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+        <p>Processando pagamento... {{ progress }}%</p>
+      </div>
+
+      <!-- Mensagem de Compra Concluída -->
+      <div *ngIf="isPurchaseComplete" class="purchase-complete-message">
+        <p>Compra concluída com sucesso! 🎉</p>
+      </div>
+
       <button mat-button class="finalizar-btn" (click)="finalizarPedido()">Finalizar Pedido</button>
     </div>
   </div>

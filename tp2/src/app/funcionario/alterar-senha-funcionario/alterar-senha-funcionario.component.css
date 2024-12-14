@@ -42,7 +42,6 @@
         width: 100vh;
     }
 
-
     & .navegacao_dados{
         display: flex;
         flex-direction: column;
@@ -51,5 +50,6 @@
         height: 36vh;
         cursor: pointer;
     }
+
 }
 

@@ -7,17 +7,19 @@ import { AuthService } from '../../../service/auth.service';
 import { MatInputModule } from '@angular/material/input';
 import { FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { Cliente } from '../../../models/cliente.model';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { ClienteService } from '../../../service/cliente.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
 
 @Component({
   selector: 'app-alterar-username',
   standalone: true,
-  imports: [MatCardModule, MatFormFieldModule, MatInputModule, NgIf, ReactiveFormsModule, MatSnackBarModule, MatButtonModule],
+  imports: [MatCardModule, MatListModule, MatIconModule, RouterModule, MatFormFieldModule, MatInputModule, NgIf, ReactiveFormsModule, MatSnackBarModule, MatButtonModule],
   templateUrl: './alterar-username.component.html',
   styleUrl: './alterar-username.component.css'
 })

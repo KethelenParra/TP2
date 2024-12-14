@@ -65,6 +65,20 @@ export class ViewClientsAdminComponent implements OnInit {
       return data?.usuario?.nome?.toLowerCase().includes(filter.toLowerCase()) ?? false;
     };
   }
+
+  carregandoCliente(): void {
+    this.clienteService.findAll().subscribe({
+      next: (clientes) => {
+        this.clientes.data = clientes;
+      },
+      error: (err) => {
+        console.error('Erro ao carregar os clientes:', err);
+      },
+    });
+    this.clienteService.count().subscribe(
+      data => { this.totalRecords = data; }
+    );
+  }
   
   alertFormValues(formGroup: FormGroup) {
     alert(JSON.stringify(formGroup.value, null, 2));
@@ -121,6 +135,6 @@ export class ViewClientsAdminComponent implements OnInit {
   paginar(event: PageEvent): void {
     this.page = event.pageIndex;
     this.pageSize = event.pageSize;
-    this.loadClientes();
+    this.carregandoCliente();
   }
 }
