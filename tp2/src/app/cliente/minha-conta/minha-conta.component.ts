@@ -64,7 +64,6 @@ export class MinhaContaComponent implements OnInit{
         this.initializeForm(); // Recria o formulário com os dados carregados
       })
     );
-
   }
 
   initializeForm(): void {

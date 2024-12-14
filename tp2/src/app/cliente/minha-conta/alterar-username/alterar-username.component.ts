@@ -5,64 +5,99 @@ import { Usuario } from '../../../models/usuario.model';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../../service/auth.service';
 import { MatInputModule } from '@angular/material/input';
-import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { Cliente } from '../../../models/cliente.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgIf } from '@angular/common';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { ClienteService } from '../../../service/cliente.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-alterar-username',
   standalone: true,
-  imports: [MatCardModule, MatFormFieldModule, MatInputModule, NgIf],
+  imports: [MatCardModule, MatFormFieldModule, MatInputModule, NgIf, ReactiveFormsModule, MatSnackBarModule, MatButtonModule],
   templateUrl: './alterar-username.component.html',
   styleUrl: './alterar-username.component.css'
 })
 export class AlterarUsernameComponent implements OnInit{
   usuarioLogado: any;
-  usuario: Usuario| null = null;
+  cliente: Cliente | null = null;
   private subscription = new Subscription();
   formGroup: FormGroup;
   
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private snackBar: MatSnackBar,
+    private clienteService: ClienteService,
+    private router: Router
   ){
     this.formGroup = this.formBuilder.group({
       id: [null],
-      username: ['', Validators.compose([Validators.required,Validators.minLength(3), Validators.maxLength(100)])],
+      username: [{ value: '', disabled: true }], // Campo apenas para exibição
+      usernameNovo: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
+      senha: ['', Validators.compose([Validators.required, Validators.minLength(3)])]
     });
   }
 
   ngOnInit(): void {
-    this.initializeForm();
+    this.subscription.add(
+      this.authService.getUsuarioLogado().subscribe((cliente) => {
+        this.usuarioLogado = cliente;
+        this.cliente = cliente; // Atualiza o cliente quando os dados forem carregados
+        this.initializeForm(); // Recria o formulário com os dados carregados
+      })
+    );
   }
 
   initializeForm(): void {
-      const cliente: Cliente = this.activatedRoute.snapshot.data['cliente'];
-  
-      this.formGroup = this.formBuilder.group({
-        id: [(cliente && cliente.usuario.id) ? cliente.usuario.id : null],
-        username: [(cliente && cliente.usuario.username) ? cliente.usuario.username : '', Validators.compose([Validators.required,Validators.minLength(3), Validators.maxLength(100)])],
+    const cliente: Cliente = this.activatedRoute.snapshot.data['cliente'] || ({ usuario: {}, telefone: {} } as unknown as Cliente);
+    console.log(cliente);
+    this.formGroup.patchValue({
+      id: cliente?.usuario?.id || null,
+      currentUsername: cliente?.usuario?.username || '',
+    });
+  }
+
+  alterarUsername() {
+    this.formGroup.markAllAsTouched();
+    if (this.formGroup.valid) {
+      const { usernameNovo: usernameNovo, senha: senha } = this.formGroup.value;
+
+      this.clienteService.alterarUsername({ usernameNovo, senha }).subscribe({
+        next: () => {
+          this.snackBar.open('Username alterado com sucesso!', 'Fechar', {
+            duration: 3000
+          });
+          this.router.navigateByUrl('/minhaConta');
+        },
+        error: (error) => {
+          console.error('Erro ao alterar username:', error);
+          this.tratarErros(error);
+          this.snackBar.open('Erro ao alterar username.', 'Fechar', {
+            duration: 3000
+          });
+        }
       });
     }
-
-  getErrorMessage(controlName: string, errors: ValidationErrors | null | undefined): string {
-    if (!errors) {
-      return '';
-    }
-    for (const errorName in errors) {
-      if (errors.hasOwnProperty(errorName) && this.errorMessage[controlName] && this.errorMessage[controlName][errorName]) {
-        return this.errorMessage[controlName][errorName];
-      }
-    }
-    return 'Campo inválido';
   }
-  
-  errorMessage: { [controlName: string]: {[errorName: string] : string} } = {
-    username: {
-      required: 'Campo obrigatório',
-      minlength: 'Username deve ter no mínimo 3 caracteres',
+
+
+  tratarErros(errorResponse: HttpErrorResponse) {
+    if (errorResponse.status === 400) {
+      if (errorResponse.error?.errors) {
+        errorResponse.error.errors.forEach((validationError: any) => {
+          const formControl = this.formGroup.get(validationError.fieldName);
+          if (formControl) {
+            formControl.setErrors({ apiError: validationError.message });
+          }
+        });
+      }
+    } else if (errorResponse.status >= 500) {
+      alert('Erro interno do servidor.');
     }
   }
 }
