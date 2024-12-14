@@ -50,7 +50,7 @@ export class CarrinhoService {
         this.carrinhoAtual.next(itens);
       },
       error: (err) => {
-        console.error('Erro ao carregar carrinho do backend:', err);
+        console.log('Sem carrinho no backend:', err);
       },
     });
   }
@@ -100,16 +100,6 @@ export class CarrinhoService {
 
     return this.http.post(`${this.apiUrl}`, body, { headers });
   }
-
-  // limparCarrinho(): void {
-  //   if (this.clienteAtualId === null) {
-  //     throw new Error('Cliente não configurado. Não é possível limpar o carrinho.');
-  //   }
-
-  //   this.itensCarrinho.set(this.clienteAtualId, []);
-  //   this.carrinhoAtual.next([]);
-  //   localStorage.removeItem(`carrinho_${this.clienteAtualId}`);
-  // }
 
   finalizarPedidoPix(): Observable<any> {
     const token = localStorage.getItem('token');

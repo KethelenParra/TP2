@@ -38,16 +38,11 @@
 
   <mat-divider [vertical]="true"></mat-divider>
 
-  <form [formGroup]="cadastroForm" (ngSubmit)="onCadastroSubmit()" class="form">
+  <form [formGroup]="loginForm" (ngSubmit)="onCadastroSubmit()" class="form">
     <div>
       <h1 class="h1">Cadastrar como novo cliente</h1>
     </div>
-    <mat-form-field appearance="outline">
-      <mat-label>Insira o e-mail</mat-label>
-      <input class="inputEmail" matInput placeholder="pat@example.com" formControlName="emailCadastro" required>
-      <mat-error *ngIf="cadastroForm.get('emailCadastro')!.hasError('required')">O email é obrigatório para cadastro</mat-error>
-      <mat-error *ngIf="cadastroForm.get('emailCadastro')!.hasError('email')">Por favor, insira um email válido</mat-error>
-    </mat-form-field>
-    <button class="button-submit" type="submit" [disabled]="cadastroForm.invalid">Prosseguir</button>
+    <h3 class="h1">Faça seu cadastro, clique em prosseguir:</h3>
+     <button class="button-submit" type="submit" >Prosseguir</button>
   </form>
 </div>

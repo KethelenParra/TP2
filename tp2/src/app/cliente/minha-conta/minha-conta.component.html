@@ -2,26 +2,6 @@
     <div class="navegacao_dados">
         <mat-nav-list>
             <mat-list-item class="opcao" routerLink="">
-                <mat-icon matListItemIcon>local_shipping</mat-icon>
-                <span matListItemTitle>Pedidos</span>
-            </mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item class="opcao">
-                <mat-icon matListItemIcon>account_circle</mat-icon>
-                <span matListItemTitle>Pedidos</span>
-            </mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item class="opcao">
-                <mat-icon matListItemIcon>other_houses</mat-icon>
-                <span matListItemTitle>Endereço</span>
-            </mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item class="opcao">
-                <mat-icon matListItemIcon>credit_card</mat-icon>
-                <span matListItemTitle>Cartões</span>
-            </mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item class="opcao">
                 <mat-icon matListItemIcon>arrow_back</mat-icon>
                 <span matListItemTitle>Voltar</span>
             </mat-list-item>
@@ -51,7 +31,7 @@
                         <mat-form-field appearance="outline" style="width: 100%" class="campos">
                             <mat-label>Telefone: </mat-label>
                             <input matInput placeholder="Digite seu telefone" [disabled]="true">
-                            {{"(" + cliente?.usuario?.telefone?.codigoArea + ") " + cliente?.usuario?.telefone?.numero}}
+                            {{"(" + endereco.codigoArea + ") " + endereco.numero }}
                             <mat-icon matSuffix>edit</mat-icon>
                         </mat-form-field>
                         <mat-form-field appearance="outline" style="width: 100%" class="campos">
@@ -69,6 +49,8 @@
                         <mat-form-field appearance="outline" style="width: 100%" class="campos">
                             <mat-label>Endereço: </mat-label>
                             <input matInput [disabled]="true">
+                            <p>{{ endereco.logradouro }} - {{ endereco.bairro }}, {{ endereco.localidade }}, {{ endereco.uf }}, {{ endereco.cep }}</p>
+                            <p>Complemento: {{ endereco.complemento }}</p>
                         </mat-form-field>
                     </div>
                 </div>

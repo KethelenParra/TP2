@@ -15,6 +15,7 @@ import { MatCardModule } from '@angular/material/card';
 import { Location } from '@angular/common';
 import { Cliente } from '../../models/cliente.model';
 import { Sexo } from '../../models/sexo.model';
+import { ClienteService } from '../../service/cliente.service';
 
 @Component({
   selector: 'app-minha-conta',
@@ -27,6 +28,7 @@ import { Sexo } from '../../models/sexo.model';
 export class MinhaContaComponent implements OnInit{
   formGroup: FormGroup;
   usuarioLogado: any;
+  endereco: any;
   usuario: Usuario| null = null;
   cliente: Cliente | null = null;
   private subscription = new Subscription();
@@ -39,7 +41,7 @@ export class MinhaContaComponent implements OnInit{
     private formBuilder: FormBuilder,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private location: Location
+    private clienteService: ClienteService,
   ){
     this.formGroup = this.formBuilder.group({
       id: [null],
@@ -54,17 +56,6 @@ export class MinhaContaComponent implements OnInit{
       }),
       sexo: [null, Validators.required],
     });
-  }
-
-  ngOnInit(): void {
-    this.subscription.add(
-      this.authService.getUsuarioLogado().subscribe((cliente) => {
-        this.usuarioLogado = cliente;
-        this.cliente = cliente; // Atualiza o cliente quando os dados forem carregados
-        this.initializeForm(); // Recria o formulário com os dados carregados
-      })
-    );
-
   }
 
   initializeForm(): void {
@@ -87,6 +78,38 @@ export class MinhaContaComponent implements OnInit{
         sexo: [sexo, Validators.required],
       });
   }
+
+  ngOnInit(): void {
+    this.subscription.add(
+      this.authService.getUsuarioLogado().subscribe((cliente) => {
+        this.usuarioLogado = cliente;
+        this.cliente = cliente; // Atualiza o cliente quando os dados forem carregados
+        this.initializeForm(); // Recria o formulário com os dados carregados
+      })
+    );
+    const usuarioLogado1 = localStorage.getItem('usuario_logado');
+    if (usuarioLogado1) {
+      const cliente = JSON.parse(usuarioLogado1);
+      this.clienteService.meuPerfil(cliente.id).subscribe({
+        next: (dadosCliente) => {
+          this.endereco = {
+            codigoArea: dadosCliente.usuario.telefone?.codigoArea,
+            numero: dadosCliente.usuario.telefone?.numero,
+            logradouro: dadosCliente.logradouro,
+            complemento: dadosCliente.complemento,
+            bairro: dadosCliente.bairro,
+            localidade: dadosCliente.localidade,
+            uf: dadosCliente.uf,
+            cep: dadosCliente.cep,
+          };
+        },
+        error: (err) => console.error('Erro ao carregar o endereço:', err),
+      });
+    }
+  }
+  
+
+
 
   clickEvent(event: MouseEvent) {
     this.hide.set(!this.hide());

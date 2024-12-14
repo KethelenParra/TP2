@@ -23,7 +23,6 @@ import { MatListModule } from '@angular/material/list';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
-  cadastroForm!: FormGroup;
   perfilStyle = 2;
   readonly email = new FormControl('', [Validators.email]);
   readonly username = new FormControl('', [Validators.required]);
@@ -46,10 +45,6 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.fb.group({
       username: this.username,
       password: this.senha
-    });
-
-    this.cadastroForm = this.fb.group({
-      emailCadastro: ['', [Validators.required, Validators.email]]
     });
   }
 
@@ -81,16 +76,11 @@ export class LoginComponent implements OnInit {
         }
       );
     } else {
-      this.snackBar.open('Please fill in all required fields', 'Close', { duration: 3000 });
+      this.snackBar.open('Username ou senha invalidos', 'Close', { duration: 3000 });
     }
   }
 
   onCadastroSubmit(): void {
-    if (this.cadastroForm.valid) {
-      const { emailCadastro } = this.cadastroForm.value;
-      this.router.navigate(['/register'], { queryParams: { email: emailCadastro } });
-    } else {
-      this.snackBar.open('Please fill in all required fields', 'Close', { duration: 3000 });
-    }
+    this.router.navigateByUrl('/register');
   }
 }
