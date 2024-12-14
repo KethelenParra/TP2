@@ -44,6 +44,9 @@ import { authClienteGuard } from './guard/auth-cliente.guard';
 import { FinalizarPedidoComponent } from './carrinho/finalizar-pedido/finalizar-pedido.component';
 import { AlterarUsernameComponent } from './cliente/minha-conta/alterar-username/alterar-username.component';
 import { AlterarSenhaComponent } from './cliente/minha-conta/alterar-senha/alterar-senha.component';
+import { MinhaContaFuncionaioComponent } from './funcionario/minha-conta-funcionaio/minha-conta-funcionaio.component';
+import { AlterarUsernameFuncionarioComponent } from './funcionario/alterar-username-funcionario/alterar-username-funcionario.component';
+import { AlterarSenhaFuncionarioComponent } from './funcionario/alterar-senha-funcionario/alterar-senha-funcionario.component';
 
 export const routes: Routes = [
     {
@@ -88,6 +91,10 @@ export const routes: Routes = [
             { path: '', pathMatch: 'full', redirectTo: 'controle'},
 
             { path: '', pathMatch: 'full', redirectTo: 'loginAdm' },
+
+            { path: 'minhaConta', component: MinhaContaFuncionaioComponent, title: 'Minha Conta', canActivate: [authGuard] },
+            { path: 'alterarUsername', component: AlterarUsernameFuncionarioComponent, title: 'Alterar Username', canActivate: [authGuard]},
+            { path: 'alterarSenha', component: AlterarSenhaFuncionarioComponent, title: 'Alterar Senha', canActivate: [authGuard]},
 
             { path: 'viewClients', component: ViewClientsAdminComponent, title: ' Visualização de Clientes' },
             { path: 'viewClients/edit/:id', component: ViewClientesEditComponent, resolve: { cliente: clienteResolver }},

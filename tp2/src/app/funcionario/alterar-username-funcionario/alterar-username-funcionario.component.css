@@ -1,12 +1,14 @@
 .container{
+
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 65vh;
+    height: 80vh;
 
-    & .card-alterar-senha{
+    & .card-alterar-username{
         display: flex;
         align-items: center;
+        margin-top: 20px;
         margin: 0 auto;
         margin-bottom: 20px;
         width: 50%;
@@ -32,16 +34,11 @@
 
     & .titulo-pagina{
         font-size: 30px;
-        margin-bottom: 5%;
+        margin-bottom: 3%;
         text-align: center;
         letter-spacing: 8px;
         word-spacing: 2px;
     }
-
-    & .campos{
-        width: 100vh;
-    }
-
 
     & .navegacao_dados{
         display: flex;
@@ -51,5 +48,6 @@
         height: 36vh;
         cursor: pointer;
     }
+
 }
 

@@ -9,12 +9,13 @@ import { CartaoCreditoDTO } from '../../models/cartao.model';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 
 @Component({
   selector: 'app-finalizar-pedido',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatStepperModule, MatButtonModule, MatSnackBarModule],
+  imports: [CommonModule, FormsModule, MatProgressBarModule, MatStepperModule, MatButtonModule, MatSnackBarModule],
   templateUrl: './finalizar-pedido.component.html',
   styleUrl: './finalizar-pedido.component.css'
 })
@@ -36,7 +37,10 @@ export class FinalizarPedidoComponent implements OnInit {
   };
   totalCompra: number = 0;
   freteMensagem: string | null = null;
-  valorFrete: number | null = null; // Adicione esta variável
+  valorFrete: number | null = null; 
+  isProcessingPayment: boolean = false;  
+  isPurchaseComplete: boolean = false;
+  progress: number = 0; 
 
   constructor(
     private carrinhoService: CarrinhoService,
@@ -115,52 +119,109 @@ export class FinalizarPedidoComponent implements OnInit {
   }
 
   finalizarPedido(): void {
+    this.isProcessingPayment = true;  // Ativa a barra de progresso
+    this.progress = 0;  // Reinicia o progresso para 0%
+  
     if (this.metodoPagamento === 'cartao') {
       this.carrinhoService.finalizarPedidoCartao(this.cartaoCredito).subscribe({
         next: () => {
-          this.snackBar.open('Pagamento realizado com sucesso!', 'Fechar', {
-            duration: 3000, // Exibe por 3 segundos
+          // Simula o progresso da barra de 0 a 100%
+          this.simulateProgress();
+          setTimeout(() => {
+            this.isProcessingPayment = false; // Desativa a barra de progresso
+            this.isPurchaseComplete = true;    // Exibe a mensagem de compra concluída
+            this.snackBar.open('Pagamento realizado com sucesso!', 'Fechar', {
+              duration: 3000,
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            });
+            setTimeout(() => window.location.reload(), 2000); // Recarga da página após 2 segundos
+            this.router.navigateByUrl('/home'); // Navega para a página inicial
+          }, 3000); // Espera 3 segundos (simulando o tempo de processamento)
+        },
+        error: (err) => {
+          this.isProcessingPayment = false; // Desativa a barra de progresso em caso de erro
+          console.error('Erro ao finalizar o pedido:', err);
+          this.snackBar.open('Erro ao processar o pagamento. Tente novamente.', 'Fechar', {
+            duration: 3000,
             horizontalPosition: 'center',
             verticalPosition: 'top',
           });
-          setTimeout(() => window.location.reload(), 2000);
-          this.router.navigateByUrl('/home');
         },
-        error: (err) => console.error('Erro ao finalizar o pedido:', err),
       });
     } else if (this.metodoPagamento === 'pix') {
       this.carrinhoService.finalizarPedidoPix().subscribe({
         next: () => {
-          this.snackBar.open('Pagamento via PIX realizado com sucesso!', 'Fechar', {
-            duration: 3000, // Exibe por 3 segundos
+          this.simulateProgress();
+          setTimeout(() => {
+            this.isProcessingPayment = false;
+            this.isPurchaseComplete = true;
+            this.snackBar.open('Pagamento via PIX realizado com sucesso!', 'Fechar', {
+              duration: 3000,
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            });
+            setTimeout(() => window.location.reload(), 2000);
+            this.router.navigateByUrl('/home');
+          }, 3000);
+        },
+        error: (err) => {
+          this.isProcessingPayment = false;
+          console.error('Erro ao finalizar o pedido:', err);
+          this.snackBar.open('Erro ao processar o pagamento. Tente novamente.', 'Fechar', {
+            duration: 3000,
             horizontalPosition: 'center',
             verticalPosition: 'top',
           });
-          setTimeout(() => window.location.reload(), 2000);
-          this.router.navigateByUrl('/home');
         },
-        error: (err) => console.error('Erro ao finalizar o pedido:', err),
       });
     } else if (this.metodoPagamento === 'boleto') {
       this.carrinhoService.finalizarPedidoBoleto().subscribe({
         next: () => {
-          this.snackBar.open('Pagamento via boleto realizado com sucesso!', 'Fechar', {
-            duration: 3000, // Exibe por 3 segundos
+          this.simulateProgress();
+          setTimeout(() => {
+            this.isProcessingPayment = false;
+            this.isPurchaseComplete = true;
+            this.snackBar.open('Pagamento via boleto realizado com sucesso!', 'Fechar', {
+              duration: 3000,
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            });
+            setTimeout(() => window.location.reload(), 2000);
+            this.router.navigateByUrl('/home');
+          }, 3000);
+        },
+        error: (err) => {
+          this.isProcessingPayment = false;
+          console.error('Erro ao finalizar o pedido:', err);
+          this.snackBar.open('Erro ao processar o pagamento. Tente novamente.', 'Fechar', {
+            duration: 3000,
             horizontalPosition: 'center',
             verticalPosition: 'top',
           });
-        }, error: (err) => console.error('Erro ao finalizar o pedido:', err),
+        },
       });
-      setTimeout(() => window.location.reload(), 2000);
-      this.router.navigateByUrl('/home');
     } else {
+      this.isProcessingPayment = false;
       this.snackBar.open('Selecione um método de pagamento.', 'Fechar', {
-        duration: 3000, // Exibe por 3 segundos
+        duration: 3000,
         horizontalPosition: 'center',
         verticalPosition: 'top',
       });
     }
   }
+  
+  // Método para simular o progresso da barra de 0 a 100%
+  simulateProgress(): void {
+    let interval = setInterval(() => {
+      if (this.progress < 100) {
+        this.progress += 5;  // Aumenta o progresso de 5% a cada intervalo
+      } else {
+        clearInterval(interval); // Quando chegar a 100%, para de atualizar
+      }
+    }, 200);  // Intervalo de 200ms
+  }
+  
 
   calcularFrete(cep: string): void {
     if (!cep || cep.trim().length !== 9) {

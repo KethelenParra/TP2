@@ -5,18 +5,20 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { Cliente } from '../../../models/cliente.model';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../../service/auth.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ClienteService } from '../../../service/cliente.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { NgIf } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
 
 @Component({
   selector: 'app-alterar-senha',
   standalone: true,
-  imports: [MatCardModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, NgIf],
+  imports: [MatCardModule, MatListModule, MatIconModule, RouterModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, NgIf],
   templateUrl: './alterar-senha.component.html',
   styleUrl: './alterar-senha.component.css'
 })
